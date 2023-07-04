@@ -1,3 +1,13 @@
+|   |   |
+|---|---|
+|📔 Comprehensive setup guide by Degedron | https://github.com/Degederon/HouseRulesGuide |
+|👽 Gray Alien's Releases | https://github.com/TheGrayAlien/DemeoMods/releases |
+ 
+
+ 
+
+
+
 # DemeoMods
 
 A collection of mods for Demeo.
