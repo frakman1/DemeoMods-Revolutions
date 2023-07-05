@@ -1,5 +1,4 @@
 name: sync fork
-runs-on: ubuntu-latest
 on:
   schedule:
     - cron: '*/30 * * * *' # every 30 minutes
