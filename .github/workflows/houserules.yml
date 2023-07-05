@@ -1,4 +1,4 @@
-name: HouseRules
+name: Build HouseRules
 
 on:
   pull_request:
