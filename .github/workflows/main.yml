@@ -19,6 +19,7 @@ jobs:
       - run: cd ${{ github.workspace }} 
       - run: pwd
       - run: git branch
+      - run: gigt branches
       - run: git remote add upstream https://github.com/TheGrayAlien/DemeoMods/
       - run: git fetch upstream
       - run: git fetch --tags upstream
