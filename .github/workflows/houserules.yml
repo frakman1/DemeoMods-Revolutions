@@ -19,7 +19,8 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3
-
+      - run: git checkout origin/DemeoRevolutions
+      
       - name: Set Up MSBuild
         uses: microsoft/setup-msbuild@v1.3.1
 
