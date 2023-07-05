@@ -18,4 +18,12 @@ jobs:
       - run: ls ${{ github.workspace }}
       - run: cd ${{ github.workspace }} 
       - run: pwd
+      - run: git branch
+      - run: git remote add upstream https://github.com/TheGrayAlien/DemeoMods/
+      - run: git fetch upstream
+      - run: git fetch --tags upstream
+      - run: git checkout origin/DemeoRevolution
+      - run: git log --oneline --graph --decorate --all --date=relative 
+      - run: git merge --ff-only upstream/DemeoRevolution 
       - run: echo "🍏 This job's status is ${{ job.status }}."
+      - run: git log --oneline --graph --decorate --all --date=relative 
