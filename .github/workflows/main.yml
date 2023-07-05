@@ -9,6 +9,7 @@ jobs:
     name: Sync fork with parent
     runs-on: ubuntu-latest
     steps:
-      - name: Hello        
-        run: echo "Hello World"
-        run: git fetch upstream
+      - name: Git Commands
+        run: |
+             echo "Hello World"
+              git fetch upstream
