@@ -22,8 +22,8 @@ jobs:
       - run: git remote add upstream https://github.com/TheGrayAlien/DemeoMods/
       - run: git fetch upstream
       - run: git fetch --tags upstream
-      - run: git checkout origin/DemeoRevolution
+      - run: git checkout origin/DemeoRevolutions
       - run: git log --oneline --graph --decorate --all --date=relative 
-      - run: git merge --ff-only upstream/DemeoRevolution 
+      - run: git merge --ff-only upstream/DemeoRevolutions 
       - run: echo "🍏 This job's status is ${{ job.status }}."
       - run: git log --oneline --graph --decorate --all --date=relative 
