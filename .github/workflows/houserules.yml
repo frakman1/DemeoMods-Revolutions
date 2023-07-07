@@ -1,6 +1,8 @@
 name: Build HouseRules
 
 on:
+  schedule:
+    - cron: '0 2 * * *' # every day at 2AM
   pull_request:
     paths:
       - 'HouseRules*/**'
