@@ -22,22 +22,27 @@
         private readonly List<string> _adjustments;
 
         private readonly List<string> elvenFloors1 = new List<string>
-                    { "ElvenFloor01", "ElvenFloor04", "ElvenFloor14", "ElvenFloor16" };
+                    //{ "ElvenFloor01", "ElvenFloor04", "ElvenFloor14", "ElvenFloor16", "ElvenFloor15" };
+                    { "ElvenFloor15" };
 
         private readonly List<string> elvenFloors2 = new List<string>
-                    { "ElvenFloor03", "ElvenFloor07", "ElvenFloor13", "ElvenFloor17", "ElvenFloor14" };
+                    //{ "ElvenFloor01", "ElvenFloor04", "ElvenFloor14", "ElvenFloor16", "ElvenFloor15" };
+                    { "ElvenFloor16" };
 
         private readonly List<string> forestFloors1 = new List<string>
-                    { "ForestFloor01", "ForestFloor07" };
+                    //{ "ForestFloor01", "ForestFloor07", "ForestFloor03" };
+                    { "ForestFloor03" };
 
         private readonly List<string> forestFloors2 = new List<string>
-                    { "ForestFloor01", "ForestFloor02", "ForestFloor07", "ForestFloor08" };
+                    //{ "ForestFloor01", "ForestFloor07", "ForestFloor03" };
+                    { "ForestFloor03" };
+
 
         private readonly List<string> sewersFloors1 = new List<string>
-                    { "SewersFloor01" };
+                    { "SewersFloor01", "SewersFloor09" };
 
         private readonly List<string> sewersFloors2 = new List<string>
-                    { "SewersFloor01" };
+                    { "SewersFloor01", "SewersFloor09" };
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SmallLevelSequenceOverriddenRule"/> class.
