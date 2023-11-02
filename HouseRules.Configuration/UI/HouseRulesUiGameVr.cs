@@ -136,9 +136,9 @@
             Color brown = new Color(0.0392f, 0.0157f, 0, 1);
             var sb = new StringBuilder();
             sb.Append(ColorizeString("Playing ", brown));
-            sb.Append(ColorizeString($"<u>{HR.SelectedRuleset.Name}</u>", indigo));
+            sb.Append(ColorizeString($"{HR.SelectedRuleset.Name}", indigo));
             sb.AppendLine(ColorizeString(" ruleset!", brown));
-            sb.AppendLine(ColorizeString($"<i>{HR.SelectedRuleset.Description}</i>", Color.blue));
+            sb.AppendLine(ColorizeString($"{HR.SelectedRuleset.Description}", Color.blue));
             sb.AppendLine();
             float ruleset = 0;
             float drift = 1.25f;
