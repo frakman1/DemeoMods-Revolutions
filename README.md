@@ -2,6 +2,7 @@
 |---|---|
 |📔 Comprehensive setup guide by Degedron | https://github.com/Degederon/HouseRulesGuide |
 |👽 Gray Alien's Releases | https://github.com/TheGrayAlien/DemeoMods/releases |
+|Folder Structure | ![HouseRules Logo](docs/images/DemeoFileStructure2.png) |
 
 <br>
 <br>
