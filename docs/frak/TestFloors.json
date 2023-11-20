@@ -1,0 +1,16 @@
+{
+  "Name": "Test Floors",
+  "Description": "TestFloors",
+    "Rules": [
+    {
+      "Rule": "LevelSequenceOverridden",
+      "Config": [
+        "TownsEntrance",
+        "ForestShopFloor",
+        "TownsEntrance",
+        "ForestShopFloor",
+        "SewersFloor09"
+      ]
+    }
+  ]
+}
