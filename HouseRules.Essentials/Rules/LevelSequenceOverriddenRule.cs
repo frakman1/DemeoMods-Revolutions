@@ -140,7 +140,7 @@
             var originalSequence = Traverse.Create(gsmLevelSequence).Field<string[]>("levels").Value;
             if (isRandomMaps)
             {
-                if (newGameType == Desert)
+                if (newGameType == LevelSequence.GameType.Desert)
                 {
                     _randomMaps[4] = "DesertBossFloor01";
                 }
@@ -148,7 +148,7 @@
                 {
                     _randomMaps[4] = "DesertFloor10";
                 }
-                else if (newGameType == Town)
+                else if (newGameType == LevelSequence.GameType.Town)
                 {
                     _randomMaps[4] = "TownsBossFloor01";
                 }
@@ -162,11 +162,11 @@
             }
             else
             {
-                if (newGameType == Desert)
+                if (newGameType == LevelSequence.GameType.Desert)
                 {
                     _globalAdjustments[4] = "DesertBossFloor01";
                 }
-                else if (newGameType == Town)
+                else if (newGameType == LevelSequence.GameType.Town)
                 {
                     _globalAdjustments[4] = "TownsBossFloor01";
                 }
@@ -226,11 +226,11 @@
             }
 
             int rndLevel = Random.Range(1, 6);
-            if (gsmLevelSequence.gameType == Desert)
+            if (gsmLevelSequence.gameType == LevelSequence.GameType.Desert)
             {
                 rndLevel = 4;
             }
-            else if (gsmLevelSequence.gameType == Town)
+            else if (gsmLevelSequence.gameType == LevelSequence.GameType.Town)
             {
                 rndLevel = 5;
             }
@@ -430,11 +430,11 @@
                     break;
             }
 
-            if (gsmLevelSequence.gameType == Desert)
+            if (gsmLevelSequence.gameType == LevelSequence.GameType.Desert)
             {
                 _randomMaps[4] = "DesertBossFloor01";
             }
-            else if (gsmLevelSequence.gameType == Town)
+            else if (gsmLevelSequence.gameType == LevelSequence.GameType.Town)
             {
                 _randomMaps[4] = "TownsBossFloor01";
             }
@@ -487,17 +487,17 @@
             {
                 switch (gsmLevelSequence.gameType)
                 {
-                    case "Town":
+                    case Town:
                         _randomMaps[0] = "CryptEntrance";
                         _randomMaps[2] = "TownsEntrance";
                         break;
-                    case "ElvenQueen":
-                    case "RatKing":
-                    case "Desert":
+                    case ElvenQueen:
+                    case RatKing:
+                    case Desert:
                         _randomMaps[0] = "TownsEntrance";
                         _randomMaps[2] = "TownsEntrance";
                         break;             
-                    case "Forest":
+                    case Forest:
                         _randomMaps[0] = "CryptEntrance";
                         _randomMaps[1] = "ForestShopFloor";
                         _randomMaps[2] = "CryptEntrance";
