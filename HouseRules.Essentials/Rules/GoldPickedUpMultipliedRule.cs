@@ -63,7 +63,7 @@
                 __instance.goldAmount = randomGold;
                 //__instance.goldAmount = 69;
             }
-            else if  ruleSet.Contains("Demeo Revolutions"))
+            else if  (ruleSet.Contains("Demeo Revolutions"))
             {
                 __instance.goldAmount = 1;
             }
