@@ -14,6 +14,7 @@
         public override string Description => "The adventure's map order is adjusted";
 
         private static bool isRandomMaps;
+        private static bool isFastForward;        
         private static List<string> _globalAdjustments;
         private static List<string> _randomMaps = new List<string>
                     { string.Empty, string.Empty, string.Empty, string.Empty, string.Empty };
@@ -139,7 +140,7 @@
             var originalSequence = Traverse.Create(gsmLevelSequence).Field<string[]>("levels").Value;
             if (isRandomMaps)
             {
-                if (newGameType == LevelSequence.GameType.Desert)
+                if (newGameType == Desert)
                 {
                     _randomMaps[4] = "DesertBossFloor01";
                 }
@@ -147,7 +148,7 @@
                 {
                     _randomMaps[4] = "DesertFloor10";
                 }
-                else if (newGameType == LevelSequence.GameType.Town)
+                else if (newGameType == Town)
                 {
                     _randomMaps[4] = "TownsBossFloor01";
                 }
@@ -161,11 +162,11 @@
             }
             else
             {
-                if (newGameType == LevelSequence.GameType.Desert)
+                if (newGameType == Desert)
                 {
                     _globalAdjustments[4] = "DesertBossFloor01";
                 }
-                else if (newGameType == LevelSequence.GameType.Town)
+                else if (newGameType == Town)
                 {
                     _globalAdjustments[4] = "TownsBossFloor01";
                 }
@@ -188,7 +189,7 @@
             var gsmLevelSequence =
                 Traverse.Create(gameContext.gameStateMachine).Field<LevelSequence>("levelSequence").Value;
             var originalSequence = Traverse.Create(gsmLevelSequence).Field<string[]>("levels").Value;
-
+            
             if (replacements.Count == 5 && replacements[1].Contains("Shop") && replacements[3].Contains("Shop"))
             {
                 isRandomMaps = false;
@@ -210,14 +211,26 @@
             else
             {
                 isRandomMaps = true;
+                
+                if (replacements[0].Contains("fastforward")
+                {
+                    isFastForward = true;
+                    HouseRulesEssentialsBase.LogWarning("Fast Forward Mode detected");
+                }
+                else
+                {
+                    isFastForward = false;
+                    HouseRulesEssentialsBase.LogWarning("Fast Forward Mode NOT detected.");
+                }
+                
             }
 
             int rndLevel = Random.Range(1, 6);
-            if (gsmLevelSequence.gameType == LevelSequence.GameType.Desert)
+            if (gsmLevelSequence.gameType == Desert)
             {
                 rndLevel = 4;
             }
-            else if (gsmLevelSequence.gameType == LevelSequence.GameType.Town)
+            else if (gsmLevelSequence.gameType == Town)
             {
                 rndLevel = 5;
             }
@@ -417,11 +430,11 @@
                     break;
             }
 
-            if (gsmLevelSequence.gameType == LevelSequence.GameType.Desert)
+            if (gsmLevelSequence.gameType == Desert)
             {
                 _randomMaps[4] = "DesertBossFloor01";
             }
-            else if (gsmLevelSequence.gameType == LevelSequence.GameType.Town)
+            else if (gsmLevelSequence.gameType == Town)
             {
                 _randomMaps[4] = "TownsBossFloor01";
             }
@@ -470,6 +483,28 @@
                     break;
             }
 
+            if (isFastForward)
+            {
+                switch (gsmLevelSequence.gameType)
+                    case "Town":
+                        _randomMaps[0] = "CryptEntrance";
+                        _randomMaps[2] = "TownsEntrance";
+                        break;
+                    case "ElvenQueen":
+                    case "RatKing":
+                    case "Desert":
+                        _randomMaps[0] = "TownsEntrance";
+                        _randomMaps[2] = "TownsEntrance";
+                        break;             
+                    case "Forest":
+                        _randomMaps[0] = "CryptEntrance";
+                        _randomMaps[1] = "ForestShopFloor";
+                        _randomMaps[2] = "CryptEntrance";
+                        _randomMaps[3] = "CryptEntrance";
+                        _randomMaps[4] = "ForestFloor03";
+                    
+                        
+            }
             HouseRulesEssentialsBase.LogWarning("Randomly generated level sequence loaded");
             HouseRulesEssentialsBase.LogWarning($"Map1: {_randomMaps[0]} Shop1: {_randomMaps[1]} Map2: {_randomMaps[2]} Shop2: {_randomMaps[3]} Map3: {_randomMaps[4]}");
             Traverse.Create(gsmLevelSequence).Field<string[]>("levels").Value =
