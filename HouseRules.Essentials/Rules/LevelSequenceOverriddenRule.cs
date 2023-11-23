@@ -486,6 +486,7 @@
             if (isFastForward)
             {
                 switch (gsmLevelSequence.gameType)
+                {
                     case "Town":
                         _randomMaps[0] = "CryptEntrance";
                         _randomMaps[2] = "TownsEntrance";
@@ -502,9 +503,10 @@
                         _randomMaps[2] = "CryptEntrance";
                         _randomMaps[3] = "CryptEntrance";
                         _randomMaps[4] = "ForestFloor03";
-                    
-                        
-            }
+                        break;
+
+                }//switch
+            }//if (isFastForward)
             HouseRulesEssentialsBase.LogWarning("Randomly generated level sequence loaded");
             HouseRulesEssentialsBase.LogWarning($"Map1: {_randomMaps[0]} Shop1: {_randomMaps[1]} Map2: {_randomMaps[2]} Shop2: {_randomMaps[3]} Map3: {_randomMaps[4]}");
             Traverse.Create(gsmLevelSequence).Field<string[]>("levels").Value =
