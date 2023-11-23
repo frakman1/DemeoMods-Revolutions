@@ -7,7 +7,7 @@ on:
       - '.github/workflows/frak-houserules.yml'
   push:
     branches:
-      - 'frak-tweaks'
+      - 'fastforward'
   workflow_dispatch:  # on button click
 
 jobs:
@@ -19,7 +19,7 @@ jobs:
         with:
           fetch-depth: 0        
 
-      - run: git checkout origin/frak-tweaks
+      - run: git checkout origin/fastforward
 
       - name: Setup dotnet
         uses: actions/setup-dotnet@v3
