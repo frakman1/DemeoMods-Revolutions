@@ -212,7 +212,7 @@
             {
                 isRandomMaps = true;
                 
-                if (replacements[0].Contains("fastforward")
+                if (replacements[0].Contains("fastforward"))
                 {
                     isFastForward = true;
                     HouseRulesEssentialsBase.LogWarning("Fast Forward Mode detected");
