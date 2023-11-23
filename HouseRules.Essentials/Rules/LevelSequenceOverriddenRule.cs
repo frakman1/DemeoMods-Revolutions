@@ -489,20 +489,24 @@
                 {
                     case LevelSequence.GameType.Town:
                         _randomMaps[0] = "CryptEntrance";
+                        _randomMaps[1] = "ForestShopFloor";
                         _randomMaps[2] = "TownsEntrance";
+                        _randomMaps[3] = "ForestShopFloor";
                         break;
                     case LevelSequence.GameType.ElvenQueen:
                     case LevelSequence.GameType.RatKing:
                     case LevelSequence.GameType.Desert:
                         _randomMaps[0] = "TownsEntrance";
+                        _randomMaps[1] = "ForestShopFloor";                      
                         _randomMaps[2] = "TownsEntrance";
+                        _randomMaps[3] = "ForestShopFloor";
                         break;             
                     case LevelSequence.GameType.Forest:
-                        _randomMaps[0] = "TownsEntrance";
+                        _randomMaps[0] = "ElvenFloor15";
                         _randomMaps[1] = "ForestShopFloor";
                         _randomMaps[2] = "ElvenFloor15";
                         _randomMaps[3] = "ForestShopFloor";
-                        _randomMaps[4] = "ForestFloor03";
+                        //_randomMaps[4] = "ForestFloor03";
                         break;
 
                 }//switch
