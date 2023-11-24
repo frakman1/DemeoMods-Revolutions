@@ -23,34 +23,34 @@
         private readonly List<string> _adjustments;
 
         private readonly List<string> elvenFloors1 = new List<string>
-                    { "ElvenFloor01", "ElvenFloor04", "ElvenFloor13", "ElvenFloor14", "ElvenFloor16", "ElvenFloor17", "ElvenFloor03" };
+                    { "ElvenFloor01", "ElvenFloor04", "ElvenFloor14", "ElvenFloor16", "ElvenFloor15" };
 
         private readonly List<string> elvenFloors2 = new List<string>
-                    { "ElvenFloor02", "ElvenFloor03", "ElvenFloor06", "ElvenFloor07", "ElvenFloor08", "ElvenFloor10", "ElvenFloor11" };
+                    { "ElvenFloor01", "ElvenFloor04", "ElvenFloor14", "ElvenFloor16", "ElvenFloor15" };
 
         private readonly List<string> forestFloors1 = new List<string>
-                    { "ForestFloor01", "ForestFloor02", "ForestFloor07", "ForestFloor08" };
+                    { "ForestFloor01", "ForestFloor07" };
 
         private readonly List<string> forestFloors2 = new List<string>
-                    { "ForestFloor03", "ForestFloor07", "ForestFloor01", "ForestFloor02", "ForestFloor08", "ForestFloor01" };
+                    { "ForestFloor01", "ForestFloor07", "ForestFloor03" };
 
         private readonly List<string> sewersFloors1 = new List<string>
-                    { "SewersFloor01", "SewersFloor07", "SewersFloor09", "SewersFloor10", "SewersFloor11", "SewersFloor12" };
+                    { "SewersFloor01", "SewersFloor09", "SewersFloor11" };
 
         private readonly List<string> sewersFloors2 = new List<string>
-                    { "SewersFloor09", "SewersFloor10", "SewersFloor11", "SewersFloor12", "SewersFloor07", "SewersFloor08" };
+                    { "SewersFloor01", "SewersFloor09", "SewersFloor11" };
 
         private readonly List<string> desertFloors1 = new List<string>
-                    { "DesertFloor10", "DesertFloor06" };
+                    { "DesertFloor09", "DesertFloor06" };
 
         private readonly List<string> desertFloors2 = new List<string>
-                    { "DesertFloor08", "DesertFloor09", "DesertFloor06", "DesertFloor10" };
+                    { "DesertFloor09", "DesertFloor06" };
 
         private readonly List<string> townsFloors1 = new List<string>
                     { "TownsFloor04", "TownsFloor05", "TownsFloor06" };
 
         private readonly List<string> townsFloors2 = new List<string>
-                    { "TownsFloor08", "TownsFloor04", "TownsFloor05", "TownsFloor06" };
+                    { "TownsFloor04", "TownsFloor05", "TownsFloor06" };
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LevelSequenceOverriddenRule"/> class.
@@ -506,11 +506,9 @@
                         _randomMaps[1] = "ForestShopFloor";
                         _randomMaps[2] = "ElvenFloor15";
                         _randomMaps[3] = "ForestShopFloor";
-                        //_randomMaps[4] = "ForestFloor03";
                         break;
-
-                }//switch
-            }//if (isFastForward)
+                }
+            }
             HouseRulesEssentialsBase.LogWarning("Randomly generated level sequence loaded");
             HouseRulesEssentialsBase.LogWarning($"Map1: {_randomMaps[0]} Shop1: {_randomMaps[1]} Map2: {_randomMaps[2]} Shop2: {_randomMaps[3]} Map3: {_randomMaps[4]}");
             Traverse.Create(gsmLevelSequence).Field<string[]>("levels").Value =
