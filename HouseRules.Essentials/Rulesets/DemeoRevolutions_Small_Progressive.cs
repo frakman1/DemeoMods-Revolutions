@@ -1113,9 +1113,6 @@
                 { BoardPieceId.EarthElemental, new List<AbilityKey> { AbilityKey.Explosion } },
                 { BoardPieceId.GasLamp, new List<AbilityKey> { AbilityKey.PoisonGas, AbilityKey.Overload } },
                 { BoardPieceId.Tornado, new List<AbilityKey> { AbilityKey.LetItRain } },
-                { BoardPieceId.GiantSlime, new List<AbilityKey> { AbilityKey.SpawnSlime } },
-                { BoardPieceId.GiantSpider, new List<AbilityKey> { AbilityKey.SpawnSpiderlings } },
-                { BoardPieceId.ScabRat, new List<AbilityKey> { AbilityKey.SpawnRat, AbilityKey.SpawnRat } },
             });
 
             var abilityActionCostRule = new AbilityActionCostAdjustedRule(new Dictionary<AbilityKey, bool>

@@ -197,7 +197,7 @@
                 setName = "<color=#080800><b>Darkest Dankest Demeo</b></color>";
             }
 
-            _selectedText.text = $"Selected ruleset: {setName}";
+            _selectedText.text = $"Selected ruleset: \n{setName}";
         }
     }
 }
