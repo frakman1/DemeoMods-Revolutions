@@ -53,7 +53,7 @@
             }
 
             var ruleSet = HR.SelectedRuleset.Name;
-            if (ruleSet.Contains("(LEGENDARY") || ruleSet.Contains("(HARD") || ruleSet.Contains("PROGRESSIVE") || ruleSet.Contains("fastforward") )
+            //if (ruleSet.Contains("(LEGENDARY") || ruleSet.Contains("(HARD") || ruleSet.Contains("PROGRESSIVE") || ruleSet.Contains("fastforward") )
             {
                 List<int> numbers = new List<int>() { 51, 50 };
                 Random rnd = new Random();
@@ -63,10 +63,10 @@
                 __instance.goldAmount = randomGold;
                 //__instance.goldAmount = 69;
             }
-            else
-            {
-                __instance.goldAmount = (int)(__instance.goldAmount * _globalMultiplier);
-            }
+            //else
+            //{
+            //    __instance.goldAmount = (int)(__instance.goldAmount * _globalMultiplier);
+            //}
         }
     }
 }
