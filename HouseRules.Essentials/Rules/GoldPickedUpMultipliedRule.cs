@@ -53,7 +53,7 @@
             }
 
             var ruleSet = HR.SelectedRuleset.Name;
-            if (ruleSet.Contains("(LEGENDARY") || ruleSet.Contains("(HARD") || ruleSet.Contains("PROGRESSIVE"))
+            if (ruleSet.Contains("(LEGENDARY") || ruleSet.Contains("(HARD") || ruleSet.Contains("PROGRESSIVE") || ruleSet.Contains("fastforward") )
             {
                 List<int> numbers = new List<int>() { 51, 50 };
                 Random rnd = new Random();
