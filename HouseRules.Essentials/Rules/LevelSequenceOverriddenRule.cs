@@ -496,7 +496,7 @@
                         _randomMaps[3] = "ForestShop";
                         break;
                     case LevelSequence.GameType.Forest:
-                        _randomMaps[0] = "ElvenFloor15";
+                        _randomMaps[0] = "TownsEntrance";
                         _randomMaps[1] = "ForestShop";
                         _randomMaps[2] = "ElvenFloor15";
                         _randomMaps[3] = "ForestShop";
