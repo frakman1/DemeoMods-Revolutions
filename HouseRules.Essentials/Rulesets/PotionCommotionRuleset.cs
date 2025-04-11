@@ -15,17 +15,17 @@ namespace HouseRules.Essentials.Rulesets
 
             var allowedCards = new List<AbilityKey>
             {
-                AbilityKey.AdamantPotion,
-                AbilityKey.BottleOfLye,
+                AbilityKey.DamageResistPotion,
+                AbilityKey.SodiumHydroxide,
                 AbilityKey.ExtraActionPotion,
-                AbilityKey.FireImmunePotion,
-                AbilityKey.HealingPotion,
-                AbilityKey.IceImmunePotion,
+                AbilityKey.VialOfFireImmunity,
+                AbilityKey.Heal,
+                AbilityKey.VialOfIceImmunity,
                 AbilityKey.LuckPotion,
                 AbilityKey.MagicPotion,
-                AbilityKey.SpellPowerPotion,
-                AbilityKey.StrengthPotion,
-                AbilityKey.SwiftnessPotion,
+                AbilityKey.SpellPower,
+                AbilityKey.Strength,
+                AbilityKey.Speed,
                 AbilityKey.VigorPotion,
                 AbilityKey.WaterBottle,
             };

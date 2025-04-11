@@ -83,7 +83,7 @@
                 }
 
                 // Fix for Progressive adding new cards late in the game with longer than 1 cooldown
-                AbilityKey lateAbility = value.abilityKey;
+                AbilityKey lateAbility = value.AbilityKey;
                 var ruleSet = HR.SelectedRuleset.Name;
                 if (!ruleSet.Contains("Heroes "))
                 {
@@ -108,7 +108,7 @@
                 // Bypass problem with replenishCooldown somehow being set to -1 by Demeo
                 foreach (var card in _globalHeroStartCards[piece.boardPieceId])
                 {
-                    if (value.abilityKey == card.Card && card.ReplenishFrequency > 1 && value.replenishCooldown < 0)
+                    if (value.AbilityKey == card.Card && card.ReplenishFrequency > 1 && value.replenishCooldown < 0)
                     {
                         value.replenishCooldown = card.ReplenishFrequency - 1;
                         piece.inventory.Items[i] = value;
@@ -116,7 +116,8 @@
                 }
 
                 bool skipReplenishing = false;
-                if (!AbilityFactory.TryGetAbility(value.abilityKey, out Ability ability))
+                /* FIX THIS
+                if (!AbilityFactory.TryGetAbility(value.AbilityKey, out Ability ability))
                 {
                     throw new Exception("Failed to get ability prefab from ability key while attempting to replenish hand!");
                 }
@@ -132,7 +133,7 @@
                     }
 
                     j++;
-                }
+                }*/
 
                 if (!skipReplenishing)
                 {
@@ -179,13 +180,14 @@
 
         private static Inventory CreateInventory(BoardPieceId boardPieceId)
         {
-            var inventory = new Inventory();
+            AbilityFactory? abilityFactory = null;
+            var inventory = new Inventory(abilityFactory);
 
             if (MotherbrainGlobalVars.CurrentConfig == GameConfigType.Sewers && !HR.SelectedRuleset.Name.Equals("Darkest Dankest Demeo"))
             {
                 inventory.Items.Add(new Inventory.Item
                 {
-                    abilityKey = AbilityKey.Torch,
+                    abilityKey = AbilityKey.TorchLight,
                     flags = 0,
                     originalOwner = -1,
                     replenishCooldown = 0,

@@ -10,7 +10,7 @@
 - Introduce a new ruleset: Flipping Out [\#367](https://github.com/orendain/DemeoMods/pull/367)
 - Restore functionality for configurable replenish frequences and add support for Overcharge. [\#356](https://github.com/orendain/DemeoMods/pull/356)
 - Remove `RegroupAllies` rule, as the equivalent change is now the default in Demeo. [\#352](https://github.com/orendain/DemeoMods/pull/352)
-- Add a user-configurable amout of HP to target each time CourageShanty is cast. [\#346](https://github.com/orendain/DemeoMods/pull/346)
+- Add a user-configurable amout of HP to target each time StrengthenCourage is cast. [\#346](https://github.com/orendain/DemeoMods/pull/346)
 - Gain a user-configured ability whenever a critical hit is scored. [\#345](https://github.com/orendain/DemeoMods/pull/345)
 - Allow Regroup to teleport both enemies and players. [\#340](https://github.com/orendain/DemeoMods/pull/340)
 - Introduce a new rule: TurnOrderOverridden, allowing the player turn order to be customized. [\#336](https://github.com/orendain/DemeoMods/pull/336)

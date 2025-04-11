@@ -349,7 +349,7 @@
             "ReplenishFrequency": 0
           },
           {
-            "Card": "HurricaneAnthem",
+            "Card": "Tornado",
             "ReplenishFrequency": 0
           },
           {
@@ -357,7 +357,7 @@
             "ReplenishFrequency": 0
           },
           {
-            "Card": "CourageShanty",
+            "Card": "StrengthenCourage",
             "ReplenishFrequency": 1
           }
         ],
@@ -379,11 +379,11 @@
             "ReplenishFrequency": 0
           },
           {
-            "Card": "WhirlwindAttack",
+            "Card": "Whirlwind",
             "ReplenishFrequency": 0
           },
           {
-            "Card": "PiercingThrow",
+            "Card": "PiercingSpear",
             "ReplenishFrequency": 0
           },
           {
@@ -409,7 +409,7 @@
             "ReplenishFrequency": 0
           },
           {
-            "Card": "HailOfArrows",
+            "Card": "SplittingArrow",
             "ReplenishFrequency": 0
           },
           {
@@ -447,7 +447,7 @@
             "ReplenishFrequency": 0
           },
           {
-            "Card": "Sneak",
+            "Card": "Stealth",
             "ReplenishFrequency": 1
           }
         ],

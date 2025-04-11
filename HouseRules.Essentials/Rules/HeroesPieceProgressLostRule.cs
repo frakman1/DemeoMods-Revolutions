@@ -107,7 +107,7 @@
                 }
                 else if (piece.boardPieceId == BoardPieceId.HeroBard)
                 {
-                    AbilityFactory.TryGetAbility(AbilityKey.CourageShanty, out var ability);
+                    AbilityFactory.TryGetAbility(AbilityKey.StrengthenCourage, out var ability);
                     ability.costActionPoint = true;
                 }
                 else if (piece.boardPieceId == BoardPieceId.HeroGuardian)
@@ -117,7 +117,7 @@
                 }
                 else if (piece.boardPieceId == BoardPieceId.HeroRogue)
                 {
-                    AbilityFactory.TryGetAbility(AbilityKey.Sneak, out var ability);
+                    AbilityFactory.TryGetAbility(AbilityKey.Stealth, out var ability);
                     ability.costActionPoint = true;
                 }
                 else if (piece.boardPieceId == BoardPieceId.HeroHunter)
@@ -148,7 +148,7 @@
                     for (var i = 0; i < piece.inventory.Items.Count; i++)
                     {
                         value = piece.inventory.Items[i];
-                        if (value.abilityKey == AbilityKey.EnemyJavelin)
+                        if (value.AbilityKey == AbilityKey.EnemyJavelin)
                         {
                             piece.inventory.Items.Remove(value);
                             Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
@@ -164,7 +164,7 @@
                     for (var i = 0; i < piece.inventory.Items.Count; i++)
                     {
                         value = piece.inventory.Items[i];
-                        if (value.abilityKey == AbilityKey.TeleportLamp)
+                        if (value.AbilityKey == AbilityKey.TeleportLamp)
                         {
                             piece.inventory.Items.Remove(value);
                             Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
@@ -180,12 +180,12 @@
                     for (var i = 0; i < piece.inventory.Items.Count; i++)
                     {
                         value = piece.inventory.Items[i];
-                        if (value.abilityKey == AbilityKey.Zap)
+                        if (value.AbilityKey == AbilityKey.Zap)
                         {
                             piece.inventory.Items.Remove(value);
                             Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
                         }
-                        else if (value.abilityKey == AbilityKey.TurretHealProjectile)
+                        else if (value.AbilityKey == AbilityKey.TurretHealProjectile)
                         {
                             piece.inventory.Items.Remove(value);
                             Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
@@ -200,12 +200,12 @@
                     for (var i = 0; i < piece.inventory.Items.Count; i++)
                     {
                         value = piece.inventory.Items[i];
-                        if (value.abilityKey == AbilityKey.EnemyFireball)
+                        if (value.AbilityKey == AbilityKey.EnemyFireball)
                         {
                             piece.inventory.Items.Remove(value);
                             Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
                         }
-                        else if (value.abilityKey == AbilityKey.DiseasedBite)
+                        else if (value.AbilityKey == AbilityKey.DiseasedBite)
                         {
                             piece.inventory.Items.Remove(value);
                             Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
@@ -221,12 +221,12 @@
                     for (var i = 0; i < piece.inventory.Items.Count; i++)
                     {
                         value = piece.inventory.Items[i];
-                        if (value.abilityKey == AbilityKey.TornadoCharge)
+                        if (value.AbilityKey == AbilityKey.TornadoCharge)
                         {
                             piece.inventory.Items.Remove(value);
                             Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
                         }
-                        else if (value.abilityKey == AbilityKey.WaterDive)
+                        else if (value.AbilityKey == AbilityKey.WaterDive)
                         {
                             piece.inventory.Items.Remove(value);
                             Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
@@ -241,7 +241,7 @@
                     for (var i = 0; i < piece.inventory.Items.Count; i++)
                     {
                         value = piece.inventory.Items[i];
-                        if (value.abilityKey == AbilityKey.TurretHighDamageProjectile)
+                        if (value.AbilityKey == AbilityKey.TurretHighDamageProjectile)
                         {
                             piece.inventory.Items.Remove(value);
                             Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
@@ -260,7 +260,7 @@
                     for (var i = 0; i < piece.inventory.Items.Count; i++)
                     {
                         value = piece.inventory.Items[i];
-                        if (value.abilityKey == AbilityKey.EnemyFireball)
+                        if (value.AbilityKey == AbilityKey.EnemyFireball)
                         {
                             piece.inventory.Items.Remove(value);
                             Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
@@ -366,7 +366,7 @@
                 for (var i = 0; i < piece.inventory.Items.Count; i++)
                 {
                     value = piece.inventory.Items[i];
-                    if (value.abilityKey == AbilityKey.Petrify || value.abilityKey == AbilityKey.AcidSpit || value.abilityKey == AbilityKey.DeathFlurry || value.abilityKey == AbilityKey.DeathBeam || value.abilityKey == AbilityKey.HeavensFury || value.abilityKey == AbilityKey.CoinFlip || value.abilityKey == AbilityKey.DropChest)
+                    if (value.AbilityKey == AbilityKey.Petrify || value.AbilityKey == AbilityKey.AcidSpit || value.AbilityKey == AbilityKey.DeathFlurry || value.AbilityKey == AbilityKey.DeathBeam || value.AbilityKey == AbilityKey.GodsFury || value.AbilityKey == AbilityKey.CoinFlip || value.AbilityKey == AbilityKey.DropChest)
                     {
                         piece.inventory.Items.Remove(value);
                         Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;

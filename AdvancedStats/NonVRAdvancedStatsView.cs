@@ -428,7 +428,7 @@
                                         sb.Append(ColorizeString("Grapple", Color.white));
                                         break;
                                     case BoardPieceId.HeroRogue:
-                                        sb.Append(ColorizeString("Sneak", Color.white));
+                                        sb.Append(ColorizeString("Stealth", Color.white));
                                         break;
                                     case BoardPieceId.HeroBard:
                                         sb.Append(ColorizeString("Courage Shanty", Color.white));
@@ -517,23 +517,23 @@
                                 for (var i = 0; i < myPiece.inventory.Items.Count; i++)
                                 {
                                     value = myPiece.inventory.Items[i];
-                                    if (value.abilityKey == AbilityKey.Petrify || value.abilityKey == AbilityKey.DropChest || value.abilityKey == AbilityKey.Shockwave || value.abilityKey == AbilityKey.AcidSpit || value.abilityKey == AbilityKey.DeathFlurry)
+                                    if (value.AbilityKey == AbilityKey.Petrify || value.AbilityKey == AbilityKey.DropChest || value.AbilityKey == AbilityKey.Shockwave || value.AbilityKey == AbilityKey.AcidSpit || value.AbilityKey == AbilityKey.DeathFlurry)
                                     {
-                                        if (value.abilityKey == AbilityKey.DeathFlurry)
+                                        if (value.AbilityKey == AbilityKey.DeathFlurry)
                                         {
                                             sb.Append(ColorizeString("Regal Burst", Color.white));
                                         }
-                                        else if (value.abilityKey == AbilityKey.AcidSpit)
+                                        else if (value.AbilityKey == AbilityKey.AcidSpit)
                                         {
                                             sb.Append(ColorizeString("Acid Spit", Color.white));
                                         }
-                                        else if (value.abilityKey == AbilityKey.DropChest)
+                                        else if (value.AbilityKey == AbilityKey.DropChest)
                                         {
                                             sb.Append(ColorizeString("Drop Chest", Color.white));
                                         }
                                         else
                                         {
-                                            sb.Append(ColorizeString($"{value.abilityKey}", Color.white));
+                                            sb.Append(ColorizeString($"{value.AbilityKey}", Color.white));
                                         }
 
                                         break;
@@ -701,7 +701,7 @@
                                             sb.Append(ColorizeString("Grapple", Color.white));
                                             break;
                                         case BoardPieceId.HeroRogue:
-                                            sb.Append(ColorizeString("Sneak", Color.white));
+                                            sb.Append(ColorizeString("Stealth", Color.white));
                                             break;
                                         case BoardPieceId.HeroBard:
                                             sb.Append(ColorizeString("Courage Shanty", Color.white));

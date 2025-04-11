@@ -245,7 +245,7 @@
                         });
                         piece.AddGold(0);
 
-                        AbilityFactory.TryGetAbility(AbilityKey.CourageShanty, out var ability);
+                        AbilityFactory.TryGetAbility(AbilityKey.StrengthenCourage, out var ability);
                         ability.costActionPoint = false;
                     }
                     else if (piece.boardPieceId == BoardPieceId.HeroGuardian)
@@ -272,7 +272,7 @@
                         });
                         piece.AddGold(0);
 
-                        AbilityFactory.TryGetAbility(AbilityKey.Sneak, out var ability);
+                        AbilityFactory.TryGetAbility(AbilityKey.Stealth, out var ability);
                         ability.costActionPoint = false;
                     }
                     else if (piece.boardPieceId == BoardPieceId.HeroHunter)
@@ -280,7 +280,7 @@
                         for (var i = 0; i < piece.inventory.Items.Count; i++)
                         {
                             value = piece.inventory.Items[i];
-                            if (value.abilityKey == AbilityKey.Arrow)
+                            if (value.AbilityKey == AbilityKey.HunterArrow)
                             {
                                 piece.inventory.Items.Remove(value);
                                 break;
@@ -296,7 +296,7 @@
                         });
                         piece.AddGold(0);
 
-                        AbilityFactory.TryGetAbility(AbilityKey.Arrow, out var ability);
+                        AbilityFactory.TryGetAbility(AbilityKey.HunterArrow, out var ability);
                         ability.costActionPoint = false;
                     }
                     else if (piece.boardPieceId == BoardPieceId.HeroSorcerer)
@@ -311,7 +311,7 @@
                         for (var i = 0; i < piece.inventory.Items.Count; i++)
                         {
                             value = piece.inventory.Items[i];
-                            if (value.abilityKey == AbilityKey.Overcharge)
+                            if (value.AbilityKey == AbilityKey.Overcharge)
                             {
                                 if (value.IsReplenishing)
                                 {
@@ -406,7 +406,7 @@
                     for (var i = 0; i < piece.inventory.Items.Count; i++)
                     {
                         value = piece.inventory.Items[i];
-                        if (value.abilityKey == AbilityKey.ImplosionExplosionRain)
+                        if (value.AbilityKey == AbilityKey.ImplosionExplosionRain)
                         {
                             hasPower = true;
                             break;
@@ -431,7 +431,7 @@
                     for (var i = 0; i < piece.inventory.Items.Count; i++)
                     {
                         value = piece.inventory.Items[i];
-                        if (value.abilityKey == AbilityKey.LeapHeavy)
+                        if (value.AbilityKey == AbilityKey.LeapHeavy)
                         {
                             hasPower = true;
                             break;
@@ -456,13 +456,13 @@
                     for (var i = 0; i < piece.inventory.Items.Count; i++)
                     {
                         value = piece.inventory.Items[i];
-                        if (value.abilityKey == AbilityKey.PVPMissileSwarm)
+                        if (value.AbilityKey == AbilityKey.PVPMissileSwarm)
                         {
                             hasPower = true;
                             break;
                         }
 
-                        if (value.abilityKey == AbilityKey.Zap)
+                        if (value.AbilityKey == AbilityKey.Zap)
                         {
                             piece.inventory.Items.Remove(value);
                             Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
@@ -488,7 +488,7 @@
                     for (var i = 0; i < piece.inventory.Items.Count; i++)
                     {
                         value = piece.inventory.Items[i];
-                        if (value.abilityKey == AbilityKey.PVPBlink)
+                        if (value.AbilityKey == AbilityKey.PVPBlink)
                         {
                             hasPower = true;
                             break;
@@ -513,7 +513,7 @@
                     for (var i = 0; i < piece.inventory.Items.Count; i++)
                     {
                         value = piece.inventory.Items[i];
-                        if (value.abilityKey == AbilityKey.DeathBeam)
+                        if (value.AbilityKey == AbilityKey.DeathBeam)
                         {
                             hasPower = true;
                             break;
@@ -538,7 +538,7 @@
                     for (var i = 0; i < piece.inventory.Items.Count; i++)
                     {
                         value = piece.inventory.Items[i];
-                        if (value.abilityKey == AbilityKey.PVPFireball)
+                        if (value.AbilityKey == AbilityKey.PVPFireball)
                         {
                             hasPower = true;
                             break;
@@ -563,7 +563,7 @@
                     for (var i = 0; i < piece.inventory.Items.Count; i++)
                     {
                         value = piece.inventory.Items[i];
-                        if (value.abilityKey == AbilityKey.WeakeningShout)
+                        if (value.AbilityKey == AbilityKey.WeakeningShout)
                         {
                             hasPower = true;
                             break;
@@ -631,12 +631,12 @@
                 }
                 else if (piece.boardPieceId == BoardPieceId.HeroBard)
                 {
-                    AbilityFactory.TryGetAbility(AbilityKey.CourageShanty, out var ability);
+                    AbilityFactory.TryGetAbility(AbilityKey.StrengthenCourage, out var ability);
                     ability.costActionPoint = true;
                 }
                 else if (piece.boardPieceId == BoardPieceId.HeroRogue)
                 {
-                    AbilityFactory.TryGetAbility(AbilityKey.Sneak, out var ability);
+                    AbilityFactory.TryGetAbility(AbilityKey.Stealth, out var ability);
                     ability.costActionPoint = true;
                 }
                 else if (piece.boardPieceId == BoardPieceId.HeroSorcerer)
@@ -648,7 +648,7 @@
                 }
                 else if (piece.boardPieceId == BoardPieceId.HeroHunter)
                 {
-                    AbilityFactory.TryGetAbility(AbilityKey.Arrow, out var ability);
+                    AbilityFactory.TryGetAbility(AbilityKey.HunterArrow, out var ability);
                     AbilityFactory.TryGetAbility(AbilityKey.LightningBolt, out var ability2);
                     ability.costActionPoint = true;
                     ability2.costActionPoint = false;
@@ -668,12 +668,12 @@
                 }
                 else if (piece.boardPieceId == BoardPieceId.HeroBard)
                 {
-                    AbilityFactory.TryGetAbility(AbilityKey.CourageShanty, out var ability);
+                    AbilityFactory.TryGetAbility(AbilityKey.StrengthenCourage, out var ability);
                     ability.costActionPoint = false;
                 }
                 else if (piece.boardPieceId == BoardPieceId.HeroRogue)
                 {
-                    AbilityFactory.TryGetAbility(AbilityKey.Sneak, out var ability);
+                    AbilityFactory.TryGetAbility(AbilityKey.Stealth, out var ability);
                     ability.costActionPoint = false;
                 }
                 else if (piece.boardPieceId == BoardPieceId.HeroSorcerer)
@@ -685,7 +685,7 @@
                 }
                 else if (piece.boardPieceId == BoardPieceId.HeroHunter)
                 {
-                    AbilityFactory.TryGetAbility(AbilityKey.Arrow, out var ability);
+                    AbilityFactory.TryGetAbility(AbilityKey.HunterArrow, out var ability);
                     AbilityFactory.TryGetAbility(AbilityKey.LightningBolt, out var ability2);
                     ability.costActionPoint = false;
                     ability2.costActionPoint = false;

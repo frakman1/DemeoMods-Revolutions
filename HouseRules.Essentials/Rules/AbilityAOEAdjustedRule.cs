@@ -58,14 +58,14 @@
                 originals[replacement.Key] = -replacement.Value;
                 var aoe = Traverse.Create(ability).Field<AreaOfEffect>("areaOfEffect").Value;
                 Traverse.Create(aoe).Field<int>("range").Value += replacement.Value; // Adjust the AOE outline when casting.
-                ability.areaOfEffectRange += replacement.Value; // Adjust value displayed on the card.
+                ability.AreaOfEffectRange += replacement.Value; // Adjust value displayed on the card.
 
                 if (HR.SelectedRuleset.Name.Contains("Revolutions"))
                 {
                     if (replacement.Key == AbilityKey.Net)
                     {
                         ability.addTileEffectToTile = TileEffect.Web;
-                        ability.areaOfEffectCritRange = 0;
+                        ability.AreaOfEffectCritRange = 0;
                     }
                 }
             }

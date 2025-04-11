@@ -18,7 +18,7 @@ HouseRules API.
 - __🎲LuckyDip🎲__ : Players each start with two 'Drop Chest' cards instead of their normal
   starting cards, meaning that no two games start the same. Many potions have AOE effect, because it's rude not to share.
   Many other changes included for faster gameplay with an aim of around 90 minutes per game.
-- __💣It's A Trap💣__ : Build fiendiesh traps for your enemies and lure them to their deaths, but do try not to kill your friends. Lamps and BoobyTraps aplenty. Enemies cannot open doors, DetectEnemies/EyeOfAvalon & Torch will not be attacked, Stealth & TileEffect durations extended.
+- __💣It's A Trap💣__ : Build fiendiesh traps for your enemies and lure them to their deaths, but do try not to kill your friends. Lamps and ProximityMines aplenty. Enemies cannot open doors, DetectStealthedUnits/EyeOfAvalon & TorchLight will not be attacked, Stealth & TileEffect durations extended.
 - __The Swirl__ : Only poison, fireballs and vortexes. Health and POIs aplenty, but must defeat all enemies to escape.
 - __Beat The Clock__ : Ultra health. Ultra card recycling. Only 15 rounds to escape...
 - __Hunter's Paradise__ : Pets, pets, pets! And hunter's mark.
@@ -26,7 +26,7 @@ HouseRules API.
 - __Difficulty Easy__ : Decreased game difficulty for a more casual playstyle.
 - __Difficulty Hard__ : Increased game difficulty for a greater challenge.
 - __Difficulty Legendary__ : Increased game difficulty for those who want to be a legend.
-- __3x3 Potions and Buffs__ : Heal, Strength, Speed, Adamant, Antitoxin, RepairArmor and Bard buffs are 3x3 AOE.
+- __3x3 Potions and Buffs__ : Heal, Strength, Speed, Adamant, Antidote, RepairArmor and Bard buffs are 3x3 AOE.
 - __Better Sorcerer__ : 0 Action Cost for Sorcerer's Zap - No other changes. #STS
 - __No Surprises__ :  No surprises in the dark or coming through doors.
 - __Quick and the Dead__ : A mode with a small hand but fast turnaround time on cards means you need to not hesitate.
@@ -61,8 +61,8 @@ The [Settings Reference](../docs/SettingsReference.md) contains lists of all dif
     "Rule": "AbilityActionCostAdjusted",
     "Config": {
       "Zap": false,
-      "CourageShanty": false,
-      "HealingPotion": true,
+      "StrengthenCourage": false,
+      "Heal": true,
     }
   },
   ```
@@ -79,10 +79,10 @@ The [Settings Reference](../docs/SettingsReference.md) contains lists of all dif
   {
     "Rule": "AbilityAoeAdjusted",
     "Config": {
-      "CourageShanty": 1,
-      "StrengthPotion": 1,
-      "SwiftnessPotion": 1,
-      "HealingPotion": 1,
+      "StrengthenCourage": 1,
+      "Strength": 1,
+      "Speed": 1,
+      "Heal": 1,
     }
   },
   ```
@@ -110,7 +110,7 @@ The [Settings Reference](../docs/SettingsReference.md) contains lists of all dif
   ```
 
 #### __AbilityDamageOverridden__: Ability targetDamage and critDamage are adjusted
-  - Only functions for abilities which do damage. (You can't make a HealingPotion hurt).
+  - Only functions for abilities which do damage. (You can't make a Heal hurt).
   - CriticalHitDamage is adjusted to double normal damage.
   - To configure:
     - Specify the [AbilityKey](../docs/SettingsReference.md#abilitykeys) of the ability to modify.
@@ -140,14 +140,14 @@ The [Settings Reference](../docs/SettingsReference.md) contains lists of all dif
   {
     "Rule": "AbilityHealOverridden",
     "Config": {
-      "HealingPotion": 3
+      "Heal": 3
     }
   },
   ```
 
 #### __AbilityRandomPieceList__: The randomPieceList for Abilities is adjusted
   - 🚧 _Skirmish-only - Does not work properly in multiplayer games._ 🚧
-  - Some abilities (BeastWhisperer, RatBomb) have lists which are used to spawn random pieces.
+  - Some abilities (RatWhisperer, RatBomb) have lists which are used to spawn random pieces.
   - This rule allows the list to be replaced with a different one.
   - To configure:
     - Specify the [AbilityKey](../docs/SettingsReference.md#abilitykeys) of the ability to modify.
@@ -159,7 +159,7 @@ The [Settings Reference](../docs/SettingsReference.md) contains lists of all dif
   {
     "Rule": "AbilityRandomPieceList",
     "Config": {
-      "BeastWhisperer": [
+      "RatWhisperer": [
         "GoblinRanger",
         "Slime",
       ]
@@ -168,7 +168,7 @@ The [Settings Reference](../docs/SettingsReference.md) contains lists of all dif
   ```
 
 #### __AbilityStealthDamageOverridden__: Ability stealthBonusDamage is overridden
-  - Can function for abilities which don't do damage. (You can make a FlashBomb hurt).
+  - Can function for abilities which don't do damage. (You can make a Flashbang hurt).
   - To configure:
     - Specify the [AbilityKey](../docs/SettingsReference.md#abilitykeys) of the ability to modify.
     - Specify a positive integer for stealthBonusDamage E.g.: `"PlayerMelee": 2` adds 2 damage to a normal attack if stealthed.
@@ -182,7 +182,7 @@ The [Settings Reference](../docs/SettingsReference.md) contains lists of all dif
     {
       "Blink": 4,
       "DiseasedBite": 2,
-      "PoisonBomb": 1,
+      "PoisonGasGrenade": 1,
       "CursedDagger": 3,
       "PlayerMelee": 2
     }
@@ -215,8 +215,8 @@ The [Settings Reference](../docs/SettingsReference.md) contains lists of all dif
   {
     "Rule": "CardAdditionOverridden",
     "Config": {
-      "HeroSorcerer": ["StrengthPotion", "SwiftnessPotion", "Bone", "Fireball", "Freeze", "BottleOfLye", "Teleportation", "HeavensFury", "RevealPath"],
-      "HeroGuardian": ["WhirlwindAttack", "Charge", "CallCompanion", "HealingPotion"],
+      "HeroSorcerer": ["Strength", "Speed", "Bone", "Fireball", "Freeze", "SodiumHydroxide", "Teleport", "GodsFury", "RevealPath"],
+      "HeroGuardian": ["Whirlwind", "Charge", "CallCompanion", "Heal"],
     }
   },
   ```
@@ -292,22 +292,22 @@ The [Settings Reference](../docs/SettingsReference.md) contains lists of all dif
     {
       "Rule": "CardClassRestrictionOverridden",
       "Config": {
-        "BeastWhisperer": "SporeFungus",
-        "Sneak": "Guardian",
+        "RatWhisperer": "SporeFungus",
+        "Stealth": "Guardian",
         "Zap": "Hunter",
       }
     },
   ```
 
-#### __CourageShantyAddsHP__: In addition to normal effects, Courage Shanty also adds HP
+#### __StrengthenCourageAddsHP__: In addition to normal effects, Courage Shanty also adds HP
   - To configure:
-    - Specify a decimal number for how many HP to add to the target each time CourageShanty is used.
+    - Specify a decimal number for how many HP to add to the target each time StrengthenCourage is used.
 
-  ###### _Example JSON config for CourageShantyAddsHP_
+  ###### _Example JSON config for StrengthenCourageAddsHP_
 
   ```json
   {
-    "Rule": "CourageShantyAddsHP",
+    "Rule": "StrengthenCourageAddsHP",
     "Config": 2
   },
   ```
@@ -376,11 +376,11 @@ The [Settings Reference](../docs/SettingsReference.md) contains lists of all dif
   {
     "Rule": "FreeAbilityOnCrit",
     "Config": {
-      "HeroBard": "OneMoreThing",
+      "HeroBard": "ExtraActionPotion",
       "HeroHunter": "PoisonedTip",
       "HeroSorcerer": "Fireball",
       "HeroGuardian": "Bone",
-      "HeroRogue": "PoisonBomb"
+      "HeroRogue": "PoisonGasGrenade"
     }
   },
 ```  
@@ -430,19 +430,19 @@ The [Settings Reference](../docs/SettingsReference.md) contains lists of all dif
         "OilLamp",
         "OilLamp",
         "OilLamp",
-        "VortexLamp"
+        "VortexDustLamp"
       ],
       "Floor2Lamps": [
         "GasLamp",
         "GasLamp",
         "GasLamp",
-        "VortexLamp"
+        "VortexDustLamp"
       ],
       "Floor3Lamps": [
         "IceLamp",
         "IceLamp",
         "IceLamp",
-        "VortexLamp"
+        "VortexDustLamp"
       ]
     }
   },
@@ -628,7 +628,7 @@ The [Settings Reference](../docs/SettingsReference.md) contains lists of all dif
       { "Piece": "HeroSorcerer", "Property": "StartHealth", "Value": 20 },
       { "Piece": "HeroSorcerer", "Property": "MoveRange", "Value": 5 },
       { "Piece": "HeroSorcerer", "Property": "ActionPoint", "Value": 3 },
-      { "Piece": "Lure", "Property": "StartHealth", "Value": 30 },
+      { "Piece": "MonsterBait", "Property": "StartHealth", "Value": 30 },
       { "Piece": "SmiteWard", "Property": "ActionPoint", "Value": 2 },
       { "Piece": "HeroSorcerer", "Property": "BerserkBelowHealth", "Value": 0.8 }
     ]
@@ -668,7 +668,7 @@ The [Settings Reference](../docs/SettingsReference.md) contains lists of all dif
   {
     "Rule": "PieceImmunityListAdjusted",
     "Config": {
-      "HeroSorcerer": [ "Diseased", "HuntersMark", "Weaken", "Frozen", "Tangled", "Petrified" ],
+      "HeroSorcerer": [ "Diseased", "MarkOfAvalon", "Weaken", "Frozen", "Tangled", "Petrified" ],
       "HeroGuardian": [ "Frozen" ],
     }
   },
@@ -708,7 +708,7 @@ The [Settings Reference](../docs/SettingsReference.md) contains lists of all dif
   {
     "Rule": "PieceUseWhenKilledOverridden",
     "Config": {
-      "Spiderling": [ "HealingPotion" ],
+      "Spiderling": [ "Heal" ],
       "CaveTroll": [ "Rejuvenation" ],
     }
   },
@@ -741,8 +741,8 @@ The [Settings Reference](../docs/SettingsReference.md) contains lists of all dif
     {
       "Rule": "RegainAbilityIfMaxxedOutOverridden",
       "Config": {
-        "SwiftnessPotion": false,
-        "StrengthPotion": false
+        "Speed": false,
+        "Strength": false
       }
     },
   ```
@@ -805,25 +805,25 @@ The [Settings Reference](../docs/SettingsReference.md) contains lists of all dif
     "Rule": "StartCardsModified",
     "Config": {
       "HeroGuardian": [
-        { "Card": "HealingPotion", "ReplenishFrequency": 0 },
+        { "Card": "Heal", "ReplenishFrequency": 0 },
         { "Card": "ReplenishArmor", "ReplenishFrequency": 1 },
-        { "Card": "WhirlwindAttack", "ReplenishFrequency": 1 },
-        { "Card": "PiercingThrow", "ReplenishFrequency": 0 },
+        { "Card": "Whirlwind", "ReplenishFrequency": 1 },
+        { "Card": "PiercingSpear", "ReplenishFrequency": 0 },
         { "Card": "CoinFlip", "ReplenishFrequency": 0 },
-        { "Card": "TheBehemoth", "ReplenishFrequency": 0 },
+        { "Card": "BeaconOfSmite", "ReplenishFrequency": 0 },
         { "Card": "SwordOfAvalon", "ReplenishFrequency": 0 },
       ],
       "HeroHunter": [
-        { "Card": "HealingPotion", "ReplenishFrequency": 0 },
+        { "Card": "Heal", "ReplenishFrequency": 0 },
         { "Card": "Arrow", "ReplenishFrequency": 1 },
         { "Card": "Arrow", "ReplenishFrequency": 1 },
         { "Card": "CoinFlip", "ReplenishFrequency": 0 },
         { "Card": "DropChest", "ReplenishFrequency": 0 },
       ],
       "HeroSorcerer": [
-        { "Card": "HealingPotion", "ReplenishFrequency": 0 },
+        { "Card": "Heal", "ReplenishFrequency": 0 },
         { "Card": "Zap", "ReplenishFrequency": 1 },
-        { "Card": "WhirlwindAttack", "ReplenishFrequency": 1 },
+        { "Card": "Whirlwind", "ReplenishFrequency": 1 },
         { "Card": "Freeze", "ReplenishFrequency": 0 },
         { "Card": "Fireball", "ReplenishFrequency": 0 },
         { "Card": "CallCompanion", "ReplenishFrequency": 0 },
@@ -833,7 +833,7 @@ The [Settings Reference](../docs/SettingsReference.md) contains lists of all dif
   ```
 
 #### __StatModifiersOverriden__: The additiveBonus parameters of StatModifiers are overridden.
-  - There are only six different StatModifiers in the game. They are used by 💪StrengthPotion, 🦶SwiftnessPotion, 🛡️ReplenishArmor, HuntersMark, etc.
+  - There are only six different StatModifiers in the game. They are used by 💪Strength, 🦶Speed, 🛡️ReplenishArmor, MarkOfAvalon, etc.
   - These modifiers control the power of each corresponding ability.  E.g., by default the stat modifier for SongOfResilience is 5, as it grants 5 units of armor.  
   - To configure:
     - Specify the [AbilityKey](../docs/SettingsReference.md#boardpieceids) of the ability whose stat modifer should be replaced.
@@ -845,9 +845,9 @@ The [Settings Reference](../docs/SettingsReference.md) contains lists of all dif
   {
     "Rule": "StatModifiersOverriden",
     "Config": {
-      "StrengthPotion": 2,
-      "SwiftnessPotion": 2,
-      "HuntersMark": -4,
+      "Strength": 2,
+      "Speed": 2,
+      "MarkOfAvalon": -4,
       "ReplenishBarkArmor": 4,
       "SongOfResilience": 6,
       "ReplenishArmor": 4,
@@ -855,7 +855,7 @@ The [Settings Reference](../docs/SettingsReference.md) contains lists of all dif
   },
   ```
 
-#### __StatusEffectConfig__: The parameters of different StatusEffects (🔥Torch, 🤢Poison, 🥶Frozen) can be overridden
+#### __StatusEffectConfig__: The parameters of different StatusEffects (🔥TorchLight, 🤢Poison, 🥶Frozen) can be overridden
   - Default values can be found in `StatusEffectsConfig.effectsConfig`.
   - To configure:
     - Specify a list of status effects that should replace existing ones of the same type.

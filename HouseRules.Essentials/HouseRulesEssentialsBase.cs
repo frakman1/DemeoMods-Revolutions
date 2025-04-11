@@ -66,7 +66,7 @@
             HR.Rulebook.Register(typeof(ApplyEffectOnHitAdjustedRule));
             HR.Rulebook.Register(typeof(ApplyEffectOnHitLampsRule));
             HR.Rulebook.Register(typeof(BackstabConfigOverriddenRule));
-            HR.Rulebook.Register(typeof(CourageShantyAddsHpRule));
+            HR.Rulebook.Register(typeof(StrengthenCourageAddsHpRule));
             HR.Rulebook.Register(typeof(CardAdditionOverriddenRule));
             HR.Rulebook.Register(typeof(CardChestAdditionOverriddenRule));
             HR.Rulebook.Register(typeof(CardClassRestrictionOverriddenRule));

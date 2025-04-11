@@ -77,7 +77,7 @@
                         // remove the current effect/buff.
                         piece.DisableEffectState(__instance.effectStateType);
 
-                        if (!piece.HasEffectState(EffectStateType.Confused) || !piece.HasPieceType(PieceType.Lure) || piece.boardPieceId != BoardPieceId.SwordOfAvalon || piece.boardPieceId != BoardPieceId.SmiteWard)
+                        if (!piece.HasEffectState(EffectStateType.Confused) || !piece.HasPieceType(PieceType.MonsterBait) || piece.boardPieceId != BoardPieceId.SwordOfAvalon || piece.boardPieceId != BoardPieceId.SmiteWard)
                         {
                             // set a new random effect/buff.
                             int nextPhase = UnityEngine.Random.Range(1, 7);

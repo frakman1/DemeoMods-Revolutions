@@ -42,8 +42,8 @@
             launchIce.effectAppliedToSelf = EffectStateType.It;
             AbilityFactory.TryGetAbility(AbilityKey.ExplodingOilLamp, out var launchFire);
             launchFire.effectAppliedToSelf = EffectStateType.It;
-            AbilityFactory.TryGetAbility(AbilityKey.ExplodingVortexLamp, out var launchVortex);
-            launchVortex.effectAppliedToSelf = EffectStateType.It;
+            AbilityFactory.TryGetAbility(AbilityKey.ExplodingVortexDustLamp, out var launchVortexDust);
+            launchVortexDust.effectAppliedToSelf = EffectStateType.It;
             AbilityFactory.TryGetAbility(AbilityKey.ExplodingGasLamp, out var launchGas);
             launchGas.effectAppliedToSelf = EffectStateType.It;
             AbilityFactory.TryGetAbility(AbilityKey.ExplodingWaterLamp, out var launchWater);
@@ -58,8 +58,8 @@
             launchIce.effectAppliedToSelf = EffectStateType.UsedHookThisTurn;
             AbilityFactory.TryGetAbility(AbilityKey.ExplodingOilLamp, out var launchFire);
             launchFire.effectAppliedToSelf = EffectStateType.UsedHookThisTurn;
-            AbilityFactory.TryGetAbility(AbilityKey.ExplodingVortexLamp, out var launchVortex);
-            launchVortex.effectAppliedToSelf = EffectStateType.UsedHookThisTurn;
+            AbilityFactory.TryGetAbility(AbilityKey.ExplodingVortexDustLamp, out var launchVortexDust);
+            launchVortexDust.effectAppliedToSelf = EffectStateType.UsedHookThisTurn;
             AbilityFactory.TryGetAbility(AbilityKey.ExplodingGasLamp, out var launchGas);
             launchGas.effectAppliedToSelf = EffectStateType.UsedHookThisTurn;
             AbilityFactory.TryGetAbility(AbilityKey.ExplodingWaterLamp, out var launchWater);

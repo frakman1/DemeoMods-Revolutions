@@ -131,7 +131,7 @@
                         for (int i = 0; i < source.inventory.Items.Count; i++)
                         {
                             value1 = source.inventory.Items[i];
-                            if (value1.abilityKey == AbilityKey.WaterBottle)
+                            if (value1.AbilityKey == AbilityKey.WaterBottle)
                             {
                                 hasPower1 = true;
                                 if (value1.IsReplenishing)
@@ -216,7 +216,7 @@
                     for (int i = 0; i < source.inventory.Items.Count; i++)
                     {
                         value = source.inventory.Items[i];
-                        if (value.abilityKey == AbilityKey.EnemyFrostball)
+                        if (value.AbilityKey == AbilityKey.EnemyFrostball)
                         {
                             hasPower = true;
                             if (value.IsReplenishing)
@@ -277,7 +277,7 @@
             for (int i = 0; i < source.inventory.Items.Count; i++)
             {
                 value2 = source.inventory.Items[i];
-                if (value2.abilityKey == _globalAdjustments[source.boardPieceId])
+                if (value2.AbilityKey == _globalAdjustments[source.boardPieceId])
                 {
                     hasPower2 = true;
                     if (value2.IsReplenishing)

@@ -9,7 +9,7 @@
     using HouseRules.Core.Types;
     using UnityEngine;
 
-    public sealed class CourageShantyAddsHpRule : Rule, IConfigWritable<int>, IPatchable, IMultiplayerSafe
+    public sealed class StrengthenCourageAddsHpRule : Rule, IConfigWritable<int>, IPatchable, IMultiplayerSafe
     {
         public override string Description => "Courage Shanty can also give a small heal";
 
@@ -18,7 +18,7 @@
 
         private readonly int _adjustments;
 
-        public CourageShantyAddsHpRule(int adjustments)
+        public StrengthenCourageAddsHpRule(int adjustments)
         {
             _adjustments = adjustments;
         }
@@ -38,7 +38,7 @@
             harmony.Patch(
                 original: AccessTools.Method(typeof(StrengthenCourage), "UpdateEffectsOnTarget"),
                 postfix: new HarmonyMethod(
-                    typeof(CourageShantyAddsHpRule),
+                    typeof(StrengthenCourageAddsHpRule),
                     nameof(StrengthenCourage_UpdateEffectsOnTarget_Postfix)));
         }
 

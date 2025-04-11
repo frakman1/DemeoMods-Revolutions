@@ -261,7 +261,7 @@
                     }
                     else if (piece.boardPieceId == BoardPieceId.HeroBard)
                     {
-                        AbilityFactory.TryGetAbility(AbilityKey.CourageShanty, out var ability);
+                        AbilityFactory.TryGetAbility(AbilityKey.StrengthenCourage, out var ability);
                         ability.costActionPoint = false;
                     }
                     else if (piece.boardPieceId == BoardPieceId.HeroGuardian)
@@ -274,7 +274,7 @@
                     }
                     else if (piece.boardPieceId == BoardPieceId.HeroRogue)
                     {
-                        AbilityFactory.TryGetAbility(AbilityKey.Sneak, out var ability);
+                        AbilityFactory.TryGetAbility(AbilityKey.Stealth, out var ability);
                         ability.costActionPoint = false;
                     }
                     else if (piece.boardPieceId == BoardPieceId.HeroHunter)
@@ -325,7 +325,7 @@
                         });
 
                         piece.TryAddAbilityToInventory(AbilityKey.BlindingLight);
-                        piece.TryAddAbilityToInventory(AbilityKey.PoisonBomb);
+                        piece.TryAddAbilityToInventory(AbilityKey.PoisonGasGrenade);
                         piece.AddGold(0);
                     }
                     else if (piece.boardPieceId == BoardPieceId.HeroGuardian)
@@ -369,7 +369,7 @@
                             replenishCooldown = 1,
                         });
 
-                        piece.TryAddAbilityToInventory(AbilityKey.BoobyTrap);
+                        piece.TryAddAbilityToInventory(AbilityKey.ProximityMine);
                         piece.AddGold(0);
                     }
                     else if (piece.boardPieceId == BoardPieceId.HeroHunter)
@@ -393,7 +393,7 @@
                         });
 
                         piece.TryAddAbilityToInventory(AbilityKey.EnemyFrostball);
-                        piece.TryAddAbilityToInventory(AbilityKey.BeastWhisperer);
+                        piece.TryAddAbilityToInventory(AbilityKey.RatWhisperer);
                         piece.AddGold(0);
                     }
                     else if (piece.boardPieceId == BoardPieceId.HeroSorcerer)
@@ -483,12 +483,12 @@
                     }
                     else if (piece.boardPieceId == BoardPieceId.HeroRogue)
                     {
-                        piece.TryAddAbilityToInventory(AbilityKey.HeavensFury);
+                        piece.TryAddAbilityToInventory(AbilityKey.GodsFury);
                         piece.AddGold(0);
                     }
                     else if (piece.boardPieceId == BoardPieceId.HeroHunter)
                     {
-                        piece.TryAddAbilityToInventory(AbilityKey.Teleportation);
+                        piece.TryAddAbilityToInventory(AbilityKey.Teleport);
                         piece.TryAddAbilityToInventory(AbilityKey.Regroup);
                         piece.AddGold(0);
                     }
@@ -541,7 +541,7 @@
                     else if (piece.boardPieceId == BoardPieceId.HeroGuardian)
                     {
                         piece.TryAddAbilityToInventory(AbilityKey.Charge);
-                        piece.TryAddAbilityToInventory(AbilityKey.BottleOfLye);
+                        piece.TryAddAbilityToInventory(AbilityKey.SodiumHydroxide);
                         piece.AddGold(0);
 
                         piece.effectSink.TrySetStatMaxValue(Stats.Type.TemporaryArmor, piece.GetMagicArmor() + 8);
@@ -574,7 +574,7 @@
                             replenishCooldown = 4,
                         });
                         piece.TryAddAbilityToInventory(AbilityKey.Shockwave);
-                        piece.TryAddAbilityToInventory(AbilityKey.BeastWhisperer);
+                        piece.TryAddAbilityToInventory(AbilityKey.RatWhisperer);
                         piece.AddGold(0);
 
                         piece.effectSink.TrySetStatMaxValue(Stats.Type.Health, piece.GetMaxHealth() + 2);
@@ -603,7 +603,7 @@
                         Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
                         piece.inventory.Items.Add(new Inventory.Item
                         {
-                            abilityKey = AbilityKey.HuntersMark,
+                            abilityKey = AbilityKey.MarkOfAvalon,
                             flags = (Inventory.ItemFlag)1,
                             originalOwner = -1,
                             replenishCooldown = 3,
@@ -737,7 +737,7 @@
                         Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
                         piece.inventory.Items.Add(new Inventory.Item
                         {
-                            abilityKey = AbilityKey.HeavensFury,
+                            abilityKey = AbilityKey.GodsFury,
                             flags = (Inventory.ItemFlag)1,
                             originalOwner = -1,
                             replenishCooldown = 5,
@@ -967,7 +967,7 @@
                 }
                 else if (piece.boardPieceId == BoardPieceId.HeroBard)
                 {
-                    AbilityFactory.TryGetAbility(AbilityKey.CourageShanty, out var ability);
+                    AbilityFactory.TryGetAbility(AbilityKey.StrengthenCourage, out var ability);
                     ability.costActionPoint = true;
                 }
                 else if (piece.boardPieceId == BoardPieceId.HeroGuardian)
@@ -977,7 +977,7 @@
                 }
                 else if (piece.boardPieceId == BoardPieceId.HeroRogue)
                 {
-                    AbilityFactory.TryGetAbility(AbilityKey.Sneak, out var ability);
+                    AbilityFactory.TryGetAbility(AbilityKey.Stealth, out var ability);
                     ability.costActionPoint = true;
                 }
                 else if (piece.boardPieceId == BoardPieceId.HeroSorcerer)
@@ -1005,7 +1005,7 @@
                 }
                 else if (piece.boardPieceId == BoardPieceId.HeroBard)
                 {
-                    AbilityFactory.TryGetAbility(AbilityKey.CourageShanty, out var ability);
+                    AbilityFactory.TryGetAbility(AbilityKey.StrengthenCourage, out var ability);
                     ability.costActionPoint = false;
                 }
                 else if (piece.boardPieceId == BoardPieceId.HeroGuardian)
@@ -1015,7 +1015,7 @@
                 }
                 else if (piece.boardPieceId == BoardPieceId.HeroRogue)
                 {
-                    AbilityFactory.TryGetAbility(AbilityKey.Sneak, out var ability);
+                    AbilityFactory.TryGetAbility(AbilityKey.Stealth, out var ability);
                     ability.costActionPoint = false;
                 }
                 else if (piece.boardPieceId == BoardPieceId.HeroSorcerer)

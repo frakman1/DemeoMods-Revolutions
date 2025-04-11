@@ -124,7 +124,7 @@
                 score += scores.Downed;
             }
 
-            if (piece.inventory.HasAbility(AbilityKey.SigataurianJavelin) && MotherbrainGlobalVars.CurrentConfig == GameConfigType.Forest)
+            if (piece.inventory.HasAbility(AbilityKey.Javelin) && MotherbrainGlobalVars.CurrentConfig == GameConfigType.Forest)
             {
                 var gameContext = Traverse.Create(typeof(GameHub)).Field<GameContext>("gameContext").Value;
                 if (gameContext.levelLoaderAndInitializer.GetLevelSequence().CurrentLevelIsLastLevel)
@@ -139,7 +139,7 @@
                 score += scores.Deflect;
             }
 
-            if (piece.inventory.HasAbility(AbilityKey.HuntersMark))
+            if (piece.inventory.HasAbility(AbilityKey.MarkOfAvalon))
             {
                 var gameContext = Traverse.Create(typeof(GameHub)).Field<GameContext>("gameContext").Value;
                 score += scores.Mark;

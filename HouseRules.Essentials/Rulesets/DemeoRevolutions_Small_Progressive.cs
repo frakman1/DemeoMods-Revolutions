@@ -13,7 +13,7 @@
         {
             const string name = "Demeo Revolutions (SMALL PROGRESSIVE)";
             const string description = "PROGRESSIVE, but with smaller maps and faster energy gain to (possibly) make for a quicker adventure...";
-            const string longdesc = "- Some NEW maps and many NEW enemies\n- Some already known enemies now have NEW hidden abilities\n- Each enemy (even if the same type) can have different health AND attack damage\n- Each floor's enemy spawns will be a mix of ALL existing adventures with NO respawns\n- Each floor's map will be from a different adventure\n- No Lamps or Antitoxins as loot\n- Improved chest, energy (mana), and potion stand loot\n- Hunter's Mark, Invisibility Potions, and Adamant Potions only last 2 for rounds instead of 3\n- Strength, Swiftness, and Magic stats can be increased up to 5 times with potions instead of 3\n- Lamp spawns found throughout each floor are now much more random\n- Pets and charmed creatures will always focus on Hunter's Marked targets\n- Number of chests/stands/fountains/traders per floor changed based on the adventure selected\n- Card energy (mana) gained from attack reduced by 20%\n- Card energy (mana) gained from recycled cards reduced by 80%\n- Healing Potion heals for 5, Water Bottle heals for 2, and Rejuvenation/Fountains heal for 8\n- Reviving a player by any means removes Stunned and Frozen effects\n- Player summons (Ballistas, Detect Enemies, Verochka, etc) inflict effects on enemies who hit them\n- Some abilities (Acid Spit, Sigataur Javelin, Turrets, etc) now have added secondary effects\n- Attacks and critical hits always have a 2% chance to heal players for 1 and 2 health respectively\n- Class turn order starts as Bard, Guardian, Warlock, Sorcerer, Barbarian, Hunter and then Assassin\n- Torches last 15 rounds and placed Torches have 4 health instead of 15\n- Arly Owl's health is now 8 and movement is now 5\n- Arly Owl's panic shot now also Nets non-bosses so they can't move unless they use an ability to do so\n- A NEW Energy Potion loot card that affects all players in mysterious ways\n- Elementals, Giant Slimes, and the Elven Queen will counter-attack for 1 when hit with melee damage\n- Each floor's original keyholder start with 1 innate damage resist and 1 counter-attack to melee\n- When a player is holding a key they gain 1 damage resist and 1 counter-attack to melee\n- All bosses will start with more health, are immune to Barbarian's Net, and have 1 innate damage resist\n- The Elven Queen has new self buffs and abilities to add more of a challenge\n- If playing Roots of Evil the players with javelins will be first in turn order on the LAST floor";
+            const string longdesc = "- Some NEW maps and many NEW enemies\n- Some already known enemies now have NEW hidden abilities\n- Each enemy (even if the same type) can have different health AND attack damage\n- Each floor's enemy spawns will be a mix of ALL existing adventures with NO respawns\n- Each floor's map will be from a different adventure\n- No Lamps or Antidotes as loot\n- Improved chest, energy (mana), and potion stand loot\n- Hunter's Mark, Invisibility Potions, and Adamant Potions only last 2 for rounds instead of 3\n- Strength, Swiftness, and Magic stats can be increased up to 5 times with potions instead of 3\n- Lamp spawns found throughout each floor are now much more random\n- Pets and charmed creatures will always focus on Hunter's Marked targets\n- Number of chests/stands/fountains/traders per floor changed based on the adventure selected\n- Card energy (mana) gained from attack reduced by 20%\n- Card energy (mana) gained from recycled cards reduced by 80%\n- Healing Potion heals for 5, Water Bottle heals for 2, and Rejuvenation/Fountains heal for 8\n- Reviving a player by any means removes Stunned and Frozen effects\n- Player summons (Ballistas, Detect Enemies, Verochka, etc) inflict effects on enemies who hit them\n- Some abilities (Acid Spit, Sigataur Javelin, Turrets, etc) now have added secondary effects\n- Attacks and critical hits always have a 2% chance to heal players for 1 and 2 health respectively\n- Class turn order starts as Bard, Guardian, Warlock, Sorcerer, Barbarian, Hunter and then Assassin\n- TorchLightes last 15 rounds and placed TorchLightes have 4 health instead of 15\n- Arly Owl's health is now 8 and movement is now 5\n- Arly Owl's panic shot now also Nets non-bosses so they can't move unless they use an ability to do so\n- A NEW Energy Potion loot card that affects all players in mysterious ways\n- Elementals, Giant Slimes, and the Elven Queen will counter-attack for 1 when hit with melee damage\n- Each floor's original keyholder start with 1 innate damage resist and 1 counter-attack to melee\n- When a player is holding a key they gain 1 damage resist and 1 counter-attack to melee\n- All bosses will start with more health, are immune to Barbarian's Net, and have 1 innate damage resist\n- The Elven Queen has new self buffs and abilities to add more of a challenge\n- If playing Roots of Evil the players with javelins will be first in turn order on the LAST floor";
 
             var piecesAdjustedRule = new PieceConfigAdjustedRule(new List<PieceConfigAdjustedRule.PieceProperty>
             {
@@ -46,7 +46,7 @@
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.Tornado, Property = "ActionPoint", Value = 2 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.Tornado, Property = "AliveForRounds", Value = 2 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.Barricade, Property = "StartHealth", Value = 8 },
-                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.Lure, Property = "StartHealth", Value = 12 },
+                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.MonsterBait, Property = "StartHealth", Value = 12 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.PoisonousRat, Property = "PreciseHealth", Value = 1 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.PoisonousRat, Property = "PreciseAttack", Value = 1 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.PoisonousRat, Property = "StartHealth", Value = 2 },
@@ -458,7 +458,7 @@
             var barbarianCards = new List<StartCardsModifiedRule.CardConfig>
             {
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Grapple, ReplenishFrequency = 1 },
-                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.HealingPotion, ReplenishFrequency = 0 },
+                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Heal, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.GrapplingPush, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.GrapplingSmash, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.GrapplingTotem, ReplenishFrequency = 0 },
@@ -468,7 +468,7 @@
             var warlockCards = new List<StartCardsModifiedRule.CardConfig>
             {
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.GuidingLight, ReplenishFrequency = 0 },
-                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.HealingPotion, ReplenishFrequency = 0 },
+                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Heal, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Implode, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.MissileSwarm, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Deflect, ReplenishFrequency = 0 },
@@ -477,48 +477,48 @@
             };
             var bardCards = new List<StartCardsModifiedRule.CardConfig>
             {
-                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.CourageShanty, ReplenishFrequency = 1 },
-                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.HealingPotion, ReplenishFrequency = 0 },
-                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.HurricaneAnthem, ReplenishFrequency = 0 },
+                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.StrengthenCourage, ReplenishFrequency = 1 },
+                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Heal, ReplenishFrequency = 0 },
+                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Tornado, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.SongOfRecovery, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.ShatteringVoice, ReplenishFrequency = 0 },
-                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.PiercingVoice, ReplenishFrequency = 0 },
+                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.NotesOfConfusion, ReplenishFrequency = 0 },
             };
             var guardianCards = new List<StartCardsModifiedRule.CardConfig>
             {
-                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.HealingPotion, ReplenishFrequency = 0 },
-                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.WhirlwindAttack, ReplenishFrequency = 0 },
-                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.PiercingThrow, ReplenishFrequency = 0 },
+                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Heal, ReplenishFrequency = 0 },
+                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Whirlwind, ReplenishFrequency = 0 },
+                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.PiercingSpear, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Charge, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.WarCry, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.ReplenishArmor, ReplenishFrequency = 1 },
             };
             var hunterCards = new List<StartCardsModifiedRule.CardConfig>
             {
-                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Arrow, ReplenishFrequency = 1 },
-                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Arrow, ReplenishFrequency = 1 },
-                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.HealingPotion, ReplenishFrequency = 0 },
-                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.HailOfArrows, ReplenishFrequency = 0 },
+                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.HunterArrow, ReplenishFrequency = 1 },
+                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.HunterArrow, ReplenishFrequency = 1 },
+                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Heal, ReplenishFrequency = 0 },
+                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.SplittingArrow, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.PoisonedTip, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.CallCompanion, ReplenishFrequency = 0 },
-                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Lure, ReplenishFrequency = 0 },
+                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.MonsterBait, ReplenishFrequency = 0 },
             };
             var assassinCards = new List<StartCardsModifiedRule.CardConfig>
             {
-                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Sneak, ReplenishFrequency = 1 },
-                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.HealingPotion, ReplenishFrequency = 0 },
+                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Stealth, ReplenishFrequency = 1 },
+                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Heal, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Blink, ReplenishFrequency = 0 },
-                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.PoisonBomb, ReplenishFrequency = 0 },
+                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.PoisonGasGrenade, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.CursedDagger, ReplenishFrequency = 0 },
-                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.FlashBomb, ReplenishFrequency = 0 },
+                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Flashbang, ReplenishFrequency = 0 },
             };
             var sorcererCards = new List<StartCardsModifiedRule.CardConfig>
             {
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Zap, ReplenishFrequency = 1 },
-                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.HealingPotion, ReplenishFrequency = 0 },
+                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Heal, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Fireball, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Freeze, ReplenishFrequency = 0 },
-                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Vortex, ReplenishFrequency = 0 },
+                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.VortexDust, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Banish, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Overcharge, ReplenishFrequency = 1 },
             };
@@ -538,15 +538,15 @@
                 {
                     BoardPieceId.HeroBarbarian, new List<AbilityKey>
                     {
-                        AbilityKey.DetectEnemies,
-                        AbilityKey.HealingPotion,
-                        AbilityKey.Teleportation,
+                        AbilityKey.DetectStealthedUnits,
+                        AbilityKey.Heal,
+                        AbilityKey.Teleport,
                         AbilityKey.DamageResistPotion,
                         AbilityKey.InvisibilityPotion,
-                        AbilityKey.StrengthPotion,
-                        AbilityKey.SwiftnessPotion,
+                        AbilityKey.Strength,
+                        AbilityKey.Speed,
                         AbilityKey.ExtraActionPotion,
-                        AbilityKey.HeavensFury,
+                        AbilityKey.GodsFury,
                         AbilityKey.GrapplingTotem,
                         AbilityKey.PlayerLeap,
                         AbilityKey.MarkOfVerga,
@@ -567,159 +567,159 @@
                 {
                     BoardPieceId.HeroGuardian, new List<AbilityKey>
                     {
-                        AbilityKey.DetectEnemies,
-                        AbilityKey.HealingPotion,
-                        AbilityKey.Teleportation,
+                        AbilityKey.DetectStealthedUnits,
+                        AbilityKey.Heal,
+                        AbilityKey.Teleport,
                         AbilityKey.DamageResistPotion,
                         AbilityKey.InvisibilityPotion,
-                        AbilityKey.StrengthPotion,
-                        AbilityKey.SwiftnessPotion,
+                        AbilityKey.Strength,
+                        AbilityKey.Speed,
                         AbilityKey.ExtraActionPotion,
-                        AbilityKey.HeavensFury,
-                        AbilityKey.HealingWard,
-                        AbilityKey.WhirlwindAttack,
+                        AbilityKey.GodsFury,
+                        AbilityKey.BeaconOfHealing,
+                        AbilityKey.Whirlwind,
                         AbilityKey.WarCry,
-                        AbilityKey.PiercingThrow,
+                        AbilityKey.PiercingSpear,
                         AbilityKey.Charge,
-                        AbilityKey.HealingWard,
-                        AbilityKey.WhirlwindAttack,
+                        AbilityKey.BeaconOfHealing,
+                        AbilityKey.Whirlwind,
                         AbilityKey.WarCry,
-                        AbilityKey.TheBehemoth,
-                        AbilityKey.PiercingThrow,
+                        AbilityKey.BeaconOfSmite,
+                        AbilityKey.PiercingSpear,
                         AbilityKey.Charge,
-                        AbilityKey.WhirlwindAttack,
+                        AbilityKey.Whirlwind,
                         AbilityKey.WarCry,
-                        AbilityKey.TheBehemoth,
-                        AbilityKey.PiercingThrow,
+                        AbilityKey.BeaconOfSmite,
+                        AbilityKey.PiercingSpear,
                     }
                 },
                 {
                     BoardPieceId.HeroBard, new List<AbilityKey>
                     {
-                        AbilityKey.DetectEnemies,
-                        AbilityKey.HealingPotion,
-                        AbilityKey.Teleportation,
+                        AbilityKey.DetectStealthedUnits,
+                        AbilityKey.Heal,
+                        AbilityKey.Teleport,
                         AbilityKey.DamageResistPotion,
                         AbilityKey.InvisibilityPotion,
-                        AbilityKey.StrengthPotion,
-                        AbilityKey.SwiftnessPotion,
+                        AbilityKey.Strength,
+                        AbilityKey.Speed,
                         AbilityKey.ExtraActionPotion,
-                        AbilityKey.HeavensFury,
+                        AbilityKey.GodsFury,
                         AbilityKey.SongOfRecovery,
                         AbilityKey.SongOfResilience,
                         AbilityKey.BlockAbilities,
-                        AbilityKey.PiercingVoice,
+                        AbilityKey.NotesOfConfusion,
                         AbilityKey.ShatteringVoice,
                         AbilityKey.SongOfRecovery,
-                        AbilityKey.ScrollOfCharm,
+                        AbilityKey.Confuse,
                         AbilityKey.SongOfResilience,
                         AbilityKey.ShatteringVoice,
-                        AbilityKey.HurricaneAnthem,
-                        AbilityKey.ScrollOfCharm,
+                        AbilityKey.Tornado,
+                        AbilityKey.Confuse,
                         AbilityKey.SongOfRecovery,
                         AbilityKey.SongOfResilience,
                         AbilityKey.ShatteringVoice,
-                        AbilityKey.HurricaneAnthem,
+                        AbilityKey.Tornado,
                     }
                 },
                 {
                     BoardPieceId.HeroHunter, new List<AbilityKey>
                     {
-                        AbilityKey.DetectEnemies,
-                        AbilityKey.HealingPotion,
-                        AbilityKey.Teleportation,
+                        AbilityKey.DetectStealthedUnits,
+                        AbilityKey.Heal,
+                        AbilityKey.Teleport,
                         AbilityKey.DamageResistPotion,
                         AbilityKey.InvisibilityPotion,
-                        AbilityKey.StrengthPotion,
-                        AbilityKey.SwiftnessPotion,
+                        AbilityKey.Strength,
+                        AbilityKey.Speed,
                         AbilityKey.ExtraActionPotion,
-                        AbilityKey.HeavensFury,
-                        AbilityKey.ScrollOfCharm,
-                        AbilityKey.BeastWhisperer,
+                        AbilityKey.GodsFury,
+                        AbilityKey.Confuse,
+                        AbilityKey.RatWhisperer,
                         AbilityKey.CallCompanion,
                         AbilityKey.PoisonedTip,
-                        AbilityKey.HuntersMark,
-                        AbilityKey.Lure,
-                        AbilityKey.ScrollOfCharm,
-                        AbilityKey.BeastWhisperer,
-                        AbilityKey.HailOfArrows,
+                        AbilityKey.MarkOfAvalon,
+                        AbilityKey.MonsterBait,
+                        AbilityKey.Confuse,
+                        AbilityKey.RatWhisperer,
+                        AbilityKey.SplittingArrow,
                         AbilityKey.CallCompanion,
                         AbilityKey.PoisonedTip,
-                        AbilityKey.HuntersMark,
-                        AbilityKey.HailOfArrows,
+                        AbilityKey.MarkOfAvalon,
+                        AbilityKey.SplittingArrow,
                         AbilityKey.CallCompanion,
-                        AbilityKey.Lure,
+                        AbilityKey.MonsterBait,
                     }
                 },
                 {
                     BoardPieceId.HeroRogue, new List<AbilityKey>
                     {
-                        AbilityKey.DetectEnemies,
-                        AbilityKey.HealingPotion,
-                        AbilityKey.Teleportation,
+                        AbilityKey.DetectStealthedUnits,
+                        AbilityKey.Heal,
+                        AbilityKey.Teleport,
                         AbilityKey.DamageResistPotion,
                         AbilityKey.InvisibilityPotion,
-                        AbilityKey.StrengthPotion,
-                        AbilityKey.SwiftnessPotion,
+                        AbilityKey.Strength,
+                        AbilityKey.Speed,
                         AbilityKey.ExtraActionPotion,
-                        AbilityKey.HeavensFury,
+                        AbilityKey.GodsFury,
                         AbilityKey.Blink,
-                        AbilityKey.PoisonBomb,
+                        AbilityKey.PoisonGasGrenade,
                         AbilityKey.CoinFlip,
                         AbilityKey.CursedDagger,
-                        AbilityKey.BoobyTrap,
-                        AbilityKey.FlashBomb,
+                        AbilityKey.ProximityMine,
+                        AbilityKey.Flashbang,
                         AbilityKey.Blink,
-                        AbilityKey.PoisonBomb,
+                        AbilityKey.PoisonGasGrenade,
                         AbilityKey.CursedDagger,
-                        AbilityKey.FlashBomb,
+                        AbilityKey.Flashbang,
                         AbilityKey.Blink,
-                        AbilityKey.PoisonBomb,
+                        AbilityKey.PoisonGasGrenade,
                         AbilityKey.CursedDagger,
-                        AbilityKey.BoobyTrap,
-                        AbilityKey.FlashBomb,
+                        AbilityKey.ProximityMine,
+                        AbilityKey.Flashbang,
                     }
                 },
                 {
                     BoardPieceId.HeroSorcerer, new List<AbilityKey>
                     {
-                        AbilityKey.DetectEnemies,
-                        AbilityKey.HealingPotion,
-                        AbilityKey.Teleportation,
+                        AbilityKey.DetectStealthedUnits,
+                        AbilityKey.Heal,
+                        AbilityKey.Teleport,
                         AbilityKey.DamageResistPotion,
                         AbilityKey.InvisibilityPotion,
-                        AbilityKey.SwiftnessPotion,
+                        AbilityKey.Speed,
                         AbilityKey.ExtraActionPotion,
-                        AbilityKey.HeavensFury,
+                        AbilityKey.GodsFury,
                         AbilityKey.MagicPotion,
                         AbilityKey.Banish,
                         AbilityKey.Fireball,
                         AbilityKey.Freeze,
-                        AbilityKey.Vortex,
+                        AbilityKey.VortexDust,
                         AbilityKey.Banish,
                         AbilityKey.Fireball,
                         AbilityKey.Freeze,
                         AbilityKey.MagicShield,
-                        AbilityKey.MagicBarrier,
-                        AbilityKey.Vortex,
+                        AbilityKey.MagicWall,
+                        AbilityKey.VortexDust,
                         AbilityKey.Banish,
                         AbilityKey.Fireball,
                         AbilityKey.Freeze,
-                        AbilityKey.MagicBarrier,
-                        AbilityKey.Vortex,
+                        AbilityKey.MagicWall,
+                        AbilityKey.VortexDust,
                     }
                 },
                 {
                     BoardPieceId.HeroWarlock, new List<AbilityKey>
                     {
-                        AbilityKey.DetectEnemies,
-                        AbilityKey.HealingPotion,
-                        AbilityKey.Teleportation,
+                        AbilityKey.DetectStealthedUnits,
+                        AbilityKey.Heal,
+                        AbilityKey.Teleport,
                         AbilityKey.DamageResistPotion,
                         AbilityKey.InvisibilityPotion,
-                        AbilityKey.SwiftnessPotion,
+                        AbilityKey.Speed,
                         AbilityKey.ExtraActionPotion,
-                        AbilityKey.HeavensFury,
+                        AbilityKey.GodsFury,
                         AbilityKey.MagicPotion,
                         AbilityKey.Deflect,
                         AbilityKey.GuidingLight,
@@ -747,13 +747,13 @@
                     {
                         AbilityKey.Bone,
                         AbilityKey.WebBomb,
-                        AbilityKey.Barricade,
-                        AbilityKey.RepeatingBallista,
-                        AbilityKey.OneMoreThing,
-                        AbilityKey.PanicPowder,
-                        AbilityKey.BottleOfLye,
-                        AbilityKey.IceImmunePotion,
-                        AbilityKey.FireImmunePotion,
+                        AbilityKey.MiniBarricade,
+                        AbilityKey.SwordOfAvalon,
+                        AbilityKey.ExtraActionPotion,
+                        AbilityKey.ScarePowder,
+                        AbilityKey.SodiumHydroxide,
+                        AbilityKey.VialOfIceImmunity,
+                        AbilityKey.VialOfFireImmunity,
                         AbilityKey.ScrollTsunami,
                         AbilityKey.Regroup,
                         AbilityKey.WaterBottle,
@@ -767,18 +767,18 @@
                     {
                         AbilityKey.Bone,
                         AbilityKey.WebBomb,
-                        AbilityKey.Barricade,
-                        AbilityKey.RepeatingBallista,
-                        AbilityKey.OneMoreThing,
-                        AbilityKey.PanicPowder,
-                        AbilityKey.BottleOfLye,
-                        AbilityKey.IceImmunePotion,
+                        AbilityKey.MiniBarricade,
+                        AbilityKey.SwordOfAvalon,
+                        AbilityKey.ExtraActionPotion,
+                        AbilityKey.ScarePowder,
+                        AbilityKey.SodiumHydroxide,
+                        AbilityKey.VialOfIceImmunity,
                         AbilityKey.ScrollTsunami,
                         AbilityKey.Regroup,
                         AbilityKey.WaterBottle,
                         AbilityKey.LuckPotion,
                         AbilityKey.ScrollElectricity,
-                        AbilityKey.WhirlwindAttack,
+                        AbilityKey.Whirlwind,
                     }
                 },
                 {
@@ -786,36 +786,36 @@
                     {
                         AbilityKey.Bone,
                         AbilityKey.WebBomb,
-                        AbilityKey.Barricade,
-                        AbilityKey.RepeatingBallista,
-                        AbilityKey.OneMoreThing,
-                        AbilityKey.BottleOfLye,
-                        AbilityKey.IceImmunePotion,
-                        AbilityKey.FireImmunePotion,
+                        AbilityKey.MiniBarricade,
+                        AbilityKey.SwordOfAvalon,
+                        AbilityKey.ExtraActionPotion,
+                        AbilityKey.SodiumHydroxide,
+                        AbilityKey.VialOfIceImmunity,
+                        AbilityKey.VialOfFireImmunity,
                         AbilityKey.ScrollTsunami,
                         AbilityKey.Regroup,
                         AbilityKey.WaterBottle,
                         AbilityKey.LuckPotion,
                         AbilityKey.ScrollElectricity,
-                        AbilityKey.ScrollOfCharm,
+                        AbilityKey.Confuse,
                     }
                 },
                 {
                     BoardPieceId.HeroHunter, new List<AbilityKey>
                     {
                         AbilityKey.WebBomb,
-                        AbilityKey.Barricade,
-                        AbilityKey.RepeatingBallista,
-                        AbilityKey.OneMoreThing,
-                        AbilityKey.PanicPowder,
-                        AbilityKey.BottleOfLye,
-                        AbilityKey.FireImmunePotion,
+                        AbilityKey.MiniBarricade,
+                        AbilityKey.SwordOfAvalon,
+                        AbilityKey.ExtraActionPotion,
+                        AbilityKey.ScarePowder,
+                        AbilityKey.SodiumHydroxide,
+                        AbilityKey.VialOfFireImmunity,
                         AbilityKey.ScrollTsunami,
                         AbilityKey.Regroup,
                         AbilityKey.WaterBottle,
                         AbilityKey.LuckPotion,
                         AbilityKey.ScrollElectricity,
-                        AbilityKey.HuntersMark,
+                        AbilityKey.MarkOfAvalon,
                     }
                 },
                 {
@@ -823,12 +823,12 @@
                     {
                         AbilityKey.Bone,
                         AbilityKey.WebBomb,
-                        AbilityKey.RepeatingBallista,
-                        AbilityKey.OneMoreThing,
-                        AbilityKey.PanicPowder,
-                        AbilityKey.BottleOfLye,
-                        AbilityKey.IceImmunePotion,
-                        AbilityKey.FireImmunePotion,
+                        AbilityKey.SwordOfAvalon,
+                        AbilityKey.ExtraActionPotion,
+                        AbilityKey.ScarePowder,
+                        AbilityKey.SodiumHydroxide,
+                        AbilityKey.VialOfIceImmunity,
+                        AbilityKey.VialOfFireImmunity,
                         AbilityKey.ScrollTsunami,
                         AbilityKey.Regroup,
                         AbilityKey.WaterBottle,
@@ -842,13 +842,13 @@
                     {
                         AbilityKey.Bone,
                         AbilityKey.WebBomb,
-                        AbilityKey.Barricade,
-                        AbilityKey.RepeatingBallista,
-                        AbilityKey.OneMoreThing,
-                        AbilityKey.PanicPowder,
-                        AbilityKey.BottleOfLye,
-                        AbilityKey.IceImmunePotion,
-                        AbilityKey.FireImmunePotion,
+                        AbilityKey.MiniBarricade,
+                        AbilityKey.SwordOfAvalon,
+                        AbilityKey.ExtraActionPotion,
+                        AbilityKey.ScarePowder,
+                        AbilityKey.SodiumHydroxide,
+                        AbilityKey.VialOfIceImmunity,
+                        AbilityKey.VialOfFireImmunity,
                         AbilityKey.ScrollTsunami,
                         AbilityKey.Regroup,
                         AbilityKey.LuckPotion,
@@ -861,13 +861,13 @@
                     {
                         AbilityKey.Bone,
                         AbilityKey.WebBomb,
-                        AbilityKey.Barricade,
-                        AbilityKey.RepeatingBallista,
-                        AbilityKey.OneMoreThing,
-                        AbilityKey.PanicPowder,
-                        AbilityKey.BottleOfLye,
-                        AbilityKey.IceImmunePotion,
-                        AbilityKey.FireImmunePotion,
+                        AbilityKey.MiniBarricade,
+                        AbilityKey.SwordOfAvalon,
+                        AbilityKey.ExtraActionPotion,
+                        AbilityKey.ScarePowder,
+                        AbilityKey.SodiumHydroxide,
+                        AbilityKey.VialOfIceImmunity,
+                        AbilityKey.VialOfFireImmunity,
                         AbilityKey.ScrollTsunami,
                         AbilityKey.Regroup,
                         AbilityKey.WaterBottle,
@@ -886,11 +886,11 @@
                         AbilityKey.Rejuvenation,
                         AbilityKey.DamageResistPotion,
                         AbilityKey.InvisibilityPotion,
-                        AbilityKey.AdamantPotion,
+                        AbilityKey.DamageResistPotion,
                         AbilityKey.LuckPotion,
                         AbilityKey.ExtraActionPotion,
-                        AbilityKey.StrengthPotion,
-                        AbilityKey.SwiftnessPotion,
+                        AbilityKey.Strength,
+                        AbilityKey.Speed,
                         AbilityKey.VigorPotion,
                     }
                 },
@@ -900,11 +900,11 @@
                         AbilityKey.Rejuvenation,
                         AbilityKey.DamageResistPotion,
                         AbilityKey.InvisibilityPotion,
-                        AbilityKey.AdamantPotion,
+                        AbilityKey.DamageResistPotion,
                         AbilityKey.LuckPotion,
                         AbilityKey.ExtraActionPotion,
-                        AbilityKey.StrengthPotion,
-                        AbilityKey.SwiftnessPotion,
+                        AbilityKey.Strength,
+                        AbilityKey.Speed,
                         AbilityKey.VigorPotion,
                     }
                 },
@@ -914,11 +914,11 @@
                         AbilityKey.Rejuvenation,
                         AbilityKey.DamageResistPotion,
                         AbilityKey.InvisibilityPotion,
-                        AbilityKey.AdamantPotion,
+                        AbilityKey.DamageResistPotion,
                         AbilityKey.LuckPotion,
                         AbilityKey.ExtraActionPotion,
-                        AbilityKey.StrengthPotion,
-                        AbilityKey.SwiftnessPotion,
+                        AbilityKey.Strength,
+                        AbilityKey.Speed,
                         AbilityKey.VigorPotion,
                     }
                 },
@@ -928,11 +928,11 @@
                         AbilityKey.Rejuvenation,
                         AbilityKey.DamageResistPotion,
                         AbilityKey.InvisibilityPotion,
-                        AbilityKey.AdamantPotion,
+                        AbilityKey.DamageResistPotion,
                         AbilityKey.LuckPotion,
                         AbilityKey.ExtraActionPotion,
-                        AbilityKey.StrengthPotion,
-                        AbilityKey.SwiftnessPotion,
+                        AbilityKey.Strength,
+                        AbilityKey.Speed,
                         AbilityKey.VigorPotion,
                     }
                 },
@@ -942,11 +942,11 @@
                         AbilityKey.Rejuvenation,
                         AbilityKey.DamageResistPotion,
                         AbilityKey.InvisibilityPotion,
-                        AbilityKey.AdamantPotion,
+                        AbilityKey.DamageResistPotion,
                         AbilityKey.LuckPotion,
                         AbilityKey.ExtraActionPotion,
-                        AbilityKey.StrengthPotion,
-                        AbilityKey.SwiftnessPotion,
+                        AbilityKey.Strength,
+                        AbilityKey.Speed,
                         AbilityKey.VigorPotion,
                     }
                 },
@@ -956,11 +956,11 @@
                         AbilityKey.Rejuvenation,
                         AbilityKey.DamageResistPotion,
                         AbilityKey.InvisibilityPotion,
-                        AbilityKey.AdamantPotion,
+                        AbilityKey.DamageResistPotion,
                         AbilityKey.LuckPotion,
                         AbilityKey.ExtraActionPotion,
                         AbilityKey.MagicPotion,
-                        AbilityKey.SwiftnessPotion,
+                        AbilityKey.Speed,
                         AbilityKey.VigorPotion,
                     }
                 },
@@ -969,11 +969,11 @@
                     {
                         AbilityKey.DamageResistPotion,
                         AbilityKey.InvisibilityPotion,
-                        AbilityKey.AdamantPotion,
+                        AbilityKey.DamageResistPotion,
                         AbilityKey.LuckPotion,
                         AbilityKey.ExtraActionPotion,
                         AbilityKey.MagicPotion,
-                        AbilityKey.SwiftnessPotion,
+                        AbilityKey.Speed,
                         AbilityKey.VigorPotion,
                     }
                 },
@@ -993,7 +993,7 @@
                 { BoardPieceId.ElvenArcher, new List<AbilityKey> { AbilityKey.EnemyMelee, AbilityKey.EnemyArrowSnipe, AbilityKey.EnemyFrostball } },
                 { BoardPieceId.ElvenCultist, new List<AbilityKey> { AbilityKey.EnemyMelee, AbilityKey.LeechMelee } },
                 { BoardPieceId.TheUnseen, new List<AbilityKey> { AbilityKey.EnemyMelee, AbilityKey.Zap } },
-                { BoardPieceId.ElvenQueen, new List<AbilityKey> { AbilityKey.SummonBossMinions, AbilityKey.LightningBolt, AbilityKey.Shockwave, AbilityKey.EnemyFrostball } },
+                { BoardPieceId.ElvenQueen, new List<AbilityKey> { AbilityKey.SpawnBossMinions, AbilityKey.LightningBolt, AbilityKey.Shockwave, AbilityKey.EnemyFrostball } },
                 { BoardPieceId.GoblinFighter, new List<AbilityKey> { AbilityKey.EnemyMelee, AbilityKey.EnemyFlashbang } },
                 { BoardPieceId.PoisonousRat, new List<AbilityKey> { AbilityKey.EnemyMelee, AbilityKey.DiseasedBite } },
                 { BoardPieceId.ElvenSkirmisher, new List<AbilityKey> { AbilityKey.EnemyMelee, AbilityKey.EnemyPikeMeleeAttack } },
@@ -1082,7 +1082,7 @@
             {
                 { BoardPieceId.HealingBeacon, EffectStateType.Diseased },
                 { BoardPieceId.SwordOfAvalon, EffectStateType.Diseased },
-                { BoardPieceId.Lure, EffectStateType.Thorns },
+                { BoardPieceId.MonsterBait, EffectStateType.Thorns },
                 { BoardPieceId.SmiteWard, EffectStateType.Diseased },
                 { BoardPieceId.Verochka, EffectStateType.Panic },
                 { BoardPieceId.HeroWarlock, EffectStateType.ExposeEnergy },
@@ -1095,7 +1095,7 @@
 
             var targetEffectRule = new AbilityTargetEffectsRule(new Dictionary<AbilityKey, List<EffectStateType>>
             {
-                { AbilityKey.SigataurianJavelin, new List<EffectStateType> { EffectStateType.Weaken1Turn } },
+                { AbilityKey.Javelin, new List<EffectStateType> { EffectStateType.Weaken1Turn } },
                 { AbilityKey.PVPBlink, new List<EffectStateType> { EffectStateType.Weaken1Turn, EffectStateType.Disoriented } },
                 { AbilityKey.PanicPowderArrow, new List<EffectStateType> { EffectStateType.Panic, EffectStateType.Netted } },
                 { AbilityKey.TurretDamageProjectile, new List<EffectStateType> { EffectStateType.Tangled } },
@@ -1121,7 +1121,7 @@
             var abilityActionCostRule = new AbilityActionCostAdjustedRule(new Dictionary<AbilityKey, bool>
             {
                 { AbilityKey.Grab, false },
-                { AbilityKey.SpellPowerPotion, false },
+                { AbilityKey.SpellPower, false },
                 { AbilityKey.PVPBlink, false },
                 { AbilityKey.PVPMissileSwarm, false },
                 { AbilityKey.PVPFireball, false },
@@ -1140,7 +1140,7 @@
 
             var abilityHealOverriddenRule = new AbilityHealOverriddenRule(new Dictionary<AbilityKey, int>
             {
-                { AbilityKey.HealingPotion, 5 },
+                { AbilityKey.Heal, 5 },
                 { AbilityKey.Rejuvenation, 8 },
                 { AbilityKey.AltarHeal, 8 },
                 { AbilityKey.WaterBottle, 2 },
@@ -1150,8 +1150,8 @@
             var abilityDamageAllRule = new AbilityDamageAllOverriddenRule(new Dictionary<AbilityKey, List<int>>
             {
                 { AbilityKey.ShatteringVoice, new List<int> { 3, 6, 3, 6 } },
-                { AbilityKey.PiercingVoice, new List<int> { 2, 4, 2, 4 } },
-                { AbilityKey.Arrow, new List<int> { 3, 8, 3, 8 } },
+                { AbilityKey.NotesOfConfusion, new List<int> { 2, 4, 2, 4 } },
+                { AbilityKey.HunterArrow, new List<int> { 3, 8, 3, 8 } },
                 { AbilityKey.Electricity, new List<int> { 3, 5, 1, 2 } },
                 { AbilityKey.PVPBlink, new List<int> { 9, 18, 9, 18 } },
                 { AbilityKey.GrapplingPush, new List<int> { 2, 4, 2, 4 } },
@@ -1174,15 +1174,15 @@
 
             var abilityBackstabRule = new AbilityBackstabAdjustedRule(new Dictionary<AbilityKey, bool>
             {
-                { AbilityKey.PiercingVoice, true },
+                { AbilityKey.NotesOfConfusion, true },
                 { AbilityKey.ShatteringVoice, true },
                 { AbilityKey.DiseasedBite, true },
             });
 
             var breaksStealthRule = new AbilityBreaksStealthAdjustedRule(new Dictionary<AbilityKey, bool>
             {
-                { AbilityKey.PoisonBomb, false },
-                { AbilityKey.FlashBomb, false },
+                { AbilityKey.PoisonGasGrenade, false },
+                { AbilityKey.Flashbang, false },
                 { AbilityKey.DiseasedBite, false },
                 { AbilityKey.PVPFireball, false },
             });
@@ -1214,9 +1214,9 @@
                 { AbilityKey.PoisonGas, 1 },
                 { AbilityKey.SongOfRecovery, 2 },
                 { AbilityKey.SongOfResilience, 2 },
-                { AbilityKey.FlashBomb, 1 },
+                { AbilityKey.Flashbang, 1 },
                 { AbilityKey.WarCry, 1 },
-                { AbilityKey.WhirlwindAttack, 1 },
+                { AbilityKey.Whirlwind, 1 },
                 { AbilityKey.Deflect, 2 },
                 { AbilityKey.BlindingLight, 1 },
                 { AbilityKey.BlockAbilities, 1 },
@@ -1228,7 +1228,7 @@
 
             var abilityRandomPieceRule = new AbilityRandomPieceListRule(new Dictionary<AbilityKey, List<BoardPieceId>>
             {
-                { AbilityKey.BeastWhisperer, new List<BoardPieceId> { BoardPieceId.PoisonousRat, BoardPieceId.Spider } },
+                { AbilityKey.RatWhisperer, new List<BoardPieceId> { BoardPieceId.PoisonousRat, BoardPieceId.Spider } },
             });
 
             var tileEffectRule = new TileEffectDurationOverriddenRule(new Dictionary<TileEffect, int>
@@ -1331,9 +1331,9 @@
             {
                 { BoardPieceId.HeroHunter, AbilityKey.Bone },
                 { BoardPieceId.HeroSorcerer, AbilityKey.WaterBottle },
-                { BoardPieceId.HeroBard, AbilityKey.PanicPowder },
+                { BoardPieceId.HeroBard, AbilityKey.ScarePowder },
                 { BoardPieceId.HeroBarbarian, AbilityKey.SpawnRandomLamp },
-                { BoardPieceId.HeroWarlock, AbilityKey.SpellPowerPotion },
+                { BoardPieceId.HeroWarlock, AbilityKey.SpellPower },
             });
 
             var statusEffectRule = new StatusEffectConfigRule(new List<StatusEffectData>
@@ -1453,7 +1453,7 @@
 
             var pieceExtraImmunitiesRule = new PieceExtraImmunitiesRule(true);
             var partyElectricityRule = new PartyElectricityDamageOverriddenRule(true);
-            var petsFocusHuntersMarkRule = new PetsFocusHunterMarkRule(true);
+            var petsFocusMarkOfAvalonRule = new PetsFocusHunterMarkRule(true);
             var enemyRespawnDisabledRule = new EnemyRespawnDisabledRule(true);
             var cardEnergyFromAttackRule = new CardEnergyFromAttackMultipliedRule(1.0f);
             var cardEnergyFromRecyclingRule = new CardEnergyFromRecyclingMultipliedRule(0.3f);
@@ -1464,7 +1464,7 @@
             var progressLostRule = new PieceProgressLostRule(true);
             var goldPickupRule = new GoldPickedUpMultipliedRule(1);
             var reviveEffectsRule = new ReviveRemovesEffectsRule(true);
-            var courageShantyRule = new CourageShantyAddsHpRule(1);
+            var courageShantyRule = new StrengthenCourageAddsHpRule(1);
             var tickRule = new TickAdjustedRule(true);
             var queenBuffsRule = new ElvenQueenBuffsRule(true);
             var grappleUnhookedRule = new GrappleUnhookedRule(true);
@@ -1522,7 +1522,7 @@
                 abilityDamageAllRule,
                 partyElectricityRule,
                 pieceExtraImmunitiesRule,
-                petsFocusHuntersMarkRule,
+                petsFocusMarkOfAvalonRule,
                 enemyRespawnDisabledRule,
                 cardEnergyFromAttackRule,
                 cardEnergyFromRecyclingRule,

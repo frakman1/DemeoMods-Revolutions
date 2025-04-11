@@ -19,7 +19,7 @@
         /// Initializes a new instance of the <see cref="AbilityRandomPieceListRule"/> class.
         /// </summary>
         /// <param name="adjustments">Dict of ability name string and list of BoardPieceIDs.</param>
-        /// <remarks>Replaces the list of pieces that certain abilities will spawn (e.g. BeastWhisperer, SpawnCultists etc).</remarks>
+        /// <remarks>Replaces the list of pieces that certain abilities will spawn (e.g. RatWhisperer, SpawnCultists etc).</remarks>
         public AbilityRandomPieceListRule(Dictionary<AbilityKey, List<BoardPieceId>> adjustments)
         {
             _adjustments = adjustments;

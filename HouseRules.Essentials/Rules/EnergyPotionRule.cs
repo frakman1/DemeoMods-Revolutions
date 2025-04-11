@@ -77,7 +77,7 @@
                         for (int i = 0; i < piece.inventory.Items.Count; i++)
                         {
                             value = piece.inventory.Items[i];
-                            if (value.abilityKey == AbilityKey.ImplosionExplosionRain)
+                            if (value.AbilityKey == AbilityKey.ImplosionExplosionRain)
                             {
                                 if (value.IsReplenishing)
                                 {
@@ -100,7 +100,7 @@
                         for (int i = 0; i < piece.inventory.Items.Count; i++)
                         {
                             value = piece.inventory.Items[i];
-                            if (value.abilityKey == AbilityKey.LeapHeavy)
+                            if (value.AbilityKey == AbilityKey.LeapHeavy)
                             {
                                 if (value.IsReplenishing)
                                 {
@@ -123,7 +123,7 @@
                         for (int i = 0; i < piece.inventory.Items.Count; i++)
                         {
                             value = piece.inventory.Items[i];
-                            if (value.abilityKey == AbilityKey.PVPMissileSwarm)
+                            if (value.AbilityKey == AbilityKey.PVPMissileSwarm)
                             {
                                 if (value.IsReplenishing)
                                 {
@@ -146,7 +146,7 @@
                         for (int i = 0; i < piece.inventory.Items.Count; i++)
                         {
                             value = piece.inventory.Items[i];
-                            if (value.abilityKey == AbilityKey.PVPBlink)
+                            if (value.AbilityKey == AbilityKey.PVPBlink)
                             {
                                 if (value.IsReplenishing)
                                 {
@@ -169,7 +169,7 @@
                         for (int i = 0; i < piece.inventory.Items.Count; i++)
                         {
                             value = piece.inventory.Items[i];
-                            if (value.abilityKey == AbilityKey.DeathBeam)
+                            if (value.AbilityKey == AbilityKey.DeathBeam)
                             {
                                 if (value.IsReplenishing)
                                 {
@@ -192,7 +192,7 @@
                         for (int i = 0; i < piece.inventory.Items.Count; i++)
                         {
                             value = piece.inventory.Items[i];
-                            if (value.abilityKey == AbilityKey.PVPFireball)
+                            if (value.AbilityKey == AbilityKey.PVPFireball)
                             {
                                 if (value.IsReplenishing)
                                 {
@@ -215,7 +215,7 @@
                         for (int i = 0; i < piece.inventory.Items.Count; i++)
                         {
                             value = piece.inventory.Items[i];
-                            if (value.abilityKey == AbilityKey.WeakeningShout)
+                            if (value.AbilityKey == AbilityKey.WeakeningShout)
                             {
                                 if (value.IsReplenishing)
                                 {
@@ -267,7 +267,7 @@
                     for (var i = 0; i < piece.inventory.Items.Count; i++)
                     {
                         value = piece.inventory.Items[i];
-                        if (value.abilityKey == AbilityKey.ImplosionExplosionRain)
+                        if (value.AbilityKey == AbilityKey.ImplosionExplosionRain)
                         {
                             hasPower = true;
                             break;
@@ -292,7 +292,7 @@
                     for (var i = 0; i < piece.inventory.Items.Count; i++)
                     {
                         value = piece.inventory.Items[i];
-                        if (value.abilityKey == AbilityKey.LeapHeavy)
+                        if (value.AbilityKey == AbilityKey.LeapHeavy)
                         {
                             hasPower = true;
                             break;
@@ -317,13 +317,13 @@
                     for (var i = 0; i < piece.inventory.Items.Count; i++)
                     {
                         value = piece.inventory.Items[i];
-                        if (value.abilityKey == AbilityKey.PVPMissileSwarm)
+                        if (value.AbilityKey == AbilityKey.PVPMissileSwarm)
                         {
                             hasPower = true;
                             break;
                         }
 
-                        if (value.abilityKey == AbilityKey.Zap)
+                        if (value.AbilityKey == AbilityKey.Zap)
                         {
                             piece.inventory.Items.Remove(value);
                             Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
@@ -349,7 +349,7 @@
                     for (var i = 0; i < piece.inventory.Items.Count; i++)
                     {
                         value = piece.inventory.Items[i];
-                        if (value.abilityKey == AbilityKey.PVPBlink)
+                        if (value.AbilityKey == AbilityKey.PVPBlink)
                         {
                             hasPower = true;
                             break;
@@ -374,7 +374,7 @@
                     for (var i = 0; i < piece.inventory.Items.Count; i++)
                     {
                         value = piece.inventory.Items[i];
-                        if (value.abilityKey == AbilityKey.DeathBeam)
+                        if (value.AbilityKey == AbilityKey.DeathBeam)
                         {
                             hasPower = true;
                             break;
@@ -399,7 +399,7 @@
                     for (var i = 0; i < piece.inventory.Items.Count; i++)
                     {
                         value = piece.inventory.Items[i];
-                        if (value.abilityKey == AbilityKey.PVPFireball)
+                        if (value.AbilityKey == AbilityKey.PVPFireball)
                         {
                             hasPower = true;
                             break;
@@ -424,7 +424,7 @@
                     for (var i = 0; i < piece.inventory.Items.Count; i++)
                     {
                         value = piece.inventory.Items[i];
-                        if (value.abilityKey == AbilityKey.WeakeningShout)
+                        if (value.AbilityKey == AbilityKey.WeakeningShout)
                         {
                             hasPower = true;
                             break;

@@ -48,7 +48,7 @@
                 AbilityFactory.GetAbility(AbilityKey.TurretHealProjectile).hasCardHandSortingPriority = true;
 
                 // bard.
-                AbilityFactory.GetAbility(AbilityKey.CourageShanty).hasCardHandSortingPriority = true;
+                AbilityFactory.GetAbility(AbilityKey.StrengthenCourage).hasCardHandSortingPriority = true;
                 AbilityFactory.GetAbility(AbilityKey.DrainingKiss).hasCardHandSortingPriority = true;
 
                 // hunter.
@@ -57,7 +57,7 @@
                 AbilityFactory.GetAbility(AbilityKey.TornadoCharge).hasCardHandSortingPriority = true;
 
                 // assassin.
-                AbilityFactory.GetAbility(AbilityKey.Sneak).hasCardHandSortingPriority = true;
+                AbilityFactory.GetAbility(AbilityKey.Stealth).hasCardHandSortingPriority = true;
                 AbilityFactory.GetAbility(AbilityKey.EnemyJavelin).hasCardHandSortingPriority = true;
                 AbilityFactory.GetAbility(AbilityKey.DiseasedBite).hasCardHandSortingPriority = true;
                 AbilityFactory.GetAbility(AbilityKey.EnemyFireball).hasCardHandSortingPriority = true;
@@ -72,8 +72,8 @@
 
                 // extra adjustments for some abilities.
                 // AbilityFactory.GetAbility(AbilityKey.Grab).maxRange = 15; // only works for the host
-                // AbilityFactory.GetAbility(AbilityKey.BoobyTrap).maxRange = 5; // only works for the host
-                // AbilityFactory.GetAbility(AbilityKey.CourageShanty).mayTargetSelf = true; // only works for the host
+                // AbilityFactory.GetAbility(AbilityKey.ProximityMine).maxRange = 5; // only works for the host
+                // AbilityFactory.GetAbility(AbilityKey.StrengthenCourage).mayTargetSelf = true; // only works for the host
             }
         }
 
@@ -184,7 +184,7 @@
 
                     piece.inventory.Items.Add(new Inventory.Item
                     {
-                        abilityKey = AbilityKey.ScrollOfCharm,
+                        abilityKey = AbilityKey.Confuse,
                         flags = 0,
                         originalOwner = -1,
                         replenishCooldown = 0,
@@ -192,7 +192,7 @@
 
                     piece.inventory.Items.Add(new Inventory.Item
                     {
-                        abilityKey = AbilityKey.HealingPotion,
+                        abilityKey = AbilityKey.Heal,
                         flags = 0,
                         originalOwner = -1,
                         replenishCooldown = 0,
@@ -228,7 +228,7 @@
 
                     piece.inventory.Items.Add(new Inventory.Item
                     {
-                        abilityKey = AbilityKey.HailOfArrows,
+                        abilityKey = AbilityKey.SplittingArrow,
                         flags = 0,
                         originalOwner = -1,
                         replenishCooldown = 0,
@@ -244,7 +244,7 @@
 
                     piece.inventory.Items.Add(new Inventory.Item
                     {
-                        abilityKey = AbilityKey.HealingPotion,
+                        abilityKey = AbilityKey.Heal,
                         flags = 0,
                         originalOwner = -1,
                         replenishCooldown = 0,
@@ -288,7 +288,7 @@
 
                     piece.inventory.Items.Add(new Inventory.Item
                     {
-                        abilityKey = AbilityKey.HealingPotion,
+                        abilityKey = AbilityKey.Heal,
                         flags = 0,
                         originalOwner = -1,
                         replenishCooldown = 0,
@@ -307,7 +307,7 @@
                     Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value = 1;
                     piece.inventory.Items.Add(new Inventory.Item
                     {
-                        abilityKey = AbilityKey.CourageShanty,
+                        abilityKey = AbilityKey.StrengthenCourage,
                         flags = (Inventory.ItemFlag)1,
                         originalOwner = -1,
                         replenishCooldown = 1,
@@ -332,7 +332,7 @@
 
                     piece.inventory.Items.Add(new Inventory.Item
                     {
-                        abilityKey = AbilityKey.HealingPotion,
+                        abilityKey = AbilityKey.Heal,
                         flags = 0,
                         originalOwner = -1,
                         replenishCooldown = 0,
@@ -351,7 +351,7 @@
                     Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value = 1;
                     piece.inventory.Items.Add(new Inventory.Item
                     {
-                        abilityKey = AbilityKey.Sneak,
+                        abilityKey = AbilityKey.Stealth,
                         flags = (Inventory.ItemFlag)1,
                         originalOwner = -1,
                         replenishCooldown = 1,
@@ -377,7 +377,7 @@
 
                     piece.inventory.Items.Add(new Inventory.Item
                     {
-                        abilityKey = AbilityKey.WhirlwindAttack,
+                        abilityKey = AbilityKey.Whirlwind,
                         flags = 0,
                         originalOwner = -1,
                         replenishCooldown = 0,
@@ -385,7 +385,7 @@
 
                     piece.inventory.Items.Add(new Inventory.Item
                     {
-                        abilityKey = AbilityKey.HealingPotion,
+                        abilityKey = AbilityKey.Heal,
                         flags = 0,
                         originalOwner = -1,
                         replenishCooldown = 0,
@@ -429,7 +429,7 @@
 
                     piece.inventory.Items.Add(new Inventory.Item
                     {
-                        abilityKey = AbilityKey.HealingPotion,
+                        abilityKey = AbilityKey.Heal,
                         flags = 0,
                         originalOwner = -1,
                         replenishCooldown = 0,
@@ -472,7 +472,7 @@
 
                     piece.inventory.Items.Add(new Inventory.Item
                     {
-                        abilityKey = AbilityKey.HealingPotion,
+                        abilityKey = AbilityKey.Heal,
                         flags = 0,
                         originalOwner = -1,
                         replenishCooldown = 0,
@@ -534,7 +534,7 @@
                     }
                     else if (piece.boardPieceId == BoardPieceId.HeroBard)
                     {
-                        AbilityFactory.TryGetAbility(AbilityKey.CourageShanty, out var ability);
+                        AbilityFactory.TryGetAbility(AbilityKey.StrengthenCourage, out var ability);
                         ability.costActionPoint = false;
                     }
                     else if (piece.boardPieceId == BoardPieceId.HeroGuardian)
@@ -548,7 +548,7 @@
                     }
                     else if (piece.boardPieceId == BoardPieceId.HeroRogue)
                     {
-                        AbilityFactory.TryGetAbility(AbilityKey.Sneak, out var ability);
+                        AbilityFactory.TryGetAbility(AbilityKey.Stealth, out var ability);
                         ability.costActionPoint = false;
                     }
                     else if (piece.boardPieceId == BoardPieceId.HeroHunter)
@@ -601,7 +601,7 @@
                         });
 
                         piece.TryAddAbilityToInventory(AbilityKey.BlindingLight);
-                        piece.TryAddAbilityToInventory(AbilityKey.PoisonBomb);
+                        piece.TryAddAbilityToInventory(AbilityKey.PoisonGasGrenade);
                         piece.AddGold(0);
                     }
                     else if (piece.boardPieceId == BoardPieceId.HeroGuardian)
@@ -645,7 +645,7 @@
                             replenishCooldown = 1,
                         });
 
-                        piece.TryAddAbilityToInventory(AbilityKey.BoobyTrap);
+                        piece.TryAddAbilityToInventory(AbilityKey.ProximityMine);
                         piece.AddGold(0);
                     }
                     else if (piece.boardPieceId == BoardPieceId.HeroHunter)
@@ -669,7 +669,7 @@
                         });
 
                         piece.TryAddAbilityToInventory(AbilityKey.EnemyFrostball);
-                        piece.TryAddAbilityToInventory(AbilityKey.BeastWhisperer);
+                        piece.TryAddAbilityToInventory(AbilityKey.RatWhisperer);
                         piece.AddGold(0);
                     }
                     else if (piece.boardPieceId == BoardPieceId.HeroSorcerer)

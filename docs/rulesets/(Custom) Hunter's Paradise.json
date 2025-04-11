@@ -16,7 +16,7 @@
             "ReplenishFrequency": 1
           },
           {
-            "Card": "HuntersMark",
+            "Card": "MarkOfAvalon",
             "ReplenishFrequency": 1
           }
         ],
@@ -30,7 +30,7 @@
             "ReplenishFrequency": 1
           },
           {
-            "Card": "HuntersMark",
+            "Card": "MarkOfAvalon",
             "ReplenishFrequency": 1
           }
         ],
@@ -44,7 +44,7 @@
             "ReplenishFrequency": 1
           },
           {
-            "Card": "HuntersMark",
+            "Card": "MarkOfAvalon",
             "ReplenishFrequency": 1
           }
         ],
@@ -58,7 +58,7 @@
             "ReplenishFrequency": 1
           },
           {
-            "Card": "HuntersMark",
+            "Card": "MarkOfAvalon",
             "ReplenishFrequency": 1
           }
         ],
@@ -72,7 +72,7 @@
             "ReplenishFrequency": 1
           },
           {
-            "Card": "HuntersMark",
+            "Card": "MarkOfAvalon",
             "ReplenishFrequency": 1
           }
         ],
@@ -86,7 +86,7 @@
             "ReplenishFrequency": 1
           },
           {
-            "Card": "HuntersMark",
+            "Card": "MarkOfAvalon",
             "ReplenishFrequency": 1
           }
         ],
@@ -100,7 +100,7 @@
             "ReplenishFrequency": 1
           },
           {
-            "Card": "HuntersMark",
+            "Card": "MarkOfAvalon",
             "ReplenishFrequency": 1
           }
         ]
@@ -146,65 +146,65 @@
         "HeroBarbarian": [
           "CallCompanion",
           "SummonElemental",
-          "BeastWhisperer",
-          "PiercingVoice",
+          "RatWhisperer",
+          "NotesOfConfusion",
           "Bone",
-          "StrengthPotion",
-          "SwiftnessPotion"
+          "Strength",
+          "Speed"
         ],
         "HeroBard": [
           "CallCompanion",
           "SummonElemental",
-          "BeastWhisperer",
-          "PiercingVoice",
+          "RatWhisperer",
+          "NotesOfConfusion",
           "Bone",
-          "StrengthPotion",
-          "SwiftnessPotion"
+          "Strength",
+          "Speed"
         ],
         "HeroGuardian": [
           "CallCompanion",
           "SummonElemental",
-          "BeastWhisperer",
-          "PiercingVoice",
+          "RatWhisperer",
+          "NotesOfConfusion",
           "Bone",
-          "StrengthPotion",
-          "SwiftnessPotion"
+          "Strength",
+          "Speed"
         ],
         "HeroHunter": [
           "CallCompanion",
           "SummonElemental",
-          "BeastWhisperer",
-          "PiercingVoice",
+          "RatWhisperer",
+          "NotesOfConfusion",
           "Bone",
-          "StrengthPotion",
-          "SwiftnessPotion"
+          "Strength",
+          "Speed"
         ],
         "HeroRogue": [
           "CallCompanion",
           "SummonElemental",
-          "BeastWhisperer",
-          "PiercingVoice",
+          "RatWhisperer",
+          "NotesOfConfusion",
           "Bone",
-          "StrengthPotion",
-          "SwiftnessPotion"
+          "Strength",
+          "Speed"
         ],
         "HeroSorcerer": [
           "CallCompanion",
           "SummonElemental",
-          "BeastWhisperer",
-          "PiercingVoice",
+          "RatWhisperer",
+          "NotesOfConfusion",
           "Bone",
-          "StrengthPotion",
-          "SwiftnessPotion"
+          "Strength",
+          "Speed"
         ],
         "HeroWarlock": [
           "CallCompanion",
           "SummonElemental",
-          "BeastWhisperer",
-          "PiercingVoice",
+          "RatWhisperer",
+          "NotesOfConfusion",
           "Bone",
-          "StrengthPotion",
-          "SwiftnessPotion"
+          "Strength",
+          "Speed"
         ]
       }
     },

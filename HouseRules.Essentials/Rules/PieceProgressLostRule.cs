@@ -108,7 +108,7 @@
                     for (var i = 0; i < piece.inventory.Items.Count; i++)
                     {
                         value = piece.inventory.Items[i];
-                        if (value.abilityKey == AbilityKey.EnemyFireball)
+                        if (value.AbilityKey == AbilityKey.EnemyFireball)
                         {
                             piece.inventory.Items.Remove(value);
                             break;
@@ -117,7 +117,7 @@
 
                     piece.inventory.Items.Add(new Inventory.Item
                     {
-                        abilityKey = AbilityKey.Arrow,
+                        abilityKey = AbilityKey.HunterArrow,
                         flags = (Inventory.ItemFlag)1,
                         originalOwner = -1,
                         replenishCooldown = 1,
@@ -138,7 +138,7 @@
                     for (var i = 0; i < piece.inventory.Items.Count; i++)
                     {
                         value = piece.inventory.Items[i];
-                        if (value.abilityKey == AbilityKey.Electricity)
+                        if (value.AbilityKey == AbilityKey.Electricity)
                         {
                             piece.inventory.Items.Remove(value);
                             break;
@@ -168,7 +168,7 @@
                     for (var i = 0; i < piece.inventory.Items.Count; i++)
                     {
                         value = piece.inventory.Items[i];
-                        if (value.abilityKey == AbilityKey.Net)
+                        if (value.AbilityKey == AbilityKey.Net)
                         {
                             piece.inventory.Items.Remove(value);
                             Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
@@ -184,7 +184,7 @@
                     for (var i = 0; i < piece.inventory.Items.Count; i++)
                     {
                         value = piece.inventory.Items[i];
-                        if (value.abilityKey == AbilityKey.EnemyFlashbang)
+                        if (value.AbilityKey == AbilityKey.EnemyFlashbang)
                         {
                             piece.inventory.Items.Remove(value);
                             Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
@@ -194,7 +194,7 @@
 
                     piece.AddGold(0);
 
-                    AbilityFactory.TryGetAbility(AbilityKey.CourageShanty, out var ability);
+                    AbilityFactory.TryGetAbility(AbilityKey.StrengthenCourage, out var ability);
                 }
                 else if (piece.boardPieceId == BoardPieceId.HeroGuardian)
                 {
@@ -202,7 +202,7 @@
                     for (var i = 0; i < piece.inventory.Items.Count; i++)
                     {
                         value = piece.inventory.Items[i];
-                        if (value.abilityKey == AbilityKey.Grab)
+                        if (value.AbilityKey == AbilityKey.Grab)
                         {
                             piece.inventory.Items.Remove(value);
                             Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
@@ -218,7 +218,7 @@
                     for (var i = 0; i < piece.inventory.Items.Count; i++)
                     {
                         value = piece.inventory.Items[i];
-                        if (value.abilityKey == AbilityKey.DiseasedBite)
+                        if (value.AbilityKey == AbilityKey.DiseasedBite)
                         {
                             piece.inventory.Items.Remove(value);
                             Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
@@ -234,7 +234,7 @@
                     for (var i = 0; i < piece.inventory.Items.Count; i++)
                     {
                         value = piece.inventory.Items[i];
-                        if (value.abilityKey == AbilityKey.MinionCharge)
+                        if (value.AbilityKey == AbilityKey.MinionCharge)
                         {
                             piece.inventory.Items.Remove(value);
                             Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
@@ -291,7 +291,7 @@
                 for (var i = 0; i < piece.inventory.Items.Count; i++)
                 {
                     value = piece.inventory.Items[i];
-                    if (value.abilityKey == AbilityKey.Petrify || value.abilityKey == AbilityKey.DropChest || value.abilityKey == AbilityKey.DeathFlurry || value.abilityKey == AbilityKey.Shockwave || value.abilityKey == AbilityKey.AcidSpit)
+                    if (value.AbilityKey == AbilityKey.Petrify || value.AbilityKey == AbilityKey.DropChest || value.AbilityKey == AbilityKey.DeathFlurry || value.AbilityKey == AbilityKey.Shockwave || value.AbilityKey == AbilityKey.AcidSpit)
                     {
                         piece.inventory.Items.Remove(value);
                         Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;

@@ -8,7 +8,7 @@
       "Config": {
         "HeroBarbarian": [
           {
-            "Card": "Vortex",
+            "Card": "VortexDust",
             "ReplenishFrequency": 1
           },
           {
@@ -18,17 +18,17 @@
         ],
         "HeroBard": [
           {
-            "Card": "Vortex",
+            "Card": "VortexDust",
             "ReplenishFrequency": 1
           },
           {
-            "Card": "CourageShanty",
+            "Card": "StrengthenCourage",
             "ReplenishFrequency": 1
           }
         ],
         "HeroGuardian": [
           {
-            "Card": "Vortex",
+            "Card": "VortexDust",
             "ReplenishFrequency": 1
           },
           {
@@ -38,7 +38,7 @@
         ],
         "HeroHunter": [
           {
-            "Card": "Vortex",
+            "Card": "VortexDust",
             "ReplenishFrequency": 1
           },
           {
@@ -48,17 +48,17 @@
         ],
         "HeroRogue": [
           {
-            "Card": "Vortex",
+            "Card": "VortexDust",
             "ReplenishFrequency": 1
           },
           {
-            "Card": "Sneak",
+            "Card": "Stealth",
             "ReplenishFrequency": 1
           }
         ],
         "HeroSorcerer": [
           {
-            "Card": "Vortex",
+            "Card": "VortexDust",
             "ReplenishFrequency": 1
           },
           {
@@ -68,7 +68,7 @@
         ],
         "HeroWarlock": [
           {
-            "Card": "Vortex",
+            "Card": "VortexDust",
             "ReplenishFrequency": 1
           },
           {
@@ -82,37 +82,37 @@
       "Rule": "CardAdditionOverridden",
       "Config": {
         "HeroBarbarian": [
-          "PoisonBomb",
+          "PoisonGasGrenade",
           "Fireball",
           "GrapplingPush"
         ],
         "HeroBard": [
-          "PoisonBomb",
+          "PoisonGasGrenade",
           "Fireball",
-          "HurricaneAnthem"
+          "Tornado"
         ],
         "HeroGuardian": [
-          "PoisonBomb",
+          "PoisonGasGrenade",
           "Fireball",
           "Charge"
         ],
         "HeroHunter": [
-          "PoisonBomb",
+          "PoisonGasGrenade",
           "Fireball",
           "PoisonedTip"
         ],
         "HeroRogue": [
-          "PoisonBomb",
+          "PoisonGasGrenade",
           "Fireball",
           "Blink"
         ],
         "HeroSorcerer": [
-          "PoisonBomb",
+          "PoisonGasGrenade",
           "Fireball",
           "SummonElemental"
         ],
         "HeroWarlock": [
-          "PoisonBomb",
+          "PoisonGasGrenade",
           "Fireball",
           "MissileSwarm"
         ]
@@ -178,12 +178,12 @@
     {
       "Rule": "AbilityAoeAdjusted",
       "Config": {
-        "StrengthPotion": 1,
-        "SwiftnessPotion": 1,
+        "Strength": 1,
+        "Speed": 1,
         "VigorPotion": 1,
         "DamageResistPotion": 1,
         "ExtraActionPotion": 1,
-        "OneMoreThing": 1
+        "ExtraActionPotion": 1
       }
     },
     {

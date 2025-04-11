@@ -63,7 +63,7 @@
                         value = __result.inventory.Items[i];
                         foreach (var ability in replacement.Value)
                         {
-                            if (value.abilityKey == ability)
+                            if (value.AbilityKey == ability)
                             {
                                 if (value.IsReplenishing)
                                 {

@@ -83,7 +83,7 @@ namespace HouseRules.Essentials.Rules
                 for (int i = 0; i < source.inventory.Items.Count; i++)
                 {
                     value = source.inventory.Items[i];
-                    if (value.abilityKey == AbilityKey.DiseasedBite)
+                    if (value.AbilityKey == AbilityKey.DiseasedBite)
                     {
                         if (value.IsReplenishing)
                         {
@@ -112,7 +112,7 @@ namespace HouseRules.Essentials.Rules
                 for (int i = 0; i < source.inventory.Items.Count; i++)
                 {
                     value = source.inventory.Items[i];
-                    if (value.abilityKey == AbilityKey.Grapple)
+                    if (value.AbilityKey == AbilityKey.Grapple)
                     {
                         if (value.IsReplenishing)
                         {
@@ -125,7 +125,7 @@ namespace HouseRules.Essentials.Rules
                             source.AddGold(0);
                         }
                     }
-                    else if (value.abilityKey == AbilityKey.Net)
+                    else if (value.AbilityKey == AbilityKey.Net)
                     {
                         if (value.IsReplenishing)
                         {
@@ -154,7 +154,7 @@ namespace HouseRules.Essentials.Rules
                 for (int i = 0; i < source.inventory.Items.Count; i++)
                 {
                     value = source.inventory.Items[i];
-                    if (value.abilityKey == AbilityKey.CourageShanty)
+                    if (value.AbilityKey == AbilityKey.StrengthenCourage)
                     {
                         if (value.IsReplenishing)
                         {
@@ -163,7 +163,7 @@ namespace HouseRules.Essentials.Rules
                             source.AddGold(0);
                         }
                     }
-                    else if (value.abilityKey == AbilityKey.EnemyFlashbang)
+                    else if (value.AbilityKey == AbilityKey.EnemyFlashbang)
                     {
                         if (value.IsReplenishing)
                         {
@@ -190,7 +190,7 @@ namespace HouseRules.Essentials.Rules
                 for (int i = 0; i < source.inventory.Items.Count; i++)
                 {
                     value = source.inventory.Items[i];
-                    if (value.abilityKey == AbilityKey.MinionCharge)
+                    if (value.AbilityKey == AbilityKey.MinionCharge)
                     {
                         if (value.IsReplenishing)
                         {
@@ -215,7 +215,7 @@ namespace HouseRules.Essentials.Rules
                     for (int i = 0; i < source.inventory.Items.Count; i++)
                     {
                         value = source.inventory.Items[i];
-                        if (value.abilityKey == AbilityKey.Zap)
+                        if (value.AbilityKey == AbilityKey.Zap)
                         {
                             if (value.IsReplenishing)
                             {
@@ -234,7 +234,7 @@ namespace HouseRules.Essentials.Rules
                 for (int i = 0; i < source.inventory.Items.Count; i++)
                 {
                     value = source.inventory.Items[i];
-                    if (value.abilityKey == AbilityKey.Grab)
+                    if (value.AbilityKey == AbilityKey.Grab)
                     {
                         if (value.IsReplenishing)
                         {
@@ -252,7 +252,7 @@ namespace HouseRules.Essentials.Rules
                 for (int i = 0; i < source.inventory.Items.Count; i++)
                 {
                     value = source.inventory.Items[i];
-                    if (value.abilityKey == AbilityKey.Arrow)
+                    if (value.AbilityKey == AbilityKey.HunterArrow)
                     {
                         if (value.IsReplenishing)
                         {

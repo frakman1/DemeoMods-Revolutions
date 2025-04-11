@@ -149,7 +149,7 @@
                     {
                         piece.inventory.Items.Add(new Inventory.Item
                         {
-                            abilityKey = AbilityKey.Vortex,
+                            abilityKey = AbilityKey.VortexDust,
                             flags = 0,
                             originalOwner = -1,
                             replenishCooldown = 0,
@@ -180,7 +180,7 @@
                             for (var i = 0; i < piece.inventory.Items.Count; i++)
                             {
                                 value = piece.inventory.Items[i];
-                                if (value.abilityKey == AbilityKey.Overcharge)
+                                if (value.AbilityKey == AbilityKey.Overcharge)
                                 {
                                     piece.inventory.Items.Remove(value);
                                     break;
@@ -210,7 +210,7 @@
                         for (var i = 0; i < piece.inventory.Items.Count; i++)
                         {
                             value = piece.inventory.Items[i];
-                            if (value.abilityKey == AbilityKey.MinionCharge)
+                            if (value.AbilityKey == AbilityKey.MinionCharge)
                             {
                                 piece.inventory.Items.Remove(value);
                                 break;
@@ -276,7 +276,7 @@
                     {
                         piece.inventory.Items.Add(new Inventory.Item
                         {
-                            abilityKey = AbilityKey.Lure,
+                            abilityKey = AbilityKey.MonsterBait,
                             flags = 0,
                             originalOwner = -1,
                             replenishCooldown = 0,
@@ -296,7 +296,7 @@
                         for (var i = 0; i < piece.inventory.Items.Count; i++)
                         {
                             value = piece.inventory.Items[i];
-                            if (value.abilityKey == AbilityKey.Arrow)
+                            if (value.AbilityKey == AbilityKey.HunterArrow)
                             {
                                 piece.inventory.Items.Remove(value);
                                 break;
@@ -341,7 +341,7 @@
                     {
                         piece.inventory.Items.Add(new Inventory.Item
                         {
-                            abilityKey = AbilityKey.PiercingVoice,
+                            abilityKey = AbilityKey.NotesOfConfusion,
                             flags = 0,
                             originalOwner = -1,
                             replenishCooldown = 0,
@@ -387,7 +387,7 @@
                     {
                         piece.inventory.Items.Add(new Inventory.Item
                         {
-                            abilityKey = AbilityKey.FlashBomb,
+                            abilityKey = AbilityKey.Flashbang,
                             flags = 0,
                             originalOwner = -1,
                             replenishCooldown = 0,
@@ -563,7 +563,7 @@
                     for (var i = 0; i < piece.inventory.Items.Count; i++)
                     {
                         value = piece.inventory.Items[i];
-                        if (value.abilityKey == AbilityKey.EnemyFrostball || value.abilityKey == AbilityKey.Bone)
+                        if (value.AbilityKey == AbilityKey.EnemyFrostball || value.AbilityKey == AbilityKey.Bone)
                         {
                             if (value.IsReplenishing)
                             {
@@ -582,7 +582,7 @@
                     for (var i = 0; i < piece.inventory.Items.Count; i++)
                     {
                         value = piece.inventory.Items[i];
-                        if (value.abilityKey == AbilityKey.WaterBottle)
+                        if (value.AbilityKey == AbilityKey.WaterBottle)
                         {
                             if (value.IsReplenishing)
                             {
@@ -598,12 +598,12 @@
             }
             else if (piece.boardPieceId == BoardPieceId.HeroWarlock)
             {
-                if (piece.inventory.HasAbility(AbilityKey.SpellPowerPotion))
+                if (piece.inventory.HasAbility(AbilityKey.SpellPower))
                 {
                     for (var i = 0; i < piece.inventory.Items.Count; i++)
                     {
                         value = piece.inventory.Items[i];
-                        if (value.abilityKey == AbilityKey.SpellPowerPotion)
+                        if (value.AbilityKey == AbilityKey.SpellPower)
                         {
                             if (value.IsReplenishing)
                             {
@@ -619,12 +619,12 @@
             }
             else if (piece.boardPieceId == BoardPieceId.HeroBard)
             {
-                if (piece.inventory.HasAbility(AbilityKey.PanicPowder))
+                if (piece.inventory.HasAbility(AbilityKey.ScarePowder))
                 {
                     for (var i = 0; i < piece.inventory.Items.Count; i++)
                     {
                         value = piece.inventory.Items[i];
-                        if (value.abilityKey == AbilityKey.PanicPowder)
+                        if (value.AbilityKey == AbilityKey.ScarePowder)
                         {
                             if (value.IsReplenishing)
                             {
@@ -645,7 +645,7 @@
                     for (var i = 0; i < piece.inventory.Items.Count; i++)
                     {
                         value = piece.inventory.Items[i];
-                        if (value.abilityKey == AbilityKey.SpawnRandomLamp)
+                        if (value.AbilityKey == AbilityKey.SpawnRandomLamp)
                         {
                             if (value.IsReplenishing)
                             {
@@ -669,7 +669,7 @@
                     for (var i = 0; i < piece.inventory.Items.Count; i++)
                     {
                         value = piece.inventory.Items[i];
-                        if (value.abilityKey == AbilityKey.ImplosionExplosionRain)
+                        if (value.AbilityKey == AbilityKey.ImplosionExplosionRain)
                         {
                             hasPower = true;
                             break;
@@ -694,7 +694,7 @@
                     for (var i = 0; i < piece.inventory.Items.Count; i++)
                     {
                         value = piece.inventory.Items[i];
-                        if (value.abilityKey == AbilityKey.LeapHeavy)
+                        if (value.AbilityKey == AbilityKey.LeapHeavy)
                         {
                             hasPower = true;
                             break;
@@ -719,13 +719,13 @@
                     for (var i = 0; i < piece.inventory.Items.Count; i++)
                     {
                         value = piece.inventory.Items[i];
-                        if (value.abilityKey == AbilityKey.PVPMissileSwarm)
+                        if (value.AbilityKey == AbilityKey.PVPMissileSwarm)
                         {
                             hasPower = true;
                             break;
                         }
 
-                        if (value.abilityKey == AbilityKey.Zap)
+                        if (value.AbilityKey == AbilityKey.Zap)
                         {
                             piece.inventory.Items.Remove(value);
                             Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
@@ -751,7 +751,7 @@
                     for (var i = 0; i < piece.inventory.Items.Count; i++)
                     {
                         value = piece.inventory.Items[i];
-                        if (value.abilityKey == AbilityKey.PVPBlink)
+                        if (value.AbilityKey == AbilityKey.PVPBlink)
                         {
                             hasPower = true;
                             break;
@@ -776,7 +776,7 @@
                     for (var i = 0; i < piece.inventory.Items.Count; i++)
                     {
                         value = piece.inventory.Items[i];
-                        if (value.abilityKey == AbilityKey.DeathBeam)
+                        if (value.AbilityKey == AbilityKey.DeathBeam)
                         {
                             hasPower = true;
                             break;
@@ -801,7 +801,7 @@
                     for (var i = 0; i < piece.inventory.Items.Count; i++)
                     {
                         value = piece.inventory.Items[i];
-                        if (value.abilityKey == AbilityKey.PVPFireball)
+                        if (value.AbilityKey == AbilityKey.PVPFireball)
                         {
                             hasPower = true;
                             break;
@@ -826,7 +826,7 @@
                     for (var i = 0; i < piece.inventory.Items.Count; i++)
                     {
                         value = piece.inventory.Items[i];
-                        if (value.abilityKey == AbilityKey.WeakeningShout)
+                        if (value.AbilityKey == AbilityKey.WeakeningShout)
                         {
                             hasPower = true;
                             break;

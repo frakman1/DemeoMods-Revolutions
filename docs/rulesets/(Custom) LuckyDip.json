@@ -17,7 +17,7 @@
       "Config": {
         "HeroBarbarian": [
           {
-            "Card": "HealingPotion",
+            "Card": "Heal",
             "ReplenishFrequency": 0
           },
           {
@@ -25,7 +25,7 @@
             "ReplenishFrequency": 1
           },
           {
-            "Card": "PanicPowder",
+            "Card": "ScarePowder",
             "ReplenishFrequency": 1
           },
           {
@@ -39,11 +39,11 @@
         ],
         "HeroBard": [
           {
-            "Card": "HealingPotion",
+            "Card": "Heal",
             "ReplenishFrequency": 0
           },
           {
-            "Card": "CourageShanty",
+            "Card": "StrengthenCourage",
             "ReplenishFrequency": 1
           },
           {
@@ -65,7 +65,7 @@
         ],
         "HeroGuardian": [
           {
-            "Card": "HealingPotion",
+            "Card": "Heal",
             "ReplenishFrequency": 0
           },
           {
@@ -87,7 +87,7 @@
         ],
         "HeroHunter": [
           {
-            "Card": "HealingPotion",
+            "Card": "Heal",
             "ReplenishFrequency": 0
           },
           {
@@ -99,7 +99,7 @@
             "ReplenishFrequency": 1
           },
           {
-            "Card": "Sneak",
+            "Card": "Stealth",
             "ReplenishFrequency": 0
           },
           {
@@ -113,15 +113,15 @@
         ],
         "HeroRogue": [
           {
-            "Card": "HealingPotion",
+            "Card": "Heal",
             "ReplenishFrequency": 0
           },
           {
-            "Card": "Sneak",
+            "Card": "Stealth",
             "ReplenishFrequency": 1
           },
           {
-            "Card": "PanicPowder",
+            "Card": "ScarePowder",
             "ReplenishFrequency": 1
           },
           {
@@ -135,7 +135,7 @@
         ],
         "HeroSorcerer": [
           {
-            "Card": "HealingPotion",
+            "Card": "Heal",
             "ReplenishFrequency": 0
           },
           {
@@ -143,7 +143,7 @@
             "ReplenishFrequency": 1
           },
           {
-            "Card": "Torch",
+            "Card": "TorchLight",
             "ReplenishFrequency": 1
           },
           {
@@ -157,7 +157,7 @@
         ],
         "HeroWarlock": [
           {
-            "Card": "HealingPotion",
+            "Card": "Heal",
             "ReplenishFrequency": 0
           },
           {
@@ -169,7 +169,7 @@
             "ReplenishFrequency": 1
           },
           {
-            "Card": "Torch",
+            "Card": "TorchLight",
             "ReplenishFrequency": 1
           },
           {
@@ -186,16 +186,16 @@
     {
       "Rule": "AbilityAoeAdjusted",
       "Config": {
-        "CourageShanty": 1,
+        "StrengthenCourage": 1,
         "ReplenishArmor": 1,
-        "StrengthPotion": 1,
-        "SwiftnessPotion": 1,
-        "Antitoxin": 1,
+        "Strength": 1,
+        "Speed": 1,
+        "Antidote": 1,
         "DamageResistPotion": 1,
         "VigorPotion": 1,
         "ExtraActionPotion": 1,
-        "AdamantPotion": 1,
-        "HealingPotion": 1
+        "DamageResistPotion": 1,
+        "Heal": 1
       }
     },
     {
@@ -257,7 +257,7 @@
           "Value": 5.0
         },
         {
-          "Piece": "Lure",
+          "Piece": "MonsterBait",
           "Property": "StartHealth",
           "Value": 30.0
         },
@@ -302,8 +302,8 @@
       "Rule": "AbilityActionCostAdjusted",
       "Config": {
         "Zap": false,
-        "CourageShanty": false,
-        "Sneak": false,
+        "StrengthenCourage": false,
+        "Stealth": false,
         "Grapple": false
       }
     },
@@ -315,22 +315,22 @@
       "Rule": "CardAdditionOverridden",
       "Config": {
         "HeroHunter": [
-          "StrengthPotion",
-          "SwiftnessPotion",
+          "Strength",
+          "Speed",
           "DamageResistPotion",
           "VigorPotion",
           "Bone",
           "Fireball",
           "Freeze",
-          "BottleOfLye",
-          "Teleportation",
-          "HeavensFury",
+          "SodiumHydroxide",
+          "Teleport",
+          "GodsFury",
           "RevealPath"
         ],
         "HeroSorcerer": [
           "CallCompanion",
-          "HuntersMark",
-          "BeastWhisperer",
+          "MarkOfAvalon",
+          "RatWhisperer",
           "RevealPath"
         ]
       }
