@@ -2,6 +2,6 @@
 {
     public static class BuildVersion
     {
-        public const string Version = "2.1.8";
+        public const string Version = "3.0.0";
     }
 }
