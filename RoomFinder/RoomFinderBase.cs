@@ -9,11 +9,10 @@
     {
         internal const string ModId = "com.orendain.demeomods.roomfinder";
         internal const string ModName = "RoomFinder";
-        internal const string ModVersion = "1.9.0";
+        internal const string ModVersion = "2.0.0";
         internal const string ModAuthor = "DemeoMods Team";
 
-        private const int NonVrSteamLobbySceneIndex = 1;
-        private const int NonVrCombinedSteamLobbySceneIndex = 3;
+        private const int NonVrCombinedSteamLobbySceneIndex = 2;
         private const int VrSteamLobbySceneIndex = 1;
         private const int VrQuestLobbySceneIndex = 1;
 
@@ -74,9 +73,9 @@
 
         internal static void OnSceneLoaded(int buildIndex)
         {
-            if (MotherbrainGlobalVars.IsRunningOnNonVRPlatform)
+            if (MotherbrainGlobalVars.SelectedPlatform == MotherbrainPlatform.NonVrSteamWindows)
             {
-                if (buildIndex == NonVrSteamLobbySceneIndex || buildIndex == NonVrCombinedSteamLobbySceneIndex)
+                if (buildIndex == NonVrSteamWindowsLobbySceneIndex)
                 {
                     LogDebug("Recognized lobby in PC. Loading UI.");
                     _ = new GameObject("RoomFinderUiNonVr", typeof(RoomFinderUiNonVr));
@@ -89,7 +88,7 @@
             {
                 if (buildIndex == VrSteamLobbySceneIndex || buildIndex == VrQuestLobbySceneIndex)
                 {
-                    LogDebug("Recognized lobby in VR. Loading UI.");
+                    LogDebug("Recognized lobby in NonVRSteamWindows. Loading UI.");
                     _ = new GameObject("RoomFinderUiVr", typeof(RoomFinderUiVr));
                 }
             }
