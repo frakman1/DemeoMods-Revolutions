@@ -124,7 +124,6 @@
 
             var pieceConfigAdjustedRule = new PieceConfigAdjustedRule(new List<PieceConfigAdjustedRule.PieceProperty>
             {
-                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.Sigataur, Property = "PowerIndex", Value = 6 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.HeroGuardian, Property = "StartArmor", Value = 0 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.Sigataur, Property = "StartHealth", Value = 38 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.Brookmare, Property = "StartHealth", Value = 75 },
@@ -225,10 +224,8 @@
                 { AbilityKey.DamageResistPotion, 1 },
                 { AbilityKey.VigorPotion, 1 },
                 { AbilityKey.ExtraActionPotion, 1 },
-                { AbilityKey.DamageResistPotion, 1 },
                 { AbilityKey.Heal, 1 },
-                { AbilityKey.ExtraActionPotion, 1 },
-            });
+             });
 
             var abilityHealRule = new AbilityHealOverriddenRule(new Dictionary<AbilityKey, int> { { AbilityKey.Heal, 3 } });
 
@@ -290,18 +287,10 @@
                 },
             });
 
-            var levelPropertiesRule = new LevelPropertiesModifiedRule(new Dictionary<string, int>
-            {
-                { "FloorOneElvenSummoners", 0 },
-                { "FloorTwoElvenSummoners", 0 },
-                { "FloorThreeElvenSummoners", 0 },
-            });
-
             return Ruleset.NewInstance(
                 name,
                 description,
                 longdesc,
-                levelPropertiesRule,
                 abilityDamageRule,
                 startingCardsRule,
                 allowedCardsRule,

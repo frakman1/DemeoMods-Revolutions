@@ -100,9 +100,7 @@
                 { AbilityKey.VigorPotion, 1 },
                 { AbilityKey.DamageResistPotion, 1 },
                 { AbilityKey.ExtraActionPotion, 1 },
-                { AbilityKey.ExtraActionPotion, 1 },
                 { AbilityKey.Antidote, 1 },
-                { AbilityKey.DamageResistPotion, 1 },
                 { AbilityKey.Heal, 1 },
             });
 
@@ -115,8 +113,6 @@
 
             var piecesAdjustedRule = new PieceConfigAdjustedRule(new List<PieceConfigAdjustedRule.PieceProperty>
             {
-                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.Sigataur, Property = "PowerIndex", Value = 6 },
-                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.GiantSpider, Property = "PowerIndex", Value = 6 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.HeroBarbarian, Property = "StartHealth", Value = 15 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.HeroBarbarian, Property = "MoveRange", Value = 5 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.HeroBard, Property = "StartHealth", Value = 15 },
@@ -162,15 +158,12 @@
                 { "FloorOneHealingFountains", 2 },
                 { "FloorOneLootChests", 18 },
                 { "FloorOnePotionStand", 2 },
-                { "FloorOneElvenSummoners", 0 },
                 { "FloorTwoHealingFountains", 3 },
                 { "FloorTwoLootChests", 8 },
                 { "FloorTwoPotionStand", 1 },
-                { "FloorTwoElvenSummoners", 0 },
                 { "FloorTwoGoldMaxAmount", 1500 },
                 { "FloorThreeHealingFountains", 1 },
                 { "FloorThreeLootChests", 0 },
-                { "FloorThreeElvenSummoners", 0 },
             });
 
             var pieceImmunityRule = new PieceImmunityListAdjustedRule(new Dictionary<BoardPieceId, List<EffectStateType>>

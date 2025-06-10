@@ -21,8 +21,6 @@
                 { AbilityKey.Speed, 1 },
                 { AbilityKey.VigorPotion, 1 },
                 { AbilityKey.ExtraActionPotion, 1 },
-                { AbilityKey.DamageResistPotion, 1 },
-                { AbilityKey.ExtraActionPotion, 1 },
                 { AbilityKey.Antidote, 1 },
                 { AbilityKey.DamageResistPotion, 1 },
                 { AbilityKey.Heal, 1 },
@@ -37,18 +35,10 @@
                 { AbilityKey.ExtraActionPotion, false },
             });
 
-            var levelPropertiesRule = new LevelPropertiesModifiedRule(new Dictionary<string, int>
-            {
-                { "FloorOneElvenSummoners", 0 },
-                { "FloorTwoElvenSummoners", 0 },
-                { "FloorThreeElvenSummoners", 0 },
-            });
-
             return Ruleset.NewInstance(
                 name,
                 description,
                 longdesc,
-                levelPropertiesRule,
                 abilityAoeRule,
                 abilityMaxedRule);
         }

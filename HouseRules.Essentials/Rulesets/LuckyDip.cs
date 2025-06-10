@@ -97,7 +97,6 @@
                 { AbilityKey.DamageResistPotion, 1 },
                 { AbilityKey.VigorPotion, 1 },
                 { AbilityKey.ExtraActionPotion, 1 },
-                { AbilityKey.DamageResistPotion, 1 },
                 { AbilityKey.Heal, 1 },
             });
 
@@ -190,15 +189,12 @@
                 { "FloorOneHealingFountains", 2 },
                 { "FloorOneLootChests", 9 },
                 { "FloorOnePotionStand", 2 },
-                { "FloorOneElvenSummoners", 0 },
                 { "FloorTwoHealingFountains", 4 },
                 { "FloorTwoLootChests", 11 },
                 { "FloorTwoPotionStand", 3 },
-                { "FloorTwoElvenSummoners", 0 },
                 { "FloorThreeHealingFountains", 4 },
                 { "FloorThreeLootChests", 10 },
                 { "FloorThreePotionStand", 2 },
-                { "FloorThreeElvenSummoners", 0 },
             });
 
             var hunterMarkRule = new PetsFocusHunterMarkRule(true);
