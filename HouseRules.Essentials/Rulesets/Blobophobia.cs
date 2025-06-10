@@ -76,7 +76,7 @@
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Zap, ReplenishFrequency = 1 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.WaterLamp, ReplenishFrequency = 1 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.GodsFury, ReplenishFrequency = 0 },
-                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.DetectStealthedUnits, ReplenishFrequency = 0 },
+                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.EyeOfAvalon, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Fireball, ReplenishFrequency = 0 },
             };
             var warlockCards = new List<StartCardsModifiedRule.CardConfig>
@@ -87,7 +87,7 @@
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.MinionCharge, ReplenishFrequency = 1 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.MissileSwarm, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.GodsFury, ReplenishFrequency = 0 },
-                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.DetectStealthedUnits, ReplenishFrequency = 0 },
+                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.EyeOfAvalon, ReplenishFrequency = 0 },
             };
             var startingCardsRule = new StartCardsModifiedRule(new Dictionary<BoardPieceId, List<StartCardsModifiedRule.CardConfig>>
             {
@@ -255,7 +255,7 @@
                 {
                     BoardPieceId.HeroBarbarian, new List<AbilityKey>
                     {
-                        AbilityKey.DetectStealthedUnits,
+                        AbilityKey.EyeOfAvalon,
                         AbilityKey.Heal,
                         AbilityKey.Teleport,
                         AbilityKey.ExtraActionPotion,
@@ -280,7 +280,7 @@
                 {
                     BoardPieceId.HeroGuardian, new List<AbilityKey>
                     {
-                        AbilityKey.DetectStealthedUnits,
+                        AbilityKey.EyeOfAvalon,
                         AbilityKey.Heal,
                         AbilityKey.Teleport,
                         AbilityKey.ExtraActionPotion,
@@ -305,7 +305,7 @@
                 {
                     BoardPieceId.HeroBard, new List<AbilityKey>
                     {
-                        AbilityKey.DetectStealthedUnits,
+                        AbilityKey.EyeOfAvalon,
                         AbilityKey.Heal,
                         AbilityKey.Teleport,
                         AbilityKey.ExtraActionPotion,
@@ -330,7 +330,7 @@
                 {
                     BoardPieceId.HeroHunter, new List<AbilityKey>
                     {
-                        AbilityKey.DetectStealthedUnits,
+                        AbilityKey.EyeOfAvalon,
                         AbilityKey.Heal,
                         AbilityKey.Teleport,
                         AbilityKey.ExtraActionPotion,
@@ -353,7 +353,7 @@
                 {
                     BoardPieceId.HeroRogue, new List<AbilityKey>
                     {
-                        AbilityKey.DetectStealthedUnits,
+                        AbilityKey.EyeOfAvalon,
                         AbilityKey.Heal,
                         AbilityKey.Teleport,
                         AbilityKey.ExtraActionPotion,
@@ -378,7 +378,7 @@
                 {
                     BoardPieceId.HeroSorcerer, new List<AbilityKey>
                     {
-                        AbilityKey.DetectStealthedUnits,
+                        AbilityKey.EyeOfAvalon,
                         AbilityKey.Heal,
                         AbilityKey.Teleport,
                         AbilityKey.ExtraActionPotion,
@@ -403,7 +403,7 @@
                 {
                     BoardPieceId.HeroWarlock, new List<AbilityKey>
                     {
-                        AbilityKey.DetectStealthedUnits,
+                        AbilityKey.EyeOfAvalon,
                         AbilityKey.Heal,
                         AbilityKey.Teleport,
                         AbilityKey.ExtraActionPotion,

@@ -538,7 +538,7 @@
                 {
                     BoardPieceId.HeroBarbarian, new List<AbilityKey>
                     {
-                        AbilityKey.DetectStealthedUnits,
+                        AbilityKey.EyeOfAvalon,
                         AbilityKey.Heal,
                         AbilityKey.Teleport,
                         AbilityKey.DamageResistPotion,
@@ -567,7 +567,7 @@
                 {
                     BoardPieceId.HeroGuardian, new List<AbilityKey>
                     {
-                        AbilityKey.DetectStealthedUnits,
+                        AbilityKey.EyeOfAvalon,
                         AbilityKey.Heal,
                         AbilityKey.Teleport,
                         AbilityKey.DamageResistPotion,
@@ -596,7 +596,7 @@
                 {
                     BoardPieceId.HeroBard, new List<AbilityKey>
                     {
-                        AbilityKey.DetectStealthedUnits,
+                        AbilityKey.EyeOfAvalon,
                         AbilityKey.Heal,
                         AbilityKey.Teleport,
                         AbilityKey.DamageResistPotion,
@@ -625,7 +625,7 @@
                 {
                     BoardPieceId.HeroHunter, new List<AbilityKey>
                     {
-                        AbilityKey.DetectStealthedUnits,
+                        AbilityKey.EyeOfAvalon,
                         AbilityKey.Heal,
                         AbilityKey.Teleport,
                         AbilityKey.DamageResistPotion,
@@ -654,7 +654,7 @@
                 {
                     BoardPieceId.HeroRogue, new List<AbilityKey>
                     {
-                        AbilityKey.DetectStealthedUnits,
+                        AbilityKey.EyeOfAvalon,
                         AbilityKey.Heal,
                         AbilityKey.Teleport,
                         AbilityKey.DamageResistPotion,
@@ -683,7 +683,7 @@
                 {
                     BoardPieceId.HeroSorcerer, new List<AbilityKey>
                     {
-                        AbilityKey.DetectStealthedUnits,
+                        AbilityKey.EyeOfAvalon,
                         AbilityKey.Heal,
                         AbilityKey.Teleport,
                         AbilityKey.DamageResistPotion,
@@ -712,7 +712,7 @@
                 {
                     BoardPieceId.HeroWarlock, new List<AbilityKey>
                     {
-                        AbilityKey.DetectStealthedUnits,
+                        AbilityKey.EyeOfAvalon,
                         AbilityKey.Heal,
                         AbilityKey.Teleport,
                         AbilityKey.DamageResistPotion,
