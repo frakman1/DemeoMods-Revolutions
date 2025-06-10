@@ -29,7 +29,7 @@
 
         public int GetConfigObject() => _gameType;
 
-        protected override void OnActivate(GameContext gameContext)
+        protected override void OnActivate(Context context)
         {
             _globalGameType = _gameType;
             _isActivated = true;
@@ -77,7 +77,7 @@
             }
         }
 
-        protected override void OnDeactivate(GameContext gameContext)
+        protected override void OnDeactivate(Context context)
         {
             _isActivated = false;
             _isReconnect = false;

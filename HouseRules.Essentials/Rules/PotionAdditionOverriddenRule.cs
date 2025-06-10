@@ -31,13 +31,13 @@
 
         public Dictionary<BoardPieceId, List<AbilityKey>> GetConfigObject() => _potionCards;
 
-        protected override void OnActivate(GameContext gameContext)
+        protected override void OnActivate(Context context)
         {
             _globalpotionCards = _potionCards;
             _isActivated = true;
         }
 
-        protected override void OnDeactivate(GameContext gameContext)
+        protected override void OnDeactivate(Context context)
         {
             _numAlags = 0;
             _isActivated = false;

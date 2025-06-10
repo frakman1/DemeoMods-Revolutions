@@ -30,14 +30,14 @@
 
         public int GetConfigObject() => _roundLimit;
 
-        protected override void OnActivate(GameContext gameContext)
+        protected override void OnActivate(Context context)
         {
             _globalRoundLimit = _roundLimit;
             _globalRoundsPlayed = 0;
             _isActivated = true;
         }
 
-        protected override void OnDeactivate(GameContext gameContext)
+        protected override void OnDeactivate(Context context)
         {
             _isActivated = false;
         }

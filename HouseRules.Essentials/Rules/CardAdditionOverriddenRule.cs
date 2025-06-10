@@ -33,13 +33,13 @@
 
         public Dictionary<BoardPieceId, List<AbilityKey>> GetConfigObject() => _heroCards;
 
-        protected override void OnActivate(GameContext gameContext)
+        protected override void OnActivate(Context context)
         {
             _globalHeroCards = _heroCards;
             _isActivated = true;
         }
 
-        protected override void OnDeactivate(GameContext gameContext)
+        protected override void OnDeactivate(Context context)
         {
             _numAlags = 0;
             _numEnergy = 0;

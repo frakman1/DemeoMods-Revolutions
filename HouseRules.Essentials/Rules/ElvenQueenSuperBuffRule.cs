@@ -25,14 +25,14 @@
 
         public bool GetConfigObject() => _adjustments;
 
-        protected override void OnActivate(GameContext gameContext)
+        protected override void OnActivate(Context context)
         {
             _globalAdjustments = _adjustments;
             _isActivated = true;
             SuperBuff = true;
         }
 
-        protected override void OnDeactivate(GameContext gameContext)
+        protected override void OnDeactivate(Context context)
         {
             _isActivated = false;
             SuperBuff = false;
