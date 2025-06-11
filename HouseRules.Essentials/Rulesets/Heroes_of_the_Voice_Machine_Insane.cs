@@ -282,7 +282,7 @@
                 // new StartCardsModifiedRule.CardConfig { Card = AbilityKey.EnemyFireball, ReplenishFrequency = 2 },
                 // new StartCardsModifiedRule.CardConfig { Card = AbilityKey.EnemyFrostball, ReplenishFrequency = 2 },
                 // new StartCardsModifiedRule.CardConfig { Card = AbilityKey.MarkOfAvalon, ReplenishFrequency = 3 },
-                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.SplittingArrow, ReplenishFrequency = 0 },
+                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Exterminate, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.PoisonedTip, ReplenishFrequency = 0 },
             };
             var bardCards = new List<StartCardsModifiedRule.CardConfig>
@@ -768,7 +768,7 @@
                         AbilityKey.Stealth,
                         AbilityKey.Stealth,
                         AbilityKey.GuidingLight,
-                        // AbilityKey.SplittingArrow,
+                        // AbilityKey.Exterminate,
                         AbilityKey.SpawnGoldPile,
                         AbilityKey.SpawnGoldPile,
                         AbilityKey.SpawnGoldPile,

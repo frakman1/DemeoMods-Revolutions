@@ -57,7 +57,7 @@
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.HunterArrow, ReplenishFrequency = 1 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.EnemyFireball, ReplenishFrequency = 1 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.PoisonedTip, ReplenishFrequency = 1 },
-                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.SplittingArrow, ReplenishFrequency = 0 },
+                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Exterminate, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.CallCompanion, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Stealth, ReplenishFrequency = 0 },
             };
@@ -341,11 +341,11 @@
                         AbilityKey.MarkOfAvalon,
                         AbilityKey.MonsterBait,
                         AbilityKey.Confuse,
-                        AbilityKey.SplittingArrow,
+                        AbilityKey.Exterminate,
                         AbilityKey.CallCompanion,
                         AbilityKey.PoisonedTip,
                         AbilityKey.MarkOfAvalon,
-                        AbilityKey.SplittingArrow,
+                        AbilityKey.Exterminate,
                         AbilityKey.CallCompanion,
                         AbilityKey.MonsterBait,
                     }
