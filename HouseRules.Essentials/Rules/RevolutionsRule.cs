@@ -137,43 +137,35 @@
                     mage = 1;
                     if (reloaded)
                     {
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.SummonElemental,
-                            flags = 0,
-                            originalOwner = -1,
-                            replenishCooldown = 0,
-                        });
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.SummonElemental,
+                            flags: 0,
+                            originalOwner: -1,
+                            replenishCooldown: 0));
                     }
                     else
                     {
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.VortexDust,
-                            flags = 0,
-                            originalOwner = -1,
-                            replenishCooldown = 0,
-                        });
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.Implosion,
+                            flags: 0,
+                            originalOwner: -1,
+                            replenishCooldown: 0));
 
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.Banish,
-                            flags = 0,
-                            originalOwner = -1,
-                            replenishCooldown = 0,
-                        });
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.Banish,
+                            flags: 0,
+                            originalOwner: -1,
+                            replenishCooldown: 0));
                     }
 
                     if (!rev_progr)
                     {
                         Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.Electricity,
-                            flags = (Inventory.ItemFlag)1,
-                            originalOwner = -1,
-                            replenishCooldown = 1,
-                        });
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.Electricity,
+                            flags: (Inventory.ItemFlag)1,
+                            originalOwner: -1,
+                            replenishCooldown: 1));
 
                         if (piece.inventory.HasAbility(AbilityKey.Overcharge))
                         {
@@ -218,43 +210,35 @@
                         }
                     }
 
-                    piece.inventory.Items.Add(new Inventory.Item
-                    {
-                        abilityKey = AbilityKey.Deflect,
-                        flags = 0,
-                        originalOwner = -1,
-                        replenishCooldown = 0,
-                    });
+                    piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.Deflect,
+                            flags: 0,
+                            originalOwner: -1,
+                            replenishCooldown: 0));
 
                     if (!reloaded)
                     {
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.Implode,
-                            flags = 0,
-                            originalOwner = -1,
-                            replenishCooldown = 0,
-                        });
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.Implode,
+                            flags: 0,
+                            originalOwner: -1,
+                            replenishCooldown: 0));
 
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.GuidingLight,
-                            flags = 0,
-                            originalOwner = -1,
-                            replenishCooldown = 0,
-                        });
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.GuidingLight,
+                            flags: 0,
+                            originalOwner: -1,
+                            replenishCooldown: 0));
                     }
 
                     if (!rev_progr)
                     {
                         Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.MinionCharge,
-                            flags = (Inventory.ItemFlag)1,
-                            originalOwner = -1,
-                            replenishCooldown = 1,
-                        });
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.MinionCharge,
+                            flags: (Inventory.ItemFlag)1,
+                            originalOwner: -1,
+                            replenishCooldown: 1));
                     }
 
                     piece.effectSink.TrySetStatBaseValue(Stats.Type.AttackDamage, 2);
@@ -274,22 +258,18 @@
                 {
                     if (!reloaded)
                     {
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.MonsterBait,
-                            flags = 0,
-                            originalOwner = -1,
-                            replenishCooldown = 0,
-                        });
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.MonsterBait,
+                            flags: 0,
+                            originalOwner: -1,
+                            replenishCooldown: 0));
                     }
 
-                    piece.inventory.Items.Add(new Inventory.Item
-                    {
-                        abilityKey = AbilityKey.CallCompanion,
-                        flags = 0,
-                        originalOwner = -1,
-                        replenishCooldown = 0,
-                    });
+                    piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.CallCompanion,
+                            flags: 0,
+                            originalOwner: -1,
+                            replenishCooldown: 0));
 
                     if (!rev_progr)
                     {
@@ -303,13 +283,11 @@
                             }
                         }
 
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.EnemyFireball,
-                            flags = (Inventory.ItemFlag)1,
-                            originalOwner = -1,
-                            replenishCooldown = 1,
-                        });
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.EnemyFireball,
+                            flags: (Inventory.ItemFlag)1,
+                            originalOwner: -1,
+                            replenishCooldown: 1));
                     }
 
                     runner = 1;
@@ -329,35 +307,29 @@
                 }
                 else if (piece.boardPieceId == BoardPieceId.HeroBard)
                 {
-                    piece.inventory.Items.Add(new Inventory.Item
-                    {
-                        abilityKey = AbilityKey.ShatteringVoice,
-                        flags = 0,
-                        originalOwner = -1,
-                        replenishCooldown = 0,
-                    });
+                    piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.ShatteringVoice,
+                            flags: 0,
+                            originalOwner: -1,
+                            replenishCooldown: 0));
 
                     if (!reloaded)
                     {
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.NotesOfConfusion,
-                            flags = 0,
-                            originalOwner = -1,
-                            replenishCooldown = 0,
-                        });
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.NotesOfConfusion,
+                            flags: 0,
+                            originalOwner: -1,
+                            replenishCooldown: 0));
                     }
 
                     if (!rev_progr)
                     {
                         Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.EnemyFlashbang,
-                            flags = (Inventory.ItemFlag)1,
-                            originalOwner = -1,
-                            replenishCooldown = 1,
-                        });
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.Flashbang,
+                            flags: (Inventory.ItemFlag)1,
+                            originalOwner: -1,
+                            replenishCooldown: 1));
                     }
 
                     piece.effectSink.TrySetStatBaseValue(Stats.Type.AttackDamage, 2);
@@ -375,35 +347,29 @@
                 }
                 else if (piece.boardPieceId == BoardPieceId.HeroRogue)
                 {
-                    piece.inventory.Items.Add(new Inventory.Item
-                    {
-                        abilityKey = AbilityKey.CursedDagger,
-                        flags = 0,
-                        originalOwner = -1,
-                        replenishCooldown = 0,
-                    });
+                    piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.CursedDagger,
+                            flags: 0,
+                            originalOwner: -1,
+                            replenishCooldown: 0));
 
                     if (!reloaded)
                     {
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.Flashbang,
-                            flags = 0,
-                            originalOwner = -1,
-                            replenishCooldown = 0,
-                        });
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.Flashbang,
+                            flags: 0,
+                            originalOwner: -1,
+                            replenishCooldown: 0));
                     }
 
                     if (!rev_progr)
                     {
                         Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.DiseasedBite,
-                            flags = (Inventory.ItemFlag)1,
-                            originalOwner = -1,
-                            replenishCooldown = 1,
-                        });
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.DiseasedBite,
+                            flags: (Inventory.ItemFlag)1,
+                            originalOwner: -1,
+                            replenishCooldown: 1));
                     }
 
                     runner = 1;
@@ -425,43 +391,35 @@
                 {
                     if (reloaded)
                     {
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.GrapplingSmash,
-                            flags = 0,
-                            originalOwner = -1,
-                            replenishCooldown = 0,
-                        });
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.GrapplingSmash,
+                            flags: 0,
+                            originalOwner: -1,
+                            replenishCooldown: 0));
                     }
                     else
                     {
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.GrapplingTotem,
-                            flags = 0,
-                            originalOwner = -1,
-                            replenishCooldown = 0,
-                        });
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.GrapplingTotem,
+                            flags: 0,
+                            originalOwner: -1,
+                            replenishCooldown: 0));
 
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.GrapplingPush,
-                            flags = 0,
-                            originalOwner = -1,
-                            replenishCooldown = 0,
-                        });
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.GrapplingPush,
+                            flags: 0,
+                            originalOwner: -1,
+                            replenishCooldown: 0));
                     }
 
                     if (!rev_progr)
                     {
                         Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.Net,
-                            flags = (Inventory.ItemFlag)1,
-                            originalOwner = -1,
-                            replenishCooldown = 1,
-                        });
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.Net,
+                            flags: (Inventory.ItemFlag)1,
+                            originalOwner: -1,
+                            replenishCooldown: 1));
                     }
 
                     if (reloaded)
@@ -480,35 +438,29 @@
                 }
                 else if (piece.boardPieceId == BoardPieceId.HeroGuardian)
                 {
-                    piece.inventory.Items.Add(new Inventory.Item
-                    {
-                        abilityKey = AbilityKey.Charge,
-                        flags = 0,
-                        originalOwner = -1,
-                        replenishCooldown = 0,
-                    });
+                    piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.Charge,
+                            flags: 0,
+                            originalOwner: -1,
+                            replenishCooldown: 0));
 
                     if (!reloaded)
                     {
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.WarCry,
-                            flags = 0,
-                            originalOwner = -1,
-                            replenishCooldown = 0,
-                        });
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.WarCry,
+                            flags: 0,
+                            originalOwner: -1,
+                            replenishCooldown: 0));
                     }
 
                     if (!rev_progr)
                     {
                         Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.Grab,
-                            flags = (Inventory.ItemFlag)1,
-                            originalOwner = -1,
-                            replenishCooldown = 1,
-                        });
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.Grab,
+                            flags: (Inventory.ItemFlag)1,
+                            originalOwner: -1,
+                            replenishCooldown: 1));
                     }
 
                     if (reloaded)
@@ -679,13 +631,11 @@
                     if (!hasPower)
                     {
                         Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.ImplosionExplosionRain,
-                            flags = (Inventory.ItemFlag)1,
-                            originalOwner = -1,
-                            replenishCooldown = 1,
-                        });
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.ImplosionExplosionRain,
+                            flags: (Inventory.ItemFlag)1,
+                            originalOwner: -1,
+                            replenishCooldown: 1));
                         piece.AddGold(0);
                     }
                 }
@@ -704,13 +654,11 @@
                     if (!hasPower)
                     {
                         Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.LeapHeavy,
-                            flags = (Inventory.ItemFlag)1,
-                            originalOwner = -1,
-                            replenishCooldown = 1,
-                        });
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.LeapHeavy,
+                            flags: (Inventory.ItemFlag)1,
+                            originalOwner: -1,
+                            replenishCooldown: 1));
                         piece.AddGold(0);
                     }
                 }
@@ -736,13 +684,11 @@
                     if (!hasPower)
                     {
                         Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.PVPMissileSwarm,
-                            flags = (Inventory.ItemFlag)1,
-                            originalOwner = -1,
-                            replenishCooldown = 1,
-                        });
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.PVPMissileSwarm,
+                            flags: (Inventory.ItemFlag)1,
+                            originalOwner: -1,
+                            replenishCooldown: 1));
                         piece.AddGold(0);
                     }
                 }
@@ -761,13 +707,11 @@
                     if (!hasPower)
                     {
                         Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.PVPBlink,
-                            flags = (Inventory.ItemFlag)1,
-                            originalOwner = -1,
-                            replenishCooldown = 1,
-                        });
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.PVPBlink,
+                            flags: (Inventory.ItemFlag)1,
+                            originalOwner: -1,
+                            replenishCooldown: 1));
                         piece.AddGold(0);
                     }
                 }
@@ -786,13 +730,11 @@
                     if (!hasPower)
                     {
                         Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.DeathBeam,
-                            flags = (Inventory.ItemFlag)1,
-                            originalOwner = -1,
-                            replenishCooldown = 1,
-                        });
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.DeathBeam,
+                            flags: (Inventory.ItemFlag)1,
+                            originalOwner: -1,
+                            replenishCooldown: 1));
                         piece.AddGold(0);
                     }
                 }
@@ -811,13 +753,11 @@
                     if (!hasPower)
                     {
                         Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.PVPFireball,
-                            flags = (Inventory.ItemFlag)1,
-                            originalOwner = -1,
-                            replenishCooldown = 1,
-                        });
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.PVPFireball,
+                            flags: (Inventory.ItemFlag)1,
+                            originalOwner: -1,
+                            replenishCooldown: 1));
                         piece.AddGold(0);
                     }
                 }
@@ -836,13 +776,11 @@
                     if (!hasPower)
                     {
                         Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.WeakeningShout,
-                            flags = (Inventory.ItemFlag)1,
-                            originalOwner = -1,
-                            replenishCooldown = 1,
-                        });
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.WeakeningShout,
+                            flags: (Inventory.ItemFlag)1,
+                            originalOwner: -1,
+                            replenishCooldown: 1));
                         piece.AddGold(0);
                     }
                 }

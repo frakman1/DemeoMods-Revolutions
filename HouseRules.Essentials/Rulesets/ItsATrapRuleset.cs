@@ -104,7 +104,7 @@
                         AbilityKey.OilLamp,
                         AbilityKey.GasLamp,
                         AbilityKey.IceLamp,
-                        AbilityKey.VortexDust,
+                        AbilityKey.Implosion,
                         AbilityKey.TorchLight,
                         AbilityKey.Bone,
                         AbilityKey.EyeOfAvalon,
@@ -172,7 +172,7 @@
                         AbilityKey.OilLamp,
                         AbilityKey.GasLamp,
                         AbilityKey.IceLamp,
-                        AbilityKey.VortexDust,
+                        AbilityKey.Implosion,
                         AbilityKey.TorchLight,
                         AbilityKey.Bone,
                         AbilityKey.EyeOfAvalon,
@@ -188,7 +188,7 @@
                         AbilityKey.OilLamp,
                         AbilityKey.GasLamp,
                         AbilityKey.IceLamp,
-                        AbilityKey.VortexDust,
+                        AbilityKey.Implosion,
                         AbilityKey.TorchLight,
                         AbilityKey.Stealth,
                         AbilityKey.EyeOfAvalon,
@@ -206,7 +206,7 @@
                         AbilityKey.OilLamp,
                         AbilityKey.GasLamp,
                         AbilityKey.IceLamp,
-                        AbilityKey.VortexDust,
+                        AbilityKey.Implosion,
                         AbilityKey.TorchLight,
                         AbilityKey.MissileSwarm,
                         AbilityKey.EyeOfAvalon,
@@ -237,22 +237,18 @@
                 { "FloorOneHealingFountains", 1 },
                 { "FloorOneLootChests", 9 },
                 { "FloorOnePotionStand", 2 },
-                { "FloorOneElvenSummoners", 0 },
                 { "FloorTwoHealingFountains", 1 },
                 { "FloorTwoLootChests", 11 },
                 { "FloorTwoPotionStand", 3 },
-                { "FloorTwoElvenSummoners", 0 },
                 { "FloorThreeHealingFountains", 1 },
                 { "FloorThreeLootChests", 8 },
                 { "FloorThreePotionStand", 2 },
-                { "FloorThreeElvenSummoners", 0 },
                 { "FloorOneEndZoneSpikeMaxBudget", 12 },
                 { "PacingSpikeSegmentFloorOneBudget", 12 },
             });
 
             var aoePotions = new AbilityAoeAdjustedRule(new Dictionary<AbilityKey, int>
             {
-                { AbilityKey.MagicPotion, 1 },
                 { AbilityKey.Strength, 1 },
                 { AbilityKey.Speed, 1 },
                 { AbilityKey.DamageResistPotion, 1 },
@@ -264,6 +260,51 @@
             var abilityActionCostRule = new AbilityActionCostAdjustedRule(new Dictionary<AbilityKey, bool>
             {
                 { AbilityKey.ProximityMine, false },
+            });
+
+            var lampTypesRule = new LampTypesOverriddenRule(new Dictionary<int, List<BoardPieceId>>
+            {
+                {
+                    1, new List<BoardPieceId>
+                {
+                    BoardPieceId.GasLamp,
+                    BoardPieceId.OilLamp,
+                    BoardPieceId.VortexLamp,
+                    BoardPieceId.WaterLamp,
+                    BoardPieceId.OilLamp,
+                    BoardPieceId.VortexLamp,
+                    BoardPieceId.OilLamp,
+                    BoardPieceId.WaterLamp,
+                    BoardPieceId.GasLamp,
+                }
+                },
+                {
+                    2, new List<BoardPieceId>
+                {
+                    BoardPieceId.GasLamp,
+                    BoardPieceId.GasLamp,
+                    BoardPieceId.GasLamp,
+                    BoardPieceId.GasLamp,
+                    BoardPieceId.WaterLamp,
+                    BoardPieceId.GasLamp,
+                    BoardPieceId.GasLamp,
+                    BoardPieceId.OilLamp,
+                    BoardPieceId.OilLamp,
+                    BoardPieceId.OilLamp,
+                }
+                },
+                {
+                    3, new List<BoardPieceId>
+                {
+                    BoardPieceId.OilLamp,
+                    BoardPieceId.IceLamp,
+                    BoardPieceId.VortexLamp,
+                    BoardPieceId.OilLamp,
+                    BoardPieceId.WaterLamp,
+                    BoardPieceId.VortexLamp,
+                    BoardPieceId.IceLamp,
+                }
+                },
             });
 
             var statusEffectRule = new StatusEffectConfigRule(new List<StatusEffectData>
@@ -311,60 +352,9 @@
                 { TileEffect.Acid, 1 },
                 { TileEffect.Web, 10 },
                 { TileEffect.Water, 10 },
-                { TileEffect.Target, 0 },
-            });
 
-            /*var piecePieceTypeRule = new PiecePieceTypeListOverriddenRule(new Dictionary<BoardPieceId, List<PieceType>>
-            {
-                { BoardPieceId.Torch, new List<PieceType> { PieceType.Prop, PieceType.UpdateFogOfWar, PieceType.ShowNameplate, PieceType.ShowHealthbar } },
-                { BoardPieceId.EyeOfAvalon, new List<PieceType> { PieceType.Prop, PieceType.UpdateFogOfWar, PieceType.Immovable, PieceType.ShowHealthbar, PieceType.ShowNameplate } },
-                { BoardPieceId.HealingBeacon, new List<PieceType> { PieceType.Prop, PieceType.Bot, PieceType.ShowNameplate, PieceType.ShowHealthbar } },
+                // { TileEffect.Target, 0 }, This bugs movement of player pieces for some reason
             });
-
-            var lampTypesRule = new LampTypesOverriddenRule(new Dictionary<int, List<BoardPieceId>>
-            {
-                {
-                    1, new List<BoardPieceId>
-                    {
-                        BoardPieceId.GasLamp,
-                        BoardPieceId.OilLamp,
-                        BoardPieceId.VortexLamp,
-                        BoardPieceId.GasLamp,
-                        BoardPieceId.OilLamp,
-                        BoardPieceId.VortexLamp,
-                        BoardPieceId.OilLamp,
-                        BoardPieceId.OilLamp,
-                        BoardPieceId.HealingBeacon,
-                    }
-                },
-                {
-                    2, new List<BoardPieceId>
-                    {
-                        BoardPieceId.GasLamp,
-                        BoardPieceId.GasLamp,
-                        BoardPieceId.GasLamp,
-                        BoardPieceId.GasLamp,
-                        BoardPieceId.GasLamp,
-                        BoardPieceId.GasLamp,
-                        BoardPieceId.GasLamp,
-                        BoardPieceId.OilLamp,
-                        BoardPieceId.OilLamp,
-                        BoardPieceId.HealingBeacon,
-                    }
-                },
-                {
-                    3, new List<BoardPieceId>
-                    {
-                        BoardPieceId.OilLamp,
-                        BoardPieceId.IceLamp,
-                        BoardPieceId.VortexLamp,
-                        BoardPieceId.OilLamp,
-                        BoardPieceId.IceLamp,
-                        BoardPieceId.VortexLamp,
-                        BoardPieceId.HealingBeacon,
-                    }
-                },
-            });*/
 
             return Ruleset.NewInstance(
                 name,
@@ -373,6 +363,7 @@
                 abilityActionCostRule,
                 allowedCardsRule,
                 aoePotions,
+                lampTypesRule,
                 levelPropertiesRule,
                 piecesAdjustedRule,
                 startingCardsRule,

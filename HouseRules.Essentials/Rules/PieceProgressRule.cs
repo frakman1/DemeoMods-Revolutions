@@ -14,6 +14,7 @@
     {
         public override string Description => "Hero progression levels are enabled";
 
+        private static Context _context;
         private static bool _isActivated;
         private static bool _dropchest;
 
@@ -23,7 +24,11 @@
 
         public bool GetConfigObject() => true;
 
-        protected override void OnActivate(Context context) => _isActivated = true;
+        protected override void OnActivate(Context context)
+        {
+            _context = context;
+            _isActivated = true;
+        }
 
         protected override void OnDeactivate(Context context) => _isActivated = false;
 
@@ -160,58 +165,48 @@
                     if (randAbil == 0)
                     {
                         Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.Petrify,
-                            flags = (Inventory.ItemFlag)1,
-                            originalOwner = -1,
-                            replenishCooldown = 7,
-                        });
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.Petrify,
+                            flags: (Inventory.ItemFlag)1,
+                            originalOwner: -1,
+                            replenishCooldown: 7));
                     }
                     else if (randAbil == 1)
                     {
                         Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.AcidSpit,
-                            flags = (Inventory.ItemFlag)1,
-                            originalOwner = -1,
-                            replenishCooldown = 7,
-                        });
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.AcidSpit,
+                            flags: (Inventory.ItemFlag)1,
+                            originalOwner: -1,
+                            replenishCooldown: 7));
                     }
                     else if (randAbil == 2)
                     {
                         Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.DeathFlurry,
-                            flags = (Inventory.ItemFlag)1,
-                            originalOwner = -1,
-                            replenishCooldown = 7,
-                        });
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.DeathFlurry,
+                            flags: (Inventory.ItemFlag)1,
+                            originalOwner: -1,
+                            replenishCooldown: 7));
                     }
                     else if (randAbil == 3)
                     {
                         Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.Shockwave,
-                            flags = (Inventory.ItemFlag)1,
-                            originalOwner = -1,
-                            replenishCooldown = 7,
-                        });
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.Shockwave,
+                            flags: (Inventory.ItemFlag)1,
+                            originalOwner: -1,
+                            replenishCooldown: 7));
                     }
                     else if (randAbil == 4)
                     {
                         _dropchest = true;
                         Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.DropChest,
-                            flags = (Inventory.ItemFlag)1,
-                            originalOwner = -1,
-                            replenishCooldown = 7,
-                        });
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.DropChest,
+                            flags: (Inventory.ItemFlag)1,
+                            originalOwner: -1,
+                            replenishCooldown: 7));
                     }
 
                     piece.AddGold(0);
@@ -221,59 +216,60 @@
                     if (piece.boardPieceId == BoardPieceId.HeroBarbarian)
                     {
                         Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.Net,
-                            flags = (Inventory.ItemFlag)1,
-                            originalOwner = -1,
-                            replenishCooldown = 3,
-                        });
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.Net,
+                            flags: (Inventory.ItemFlag)1,
+                            originalOwner: -1,
+                            replenishCooldown: 3));
                         piece.AddGold(0);
 
-                        AbilityFactory.TryGetAbility(AbilityKey.Grapple, out var ability);
-                        ability.costActionPoint = false;
+                        var abilityPromise = _context.AbilityFactory.LoadAbility(AbilityKey.Grapple);
+                        abilityPromise.OnLoaded(ability =>
+                        {
+                            ability.costActionPoint = false;
+                        });
                     }
                     else if (piece.boardPieceId == BoardPieceId.HeroBard)
                     {
                         Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.EnemyFlashbang,
-                            flags = (Inventory.ItemFlag)1,
-                            originalOwner = -1,
-                            replenishCooldown = 3,
-                        });
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.EnemyFlashbang,
+                            flags: (Inventory.ItemFlag)1,
+                            originalOwner: -1,
+                            replenishCooldown: 3));
                         piece.AddGold(0);
 
-                        AbilityFactory.TryGetAbility(AbilityKey.StrengthenCourage, out var ability);
-                        ability.costActionPoint = false;
+                        var abilityPromise = _context.AbilityFactory.LoadAbility(AbilityKey.StrengthenCourage);
+                        abilityPromise.OnLoaded(ability =>
+                        {
+                            ability.costActionPoint = false;
+                        });
                     }
                     else if (piece.boardPieceId == BoardPieceId.HeroGuardian)
                     {
                         Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.Grab,
-                            flags = (Inventory.ItemFlag)1,
-                            originalOwner = -1,
-                            replenishCooldown = 1,
-                        });
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.Grab,
+                            flags: (Inventory.ItemFlag)1,
+                            originalOwner: -1,
+                            replenishCooldown: 1));
                         piece.AddGold(0);
                     }
                     else if (piece.boardPieceId == BoardPieceId.HeroRogue)
                     {
                         Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.DiseasedBite,
-                            flags = (Inventory.ItemFlag)1,
-                            originalOwner = -1,
-                            replenishCooldown = 3,
-                        });
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.DiseasedBite,
+                            flags: (Inventory.ItemFlag)1,
+                            originalOwner: -1,
+                            replenishCooldown: 3));
                         piece.AddGold(0);
 
-                        AbilityFactory.TryGetAbility(AbilityKey.Stealth, out var ability);
-                        ability.costActionPoint = false;
+                        var abilityPromise = _context.AbilityFactory.LoadAbility(AbilityKey.Stealth);
+                        abilityPromise.OnLoaded(ability =>
+                        {
+                            ability.costActionPoint = false;
+                        });
                     }
                     else if (piece.boardPieceId == BoardPieceId.HeroHunter)
                     {
@@ -287,17 +283,18 @@
                             }
                         }
 
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.EnemyFireball,
-                            flags = (Inventory.ItemFlag)1,
-                            originalOwner = -1,
-                            replenishCooldown = 1,
-                        });
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.EnemyFireball,
+                            flags: (Inventory.ItemFlag)1,
+                            originalOwner: -1,
+                            replenishCooldown: 1));
                         piece.AddGold(0);
 
-                        AbilityFactory.TryGetAbility(AbilityKey.HunterArrow, out var ability);
-                        ability.costActionPoint = false;
+                        var abilityPromise = _context.AbilityFactory.LoadAbility(AbilityKey.HunterArrow);
+                        abilityPromise.OnLoaded(ability =>
+                        {
+                            ability.costActionPoint = false;
+                        });
                     }
                     else if (piece.boardPieceId == BoardPieceId.HeroSorcerer)
                     {
@@ -324,13 +321,11 @@
                             }
                         }
 
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.Electricity,
-                            flags = (Inventory.ItemFlag)1,
-                            originalOwner = -1,
-                            replenishCooldown = 1,
-                        });
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.Electricity,
+                            flags: (Inventory.ItemFlag)1,
+                            originalOwner: -1,
+                            replenishCooldown: 1));
 
                         if (overcharge > 0)
                         {
@@ -340,25 +335,33 @@
 
                         piece.AddGold(0);
 
-                        AbilityFactory.TryGetAbility(AbilityKey.Zap, out var ability);
-                        AbilityFactory.TryGetAbility(AbilityKey.LightningBolt, out var ability2);
-                        ability.costActionPoint = false;
-                        ability2.costActionPoint = false;
+                        var abilityPromise = _context.AbilityFactory.LoadAbility(AbilityKey.Zap);
+                        abilityPromise.OnLoaded(ability =>
+                        {
+                            ability.costActionPoint = false;
+                        });
+
+                        var abilityPromise2 = _context.AbilityFactory.LoadAbility(AbilityKey.LightningBolt);
+                        abilityPromise2.OnLoaded(ability =>
+                        {
+                            ability.costActionPoint = false;
+                        });
                     }
                     else if (piece.boardPieceId == BoardPieceId.HeroWarlock)
                     {
                         Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.MinionCharge,
-                            flags = (Inventory.ItemFlag)1,
-                            originalOwner = -1,
-                            replenishCooldown = 1,
-                        });
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.MinionCharge,
+                            flags: (Inventory.ItemFlag)1,
+                            originalOwner: -1,
+                            replenishCooldown: 1));
                         piece.AddGold(0);
 
-                        AbilityFactory.TryGetAbility(AbilityKey.MinionCharge, out var ability);
-                        ability.costActionPoint = false;
+                        var abilityPromise = _context.AbilityFactory.LoadAbility(AbilityKey.MinionCharge);
+                        abilityPromise.OnLoaded(ability =>
+                        {
+                            ability.costActionPoint = false;
+                        });
                     }
                 }
                 else if (nextLevel == 5)
@@ -416,13 +419,11 @@
                     if (!hasPower)
                     {
                         Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.ImplosionExplosionRain,
-                            flags = (Inventory.ItemFlag)1,
-                            originalOwner = -1,
-                            replenishCooldown = 1,
-                        });
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.ImplosionExplosionRain,
+                            flags: (Inventory.ItemFlag)1,
+                            originalOwner: -1,
+                            replenishCooldown: 1));
                         piece.AddGold(0);
                     }
                 }
@@ -441,13 +442,11 @@
                     if (!hasPower)
                     {
                         Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.LeapHeavy,
-                            flags = (Inventory.ItemFlag)1,
-                            originalOwner = -1,
-                            replenishCooldown = 1,
-                        });
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.LeapHeavy,
+                            flags: (Inventory.ItemFlag)1,
+                            originalOwner: -1,
+                            replenishCooldown: 1));
                         piece.AddGold(0);
                     }
                 }
@@ -473,13 +472,11 @@
                     if (!hasPower)
                     {
                         Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.PVPMissileSwarm,
-                            flags = (Inventory.ItemFlag)1,
-                            originalOwner = -1,
-                            replenishCooldown = 1,
-                        });
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.PVPMissileSwarm,
+                            flags: (Inventory.ItemFlag)1,
+                            originalOwner: -1,
+                            replenishCooldown: 1));
                         piece.AddGold(0);
                     }
                 }
@@ -498,13 +495,11 @@
                     if (!hasPower)
                     {
                         Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.PVPBlink,
-                            flags = (Inventory.ItemFlag)1,
-                            originalOwner = -1,
-                            replenishCooldown = 1,
-                        });
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.PVPBlink,
+                            flags: (Inventory.ItemFlag)1,
+                            originalOwner: -1,
+                            replenishCooldown: 1));
                         piece.AddGold(0);
                     }
                 }
@@ -523,13 +518,11 @@
                     if (!hasPower)
                     {
                         Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.DeathBeam,
-                            flags = (Inventory.ItemFlag)1,
-                            originalOwner = -1,
-                            replenishCooldown = 1,
-                        });
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.DeathBeam,
+                            flags: (Inventory.ItemFlag)1,
+                            originalOwner: -1,
+                            replenishCooldown: 1));
                         piece.AddGold(0);
                     }
                 }
@@ -548,13 +541,11 @@
                     if (!hasPower)
                     {
                         Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.PVPFireball,
-                            flags = (Inventory.ItemFlag)1,
-                            originalOwner = -1,
-                            replenishCooldown = 1,
-                        });
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.PVPFireball,
+                            flags: (Inventory.ItemFlag)1,
+                            originalOwner: -1,
+                            replenishCooldown: 1));
                         piece.AddGold(0);
                     }
                 }
@@ -573,13 +564,11 @@
                     if (!hasPower)
                     {
                         Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.WeakeningShout,
-                            flags = (Inventory.ItemFlag)1,
-                            originalOwner = -1,
-                            replenishCooldown = 1,
-                        });
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.WeakeningShout,
+                            flags: (Inventory.ItemFlag)1,
+                            originalOwner: -1,
+                            replenishCooldown: 1));
                         piece.AddGold(0);
                     }
                 }
@@ -626,74 +615,126 @@
             {
                 if (piece.boardPieceId == BoardPieceId.HeroBarbarian)
                 {
-                    AbilityFactory.TryGetAbility(AbilityKey.Grapple, out var ability);
-                    ability.costActionPoint = true;
+                    var abilityPromise = _context.AbilityFactory.LoadAbility(AbilityKey.Grapple);
+                    abilityPromise.OnLoaded(ability =>
+                    {
+                        ability.costActionPoint = true;
+                    });
                 }
                 else if (piece.boardPieceId == BoardPieceId.HeroBard)
                 {
-                    AbilityFactory.TryGetAbility(AbilityKey.StrengthenCourage, out var ability);
-                    ability.costActionPoint = true;
+                    var abilityPromise = _context.AbilityFactory.LoadAbility(AbilityKey.StrengthenCourage);
+                    abilityPromise.OnLoaded(ability =>
+                    {
+                        ability.costActionPoint = true;
+                    });
                 }
                 else if (piece.boardPieceId == BoardPieceId.HeroRogue)
                 {
-                    AbilityFactory.TryGetAbility(AbilityKey.Stealth, out var ability);
-                    ability.costActionPoint = true;
+                    var abilityPromise = _context.AbilityFactory.LoadAbility(AbilityKey.Stealth);
+                    abilityPromise.OnLoaded(ability =>
+                    {
+                        ability.costActionPoint = true;
+                    });
                 }
                 else if (piece.boardPieceId == BoardPieceId.HeroSorcerer)
                 {
-                    AbilityFactory.TryGetAbility(AbilityKey.Zap, out var ability);
-                    AbilityFactory.TryGetAbility(AbilityKey.LightningBolt, out var ability2);
-                    ability.costActionPoint = true;
-                    ability2.costActionPoint = true;
+                    var abilityPromise = _context.AbilityFactory.LoadAbility(AbilityKey.Zap);
+                    abilityPromise.OnLoaded(ability =>
+                    {
+                        ability.costActionPoint = true;
+                    });
+
+                    var abilityPromise2 = _context.AbilityFactory.LoadAbility(AbilityKey.LightningBolt);
+                    abilityPromise2.OnLoaded(ability =>
+                    {
+                        ability.costActionPoint = true;
+                    });
                 }
                 else if (piece.boardPieceId == BoardPieceId.HeroHunter)
                 {
-                    AbilityFactory.TryGetAbility(AbilityKey.HunterArrow, out var ability);
-                    AbilityFactory.TryGetAbility(AbilityKey.LightningBolt, out var ability2);
-                    ability.costActionPoint = true;
-                    ability2.costActionPoint = false;
+                    var abilityPromise = _context.AbilityFactory.LoadAbility(AbilityKey.HunterArrow);
+                    abilityPromise.OnLoaded(ability =>
+                    {
+                        ability.costActionPoint = true;
+                    });
+
+                    var abilityPromise2 = _context.AbilityFactory.LoadAbility(AbilityKey.LightningBolt);
+                    abilityPromise2.OnLoaded(ability =>
+                    {
+                        ability.costActionPoint = false;
+                    });
                 }
                 else if (piece.boardPieceId == BoardPieceId.HeroWarlock)
                 {
-                    AbilityFactory.TryGetAbility(AbilityKey.MinionCharge, out var ability);
-                    ability.costActionPoint = true;
+                    var abilityPromise = _context.AbilityFactory.LoadAbility(AbilityKey.MinionCharge);
+                    abilityPromise.OnLoaded(ability =>
+                    {
+                        ability.costActionPoint = true;
+                    });
                 }
             }
             else
             {
                 if (piece.boardPieceId == BoardPieceId.HeroBarbarian)
                 {
-                    AbilityFactory.TryGetAbility(AbilityKey.Grapple, out var ability);
-                    ability.costActionPoint = false;
+                    var abilityPromise = _context.AbilityFactory.LoadAbility(AbilityKey.Grapple);
+                    abilityPromise.OnLoaded(ability =>
+                    {
+                        ability.costActionPoint = false;
+                    });
                 }
                 else if (piece.boardPieceId == BoardPieceId.HeroBard)
                 {
-                    AbilityFactory.TryGetAbility(AbilityKey.StrengthenCourage, out var ability);
-                    ability.costActionPoint = false;
+                    var abilityPromise = _context.AbilityFactory.LoadAbility(AbilityKey.StrengthenCourage);
+                    abilityPromise.OnLoaded(ability =>
+                    {
+                        ability.costActionPoint = false;
+                    });
                 }
                 else if (piece.boardPieceId == BoardPieceId.HeroRogue)
                 {
-                    AbilityFactory.TryGetAbility(AbilityKey.Stealth, out var ability);
-                    ability.costActionPoint = false;
+                    var abilityPromise = _context.AbilityFactory.LoadAbility(AbilityKey.Stealth);
+                    abilityPromise.OnLoaded(ability =>
+                    {
+                        ability.costActionPoint = false;
+                    });
                 }
                 else if (piece.boardPieceId == BoardPieceId.HeroSorcerer)
                 {
-                    AbilityFactory.TryGetAbility(AbilityKey.Zap, out var ability);
-                    AbilityFactory.TryGetAbility(AbilityKey.LightningBolt, out var ability2);
-                    ability.costActionPoint = false;
-                    ability2.costActionPoint = false;
+                    var abilityPromise = _context.AbilityFactory.LoadAbility(AbilityKey.Zap);
+                    abilityPromise.OnLoaded(ability =>
+                    {
+                        ability.costActionPoint = false;
+                    });
+
+                    var abilityPromise2 = _context.AbilityFactory.LoadAbility(AbilityKey.LightningBolt);
+                    abilityPromise2.OnLoaded(ability =>
+                    {
+                        ability.costActionPoint = false;
+                    });
                 }
                 else if (piece.boardPieceId == BoardPieceId.HeroHunter)
                 {
-                    AbilityFactory.TryGetAbility(AbilityKey.HunterArrow, out var ability);
-                    AbilityFactory.TryGetAbility(AbilityKey.LightningBolt, out var ability2);
-                    ability.costActionPoint = false;
-                    ability2.costActionPoint = false;
+                    var abilityPromise = _context.AbilityFactory.LoadAbility(AbilityKey.HunterArrow);
+                    abilityPromise.OnLoaded(ability =>
+                    {
+                        ability.costActionPoint = false;
+                    });
+
+                    var abilityPromise2 = _context.AbilityFactory.LoadAbility(AbilityKey.LightningBolt);
+                    abilityPromise2.OnLoaded(ability =>
+                    {
+                        ability.costActionPoint = false;
+                    });
                 }
                 else if (piece.boardPieceId == BoardPieceId.HeroWarlock)
                 {
-                    AbilityFactory.TryGetAbility(AbilityKey.MinionCharge, out var ability);
-                    ability.costActionPoint = false;
+                    var abilityPromise = _context.AbilityFactory.LoadAbility(AbilityKey.MinionCharge);
+                    abilityPromise.OnLoaded(ability =>
+                    {
+                        ability.costActionPoint = false;
+                    });
                 }
             }
 

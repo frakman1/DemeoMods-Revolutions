@@ -22,7 +22,7 @@
 
         protected override void OnActivate(Context context)
         {
-            _gameContext = gameContext;
+            _gameContext = context.GameContext;
             _isActivated = true;
         }
 
@@ -39,7 +39,7 @@
 
         private static void SerializableEventQueue_ValidateSerializableEvent_Postfix(
             byte[] serializableEventData,
-            ref SerializableEvent? __result)
+            ref SerializableEvent __result)
         {
             if (!_isActivated)
             {

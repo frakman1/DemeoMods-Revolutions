@@ -2,7 +2,6 @@
 {
     using Boardgame;
     using Boardgame.BoardEntities;
-    using Boardgame.BoardEntities.Abilities;
     using DataKeys;
     using HarmonyLib;
     using HouseRules.Core;
@@ -115,13 +114,11 @@
                         }
                     }
 
-                    piece.inventory.Items.Add(new Inventory.Item
-                    {
-                        abilityKey = AbilityKey.HunterArrow,
-                        flags = (Inventory.ItemFlag)1,
-                        originalOwner = -1,
-                        replenishCooldown = 1,
-                    });
+                    piece.inventory.Items.Add(new Inventory.Item(
+                        AbilityKey.HunterArrow,
+                        flags: (Inventory.ItemFlag)1,
+                        originalOwner: -1,
+                        replenishCooldown: 1));
 
                     piece.AddGold(0);
                 }
@@ -146,13 +143,11 @@
                     }
 
                     piece.effectSink.RemoveStatusEffect(EffectStateType.Overcharge);
-                    piece.inventory.Items.Add(new Inventory.Item
-                    {
-                        abilityKey = AbilityKey.Overcharge,
-                        flags = (Inventory.ItemFlag)1,
-                        originalOwner = -1,
-                        replenishCooldown = 1,
-                    });
+                    piece.inventory.Items.Add(new Inventory.Item(
+                        AbilityKey.Overcharge,
+                        flags: (Inventory.ItemFlag)1,
+                        originalOwner: -1,
+                        replenishCooldown: 1));
 
                     if (overcharge > 0)
                     {
@@ -193,8 +188,6 @@
                     }
 
                     piece.AddGold(0);
-
-                    AbilityFactory.TryGetAbility(AbilityKey.StrengthenCourage, out var ability);
                 }
                 else if (piece.boardPieceId == BoardPieceId.HeroGuardian)
                 {

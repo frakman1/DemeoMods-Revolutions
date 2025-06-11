@@ -56,7 +56,7 @@
             {
                 AbilityKey.CallCompanion,
                 AbilityKey.SummonElemental,
-                AbilityKey.RatWhisperer,
+                AbilityKey.NaturesCall,
                 AbilityKey.NotesOfConfusion,
                 AbilityKey.Bone,
                 AbilityKey.Strength,
@@ -78,15 +78,12 @@
                 { "FloorOneHealingFountains", 6 },
                 { "FloorOneLootChests", 5 },
                 { "FloorOnePotionStand", 1 },
-                { "FloorOneElvenSummoners", 0 },
                 { "FloorTwoHealingFountains", 6 },
                 { "FloorTwoLootChests", 10 },
                 { "FloorTwoPotionStand", 2 },
-                { "FloorTwoElvenSummoners", 0 },
                 { "FloorThreeHealingFountains", 6 },
                 { "FloorThreeLootChests", 11 },
                 { "FloorThreePotionStand", 1 },
-                { "FloorThreeElvenSummoners", 0 },
             });
 
             return Ruleset.NewInstance(

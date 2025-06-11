@@ -10,6 +10,7 @@
     {
         public override string Description => "The Energy Potion can be activated";
 
+        private static Context _context;
         private static bool _isActivated;
 
         public EnergyPotionRule(bool value)
@@ -257,6 +258,7 @@
             }
 
             Inventory.Item value;
+            var inventory = new Inventory(_context.AbilityFactory);
 
             // Energy Potion cards added per class
             if (piece.HasEffectState(EffectStateType.ExtraEnergy))
@@ -276,16 +278,14 @@
 
                     if (!hasPower)
                     {
-                        Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.ImplosionExplosionRain,
-                            flags = (Inventory.ItemFlag)1,
-                            originalOwner = -1,
-                            replenishCooldown = 1,
-                        });
-                        piece.AddGold(0);
+                        inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.ImplosionExplosionRain,
+                            flags: (Inventory.ItemFlag)1,
+                            originalOwner: -1,
+                            replenishCooldown: 1));
                     }
+
+                    piece.AddGold(0);
                 }
                 else if (piece.boardPieceId == BoardPieceId.HeroGuardian)
                 {
@@ -301,16 +301,14 @@
 
                     if (!hasPower)
                     {
-                        Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.LeapHeavy,
-                            flags = (Inventory.ItemFlag)1,
-                            originalOwner = -1,
-                            replenishCooldown = 1,
-                        });
-                        piece.AddGold(0);
+                        inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.LeapHeavy,
+                            flags: (Inventory.ItemFlag)1,
+                            originalOwner: -1,
+                            replenishCooldown: 1));
                     }
+
+                    piece.AddGold(0);
                 }
                 else if (piece.boardPieceId == BoardPieceId.HeroHunter)
                 {
@@ -333,16 +331,14 @@
 
                     if (!hasPower)
                     {
-                        Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.PVPMissileSwarm,
-                            flags = (Inventory.ItemFlag)1,
-                            originalOwner = -1,
-                            replenishCooldown = 1,
-                        });
-                        piece.AddGold(0);
+                        inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.PVPMissileSwarm,
+                            flags: (Inventory.ItemFlag)1,
+                            originalOwner: -1,
+                            replenishCooldown: 1));
                     }
+
+                    piece.AddGold(0);
                 }
                 else if (piece.boardPieceId == BoardPieceId.HeroBard)
                 {
@@ -358,16 +354,14 @@
 
                     if (!hasPower)
                     {
-                        Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.PVPBlink,
-                            flags = (Inventory.ItemFlag)1,
-                            originalOwner = -1,
-                            replenishCooldown = 1,
-                        });
-                        piece.AddGold(0);
+                        inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.PVPBlink,
+                            flags: (Inventory.ItemFlag)1,
+                            originalOwner: -1,
+                            replenishCooldown: 1));
                     }
+
+                    piece.AddGold(0);
                 }
                 else if (piece.boardPieceId == BoardPieceId.HeroSorcerer)
                 {
@@ -383,16 +377,14 @@
 
                     if (!hasPower)
                     {
-                        Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.DeathBeam,
-                            flags = (Inventory.ItemFlag)1,
-                            originalOwner = -1,
-                            replenishCooldown = 1,
-                        });
-                        piece.AddGold(0);
+                        inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.DeathBeam,
+                            flags: (Inventory.ItemFlag)1,
+                            originalOwner: -1,
+                            replenishCooldown: 1));
                     }
+
+                    piece.AddGold(0);
                 }
                 else if (piece.boardPieceId == BoardPieceId.HeroRogue)
                 {
@@ -408,16 +400,14 @@
 
                     if (!hasPower)
                     {
-                        Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.PVPFireball,
-                            flags = (Inventory.ItemFlag)1,
-                            originalOwner = -1,
-                            replenishCooldown = 1,
-                        });
-                        piece.AddGold(0);
+                        inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.PVPFireball,
+                            flags: (Inventory.ItemFlag)1,
+                            originalOwner: -1,
+                            replenishCooldown: 1));
                     }
+
+                    piece.AddGold(0);
                 }
                 else if (piece.boardPieceId == BoardPieceId.HeroWarlock)
                 {
@@ -433,16 +423,14 @@
 
                     if (!hasPower)
                     {
-                        Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.WeakeningShout,
-                            flags = (Inventory.ItemFlag)1,
-                            originalOwner = -1,
-                            replenishCooldown = 1,
-                        });
-                        piece.AddGold(0);
+                        inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.WeakeningShout,
+                            flags: (Inventory.ItemFlag)1,
+                            originalOwner: -1,
+                            replenishCooldown: 1));
                     }
+
+                    piece.AddGold(0);
                 }
             }
 

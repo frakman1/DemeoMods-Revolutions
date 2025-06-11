@@ -10,11 +10,13 @@
     using HouseRules.Core;
     using HouseRules.Core.Types;
     using UnityEngine;
+    using static UnityEngine.UIElements.StylePropertyAnimationSystem;
 
     public sealed class HeroesRule : Rule, IConfigWritable<int>, IPatchable, IMultiplayerSafe
     {
         public override string Description => "A Heroes style game (featuring Revolutions) is enabled";
 
+        private static Context _context;
         private static bool _isActivated;
         private static float _globalGameType;
         private static bool _isReconnect;
@@ -31,6 +33,7 @@
 
         protected override void OnActivate(Context context)
         {
+            _context = context;
             _globalGameType = _gameType;
             _isActivated = true;
 
@@ -39,36 +42,101 @@
             {
                 // set sorting priority in player hands for refreshing cards.
                 // warlock.
-                AbilityFactory.GetAbility(AbilityKey.MagicMissile).hasCardHandSortingPriority = true;
-                AbilityFactory.GetAbility(AbilityKey.EnemyArrow).hasCardHandSortingPriority = true;
+                if (_context.AbilityFactory.TryGetAbility(AbilityKey.MagicMissile, out Ability ability))
+                {
+                    ability.hasCardHandSortingPriority = true;
+                }
+
+                if (_context.AbilityFactory.TryGetAbility(AbilityKey.EnemyArrow, out Ability ability1))
+                {
+                    ability1.hasCardHandSortingPriority = true;
+                }
 
                 // guardian.
-                AbilityFactory.GetAbility(AbilityKey.ReplenishArmor).hasCardHandSortingPriority = true;
-                AbilityFactory.GetAbility(AbilityKey.Zap).hasCardHandSortingPriority = true;
-                AbilityFactory.GetAbility(AbilityKey.TurretHealProjectile).hasCardHandSortingPriority = true;
+                if (_context.AbilityFactory.TryGetAbility(AbilityKey.ReplenishArmor, out Ability ability2))
+                {
+                    ability2.hasCardHandSortingPriority = true;
+                }
+
+                if (_context.AbilityFactory.TryGetAbility(AbilityKey.Zap, out Ability ability3))
+                {
+                    ability3.hasCardHandSortingPriority = true;
+                }
+
+                if (_context.AbilityFactory.TryGetAbility(AbilityKey.TurretHealProjectile, out Ability ability4))
+                {
+                    ability4.hasCardHandSortingPriority = true;
+                }
 
                 // bard.
-                AbilityFactory.GetAbility(AbilityKey.StrengthenCourage).hasCardHandSortingPriority = true;
-                AbilityFactory.GetAbility(AbilityKey.DrainingKiss).hasCardHandSortingPriority = true;
+                if (_context.AbilityFactory.TryGetAbility(AbilityKey.StrengthenCourage, out Ability ability5))
+                {
+                    ability5.hasCardHandSortingPriority = true;
+                }
+
+                if (_context.AbilityFactory.TryGetAbility(AbilityKey.DrainingKiss, out Ability ability6))
+                {
+                    ability6.hasCardHandSortingPriority = true;
+                }
 
                 // hunter.
-                AbilityFactory.GetAbility(AbilityKey.LetItRain).hasCardHandSortingPriority = true;
-                AbilityFactory.GetAbility(AbilityKey.Whip).hasCardHandSortingPriority = true;
-                AbilityFactory.GetAbility(AbilityKey.TornadoCharge).hasCardHandSortingPriority = true;
+                if (_context.AbilityFactory.TryGetAbility(AbilityKey.LetItRain, out Ability ability7))
+                {
+                    ability7.hasCardHandSortingPriority = true;
+                }
+
+                if (_context.AbilityFactory.TryGetAbility(AbilityKey.Whip, out Ability ability8))
+                {
+                    ability8.hasCardHandSortingPriority = true;
+                }
+
+                if (_context.AbilityFactory.TryGetAbility(AbilityKey.TornadoCharge, out Ability ability9))
+                {
+                    ability9.hasCardHandSortingPriority = true;
+                }
 
                 // assassin.
-                AbilityFactory.GetAbility(AbilityKey.Stealth).hasCardHandSortingPriority = true;
-                AbilityFactory.GetAbility(AbilityKey.EnemyJavelin).hasCardHandSortingPriority = true;
-                AbilityFactory.GetAbility(AbilityKey.DiseasedBite).hasCardHandSortingPriority = true;
-                AbilityFactory.GetAbility(AbilityKey.EnemyFireball).hasCardHandSortingPriority = true;
+                if (_context.AbilityFactory.TryGetAbility(AbilityKey.Stealth, out Ability ability10))
+                {
+                    ability10.hasCardHandSortingPriority = true;
+                }
+
+                if (_context.AbilityFactory.TryGetAbility(AbilityKey.EnemyJavelin, out Ability ability11))
+                {
+                    ability11.hasCardHandSortingPriority = true;
+                }
+
+                if (_context.AbilityFactory.TryGetAbility(AbilityKey.DiseasedBite, out Ability ability12))
+                {
+                    ability12.hasCardHandSortingPriority = true;
+                }
+
+                if (_context.AbilityFactory.TryGetAbility(AbilityKey.EnemyFireball, out Ability ability13))
+                {
+                    ability13.hasCardHandSortingPriority = true;
+                }
 
                 // barbarian.
-                AbilityFactory.GetAbility(AbilityKey.Grapple).hasCardHandSortingPriority = true;
-                AbilityFactory.GetAbility(AbilityKey.EnemyJavelin).hasCardHandSortingPriority = true;
+                if (_context.AbilityFactory.TryGetAbility(AbilityKey.Grapple, out Ability ability14))
+                {
+                    ability14.hasCardHandSortingPriority = true;
+                }
+
+                if (_context.AbilityFactory.TryGetAbility(AbilityKey.EnemyJavelin, out Ability ability15))
+                {
+                    ability15.hasCardHandSortingPriority = true;
+                }
 
                 // sorcerer.
-                AbilityFactory.GetAbility(AbilityKey.SnakeBossLongRange).hasCardHandSortingPriority = true;
-                AbilityFactory.GetAbility(AbilityKey.EnemyArrow).hasCardHandSortingPriority = true;
+                if (_context.AbilityFactory.TryGetAbility(AbilityKey.SnakeBossLongRange, out Ability ability16))
+                {
+                    ability16.hasCardHandSortingPriority = true;
+                }
+
+                if (_context.AbilityFactory.TryGetAbility(AbilityKey.EnemyArrow, out Ability ability17))
+                {
+                    ability17.hasCardHandSortingPriority = true;
+                }
 
                 // extra adjustments for some abilities.
                 // AbilityFactory.GetAbility(AbilityKey.Grab).maxRange = 15; // only works for the host
@@ -165,38 +233,29 @@
                 {
                     // reset the sorcerer hand.
                     piece.inventory.Items.Clear();
-                    Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value = 1;
-                    piece.inventory.Items.Add(new Inventory.Item
-                    {
-                        abilityKey = AbilityKey.EnemyArrow,
-                        flags = (Inventory.ItemFlag)1,
-                        originalOwner = -1,
-                        replenishCooldown = 1,
-                    });
+                    Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
+                    piece.inventory.Items.Add(new Inventory.Item(
+                        AbilityKey.EnemyArrow,
+                        flags: (Inventory.ItemFlag)1,
+                        originalOwner: -1,
+                        replenishCooldown: 1));
+                    piece.inventory.Items.Add(new Inventory.Item(
+                        AbilityKey.SnakeBossLongRange,
+                        flags: 0,
+                        originalOwner: -1,
+                        replenishCooldown: 0));
 
-                    piece.inventory.Items.Add(new Inventory.Item
-                    {
-                        abilityKey = AbilityKey.SnakeBossLongRange,
-                        flags = 0,
-                        originalOwner = -1,
-                        replenishCooldown = 0,
-                    });
+                    piece.inventory.Items.Add(new Inventory.Item(
+                        AbilityKey.Confuse,
+                        flags: 0,
+                        originalOwner: -1,
+                        replenishCooldown: 0));
 
-                    piece.inventory.Items.Add(new Inventory.Item
-                    {
-                        abilityKey = AbilityKey.Confuse,
-                        flags = 0,
-                        originalOwner = -1,
-                        replenishCooldown = 0,
-                    });
-
-                    piece.inventory.Items.Add(new Inventory.Item
-                    {
-                        abilityKey = AbilityKey.Heal,
-                        flags = 0,
-                        originalOwner = -1,
-                        replenishCooldown = 0,
-                    });
+                    piece.inventory.Items.Add(new Inventory.Item(
+                        AbilityKey.Heal,
+                        flags: 0,
+                        originalOwner: -1,
+                        replenishCooldown: 0));
 
                     piece.effectSink.TrySetStatBaseValue(Stats.Type.CritDamage, 4);
                     piece.effectSink.TrySetStatBaseValue(Stats.Type.MagicBonus, 1);
@@ -208,47 +267,36 @@
                 else if (piece.boardPieceId == BoardPieceId.HeroWarlock)
                 {
                     piece.inventory.Items.Clear();
-                    Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value = 1;
-                    piece.inventory.Items.Add(new Inventory.Item
-                    {
-                        abilityKey = AbilityKey.MagicMissile,
-                        flags = (Inventory.ItemFlag)1,
-                        originalOwner = -1,
-                        replenishCooldown = 1,
-                    });
+                    Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 2;
+                    piece.inventory.Items.Add(new Inventory.Item(
+                        AbilityKey.MagicMissile,
+                        flags: (Inventory.ItemFlag)1,
+                        originalOwner: -1,
+                        replenishCooldown: 1));
 
-                    Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                    piece.inventory.Items.Add(new Inventory.Item
-                    {
-                        abilityKey = AbilityKey.EnemyArrow,
-                        flags = (Inventory.ItemFlag)1,
-                        originalOwner = -1,
-                        replenishCooldown = 1,
-                    });
+                    piece.inventory.Items.Add(new Inventory.Item(
+                        AbilityKey.EnemyArrow,
+                        flags: (Inventory.ItemFlag)1,
+                        originalOwner: -1,
+                        replenishCooldown: 1));
 
-                    piece.inventory.Items.Add(new Inventory.Item
-                    {
-                        abilityKey = AbilityKey.SplittingArrow,
-                        flags = 0,
-                        originalOwner = -1,
-                        replenishCooldown = 0,
-                    });
+                    piece.inventory.Items.Add(new Inventory.Item(
+                        AbilityKey.Exterminate,
+                        flags: 0,
+                        originalOwner: -1,
+                        replenishCooldown: 0));
 
-                    piece.inventory.Items.Add(new Inventory.Item
-                    {
-                        abilityKey = AbilityKey.Barrage,
-                        flags = 0,
-                        originalOwner = -1,
-                        replenishCooldown = 0,
-                    });
+                    piece.inventory.Items.Add(new Inventory.Item(
+                        AbilityKey.Barrage,
+                        flags: 0,
+                        originalOwner: -1,
+                        replenishCooldown: 0));
 
-                    piece.inventory.Items.Add(new Inventory.Item
-                    {
-                        abilityKey = AbilityKey.Heal,
-                        flags = 0,
-                        originalOwner = -1,
-                        replenishCooldown = 0,
-                    });
+                    piece.inventory.Items.Add(new Inventory.Item(
+                        AbilityKey.Heal,
+                        flags: 0,
+                        originalOwner: -1,
+                        replenishCooldown: 0));
 
                     piece.effectSink.TrySetStatBaseValue(Stats.Type.AttackDamage, 2); // warlock starting damage.
                     piece.effectSink.TrySetStatBaseValue(Stats.Type.CritDamage, 4);
@@ -260,39 +308,30 @@
                 else if (piece.boardPieceId == BoardPieceId.HeroHunter)
                 {
                     piece.inventory.Items.Clear();
-                    Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value = 1;
-                    piece.inventory.Items.Add(new Inventory.Item
-                    {
-                        abilityKey = AbilityKey.LetItRain,
-                        flags = (Inventory.ItemFlag)1,
-                        originalOwner = -1,
-                        replenishCooldown = 4,
-                    });
+                    Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 2;
+                    piece.inventory.Items.Add(new Inventory.Item(
+                        AbilityKey.LetItRain,
+                        flags: (Inventory.ItemFlag)1,
+                        originalOwner: -1,
+                        replenishCooldown: 4));
 
-                    Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                    piece.inventory.Items.Add(new Inventory.Item
-                    {
-                        abilityKey = AbilityKey.Whip,
-                        flags = (Inventory.ItemFlag)1,
-                        originalOwner = -1,
-                        replenishCooldown = 1,
-                    });
+                    piece.inventory.Items.Add(new Inventory.Item(
+                        AbilityKey.Whip,
+                        flags: (Inventory.ItemFlag)1,
+                        originalOwner: -1,
+                        replenishCooldown: 1));
 
-                    piece.inventory.Items.Add(new Inventory.Item
-                    {
-                        abilityKey = AbilityKey.EarthShatter,
-                        flags = 0,
-                        originalOwner = -1,
-                        replenishCooldown = 0,
-                    });
+                    piece.inventory.Items.Add(new Inventory.Item(
+                        AbilityKey.EarthShatter,
+                        flags: 0,
+                        originalOwner: -1,
+                        replenishCooldown: 0));
 
-                    piece.inventory.Items.Add(new Inventory.Item
-                    {
-                        abilityKey = AbilityKey.Heal,
-                        flags = 0,
-                        originalOwner = -1,
-                        replenishCooldown = 0,
-                    });
+                    piece.inventory.Items.Add(new Inventory.Item(
+                        AbilityKey.Heal,
+                        flags: 0,
+                        originalOwner: -1,
+                        replenishCooldown: 0));
 
                     piece.effectSink.TrySetStatBaseValue(Stats.Type.AttackDamage, 2); // reset hunter stats.
                     piece.effectSink.TrySetStatBaseValue(Stats.Type.CritDamage, 4);
@@ -304,39 +343,30 @@
                 else if (piece.boardPieceId == BoardPieceId.HeroBard)
                 {
                     piece.inventory.Items.Clear();
-                    Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value = 1;
-                    piece.inventory.Items.Add(new Inventory.Item
-                    {
-                        abilityKey = AbilityKey.StrengthenCourage,
-                        flags = (Inventory.ItemFlag)1,
-                        originalOwner = -1,
-                        replenishCooldown = 1,
-                    });
+                    Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 2;
+                    piece.inventory.Items.Add(new Inventory.Item(
+                        AbilityKey.StrengthenCourage,
+                        flags: (Inventory.ItemFlag)1,
+                        originalOwner: -1,
+                        replenishCooldown: 1));
 
-                    Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                    piece.inventory.Items.Add(new Inventory.Item
-                    {
-                        abilityKey = AbilityKey.DrainingKiss,
-                        flags = (Inventory.ItemFlag)1,
-                        originalOwner = -1,
-                        replenishCooldown = 2,
-                    });
+                    piece.inventory.Items.Add(new Inventory.Item(
+                        AbilityKey.DrainingKiss,
+                        flags: (Inventory.ItemFlag)1,
+                        originalOwner: -1,
+                        replenishCooldown: 2));
 
-                    piece.inventory.Items.Add(new Inventory.Item
-                    {
-                        abilityKey = AbilityKey.Weaken,
-                        flags = 0,
-                        originalOwner = -1,
-                        replenishCooldown = 0,
-                    });
+                    piece.inventory.Items.Add(new Inventory.Item(
+                        AbilityKey.Weaken,
+                        flags: 0,
+                        originalOwner: -1,
+                        replenishCooldown: 0));
 
-                    piece.inventory.Items.Add(new Inventory.Item
-                    {
-                        abilityKey = AbilityKey.Heal,
-                        flags = 0,
-                        originalOwner = -1,
-                        replenishCooldown = 0,
-                    });
+                    piece.inventory.Items.Add(new Inventory.Item(
+                        AbilityKey.Heal,
+                        flags: 0,
+                        originalOwner: -1,
+                        replenishCooldown: 0));
 
                     piece.effectSink.TrySetStatBaseValue(Stats.Type.AttackDamage, 2); // reset bard stats.
                     piece.effectSink.TrySetStatBaseValue(Stats.Type.CritDamage, 3);
@@ -348,48 +378,36 @@
                 else if (piece.boardPieceId == BoardPieceId.HeroRogue)
                 {
                     piece.inventory.Items.Clear();
-                    Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value = 1;
-                    piece.inventory.Items.Add(new Inventory.Item
-                    {
-                        abilityKey = AbilityKey.Stealth,
-                        flags = (Inventory.ItemFlag)1,
-                        originalOwner = -1,
-                        replenishCooldown = 1,
-                    });
+                    Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 3;
+                    piece.inventory.Items.Add(new Inventory.Item(
+                        AbilityKey.Stealth,
+                        flags: (Inventory.ItemFlag)1,
+                        originalOwner: -1,
+                        replenishCooldown: 1));
 
-                    Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                    piece.inventory.Items.Add(new Inventory.Item
-                    {
-                        abilityKey = AbilityKey.ExtraActionPotion,
-                        flags = (Inventory.ItemFlag)1,
-                        originalOwner = -1,
-                        replenishCooldown = 4,
-                    });
+                    piece.inventory.Items.Add(new Inventory.Item(
+                        AbilityKey.ExtraActionPotion,
+                        flags: (Inventory.ItemFlag)1,
+                        originalOwner: -1,
+                        replenishCooldown: 4));
 
-                    Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                    piece.inventory.Items.Add(new Inventory.Item
-                    {
-                        abilityKey = AbilityKey.EnemyJavelin,
-                        flags = (Inventory.ItemFlag)1,
-                        originalOwner = -1,
-                        replenishCooldown = 1,
-                    });
+                    piece.inventory.Items.Add(new Inventory.Item(
+                        AbilityKey.EnemyJavelin,
+                        flags: (Inventory.ItemFlag)1,
+                        originalOwner: -1,
+                        replenishCooldown: 1));
 
-                    piece.inventory.Items.Add(new Inventory.Item
-                    {
-                        abilityKey = AbilityKey.Whirlwind,
-                        flags = 0,
-                        originalOwner = -1,
-                        replenishCooldown = 0,
-                    });
+                    piece.inventory.Items.Add(new Inventory.Item(
+                        AbilityKey.Whirlwind,
+                        flags: 0,
+                        originalOwner: -1,
+                        replenishCooldown: 0));
 
-                    piece.inventory.Items.Add(new Inventory.Item
-                    {
-                        abilityKey = AbilityKey.Heal,
-                        flags = 0,
-                        originalOwner = -1,
-                        replenishCooldown = 0,
-                    });
+                    piece.inventory.Items.Add(new Inventory.Item(
+                        AbilityKey.Heal,
+                        flags: 0,
+                        originalOwner: -1,
+                        replenishCooldown: 0));
 
                     piece.effectSink.TrySetStatBaseValue(Stats.Type.CritDamage, 5); // reset assassin stats.
                     piece.effectSink.TrySetStatMaxValue(Stats.Type.Health, 6);
@@ -400,40 +418,30 @@
                 else if (piece.boardPieceId == BoardPieceId.HeroBarbarian)
                 {
                     piece.inventory.Items.Clear();
-                    Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value = 1;
-                    piece.inventory.Items.Add(new Inventory.Item
-                    {
-                        abilityKey = AbilityKey.Grapple,
-                        flags = (Inventory.ItemFlag)1,
-                        originalOwner = -1,
-                        replenishCooldown = 1,
-                    });
+                    Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 3;
+                    piece.inventory.Items.Add(new Inventory.Item(
+                        AbilityKey.Grapple,
+                        flags: (Inventory.ItemFlag)1,
+                        originalOwner: -1,
+                        replenishCooldown: 1));
 
-                    Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                    piece.inventory.Items.Add(new Inventory.Item
-                    {
-                        abilityKey = AbilityKey.ExplodingLampPlaceholder,
-                        flags = (Inventory.ItemFlag)1,
-                        originalOwner = -1,
-                        replenishCooldown = 1,
-                    });
+                    piece.inventory.Items.Add(new Inventory.Item(
+                        AbilityKey.ExplodingLampPlaceholder,
+                        flags: (Inventory.ItemFlag)1,
+                        originalOwner: -1,
+                        replenishCooldown: 1));
 
-                    Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                    piece.inventory.Items.Add(new Inventory.Item
-                    {
-                        abilityKey = AbilityKey.TauntingScream,
-                        flags = (Inventory.ItemFlag)1,
-                        originalOwner = -1,
-                        replenishCooldown = 3,
-                    });
+                    piece.inventory.Items.Add(new Inventory.Item(
+                        AbilityKey.TauntingScream,
+                        flags: (Inventory.ItemFlag)1,
+                        originalOwner: -1,
+                        replenishCooldown: 3));
 
-                    piece.inventory.Items.Add(new Inventory.Item
-                    {
-                        abilityKey = AbilityKey.Heal,
-                        flags = 0,
-                        originalOwner = -1,
-                        replenishCooldown = 0,
-                    });
+                    piece.inventory.Items.Add(new Inventory.Item(
+                        AbilityKey.Heal,
+                        flags: 0,
+                        originalOwner: -1,
+                        replenishCooldown: 0));
 
                     piece.effectSink.TrySetStatBaseValue(Stats.Type.CritDamage, 5); // reset barbarian stats.
                     piece.effectSink.TrySetStatMaxValue(Stats.Type.Health, 7);
@@ -444,39 +452,30 @@
                 else if (piece.boardPieceId == BoardPieceId.HeroGuardian)
                 {
                     piece.inventory.Items.Clear();
-                    Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value = 1;
-                    piece.inventory.Items.Add(new Inventory.Item
-                    {
-                        abilityKey = AbilityKey.ReplenishArmor,
-                        flags = (Inventory.ItemFlag)1,
-                        originalOwner = -1,
-                        replenishCooldown = 1,
-                    });
+                    Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 2;
+                    piece.inventory.Items.Add(new Inventory.Item(
+                        AbilityKey.ReplenishArmor,
+                        flags: (Inventory.ItemFlag)1,
+                        originalOwner: -1,
+                        replenishCooldown: 1));
 
-                    Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                    piece.inventory.Items.Add(new Inventory.Item
-                    {
-                        abilityKey = AbilityKey.BlindingLight,
-                        flags = (Inventory.ItemFlag)1,
-                        originalOwner = -1,
-                        replenishCooldown = 2,
-                    });
+                    piece.inventory.Items.Add(new Inventory.Item(
+                        AbilityKey.BlindingLight,
+                        flags: (Inventory.ItemFlag)1,
+                        originalOwner: -1,
+                        replenishCooldown: 2));
 
-                    piece.inventory.Items.Add(new Inventory.Item
-                    {
-                        abilityKey = AbilityKey.MagicShield,
-                        flags = 0,
-                        originalOwner = -1,
-                        replenishCooldown = 0,
-                    });
+                    piece.inventory.Items.Add(new Inventory.Item(
+                        AbilityKey.MagicShield,
+                        flags: 0,
+                        originalOwner: -1,
+                        replenishCooldown: 0));
 
-                    piece.inventory.Items.Add(new Inventory.Item
-                    {
-                        abilityKey = AbilityKey.Heal,
-                        flags = 0,
-                        originalOwner = -1,
-                        replenishCooldown = 0,
-                    });
+                    piece.inventory.Items.Add(new Inventory.Item(
+                        AbilityKey.Heal,
+                        flags: 0,
+                        originalOwner: -1,
+                        replenishCooldown: 0));
 
                     piece.effectSink.TrySetStatBaseValue(Stats.Type.CritDamage, 4); // reset guardian stats.
                     piece.effectSink.TrySetStatMaxValue(Stats.Type.Health, 6);
@@ -529,41 +528,45 @@
 
                     if (piece.boardPieceId == BoardPieceId.HeroBarbarian)
                     {
-                        AbilityFactory.TryGetAbility(AbilityKey.TauntingScream, out var ability);
+                        _context.AbilityFactory.TryGetAbility(AbilityKey.TauntingScream, out var ability);
                         ability.costActionPoint = false;
                     }
                     else if (piece.boardPieceId == BoardPieceId.HeroBard)
                     {
-                        AbilityFactory.TryGetAbility(AbilityKey.StrengthenCourage, out var ability);
+                        _context.AbilityFactory.TryGetAbility(AbilityKey.StrengthenCourage, out var ability);
                         ability.costActionPoint = false;
                     }
                     else if (piece.boardPieceId == BoardPieceId.HeroGuardian)
                     {
                         // Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.TryAddAbilityToInventory(AbilityKey.DropChest);
+                        piece.inventory.Items.Add(new Inventory.Item(
+                        AbilityKey.DropChest,
+                        flags: 0,
+                        originalOwner: -1,
+                        replenishCooldown: 0));
                         piece.AddGold(0);
 
-                        AbilityFactory.TryGetAbility(AbilityKey.BlindingLight, out var ability);
+                        _context.AbilityFactory.TryGetAbility(AbilityKey.BlindingLight, out var ability);
                         ability.costActionPoint = false;
                     }
                     else if (piece.boardPieceId == BoardPieceId.HeroRogue)
                     {
-                        AbilityFactory.TryGetAbility(AbilityKey.Stealth, out var ability);
+                        _context.AbilityFactory.TryGetAbility(AbilityKey.Stealth, out var ability);
                         ability.costActionPoint = false;
                     }
                     else if (piece.boardPieceId == BoardPieceId.HeroHunter)
                     {
-                        AbilityFactory.TryGetAbility(AbilityKey.Whip, out var ability);
+                        _context.AbilityFactory.TryGetAbility(AbilityKey.Whip, out var ability);
                         ability.costActionPoint = false;
                     }
                     else if (piece.boardPieceId == BoardPieceId.HeroSorcerer)
                     {
-                        AbilityFactory.TryGetAbility(AbilityKey.SnakeBossLongRange, out var ability);
+                        _context.AbilityFactory.TryGetAbility(AbilityKey.SnakeBossLongRange, out var ability);
                         ability.costActionPoint = false;
                     }
                     else if (piece.boardPieceId == BoardPieceId.HeroWarlock)
                     {
-                        AbilityFactory.TryGetAbility(AbilityKey.MagicMissile, out var ability);
+                        _context.AbilityFactory.TryGetAbility(AbilityKey.MagicMissile, out var ability);
                         ability.costActionPoint = false;
                     }
 
@@ -573,136 +576,150 @@
                         // increases their hand size incase their hand is full, so they can take the card.
                         // I think this is making everything refreshing. update: it was the 'flags' variable that made it refreshing.
                         // Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.TryAddAbilityToInventory(AbilityKey.SpawnRandomLamp);
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.SpawnRandomLamp,
+                            flags: 0,
+                            originalOwner: -1,
+                            replenishCooldown: 0));
                         piece.AddGold(0); // this only updates their inventory, but its still helpful.
 
                         Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.EnemyJavelin,
-                            flags = (Inventory.ItemFlag)1,
-                            originalOwner = -1,
-                            replenishCooldown = 2,
-                        });
-                        piece.AddGold(0);
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.ReplenishArmor,
+                            flags: (Inventory.ItemFlag)1,
+                            originalOwner: -1,
+                            replenishCooldown: 2));
 
-                        piece.TryAddAbilityToInventory(AbilityKey.WeakeningShout);
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.WeakeningShout,
+                            flags: 0,
+                            originalOwner: -1,
+                            replenishCooldown: 0));
                         piece.AddGold(0);
                     }
                     else if (piece.boardPieceId == BoardPieceId.HeroBard)
                     {
                         Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.TeleportLamp,
-                            flags = (Inventory.ItemFlag)1,
-                            originalOwner = -1,
-                            replenishCooldown = 2,
-                        });
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.TeleportLamp,
+                            flags: (Inventory.ItemFlag)1,
+                            originalOwner: -1,
+                            replenishCooldown: 2));
 
-                        piece.TryAddAbilityToInventory(AbilityKey.BlindingLight);
-                        piece.TryAddAbilityToInventory(AbilityKey.PoisonGasGrenade);
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.BlindingLight,
+                            flags: 0,
+                            originalOwner: -1,
+                            replenishCooldown: 0));
+
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.PoisonGasGrenade,
+                            flags: 0,
+                            originalOwner: -1,
+                            replenishCooldown: 0));
                         piece.AddGold(0);
                     }
                     else if (piece.boardPieceId == BoardPieceId.HeroGuardian)
                     {
-                        Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.Zap,
-                            flags = (Inventory.ItemFlag)1,
-                            originalOwner = -1,
-                            replenishCooldown = 2,
-                        });
+                        Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 2;
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.Zap,
+                            flags: (Inventory.ItemFlag)1,
+                            originalOwner: -1,
+                            replenishCooldown: 2));
 
-                        Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.TurretHealProjectile,
-                            flags = (Inventory.ItemFlag)1,
-                            originalOwner = -1,
-                            replenishCooldown = 3,
-                        });
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.TurretHealProjectile,
+                            flags: (Inventory.ItemFlag)1,
+                            originalOwner: -1,
+                            replenishCooldown: 3));
                         piece.AddGold(0);
                     }
                     else if (piece.boardPieceId == BoardPieceId.HeroRogue)
                     {
-                        Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.EnemyFireball,
-                            flags = (Inventory.ItemFlag)1,
-                            originalOwner = -1,
-                            replenishCooldown = 1,
-                        });
+                        Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 2;
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.EnemyFireball,
+                            flags: (Inventory.ItemFlag)1,
+                            originalOwner: -1,
+                            replenishCooldown: 1));
 
-                        Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.DiseasedBite,
-                            flags = (Inventory.ItemFlag)1,
-                            originalOwner = -1,
-                            replenishCooldown = 1,
-                        });
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.DiseasedBite,
+                            flags: (Inventory.ItemFlag)1,
+                            originalOwner: -1,
+                            replenishCooldown: 1));
 
-                        piece.TryAddAbilityToInventory(AbilityKey.ProximityMine);
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.ProximityMine,
+                            flags: 0,
+                            originalOwner: -1,
+                            replenishCooldown: 0));
                         piece.AddGold(0);
                     }
                     else if (piece.boardPieceId == BoardPieceId.HeroHunter)
                     {
-                        Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.TornadoCharge,
-                            flags = (Inventory.ItemFlag)1,
-                            originalOwner = -1,
-                            replenishCooldown = 1,
-                        });
+                        Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 2;
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.TornadoCharge,
+                            flags: (Inventory.ItemFlag)1,
+                            originalOwner: -1,
+                            replenishCooldown: 1));
 
-                        Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.WaterDive,
-                            flags = (Inventory.ItemFlag)1,
-                            originalOwner = -1,
-                            replenishCooldown = 3,
-                        });
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.WaterDive,
+                            flags: (Inventory.ItemFlag)1,
+                            originalOwner: -1,
+                            replenishCooldown: 3));
 
-                        piece.TryAddAbilityToInventory(AbilityKey.EnemyFrostball);
-                        piece.TryAddAbilityToInventory(AbilityKey.RatWhisperer);
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.EnemyFrostball,
+                            flags: 0,
+                            originalOwner: -1,
+                            replenishCooldown: 0));
+
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.RatWhisperer,
+                            flags: 0,
+                            originalOwner: -1,
+                            replenishCooldown: 0));
                         piece.AddGold(0);
                     }
                     else if (piece.boardPieceId == BoardPieceId.HeroSorcerer)
                     {
                         Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.TurretHighDamageProjectile,
-                            flags = (Inventory.ItemFlag)1,
-                            originalOwner = -1,
-                            replenishCooldown = 3,
-                        });
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.TurretDamageProjectile,
+                            flags: (Inventory.ItemFlag)1,
+                            originalOwner: -1,
+                            replenishCooldown: 3));
 
-                        piece.TryAddAbilityToInventory(AbilityKey.Implode);
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.Implode,
+                            flags: 0,
+                            originalOwner: -1,
+                            replenishCooldown: 0));
                         piece.AddGold(0);
                     }
                     else if (piece.boardPieceId == BoardPieceId.HeroWarlock)
                     {
                         Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.EnemyFireball,
-                            flags = (Inventory.ItemFlag)1,
-                            originalOwner = -1,
-                            replenishCooldown = 2,
-                        });
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.EnemyFireball,
+                            flags: (Inventory.ItemFlag)1,
+                            originalOwner: -1,
+                            replenishCooldown: 2));
                         piece.AddGold(0);
 
                         // Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.TryAddAbilityToInventory(AbilityKey.MinionCharge);
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.MinionCharge,
+                            flags: 0,
+                            originalOwner: -1,
+                            replenishCooldown: 0));
                         piece.AddGold(0);
 
-                        AbilityFactory.TryGetAbility(AbilityKey.MinionCharge, out var ability);
+                        _context.AbilityFactory.TryGetAbility(AbilityKey.MinionCharge, out var ability);
                         ability.costActionPoint = false;
                     }
                 }

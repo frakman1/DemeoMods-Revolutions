@@ -13,6 +13,7 @@
     {
         public override string Description => "Hero loses a level if revived without using magic or potion";
 
+        private static Context _context;
         private static bool _isActivated;
 
         public HeroesPieceProgressLostRule(bool value)
@@ -23,6 +24,7 @@
 
         protected override void OnActivate(Context context)
         {
+            _context = context;
             _isActivated = true;
         }
 
@@ -102,37 +104,37 @@
 
                 if (piece.boardPieceId == BoardPieceId.HeroBarbarian)
                 {
-                    AbilityFactory.TryGetAbility(AbilityKey.TauntingScream, out var ability);
+                    _context.AbilityFactory.TryGetAbility(AbilityKey.TauntingScream, out var ability);
                     ability.costActionPoint = true;
                 }
                 else if (piece.boardPieceId == BoardPieceId.HeroBard)
                 {
-                    AbilityFactory.TryGetAbility(AbilityKey.StrengthenCourage, out var ability);
+                    _context.AbilityFactory.TryGetAbility(AbilityKey.StrengthenCourage, out var ability);
                     ability.costActionPoint = true;
                 }
                 else if (piece.boardPieceId == BoardPieceId.HeroGuardian)
                 {
-                    AbilityFactory.TryGetAbility(AbilityKey.BlindingLight, out var ability);
+                    _context.AbilityFactory.TryGetAbility(AbilityKey.BlindingLight, out var ability);
                     ability.costActionPoint = true;
                 }
                 else if (piece.boardPieceId == BoardPieceId.HeroRogue)
                 {
-                    AbilityFactory.TryGetAbility(AbilityKey.Stealth, out var ability);
+                    _context.AbilityFactory.TryGetAbility(AbilityKey.Stealth, out var ability);
                     ability.costActionPoint = true;
                 }
                 else if (piece.boardPieceId == BoardPieceId.HeroHunter)
                 {
-                    AbilityFactory.TryGetAbility(AbilityKey.Whip, out var ability);
+                    _context.AbilityFactory.TryGetAbility(AbilityKey.Whip, out var ability);
                     ability.costActionPoint = true;
                 }
                 else if (piece.boardPieceId == BoardPieceId.HeroSorcerer)
                 {
-                    AbilityFactory.TryGetAbility(AbilityKey.SnakeBossLongRange, out var ability);
+                    _context.AbilityFactory.TryGetAbility(AbilityKey.SnakeBossLongRange, out var ability);
                     ability.costActionPoint = true;
                 }
                 else if (piece.boardPieceId == BoardPieceId.HeroWarlock)
                 {
-                    AbilityFactory.TryGetAbility(AbilityKey.MagicMissile, out var ability);
+                    _context.AbilityFactory.TryGetAbility(AbilityKey.MagicMissile, out var ability);
                     ability.costActionPoint = true;
                 }
 

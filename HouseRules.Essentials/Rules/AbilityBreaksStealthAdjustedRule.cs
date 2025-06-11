@@ -28,28 +28,27 @@
 
         protected override void OnPreGameCreated(Context context)
         {
-            _originals = ReplaceAbilities(_adjustments);
+            _originals = ReplaceAbilities(context, _adjustments);
         }
 
         protected override void OnDeactivate(Context context)
         {
-            ReplaceAbilities(_originals);
+            ReplaceAbilities(context, _originals);
         }
 
-        private static Dictionary<AbilityKey, bool> ReplaceAbilities(Dictionary<AbilityKey, bool> replacements)
+        private static Dictionary<AbilityKey, bool> ReplaceAbilities(Context context, Dictionary<AbilityKey, bool> replacements)
         {
             var originals = new Dictionary<AbilityKey, bool>();
 
             foreach (var replacement in replacements)
             {
-                if (!AbilityFactory.TryGetAbility(replacement.Key, out var ability))
+                var abilityPromise = context.AbilityFactory.LoadAbility(replacement.Key);
+                abilityPromise.OnLoaded(ability =>
                 {
-                    throw new InvalidOperationException($"AbilityKey [{replacement.Key}] does not have a corresponding ability.");
-                }
-
-                originals[replacement.Key] = ability.breaksStealth;
-                ability.breaksStealth = replacement.Value;
-            }
+                    originals[replacement.Key] = ability.breaksStealth;
+                    ability.breaksStealth = replacement.Value;
+                });
+        }
 
             return originals;
         }

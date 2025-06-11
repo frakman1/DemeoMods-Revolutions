@@ -6,7 +6,7 @@
     using HarmonyLib;
     using HouseRules.Core.Types;
 
-    public sealed class ApplyEffectOnHitLampsRule : Rule, /// bobthebunny
+    public sealed class ApplyEffectOnHitLampsRule : Rule, // bobthebunny
         IConfigWritable<Dictionary<BoardPieceId, EffectStateType>>, IMultiplayerSafe, IDisableOnReconnect
     {
         public override string Description => "Lamps apply effects when getting damaged";

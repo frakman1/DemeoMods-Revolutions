@@ -143,7 +143,14 @@
                             // fourth stage.
                             HouseRulesEssentialsBase.LogDebug($"Hero # {temp}: {listHeroes[temp].boardPieceId} is gaining 4th stage power up!");
                             listHeroes[temp].DisableEffectState(EffectStateType.ElvenHand3RespawnCooldown);
-                            listHeroes[temp].TryAddAbilityToInventory(AbilityKey.ScrollElectricity); // grant powerful ability.
+
+                            // grant powerful ability.
+                            listHeroes[temp].inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.ScrollElectricity,
+                            flags: 0,
+                            originalOwner: -1,
+                            replenishCooldown: 0));
+
                             listHeroes[temp].effectSink.TrySetStatBaseValue(Stats.Type.InnateCounterDirections, 0);
                             currentCount = 0;
                             HouseRulesEssentialsBase.LogDebug($"Decreasing buff counter to 0.");

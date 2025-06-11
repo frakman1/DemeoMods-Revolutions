@@ -49,7 +49,7 @@
             }
 
             __result = _globalAdjustments.Contains(__instance.boardPieceId);
-            return false; // We returned an user-adjusted config.
+            return false; // We returned a user-adjusted config.
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿namespace HouseRules.Essentials.Rules
 {
     using System.Collections.Generic;
-    using Boardgame;
     using Boardgame.BoardEntities;
     using Boardgame.BoardEntities.Abilities;
     using DataKeys;
@@ -14,6 +13,7 @@
     {
         public override string Description => "Some Heroes can get a free card by getting critical hits";
 
+        private static Context _context;
         private static Dictionary<BoardPieceId, AbilityKey> _globalAdjustments;
         private static bool _isActivated;
 
@@ -28,6 +28,7 @@
 
         protected override void OnActivate(Context context)
         {
+            _context = context;
             _globalAdjustments = _adjustments;
             _isActivated = true;
         }
@@ -147,7 +148,12 @@
 
                         if (!hasPower1)
                         {
-                            source.TryAddAbilityToInventory(AbilityKey.WaterBottle, showTooltip: true, isReplenishable: true);
+                            var abilityPromise = _context.AbilityFactory.LoadAbility(AbilityKey.WaterBottle);
+                            abilityPromise.OnLoaded(ability =>
+                            {
+                                source.TryAddAbilityToInventory(ability, showTooltip: true, isReplenishable: true);
+                                HR.ScheduleBoardSync();
+                            });
                             return;
                         }
                         else
@@ -244,14 +250,13 @@
                     }
                     else
                     {
+                        var inventory = new Inventory(_context.AbilityFactory);
                         Traverse.Create(source.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        source.inventory.Items.Add(new Inventory.Item
-                        {
-                            abilityKey = AbilityKey.EnemyFrostball,
-                            flags = (Inventory.ItemFlag)1,
-                            originalOwner = -1,
-                            replenishCooldown = 1,
-                        });
+                        source.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.EnemyFrostball,
+                            flags: 0,
+                            originalOwner: -1,
+                            replenishCooldown: 0));
 
                         source.AddGold(0);
                         if (!source.HasEffectState(EffectStateType.FireImmunity))
@@ -267,7 +272,7 @@
                 }
             }
 
-            if (!_globalAdjustments.ContainsKey(source.boardPieceId))
+            if (!_globalAdjustments.TryGetValue(source.boardPieceId, out var abilityKey))
             {
                 return;
             }
@@ -295,12 +300,22 @@
             {
                 if (!hasPower2)
                 {
-                    source.TryAddAbilityToInventory(_globalAdjustments[source.boardPieceId], showTooltip: true, isReplenishable: true);
+                    var abilityPromise = _context.AbilityFactory.LoadAbility(_globalAdjustments[source.boardPieceId]);
+                    abilityPromise.OnLoaded(ability =>
+                    {
+                        source.TryAddAbilityToInventory(ability, showTooltip: true, isReplenishable: true);
+                        HR.ScheduleBoardSync();
+                    });
                 }
             }
             else
             {
-                source.TryAddAbilityToInventory(_globalAdjustments[source.boardPieceId], showTooltip: true, isReplenishable: false);
+                var abilityPromise = _context.AbilityFactory.LoadAbility(_globalAdjustments[source.boardPieceId]);
+                abilityPromise.OnLoaded(ability =>
+                {
+                    source.TryAddAbilityToInventory(ability, showTooltip: true, isReplenishable: false);
+                    HR.ScheduleBoardSync();
+                });
             }
         }
     }

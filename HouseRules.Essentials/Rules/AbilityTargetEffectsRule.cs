@@ -29,15 +29,15 @@
 
         protected override void OnPreGameCreated(Context context)
         {
-            _originals = ReplaceAbilities(_adjustments);
+            _originals = ReplaceAbilities(context, _adjustments);
         }
 
         protected override void OnDeactivate(Context context)
         {
-            ReplaceAbilities(_originals);
+            ReplaceAbilities(context, _originals);
         }
 
-        private static Dictionary<AbilityKey, List<EffectStateType>> ReplaceAbilities(Dictionary<AbilityKey, List<EffectStateType>> replacements)
+        private static Dictionary<AbilityKey, List<EffectStateType>> ReplaceAbilities(Context context, Dictionary<AbilityKey, List<EffectStateType>> replacements)
         {
             var originals = new Dictionary<AbilityKey, List<EffectStateType>>();
 
@@ -46,19 +46,17 @@
             // var teamMode = new List<Ability.TeamMode> { Ability.TeamMode.OpponentTeam };
             foreach (var replacement in replacements)
             {
-                if (!AbilityFactory.TryGetAbility(replacement.Key, out var ability))
+                var abilityPromise = context.AbilityFactory.LoadAbility(replacement.Key);
+                abilityPromise.OnLoaded(ability =>
                 {
-                    throw new InvalidOperationException($"AbilityKey [{replacement.Key}] does not have a corresponding ability.");
-                }
-
-                originals[replacement.Key] = ability.targetEffects.ToList();
-                ability.targetEffects = replacement.Value.ToArray();
-
-                // ability.validEffectTargets = pieceTypes;
-                // ability.invalidEffectTargets = invalidPieces;
-                // ability.validEffectTeams = teamMode;
+                    originals[replacement.Key] = ability.targetEffects.ToList();
+                    ability.targetEffects = replacement.Value.ToArray();
+                });
             }
 
+            // Theoretically, there can be a race condition as there's no guarantee the promise above is fulfilled by
+            // the return value is used. Realistically, there's no concern since the value isn't used until after the
+            // promise has long been fulfilled.
             return originals;
         }
     }

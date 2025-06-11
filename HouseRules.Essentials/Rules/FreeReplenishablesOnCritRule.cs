@@ -1,7 +1,6 @@
 namespace HouseRules.Essentials.Rules
 {
     using System.Collections.Generic;
-    using Boardgame;
     using Boardgame.BoardEntities;
     using Boardgame.BoardEntities.Abilities;
     using DataKeys;
@@ -13,6 +12,7 @@ namespace HouseRules.Essentials.Rules
     {
         public override string Description => "Some Heroes can replenish abilities by getting critical hits";
 
+        private static Context _context;
         private static List<BoardPieceId> _globalAdjustments;
         private static bool _isActivated;
 
@@ -27,6 +27,7 @@ namespace HouseRules.Essentials.Rules
 
         protected override void OnActivate(Context context)
         {
+            _context = context;
             _globalAdjustments = _adjustments;
             _isActivated = true;
         }
@@ -116,7 +117,7 @@ namespace HouseRules.Essentials.Rules
                     {
                         if (value.IsReplenishing)
                         {
-                            AbilityFactory.TryGetAbility(AbilityKey.Grapple, out var abilityG);
+                            _context.AbilityFactory.TryGetAbility(AbilityKey.Grapple, out var abilityG);
                             source.effectSink.RemoveStatusEffect(EffectStateType.UsedHookThisTurn);
                             abilityG.effectsPreventingUse.Clear();
                             source.inventory.RemoveDisableCooldownFlags();
@@ -207,7 +208,7 @@ namespace HouseRules.Essentials.Rules
             {
                 if (!source.effectSink.HasEffectState(EffectStateType.Overcharge))
                 {
-                    AbilityFactory.TryGetAbility(AbilityKey.Zap, out var abilityZ);
+                    _context.AbilityFactory.TryGetAbility(AbilityKey.Zap, out var abilityZ);
                     source.effectSink.RemoveStatusEffect(EffectStateType.Discharge);
                     abilityZ.effectsPreventingUse.Clear();
                     source.inventory.RemoveDisableCooldownFlags();

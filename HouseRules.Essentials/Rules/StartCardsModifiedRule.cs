@@ -15,6 +15,7 @@
     {
         public override string Description => "Some Hero start cards are adjusted";
 
+        private static Context _context;
         private static Dictionary<BoardPieceId, List<CardConfig>> _globalHeroStartCards;
         private static bool _isActivated;
 
@@ -35,6 +36,7 @@
 
         protected override void OnActivate(Context context)
         {
+            _context = context;
             _globalHeroStartCards = _heroStartCards;
             _isActivated = true;
         }
@@ -50,7 +52,13 @@
                 original: AccessTools.Method(typeof(PieceSpawner), "CreatePieceInternal"),
                 prefix: new HarmonyMethod(
                     typeof(StartCardsModifiedRule),
-                    nameof(Piece_CreatePieceInternal_Prefix)));
+                    nameof(PieceSpawner_CreatePieceInternal_Prefix)));
+
+            harmony.Patch(
+                original: AccessTools.Method(typeof(PieceSpawner), "AddAbilitiesToPlayerPieceInventory"),
+                prefix: new HarmonyMethod(
+                    typeof(StartCardsModifiedRule),
+                    nameof(PieceSpawner_AddAbilitiesToPlayerPieceInventory_Prefix)));
 
             harmony.Patch(
                 original: AccessTools.Method(typeof(Inventory), "RestoreReplenishables"),
@@ -115,9 +123,8 @@
                     }
                 }
 
-                bool skipReplenishing = false;
-                /* FIX THIS
-                if (!AbilityFactory.TryGetAbility(value.AbilityKey, out Ability ability))
+                var skipReplenishing = false;
+                if (!_context.AbilityFactory.TryGetAbility(value.AbilityKey, out Ability ability))
                 {
                     throw new Exception("Failed to get ability prefab from ability key while attempting to replenish hand!");
                 }
@@ -133,7 +140,7 @@
                     }
 
                     j++;
-                }*/
+                }
 
                 if (!skipReplenishing)
                 {
@@ -161,7 +168,7 @@
             return false;
         }
 
-        private static void Piece_CreatePieceInternal_Prefix(PieceSpawnSettings spawnSettings)
+        private static void PieceSpawner_CreatePieceInternal_Prefix(PieceSpawnSettings spawnSettings)
         {
             if (!_isActivated)
             {
@@ -174,24 +181,39 @@
             }
 
             var inventory = CreateInventory(spawnSettings.boardPieceId);
-            Traverse.Create(spawnSettings).Property<Inventory>("Inventory").Value = inventory;
-            Traverse.Create(spawnSettings).Property<bool>("HasInventory").Value = true;
+            spawnSettings.SetInventory(inventory);
+        }
+
+        // PieceSpawner#CreatePieceInternal calls AddAbilitiesToPlayerPieceInventory asynchronously, adding default
+        // cards to the inventory.This patch allows us to intercept that call and prevent it when we've already set
+        // a custom inventory.
+        private static bool PieceSpawner_AddAbilitiesToPlayerPieceInventory_Prefix(Piece playerPiece)
+        {
+            if (!_isActivated)
+            {
+                return true;
+            }
+
+            if (_globalHeroStartCards.ContainsKey(playerPiece.boardPieceId))
+            {
+                // Stop the game from adding a card to the inventory
+                return false;
+            }
+
+            return true;
         }
 
         private static Inventory CreateInventory(BoardPieceId boardPieceId)
         {
-            AbilityFactory? abilityFactory = null;
-            var inventory = new Inventory(abilityFactory);
+            var inventory = new Inventory(_context.AbilityFactory);
 
             if (MotherbrainGlobalVars.CurrentConfig == GameConfigType.Sewers && !HR.SelectedRuleset.Name.Equals("Darkest Dankest Demeo"))
             {
-                inventory.Items.Add(new Inventory.Item
-                {
-                    abilityKey = AbilityKey.TorchLight,
-                    flags = 0,
-                    originalOwner = -1,
-                    replenishCooldown = 0,
-                });
+                inventory.Items.Add(new Inventory.Item(
+                    AbilityKey.TorchLight,
+                    flags: 0,
+                    originalOwner: -1,
+                    replenishCooldown: 0));
             }
 
             foreach (var card in _globalHeroStartCards[boardPieceId])
@@ -209,13 +231,11 @@
                     flags = (Inventory.ItemFlag)1;
                 }
 
-                inventory.Items.Add(new Inventory.Item
-                {
-                    abilityKey = card.Card,
-                    flags = flags,
-                    originalOwner = -1,
-                    replenishCooldown = card.ReplenishFrequency,
-                });
+                inventory.Items.Add(new Inventory.Item(
+                    card.Card,
+                    flags: flags,
+                    originalOwner: -1,
+                    replenishCooldown: card.ReplenishFrequency));
             }
 
             return inventory;

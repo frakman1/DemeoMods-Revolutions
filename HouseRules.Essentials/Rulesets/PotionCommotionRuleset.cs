@@ -1,4 +1,4 @@
-namespace HouseRules.Essentials.Rulesets
+﻿namespace HouseRules.Essentials.Rulesets
 {
     using System.Collections.Generic;
     using DataKeys;
@@ -10,29 +10,42 @@ namespace HouseRules.Essentials.Rulesets
         internal static Ruleset Create()
         {
             const string name = "Potion Commotion";
-            const string description = "Nothing but potions in the cards you get given. Enemies do not respawn.";
+            const string description = "All your cards are potions. 1.5x CardEnergy. Free Sneak on Crit. Enemies do not respawn.";
             const string longdesc = "";
 
             var allowedCards = new List<AbilityKey>
             {
                 AbilityKey.DamageResistPotion,
+                AbilityKey.DamageResistPotion,
                 AbilityKey.SodiumHydroxide,
+                AbilityKey.SodiumHydroxide,
+                AbilityKey.DamageResistPotion,
+                AbilityKey.ExtraActionPotion,
                 AbilityKey.ExtraActionPotion,
                 AbilityKey.VialOfFireImmunity,
+                AbilityKey.VialOfFireImmunity,
+                AbilityKey.Heal,
                 AbilityKey.Heal,
                 AbilityKey.VialOfIceImmunity,
+                AbilityKey.VialOfIceImmunity,
+                AbilityKey.LuckPotion,
                 AbilityKey.LuckPotion,
                 AbilityKey.MagicPotion,
-                AbilityKey.SpellPower,
+                AbilityKey.MagicPotion,
+                AbilityKey.Antidote,
+                AbilityKey.Antidote,
+                AbilityKey.Strength,
                 AbilityKey.Strength,
                 AbilityKey.Speed,
+                AbilityKey.Speed,
                 AbilityKey.VigorPotion,
+                AbilityKey.VigorPotion,
+                AbilityKey.WaterBottle,
                 AbilityKey.WaterBottle,
             };
 
             var allowedCardsRule = new CardAdditionOverriddenRule(new Dictionary<BoardPieceId, List<AbilityKey>>
             {
-                { BoardPieceId.HeroBarbarian, allowedCards },
                 { BoardPieceId.HeroBard, allowedCards },
                 { BoardPieceId.HeroGuardian, allowedCards },
                 { BoardPieceId.HeroHunter, allowedCards },
@@ -45,26 +58,20 @@ namespace HouseRules.Essentials.Rulesets
             {
                 { AbilityKey.Zap, false },
                 { AbilityKey.Overcharge, false },
-                { AbilityKey.LightningBolt, false },
             });
 
             var enemyRespanDisabled = new EnemyRespawnDisabledRule(true);
 
-            var levelPropertiesRule = new LevelPropertiesModifiedRule(new Dictionary<string, int>
-            {
-                { "FloorOneElvenSummoners", 0 },
-                { "FloorTwoElvenSummoners", 0 },
-                { "FloorThreeElvenSummoners", 0 },
-            });
+            var cardEnergyRule = new CardEnergyFromAttackMultipliedRule(1.5f);
 
             return Ruleset.NewInstance(
                 name,
                 description,
                 longdesc,
-                levelPropertiesRule,
                 allowedCardsRule,
                 abilityActionCostRule,
-                enemyRespanDisabled);
+                enemyRespanDisabled,
+                cardEnergyRule);
         }
     }
 }
