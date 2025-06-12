@@ -1357,7 +1357,6 @@
                 { BoardPieceId.ReptileMutantWizard, new List<Behaviour> { Behaviour.Patrol, Behaviour.AttackAndRetreat, Behaviour.CastOnTeam, Behaviour.RangedAttackHighPrio, Behaviour.RangedSpellCaster } },
                 { BoardPieceId.RootMage, new List<Behaviour> { Behaviour.Patrol, Behaviour.AttackAndRetreat, Behaviour.CastOnTeam, Behaviour.RangedAttackHighPrio, Behaviour.RangedSpellCaster } },
                 { BoardPieceId.SilentSentinel, new List<Behaviour> { Behaviour.Patrol, Behaviour.AttackPlayer, Behaviour.RangedSpellCaster, Behaviour.ElvenSummonerBehaviour } },
-                { BoardPieceId.SandScorpion, new List<Behaviour> { Behaviour.Patrol, Behaviour.FollowPlayerMeleeAttacker, Behaviour.AttackAndRetreat } },
                 { BoardPieceId.JeweledScarab, new List<Behaviour> { Behaviour.Patrol, Behaviour.FleeToFOW } },
                 { BoardPieceId.GiantSpider, new List<Behaviour> { Behaviour.Patrol, Behaviour.AttackPlayer, Behaviour.RangedAttackHighPrio, Behaviour.HostileTowardsEntangled } },
                 { BoardPieceId.GiantSlime, new List<Behaviour> { Behaviour.Patrol, Behaviour.AttackPlayer, Behaviour.RangedAttackHighPrio } },

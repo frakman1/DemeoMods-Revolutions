@@ -86,7 +86,6 @@
             var myEntranceDeckFloor1 = new Dictionary<BoardPieceId, int>
             {
                 { BoardPieceId.EmptySandPile, 2 },
-                { BoardPieceId.ScorpionSandPile, 2 },
                 { BoardPieceId.LargeCorruption, 1 },
                 { BoardPieceId.ReptileArcher, 1 },
                 { BoardPieceId.ReptileMutantWizard, 1 },
@@ -133,7 +132,6 @@
             };
             var myExitDeckFloor1 = new Dictionary<BoardPieceId, int>
             {
-                { BoardPieceId.ScorpionSandPile, 1 },
                 { BoardPieceId.ElvenSpearman, 2 },
                 { BoardPieceId.ReptileArcher, 1 },
                 { BoardPieceId.ReptileMutantWizard, 1 },
@@ -179,7 +177,6 @@
             var myEntranceDeckFloor2 = new Dictionary<BoardPieceId, int>
             {
                 { BoardPieceId.EmptySandPile, 1 },
-                { BoardPieceId.ScorpionSandPile, 2 },
                 { BoardPieceId.ElvenSpearman, 2 },
                 { BoardPieceId.LargeCorruption, 2 },
                 { BoardPieceId.ReptileArcher, 1 },
@@ -231,7 +228,6 @@
             var myExitDeckFloor2 = new Dictionary<BoardPieceId, int>
             {
                 { BoardPieceId.ScarabSandPile, 1 },
-                { BoardPieceId.ScorpionSandPile, 1 },
                 { BoardPieceId.ElvenSpearman, 2 },
                 { BoardPieceId.ReptileArcher, 1 },
                 { BoardPieceId.ReptileMutantWizard, 1 },
@@ -918,7 +914,6 @@
                 { BoardPieceId.ElvenArcher, new List<Behaviour> { Behaviour.Patrol, Behaviour.RangedSpellCaster, Behaviour.FollowPlayerRangedAttacker } },
                 { BoardPieceId.TheUnseen, new List<Behaviour> { Behaviour.Patrol, Behaviour.AttackPlayer, Behaviour.RangedSpellCaster } },
                 { BoardPieceId.GoblinFighter, new List<Behaviour> { Behaviour.Patrol, Behaviour.AttackPlayer, Behaviour.RangedAttackHighPrio } },
-                { BoardPieceId.SandScorpion, new List<Behaviour> { Behaviour.Patrol, Behaviour.FollowPlayerMeleeAttacker, Behaviour.AttackAndRetreat } },
                 { BoardPieceId.JeweledScarab, new List<Behaviour> { Behaviour.Patrol, Behaviour.FleeToFOW } },
                 { BoardPieceId.GiantSpider, new List<Behaviour> { Behaviour.Patrol, Behaviour.AttackPlayer, Behaviour.RangedAttackHighPrio } },
                 { BoardPieceId.GiantSlime, new List<Behaviour> { Behaviour.Patrol, Behaviour.AttackPlayer, Behaviour.RangedAttackHighPrio } },

@@ -11,7 +11,7 @@
     public sealed class PartyElectricityDamageOverriddenRule : Rule, IConfigWritable<bool>, IPatchable,
         IMultiplayerSafe
     {
-        public override string Description => "Some Heroes can't electrify or stun allies";
+        public override string Description => "(Not working yet) Some Heroes can't electrify or stun allies";
 
         private static bool _isActivated;
 
@@ -42,7 +42,9 @@
 
         private static bool ProjectileHitSequence_OnStarted_Prefix(ref ProjectileHitSequence __instance)
         {
-            if (!_isActivated)
+            return true;
+
+            /*if (!_isActivated)
             {
                 return true;
             }
@@ -85,7 +87,7 @@
                 return false; // Don't run the original OnStarted method.
             }
 
-            return true;
+            return true;*/
         }
     }
 }

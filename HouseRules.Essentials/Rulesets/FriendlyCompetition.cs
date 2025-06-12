@@ -1310,7 +1310,6 @@
                 { BoardPieceId.KillerBee, new List<Behaviour> { Behaviour.Patrol, Behaviour.AttackPlayer, Behaviour.RangedAttackHighPrio, Behaviour.FollowPlayerMeleeAttacker } },
                 { BoardPieceId.ChestGoblin, new List<Behaviour> { Behaviour.Patrol, Behaviour.AttackAndRetreat, Behaviour.FollowPlayerMeleeAttacker } },
                 { BoardPieceId.ElvenCultist, new List<Behaviour> { Behaviour.Patrol, Behaviour.AttackPlayer, Behaviour.Swarm } },
-                { BoardPieceId.SandScorpion, new List<Behaviour> { Behaviour.Patrol, Behaviour.FollowPlayerMeleeAttacker, Behaviour.AttackAndRetreat } },
                 { BoardPieceId.ElvenQueen, new List<Behaviour> { Behaviour.Patrol, Behaviour.ElvenSummonerBehaviour, Behaviour.RangedSpellCaster } },
             });
 
