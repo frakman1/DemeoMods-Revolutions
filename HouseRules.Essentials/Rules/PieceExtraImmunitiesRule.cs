@@ -77,7 +77,7 @@
 
             if (attackerPiece != null)
             {
-                if (attackerPiece.boardPieceId == BoardPieceId.HeroGuardian && damage.AbilityKey == AbilityKey.Whirlwind)
+                if (attackerPiece.boardPieceId == BoardPieceId.HeroGuardian && (damage.AbilityKey == AbilityKey.Whirlwind || damage.AbilityKey == AbilityKey.PiercingSpear))
                 {
                     BoardPieceId targetId = targetPiece.boardPieceId;
                     bool canBeHit = true;
