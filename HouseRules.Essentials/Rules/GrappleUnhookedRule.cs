@@ -1,13 +1,17 @@
 ﻿namespace HouseRules.Essentials.Rules
 {
-    using Boardgame.BoardEntities.Abilities;
+    using Boardgame;
+    using Boardgame.BoardEntities;
+    using Boardgame.SerializableEvents;
     using DataKeys;
+    using HarmonyLib;
     using HouseRules.Core.Types;
 
-    public sealed class GrappleUnhookedRule : Rule, IConfigWritable<bool>, IMultiplayerSafe
+    public sealed class GrappleUnhookedRule : Rule, IConfigWritable<bool>, IPatchable, IMultiplayerSafe
     {
         public override string Description => "Grapple & throwing lamps can be used in the same turn";
 
+        private static GameContext _gameContext;
         private static Context _context;
         private static bool _isActivated;
 
@@ -20,51 +24,96 @@
         protected override void OnActivate(Context context)
         {
             _context = context;
+            _gameContext = context.GameContext;
             _isActivated = true;
-            GrappleUnhooked();
         }
 
         protected override void OnDeactivate(Context context)
         {
             _isActivated = false;
-            GrappleRehooked();
         }
 
-        private static void GrappleUnhooked()
+        private static void Patch(Harmony harmony)
         {
-            if (!_isActivated)
+            harmony.Patch(
+                original: AccessTools.Method(typeof(SerializableEventQueue), "PayActionPointCost"),
+                postfix: new HarmonyMethod(
+                    typeof(GrappleUnhookedRule),
+                    nameof(SerializableEventQueue_PayActionPointCost_Postfix)));
+        }
+
+        private static void SerializableEventQueue_PayActionPointCost_Postfix(SerializableEvent serializableEvent)
+        {
+            if (!_isActivated || serializableEvent.type != SerializableEvent.Type.EndAction)
             {
                 return;
             }
 
-            _context.AbilityFactory.TryGetAbility(AbilityKey.Grapple, out var grapple);
-            grapple.effectAppliedToSelf = EffectStateType.It;
-            _context.AbilityFactory.TryGetAbility(AbilityKey.ExplodingIceLamp, out var launchIce);
-            launchIce.effectAppliedToSelf = EffectStateType.It;
-            _context.AbilityFactory.TryGetAbility(AbilityKey.ExplodingOilLamp, out var launchFire);
-            launchFire.effectAppliedToSelf = EffectStateType.It;
-            _context.AbilityFactory.TryGetAbility(AbilityKey.ExplodingVortexLamp, out var launchImplosion);
-            launchImplosion.effectAppliedToSelf = EffectStateType.It;
-            _context.AbilityFactory.TryGetAbility(AbilityKey.ExplodingGasLamp, out var launchGas);
-            launchGas.effectAppliedToSelf = EffectStateType.It;
-            _context.AbilityFactory.TryGetAbility(AbilityKey.ExplodingWaterLamp, out var launchWater);
-            launchWater.effectAppliedToSelf = EffectStateType.It;
-        }
+            var pieceId = Traverse.Create(serializableEvent).Field<int>("pieceId").Value;
+            if (pieceId == 0)
+            {
+                return;
+            }
 
-        private static void GrappleRehooked()
-        {
-            _context.AbilityFactory.TryGetAbility(AbilityKey.Grapple, out var grapple);
-            grapple.effectAppliedToSelf = EffectStateType.UsedHookThisTurn;
-            _context.AbilityFactory.TryGetAbility(AbilityKey.ExplodingIceLamp, out var launchIce);
-            launchIce.effectAppliedToSelf = EffectStateType.UsedHookThisTurn;
-            _context.AbilityFactory.TryGetAbility(AbilityKey.ExplodingOilLamp, out var launchFire);
-            launchFire.effectAppliedToSelf = EffectStateType.UsedHookThisTurn;
-            _context.AbilityFactory.TryGetAbility(AbilityKey.ExplodingVortexLamp, out var launchImplosion);
-            launchImplosion.effectAppliedToSelf = EffectStateType.UsedHookThisTurn;
-            _context.AbilityFactory.TryGetAbility(AbilityKey.ExplodingGasLamp, out var launchGas);
-            launchGas.effectAppliedToSelf = EffectStateType.UsedHookThisTurn;
-            _context.AbilityFactory.TryGetAbility(AbilityKey.ExplodingWaterLamp, out var launchWater);
-            launchWater.effectAppliedToSelf = EffectStateType.UsedHookThisTurn;
+            Piece source = _gameContext.pieceAndTurnController.GetPiece(pieceId);
+            if (source != null && source.IsPlayer() && source.boardPieceId == BoardPieceId.HeroBarbarian)
+            {
+                if (source.HasEffectState(EffectStateType.HasExplodingLamp))
+                {
+                    Inventory.Item value;
+                    for (int i = 0; i < source.inventory.Items.Count; i++)
+                    {
+                        value = source.inventory.Items[i];
+                        if (value.AbilityKey == AbilityKey.ExplodingOilLamp)
+                        {
+                            if (value.IsDisabled)
+                            {
+                                value.flags &= Inventory.ItemFlag.IsReplenishable;
+                                source.inventory.Items[i] = value;
+                                source.AddGold(0);
+                            }
+                        }
+                        else if (value.AbilityKey == AbilityKey.ExplodingVortexLamp)
+                        {
+                            if (value.IsDisabled)
+                            {
+                                value.flags &= Inventory.ItemFlag.IsReplenishable;
+                                source.inventory.Items[i] = value;
+                                source.AddGold(0);
+                            }
+                        }
+                        else if (value.AbilityKey == AbilityKey.ExplodingIceLamp)
+                        {
+                            if (value.IsDisabled)
+                            {
+                                value.flags &= Inventory.ItemFlag.IsReplenishable;
+                                source.inventory.Items[i] = value;
+                                source.AddGold(0);
+                            }
+                        }
+                        else if (value.AbilityKey == AbilityKey.ExplodingGasLamp)
+                        {
+                            if (value.IsDisabled)
+                            {
+                                value.flags &= Inventory.ItemFlag.IsReplenishable;
+                                source.inventory.Items[i] = value;
+                                source.AddGold(0);
+                            }
+                        }
+                        else if (value.AbilityKey == AbilityKey.ExplodingWaterLamp)
+                        {
+                            if (value.IsDisabled)
+                            {
+                                value.flags &= Inventory.ItemFlag.IsReplenishable;
+                                source.inventory.Items[i] = value;
+                                source.AddGold(0);
+                            }
+                        }
+                    }
+                }
+            }
+
+            return;
         }
     }
 }
