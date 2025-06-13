@@ -4,7 +4,6 @@
     using System.Threading;
     using Boardgame;
     using Boardgame.BoardEntities;
-    using Boardgame.BoardEntities.Abilities;
     using Boardgame.SerializableEvents;
     using DataKeys;
     using HarmonyLib;
@@ -114,27 +113,27 @@
 
             Inventory.Item value;
             int nextLevel = piece.GetStatMax(Stats.Type.CritChance);
+            piece.effectSink.Heal(2);
+            if (piece.HasEffectState(EffectStateType.Downed))
+            {
+                piece.effectSink.RemoveStatusEffect(EffectStateType.Downed);
+                piece.effectSink.RemoveStatusEffect(EffectStateType.Stunned);
+                piece.effectSink.RemoveStatusEffect(EffectStateType.Frozen);
+            }
+
+            piece.DisableEffectState(EffectStateType.ExtraEnergy);
+            piece.EnableEffectState(EffectStateType.ExtraEnergy, 1);
+            if (piece.GetHealth() < piece.GetMaxHealth())
+            {
+                piece.DisableEffectState(EffectStateType.Heal);
+                piece.EnableEffectState(EffectStateType.Heal, 1);
+            }
+
             if (nextLevel < 10)
             {
                 piece.effectSink.TrySetStatMaxValue(Stats.Type.CritChance, nextLevel + 1);
                 nextLevel++;
-                piece.effectSink.Heal(2);
-                if (piece.HasEffectState(EffectStateType.Downed))
-                {
-                    piece.effectSink.RemoveStatusEffect(EffectStateType.Downed);
-                    piece.effectSink.RemoveStatusEffect(EffectStateType.Stunned);
-                    piece.effectSink.RemoveStatusEffect(EffectStateType.Frozen);
-                }
-
-                piece.DisableEffectState(EffectStateType.ExtraEnergy);
-                piece.EnableEffectState(EffectStateType.ExtraEnergy, 1);
                 piece.effectSink.SetStatusEffectDuration(EffectStateType.Flying, nextLevel);
-
-                if (piece.GetHealth() < piece.GetMaxHealth())
-                {
-                    piece.DisableEffectState(EffectStateType.Heal);
-                    piece.EnableEffectState(EffectStateType.Heal, 1);
-                }
 
                 GameUI.ShowCameraMessage("<color=#F0F312>The party has</color> <color=#00FF00>LEVELED UP</color><color=#F0F312>!</color>", 8);
                 if (nextLevel == 3)
