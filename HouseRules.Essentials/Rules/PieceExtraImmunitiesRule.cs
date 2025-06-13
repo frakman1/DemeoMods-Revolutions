@@ -12,7 +12,7 @@
     public sealed class PieceExtraImmunitiesRule : Rule, IConfigWritable<bool>, IPatchable,
         IMultiplayerSafe
     {
-        public override string Description => "Some pieces have extra immunities added";
+        public override string Description => "Most abilities that would hurt other players... won't";
 
         private static bool _isActivated;
 
@@ -90,6 +90,62 @@
                     {
                         return false;
                     }
+                }
+                else if (attackerPiece.boardPieceId == BoardPieceId.HeroSorcerer)
+                {
+                    if (damage.HasTag(DamageTag.Electricity))
+                    {
+                        targetPiece.effectSink.SubtractHealth(0);
+                        if (!targetPiece.HasEffectState(EffectStateType.Frozen) && damage.AbilityKey == AbilityKey.Zap)
+                        {
+                            targetPiece.EnableEffectState(EffectStateType.Invulnerable1);
+                        }
+
+                        return false;
+                    }
+                    else if (damage.HasTag(DamageTag.Fire))
+                    {
+                        targetPiece.effectSink.SubtractHealth(0);
+                        return false;
+                    }
+                }
+                else if (attackerPiece.boardPieceId == BoardPieceId.HeroHunter && (damage.AbilityKey == AbilityKey.Exterminate || damage.AbilityKey == AbilityKey.HunterArrow || damage.AbilityKey == AbilityKey.PoisonedTip))
+                {
+                    if (!targetPiece.HasEffectState(EffectStateType.Antidote) && !targetPiece.HasEffectState(EffectStateType.Diseased) && damage.AbilityKey == AbilityKey.PoisonedTip)
+                    {
+                        targetPiece.EnableEffectState(EffectStateType.Antidote, 1);
+                    }
+
+                    targetPiece.effectSink.SubtractHealth(0);
+                    return false;
+                }
+                else if (attackerPiece.boardPieceId == BoardPieceId.HeroRogue)
+                {
+                    if (!targetPiece.HasEffectState(EffectStateType.Antidote) && !targetPiece.HasEffectState(EffectStateType.Diseased) && damage.HasTag(DamageTag.Poison))
+                    {
+                        targetPiece.effectSink.SubtractHealth(0);
+                        targetPiece.EnableEffectState(EffectStateType.Antidote, 1);
+                        return false;
+                    }
+                    else if (damage.HasTag(DamageTag.PhysicalMelee))
+                    {
+                        targetPiece.effectSink.SubtractHealth(0);
+                        return false;
+                    }
+                }
+                else if (attackerPiece.boardPieceId == BoardPieceId.HeroRogue)
+                {
+                    if (damage.HasTag(DamageTag.Poison))
+                    {
+                        targetPiece.effectSink.SubtractHealth(0);
+                        targetPiece.EnableEffectState(EffectStateType.Antidote, 1);
+                        return false;
+                    }
+                }
+                else if (attackerPiece.boardPieceId == BoardPieceId.Tornado)
+                {
+                    targetPiece.effectSink.SubtractHealth(0);
+                    return false;
                 }
                 else if (attackerPiece.boardPieceId == BoardPieceId.GrapplingTotem && damage.AbilityKey == AbilityKey.GrapplingTotemHook)
                 {
