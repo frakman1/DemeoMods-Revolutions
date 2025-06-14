@@ -53,13 +53,13 @@
 
         private static void RegisterRuleTypes()
         {
+            HR.Rulebook.Register(typeof(AbilityActionCostAdjustedRule));
             HR.Rulebook.Register(typeof(AbilityAoeAdjustedRule));
             HR.Rulebook.Register(typeof(AbilityBackstabAdjustedRule));
             HR.Rulebook.Register(typeof(AbilityBreaksStealthAdjustedRule));
             HR.Rulebook.Register(typeof(AbilityDamageAllOverriddenRule));
             HR.Rulebook.Register(typeof(AbilityDamageOverriddenRule));
             HR.Rulebook.Register(typeof(AbilityHealOverriddenRule));
-            HR.Rulebook.Register(typeof(AbilityActionCostAdjustedRule));
             HR.Rulebook.Register(typeof(AbilityRandomPieceListRule));
             HR.Rulebook.Register(typeof(AbilityStealthDamageOverriddenRule));
             HR.Rulebook.Register(typeof(AbilityTargetEffectsRule));
@@ -102,9 +102,9 @@
             HR.Rulebook.Register(typeof(LevelExitLockedUntilOneHeroRemainsRule));
             HR.Rulebook.Register(typeof(LevelPropertiesModifiedRule));
             HR.Rulebook.Register(typeof(LevelSequenceOverriddenRule));
-            HR.Rulebook.Register(typeof(SmallLevelSequenceOverriddenRule));
             HR.Rulebook.Register(typeof(MonsterDeckOverriddenRule));
             HR.Rulebook.Register(typeof(MyMonsterDeckOverriddenRule));
+            HR.Rulebook.Register(typeof(PartyDamageOverriddenRule));
             HR.Rulebook.Register(typeof(PetsFocusHunterMarkRule));
             HR.Rulebook.Register(typeof(PieceAbilityListOverriddenRule));
             HR.Rulebook.Register(typeof(PieceBlobophobiaRule));
@@ -115,7 +115,6 @@
             HR.Rulebook.Register(typeof(PieceDamageResistRule));
             HR.Rulebook.Register(typeof(PieceDownedCountAdjustedRule));
             HR.Rulebook.Register(typeof(PieceExtraStatsAdjustedRule));
-            HR.Rulebook.Register(typeof(PieceExtraImmunitiesRule));
             HR.Rulebook.Register(typeof(PieceImmunityListAdjustedRule));
             HR.Rulebook.Register(typeof(PieceKeyholderRule));
             HR.Rulebook.Register(typeof(PieceMagicStatAddedRule));
@@ -130,6 +129,7 @@
             HR.Rulebook.Register(typeof(ReviveRemovesEffectsRule));
             HR.Rulebook.Register(typeof(RevolutionsRule));
             HR.Rulebook.Register(typeof(RoundCountLimitedRule));
+            HR.Rulebook.Register(typeof(SmallLevelSequenceOverriddenRule));
             HR.Rulebook.Register(typeof(SpawnCategoryOverriddenRule));
             HR.Rulebook.Register(typeof(StartCardsModifiedRule));
             HR.Rulebook.Register(typeof(StatModifiersOverriddenRule));

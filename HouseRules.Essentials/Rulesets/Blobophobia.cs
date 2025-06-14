@@ -427,7 +427,7 @@
                 },
             });
 
-            var electricityDamageRule = new PartyElectricityDamageOverriddenRule(true);
+            var electricityDamageRule = new PartyDamageOverriddenRule(true);
             var enemyRespawnRule = new EnemyRespawnDisabledRule(true);
             var grappleUnhookedRule = new GrappleUnhookedRule(true);
             var backstabConfigRule = new BackstabConfigOverriddenRule(new List<BoardPieceId> { BoardPieceId.HeroBard, BoardPieceId.HeroRogue });

@@ -1240,8 +1240,7 @@
             var turnOrderRule = new TurnOrderOverriddenRule(new TurnOrderOverriddenRule.Scores
             { Bard = 18, Guardian = 14, Warlock = 13, Sorcerer = 12, Barbarian = 11, Hunter = 10, Assassin = 9, Downed = -10, Javelin = 20, Deflect = 2, Mark = 7, Varga = 5 });
 
-            var pieceExtraImmunitiesRule = new PieceExtraImmunitiesRule(true);
-            var partyElectricityRule = new PartyElectricityDamageOverriddenRule(true);
+            var partyDamageRule = new PartyDamageOverriddenRule(true);
             var petsFocusMarkOfAvalonRule = new PetsFocusHunterMarkRule(true);
             var enemyRespawnDisabledRule = new EnemyRespawnDisabledRule(true);
             var cardEnergyFromRecyclingRule = new CardEnergyFromRecyclingMultipliedRule(1.4f);
@@ -1300,8 +1299,7 @@
                 enemyCooldownRule,
                 aoeAdjustedRule,
                 abilityDamageAllRule,
-                partyElectricityRule,
-                pieceExtraImmunitiesRule,
+                partyDamageRule,
                 petsFocusMarkOfAvalonRule,
                 enemyRespawnDisabledRule,
                 cardEnergyFromRecyclingRule,

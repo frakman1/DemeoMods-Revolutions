@@ -10,14 +10,14 @@
     using HouseRules.Core;
     using HouseRules.Core.Types;
 
-    public sealed class PieceExtraImmunitiesRule : Rule, IConfigWritable<bool>, IPatchable,
+    public sealed class PartyDamageOverriddenRule : Rule, IConfigWritable<bool>, IPatchable,
         IMultiplayerSafe
     {
         public override string Description => "Most abilities that would hurt other players... won't";
 
         private static bool _isActivated;
 
-        public PieceExtraImmunitiesRule(bool value)
+        public PartyDamageOverriddenRule(bool value)
         {
         }
 
@@ -32,7 +32,7 @@
             harmony.Patch(
                 original: AccessTools.Method(typeof(Damage), "DealDamage", parameters: new[] { typeof(Target), typeof(Damage), typeof(IntPoint2D), typeof(Target), typeof(PieceAndTurnController), typeof(BoardModel), typeof(OverkillController), typeof(bool), typeof(bool), typeof(bool) }),
                 prefix: new HarmonyMethod(
-                    typeof(PieceExtraImmunitiesRule),
+                    typeof(PartyDamageOverriddenRule),
                     nameof(Damage_DealDamage_Prefix)));
         }
 

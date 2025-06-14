@@ -1856,8 +1856,7 @@
             var pointGainRule = new PointGainRule(new PointGainRule.Points
             { PVPisOn = false, Points4Minions = 2, KillEnemy = 1, KillPlayer = -8, KillSelf = -10, KillBoss = 25, HurtEnemy = 1, HurtPlayer = -3, BuffPlayer = 0, HurtSelf = -5, HurtBoss = 3, Keyholder = 1, UnlockDoor = 20, LootGold = 4, LootChest = 5, LootStand = 6, OpenDoor = 2, UseFountain = 6, RevivePlayer = 5 });
 
-            // var pieceExtraImmunitiesRule = new PieceExtraImmunitiesRule(false);
-            // var partyElectricityRule = new PartyElectricityDamageOverriddenRule(false);
+            // var partyDamageRule = new PartyDamageOverriddenRule(false);
             // var petsFocusMarkOfAvalonRule = new PetsFocusHunterMarkRule(true);
             // var enemyRespawnDisabledRule = new EnemyRespawnDisabledRule(true);
             var cardEnergyFromAttackRule = new CardEnergyFromAttackMultipliedRule(3.0f); // base game starts at 0.25f
@@ -1927,8 +1926,7 @@
                 enemyCooldownRule,
                 aoeAdjustedRule,
                 abilityDamageAllRule,
-                // partyElectricityRule,
-                // pieceExtraImmunitiesRule,
+                // partyDamageRule,
                 // petsFocusMarkOfAvalonRule,
                 // enemyRespawnDisabledRule,
                 cardEnergyFromAttackRule,
