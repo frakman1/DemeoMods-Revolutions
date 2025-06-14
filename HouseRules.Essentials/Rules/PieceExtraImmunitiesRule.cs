@@ -7,6 +7,7 @@
     using Boardgame.GameplayEffects;
     using DataKeys;
     using HarmonyLib;
+    using HouseRules.Core;
     using HouseRules.Core.Types;
 
     public sealed class PieceExtraImmunitiesRule : Rule, IConfigWritable<bool>, IPatchable,
@@ -49,6 +50,30 @@
             }
 
             Piece attackerPiece = attacker.piece;
+            if (attackerPiece.GetStat(Stats.Type.InnateCounterDamageExtraDamage) != 69 && !HR.SelectedRuleset.Name.Contains("Revolutions"))
+            {
+                if (attackerPiece.boardPieceId == BoardPieceId.HeroSorcerer)
+                {
+                    if (damage.HasTag(DamageTag.Electricity))
+                    {
+                        targetPiece.effectSink.SubtractHealth(0);
+                        if (!targetPiece.HasEffectState(EffectStateType.Invulnerable3) && !targetPiece.HasEffectState(EffectStateType.Frozen) && damage.AbilityKey == AbilityKey.Zap)
+                        {
+                            targetPiece.EnableEffectState(EffectStateType.Invulnerable1);
+                        }
+
+                        return false;
+                    }
+                    else if (damage.HasTag(DamageTag.Fire))
+                    {
+                        targetPiece.effectSink.SubtractHealth(0);
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+
             if (targetPiece.IsWarlockMinion() && (attackerPiece == null || !attackerPiece.HasPieceType(PieceType.Boss)) && damage.HasTag(DamageTag.Undefined))
             {
                 targetPiece.DisableEffectState(EffectStateType.CorruptedRage);
@@ -96,7 +121,7 @@
                     if (damage.HasTag(DamageTag.Electricity))
                     {
                         targetPiece.effectSink.SubtractHealth(0);
-                        if (!targetPiece.HasEffectState(EffectStateType.Frozen) && damage.AbilityKey == AbilityKey.Zap)
+                        if (!targetPiece.HasEffectState(EffectStateType.Invulnerable3) && !targetPiece.HasEffectState(EffectStateType.Frozen) && damage.AbilityKey == AbilityKey.Zap)
                         {
                             targetPiece.EnableEffectState(EffectStateType.Invulnerable1);
                         }
@@ -135,7 +160,7 @@
                 }
                 else if (attackerPiece.boardPieceId == BoardPieceId.HeroRogue)
                 {
-                    if (damage.HasTag(DamageTag.Poison))
+                    if (!targetPiece.HasEffectState(EffectStateType.Antidote) && !targetPiece.HasEffectState(EffectStateType.Diseased) && damage.HasTag(DamageTag.Poison))
                     {
                         targetPiece.effectSink.SubtractHealth(0);
                         targetPiece.EnableEffectState(EffectStateType.Antidote, 1);
