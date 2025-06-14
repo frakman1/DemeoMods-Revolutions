@@ -13,7 +13,7 @@
     public sealed class PartyDamageOverriddenRule : Rule, IConfigWritable<bool>, IPatchable,
         IMultiplayerSafe
     {
-        public override string Description => "Most abilities that would hurt other players... won't";
+        public override string Description => "Some player attacks that would hurt other players... won't";
 
         private static bool _isActivated;
 
@@ -50,25 +50,22 @@
             }
 
             Piece attackerPiece = attacker.piece;
-            if (attackerPiece.GetStat(Stats.Type.InnateCounterDamageExtraDamage) != 69 && !HR.SelectedRuleset.Name.Contains("Revolutions"))
+            if (!HR.SelectedRuleset.Name.Contains("Revolutions"))
             {
-                if (attackerPiece.boardPieceId == BoardPieceId.HeroSorcerer)
+                if (attackerPiece != null)
                 {
-                    if (damage.HasTag(DamageTag.Electricity))
+                    if (attackerPiece.IsPlayer() && targetPiece.IsPlayer() && damage.HasTag(DamageTag.Electricity))
                     {
                         targetPiece.effectSink.SubtractHealth(0);
-                        if (!targetPiece.HasEffectState(EffectStateType.Invulnerable3) && !targetPiece.HasEffectState(EffectStateType.Frozen) && damage.AbilityKey == AbilityKey.Zap)
+                        if (!targetPiece.HasEffectState(EffectStateType.Invulnerable3) && !targetPiece.HasEffectState(EffectStateType.Stunned) && !targetPiece.HasEffectState(EffectStateType.Frozen) && damage.AbilityKey == AbilityKey.Zap)
                         {
                             targetPiece.EnableEffectState(EffectStateType.Invulnerable1);
                         }
 
                         return false;
                     }
-                    else if (damage.HasTag(DamageTag.Fire))
-                    {
-                        targetPiece.effectSink.SubtractHealth(0);
-                        return false;
-                    }
+
+                    return true;
                 }
 
                 return true;
@@ -102,7 +99,7 @@
 
             if (attackerPiece != null)
             {
-                if (attackerPiece.boardPieceId == BoardPieceId.HeroGuardian && (damage.AbilityKey == AbilityKey.Whirlwind || damage.AbilityKey == AbilityKey.PiercingSpear))
+                if (attackerPiece.boardPieceId == BoardPieceId.HeroGuardian && (targetPiece.IsPlayer() || targetPiece.IsBot()) && (damage.AbilityKey == AbilityKey.Whirlwind || damage.AbilityKey == AbilityKey.PiercingSpear))
                 {
                     BoardPieceId targetId = targetPiece.boardPieceId;
                     bool canBeHit = true;
@@ -116,7 +113,7 @@
                         return false;
                     }
                 }
-                else if (attackerPiece.boardPieceId == BoardPieceId.HeroSorcerer)
+                else if (attackerPiece.boardPieceId == BoardPieceId.HeroSorcerer && (targetPiece.IsPlayer() || targetPiece.IsBot()))
                 {
                     if (damage.HasTag(DamageTag.Electricity))
                     {
@@ -134,7 +131,7 @@
                         return false;
                     }
                 }
-                else if (attackerPiece.boardPieceId == BoardPieceId.HeroHunter && (damage.AbilityKey == AbilityKey.Exterminate || damage.AbilityKey == AbilityKey.HunterArrow || damage.AbilityKey == AbilityKey.PoisonedTip))
+                else if (attackerPiece.boardPieceId == BoardPieceId.HeroHunter && (targetPiece.IsPlayer() || targetPiece.IsBot()) && (damage.AbilityKey == AbilityKey.Exterminate || damage.AbilityKey == AbilityKey.HunterArrow || damage.AbilityKey == AbilityKey.PoisonedTip))
                 {
                     if (!targetPiece.HasEffectState(EffectStateType.Antidote) && !targetPiece.HasEffectState(EffectStateType.Diseased) && damage.AbilityKey == AbilityKey.PoisonedTip)
                     {
@@ -146,7 +143,7 @@
                 }
                 else if (attackerPiece.boardPieceId == BoardPieceId.HeroRogue)
                 {
-                    if (!targetPiece.HasEffectState(EffectStateType.Antidote) && !targetPiece.HasEffectState(EffectStateType.Diseased) && damage.HasTag(DamageTag.Poison))
+                    if (!targetPiece.HasEffectState(EffectStateType.Antidote) && (targetPiece.IsPlayer() || targetPiece.IsBot()) && !targetPiece.HasEffectState(EffectStateType.Diseased) && damage.HasTag(DamageTag.Poison))
                     {
                         targetPiece.effectSink.SubtractHealth(0);
                         targetPiece.EnableEffectState(EffectStateType.Antidote, 1);
@@ -158,16 +155,7 @@
                         return false;
                     }
                 }
-                else if (attackerPiece.boardPieceId == BoardPieceId.HeroRogue)
-                {
-                    if (!targetPiece.HasEffectState(EffectStateType.Antidote) && !targetPiece.HasEffectState(EffectStateType.Diseased) && damage.HasTag(DamageTag.Poison))
-                    {
-                        targetPiece.effectSink.SubtractHealth(0);
-                        targetPiece.EnableEffectState(EffectStateType.Antidote, 1);
-                        return false;
-                    }
-                }
-                else if (attackerPiece.boardPieceId == BoardPieceId.Tornado)
+                else if (attackerPiece.boardPieceId == BoardPieceId.Tornado && (targetPiece.IsPlayer() || targetPiece.IsBot()))
                 {
                     targetPiece.effectSink.SubtractHealth(0);
                     return false;
