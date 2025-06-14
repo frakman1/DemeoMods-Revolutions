@@ -66,7 +66,6 @@
             HR.Rulebook.Register(typeof(ApplyEffectOnHitAdjustedRule));
             HR.Rulebook.Register(typeof(ApplyEffectOnHitLampsRule));
             HR.Rulebook.Register(typeof(BackstabConfigOverriddenRule));
-            HR.Rulebook.Register(typeof(StrengthenCourageAddsHpRule));
             HR.Rulebook.Register(typeof(CardAdditionOverriddenRule));
             HR.Rulebook.Register(typeof(CardChestAdditionOverriddenRule));
             HR.Rulebook.Register(typeof(CardClassRestrictionOverriddenRule));
@@ -106,7 +105,6 @@
             HR.Rulebook.Register(typeof(SmallLevelSequenceOverriddenRule));
             HR.Rulebook.Register(typeof(MonsterDeckOverriddenRule));
             HR.Rulebook.Register(typeof(MyMonsterDeckOverriddenRule));
-            HR.Rulebook.Register(typeof(PartyElectricityDamageOverriddenRule));
             HR.Rulebook.Register(typeof(PetsFocusHunterMarkRule));
             HR.Rulebook.Register(typeof(PieceAbilityListOverriddenRule));
             HR.Rulebook.Register(typeof(PieceBlobophobiaRule));
@@ -136,6 +134,7 @@
             HR.Rulebook.Register(typeof(StartCardsModifiedRule));
             HR.Rulebook.Register(typeof(StatModifiersOverriddenRule));
             HR.Rulebook.Register(typeof(StatusEffectConfigRule));
+            HR.Rulebook.Register(typeof(StrengthenCourageAddsHpRule));
             HR.Rulebook.Register(typeof(TickAdjustedRule));
             HR.Rulebook.Register(typeof(TileEffectDurationOverriddenRule));
             HR.Rulebook.Register(typeof(TurnOrderOverriddenRule));
