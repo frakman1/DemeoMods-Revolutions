@@ -1812,7 +1812,7 @@
             var progressLostRule = new HeroesPieceProgressLostRule(true);
             // var goldPickupRule = new GoldPickedUpMultipliedRule(1);
             var reviveEffectsRule = new ReviveRemovesEffectsRule(true);
-            var courageShantyRule = new CourageShantyAddsHpRule(1);
+            var courageShantyRule = new StrengthenCourageAddsHpRule(1);
             var tickRule = new HeroesTickAdjustedRule(true);
 
             return Ruleset.NewInstance(

@@ -299,15 +299,15 @@ The [Settings Reference](../docs/SettingsReference.md) contains lists of all dif
     },
   ```
 
-#### __CourageShantyAddsHp__: In addition to normal effects, Courage Shanty also adds HP
+#### __StrengthenCourageAddsHP__: In addition to normal effects, Courage Shanty also adds HP
   - To configure:
     - Specify a decimal number for how many HP to add to the target each time StrengthenCourage is used.
 
-  ###### _Example JSON config for CourageShantyAddsHp_
+  ###### _Example JSON config for StrengthenCourageAddsHP_
 
   ```json
   {
-    "Rule": "CourageShantyAddsHp",
+    "Rule": "StrengthenCourageAddsHP",
     "Config": 2
   },
   ```

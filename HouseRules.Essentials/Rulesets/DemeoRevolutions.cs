@@ -1305,7 +1305,7 @@
             var revolutionsRule = new RevolutionsRule(69);
             var goldPickupRule = new GoldPickedUpMultipliedRule(1);
             var reviveEffectsRule = new ReviveRemovesEffectsRule(true);
-            var courageShantyRule = new CourageShantyAddsHpRule(1);
+            var courageShantyRule = new StrengthenCourageAddsHpRule(1);
             var tickRule = new TickAdjustedRule(true);
             var queenBuffsRule = new ElvenQueenBuffsRule(true);
             var grappleUnhookedRule = new GrappleUnhookedRule(true);
