@@ -57,7 +57,7 @@
                     if (attackerPiece.IsPlayer() && targetPiece.IsPlayer() && damage.HasTag(DamageTag.Electricity))
                     {
                         targetPiece.effectSink.SubtractHealth(0);
-                        if (!targetPiece.HasEffectState(EffectStateType.Invulnerable3) && !targetPiece.HasEffectState(EffectStateType.Stunned) && !targetPiece.HasEffectState(EffectStateType.Frozen) && damage.AbilityKey == AbilityKey.Zap)
+                        if (!targetPiece.HasEffectState(EffectStateType.Invulnerable3) && !targetPiece.IsImmuneToStatusEffect(EffectStateType.Stunned) && !targetPiece.HasEffectState(EffectStateType.Stunned) && !targetPiece.HasEffectState(EffectStateType.Frozen) && damage.AbilityKey == AbilityKey.Zap)
                         {
                             targetPiece.EnableEffectState(EffectStateType.Invulnerable1);
                         }
@@ -118,7 +118,7 @@
                     if (damage.HasTag(DamageTag.Electricity))
                     {
                         targetPiece.effectSink.SubtractHealth(0);
-                        if (!targetPiece.HasEffectState(EffectStateType.Invulnerable3) && !targetPiece.HasEffectState(EffectStateType.Frozen) && damage.AbilityKey == AbilityKey.Zap)
+                        if (!targetPiece.HasEffectState(EffectStateType.Invulnerable3) && !targetPiece.IsImmuneToStatusEffect(EffectStateType.Stunned) && !targetPiece.HasEffectState(EffectStateType.Frozen) && damage.AbilityKey == AbilityKey.Zap)
                         {
                             targetPiece.EnableEffectState(EffectStateType.Invulnerable1);
                         }
@@ -132,8 +132,12 @@
                     }
                     else if (damage.HasTag(DamageTag.Ice) && !targetPiece.HasEffectState(EffectStateType.IceImmunity))
                     {
-                        targetPiece.EnableEffectState(EffectStateType.IceImmunity, 1);
                         targetPiece.effectSink.SubtractHealth(0);
+                        if (!targetPiece.IsImmuneToStatusEffect(EffectStateType.Frozen))
+                        {
+                            targetPiece.EnableEffectState(EffectStateType.IceImmunity, 1);
+                        }
+
                         return false;
                     }
                 }
@@ -141,11 +145,17 @@
                 {
                     if (!targetPiece.HasEffectState(EffectStateType.Antidote) && !targetPiece.HasEffectState(EffectStateType.Diseased) && damage.AbilityKey == AbilityKey.PoisonedTip)
                     {
-                        targetPiece.EnableEffectState(EffectStateType.Antidote, 1);
+                        if (!targetPiece.IsImmuneToStatusEffect(EffectStateType.Diseased))
+                        {
+                            targetPiece.EnableEffectState(EffectStateType.Antidote, 1);
+                        }
                     }
                     else if (damage.HasTag(DamageTag.Ice) && !targetPiece.HasEffectState(EffectStateType.IceImmunity))
                     {
-                        targetPiece.EnableEffectState(EffectStateType.IceImmunity, 1);
+                        if (!targetPiece.IsImmuneToStatusEffect(EffectStateType.Frozen))
+                        {
+                            targetPiece.EnableEffectState(EffectStateType.IceImmunity, 1);
+                        }
                     }
 
                     targetPiece.effectSink.SubtractHealth(0);
@@ -156,7 +166,11 @@
                     if (!targetPiece.HasEffectState(EffectStateType.Antidote) && (targetPiece.IsPlayer() || targetPiece.IsBot()) && !targetPiece.HasEffectState(EffectStateType.Diseased) && damage.HasTag(DamageTag.Poison))
                     {
                         targetPiece.effectSink.SubtractHealth(0);
-                        targetPiece.EnableEffectState(EffectStateType.Antidote, 1);
+                        if (!targetPiece.IsImmuneToStatusEffect(EffectStateType.Diseased))
+                        {
+                            targetPiece.EnableEffectState(EffectStateType.Antidote, 1);
+                        }
+
                         return false;
                     }
                     else if (damage.HasTag(DamageTag.PhysicalMelee))
