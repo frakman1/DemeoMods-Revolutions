@@ -101,14 +101,7 @@
             {
                 if (attackerPiece.boardPieceId == BoardPieceId.HeroGuardian && (targetPiece.IsPlayer() || targetPiece.IsBot()) && (damage.AbilityKey == AbilityKey.Whirlwind || damage.AbilityKey == AbilityKey.PiercingSpear))
                 {
-                    BoardPieceId targetId = targetPiece.boardPieceId;
-                    bool canBeHit = true;
-                    if (targetId == BoardPieceId.RootVine || targetId == BoardPieceId.ProximityMine || targetId == BoardPieceId.EnemyTurret || targetId == BoardPieceId.SporeFungus || targetId.ToString().Contains("SandPile") || targetPiece.HasPieceType(PieceType.ExplodingLamp))
-                    {
-                        canBeHit = false;
-                    }
-
-                    if (targetPiece.IsPlayer() || targetPiece.IsBot() || (targetPiece.IsProp() && canBeHit))
+                    if (targetPiece.IsPlayer() || targetPiece.IsBot())
                     {
                         return false;
                     }
