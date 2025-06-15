@@ -130,12 +130,22 @@
                         targetPiece.effectSink.SubtractHealth(0);
                         return false;
                     }
+                    else if (damage.HasTag(DamageTag.Ice) && !targetPiece.HasEffectState(EffectStateType.IceImmunity))
+                    {
+                        targetPiece.EnableEffectState(EffectStateType.IceImmunity, 1);
+                        targetPiece.effectSink.SubtractHealth(0);
+                        return false;
+                    }
                 }
-                else if (attackerPiece.boardPieceId == BoardPieceId.HeroHunter && (targetPiece.IsPlayer() || targetPiece.IsBot()) && (damage.AbilityKey == AbilityKey.Exterminate || damage.AbilityKey == AbilityKey.HunterArrow || damage.AbilityKey == AbilityKey.PoisonedTip))
+                else if (attackerPiece.boardPieceId == BoardPieceId.HeroHunter && (targetPiece.IsPlayer() || targetPiece.IsBot()) && (damage.AbilityKey == AbilityKey.Exterminate || damage.AbilityKey == AbilityKey.HunterArrow || damage.AbilityKey == AbilityKey.PoisonedTip || damage.AbilityKey == AbilityKey.EnemyFrostball))
                 {
                     if (!targetPiece.HasEffectState(EffectStateType.Antidote) && !targetPiece.HasEffectState(EffectStateType.Diseased) && damage.AbilityKey == AbilityKey.PoisonedTip)
                     {
                         targetPiece.EnableEffectState(EffectStateType.Antidote, 1);
+                    }
+                    else if (damage.HasTag(DamageTag.Ice) && !targetPiece.HasEffectState(EffectStateType.IceImmunity))
+                    {
+                        targetPiece.EnableEffectState(EffectStateType.IceImmunity, 1);
                     }
 
                     targetPiece.effectSink.SubtractHealth(0);
