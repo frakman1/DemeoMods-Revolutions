@@ -1248,7 +1248,7 @@
             var revolutionsRule = new RevolutionsRule(69);
             var goldPickupRule = new GoldPickedUpMultipliedRule(1.25f);
             var reviveEffectsRule = new ReviveRemovesEffectsRule(true);
-            var courageShantyRule = new StrengthenCourageAddsHpRule(1);
+            var courageShantyRule = new CourageShantyAddsHpRule(1);
             var tickRule = new TickAdjustedRule(true);
             var grappleUnhookedRule = new GrappleUnhookedRule(true);
             var disableDoorsRule = new EnemyDoorOpeningDisabledRule(true);
