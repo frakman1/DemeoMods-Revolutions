@@ -10,7 +10,7 @@
         internal static Ruleset Create()
         {
             const string name = "Better Sorcerer";
-            const string description = "0 Action Cost for Sorcerer's Zap - No other changes. #STS";
+            const string description = "No Cost for Zap - No electrical damage/effects to teammates.";
             const string longdesc = "";
 
             var abilityActionCostRule = new AbilityActionCostAdjustedRule(new Dictionary<AbilityKey, bool>
@@ -25,10 +25,13 @@
                 { "FloorThreeElvenSummoners", 0 },
             });
 
+            var zapRule = new PartyDamageOverriddenRule(true);
+
             return Ruleset.NewInstance(
                 name,
                 description,
                 longdesc,
+                zapRule,
                 levelPropertiesRule,
                 abilityActionCostRule);
         }

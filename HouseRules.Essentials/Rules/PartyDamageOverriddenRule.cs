@@ -57,7 +57,7 @@
                     if (attackerPiece.IsPlayer() && (targetPiece.IsPlayer() || targetPiece.IsBot() || targetPiece.IsWarlockMinion()) && damage.HasTag(DamageTag.Electricity))
                     {
                         targetPiece.effectSink.SubtractHealth(0);
-                        if (!targetPiece.HasEffectState(EffectStateType.Invulnerable3) && !targetPiece.IsImmuneToStatusEffect(EffectStateType.Stunned) && !targetPiece.HasEffectState(EffectStateType.Stunned) && !targetPiece.HasEffectState(EffectStateType.Frozen) && damage.HasTag(DamageTag.Electricity))
+                        if (damage.AbilityKey == AbilityKey.Zap && !targetPiece.HasEffectState(EffectStateType.Invulnerable3) && !targetPiece.IsImmuneToStatusEffect(EffectStateType.Stunned) && !targetPiece.HasEffectState(EffectStateType.Stunned) && !targetPiece.HasEffectState(EffectStateType.Frozen))
                         {
                             targetPiece.EnableEffectState(EffectStateType.Invulnerable1);
                         }
@@ -109,7 +109,7 @@
                     else if (damage.HasTag(DamageTag.Electricity))
                     {
                         targetPiece.effectSink.SubtractHealth(0);
-                        if (!targetPiece.HasEffectState(EffectStateType.Invulnerable3) && !targetPiece.IsImmuneToStatusEffect(EffectStateType.Stunned) && !targetPiece.HasEffectState(EffectStateType.Frozen) && damage.AbilityKey == AbilityKey.Zap)
+                        if (damage.AbilityKey == AbilityKey.Zap && !targetPiece.HasEffectState(EffectStateType.Invulnerable3) && !targetPiece.IsImmuneToStatusEffect(EffectStateType.Stunned) && !targetPiece.HasEffectState(EffectStateType.Stunned) && !targetPiece.HasEffectState(EffectStateType.Frozen))
                         {
                             targetPiece.EnableEffectState(EffectStateType.Invulnerable1);
                         }
