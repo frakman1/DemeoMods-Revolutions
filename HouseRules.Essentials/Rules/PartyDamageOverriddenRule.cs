@@ -54,10 +54,10 @@
             {
                 if (attackerPiece != null)
                 {
-                    if (attackerPiece.IsPlayer() && targetPiece.IsPlayer() && damage.HasTag(DamageTag.Electricity))
+                    if (attackerPiece.IsPlayer() && (targetPiece.IsPlayer() || targetPiece.IsBot() || targetPiece.IsWarlockMinion()) && damage.HasTag(DamageTag.Electricity))
                     {
                         targetPiece.effectSink.SubtractHealth(0);
-                        if (!targetPiece.HasEffectState(EffectStateType.Invulnerable3) && !targetPiece.IsImmuneToStatusEffect(EffectStateType.Stunned) && !targetPiece.HasEffectState(EffectStateType.Stunned) && !targetPiece.HasEffectState(EffectStateType.Frozen) && damage.AbilityKey == AbilityKey.Zap)
+                        if (!targetPiece.HasEffectState(EffectStateType.Invulnerable3) && !targetPiece.IsImmuneToStatusEffect(EffectStateType.Stunned) && !targetPiece.HasEffectState(EffectStateType.Stunned) && !targetPiece.HasEffectState(EffectStateType.Frozen) && damage.HasTag(DamageTag.Electricity))
                         {
                             targetPiece.EnableEffectState(EffectStateType.Invulnerable1);
                         }
@@ -97,18 +97,16 @@
                 return false;
             }
 
+            // Players can't hurt or give negative effects to other players/pets intentionally in Revolutions games
             if (attackerPiece != null)
             {
-                if (attackerPiece.boardPieceId == BoardPieceId.HeroGuardian && (targetPiece.IsPlayer() || targetPiece.IsBot()) && (damage.AbilityKey == AbilityKey.Whirlwind || damage.AbilityKey == AbilityKey.PiercingSpear))
+                if (attackerPiece.IsPlayer() && (targetPiece.IsPlayer() || targetPiece.IsBot() || targetPiece.IsWarlockMinion()))
                 {
-                    if (targetPiece.IsPlayer() || targetPiece.IsBot())
+                    if (damage.AbilityKey == AbilityKey.Whirlwind || damage.AbilityKey == AbilityKey.PiercingSpear || damage.AbilityKey == AbilityKey.PlayerLeap || damage.AbilityKey == AbilityKey.Exterminate || damage.AbilityKey == AbilityKey.Implosion || damage.AbilityKey == AbilityKey.ScrollTsunami)
                     {
                         return false;
                     }
-                }
-                else if (attackerPiece.boardPieceId == BoardPieceId.HeroSorcerer && (targetPiece.IsPlayer() || targetPiece.IsBot()))
-                {
-                    if (damage.HasTag(DamageTag.Electricity))
+                    else if (damage.HasTag(DamageTag.Electricity))
                     {
                         targetPiece.effectSink.SubtractHealth(0);
                         if (!targetPiece.HasEffectState(EffectStateType.Invulnerable3) && !targetPiece.IsImmuneToStatusEffect(EffectStateType.Stunned) && !targetPiece.HasEffectState(EffectStateType.Frozen) && damage.AbilityKey == AbilityKey.Zap)
@@ -133,30 +131,7 @@
 
                         return false;
                     }
-                }
-                else if (attackerPiece.boardPieceId == BoardPieceId.HeroHunter && (targetPiece.IsPlayer() || targetPiece.IsBot()) && (damage.AbilityKey == AbilityKey.Exterminate || damage.AbilityKey == AbilityKey.HunterArrow || damage.AbilityKey == AbilityKey.PoisonedTip || damage.AbilityKey == AbilityKey.EnemyFrostball))
-                {
-                    if (!targetPiece.HasEffectState(EffectStateType.Antidote) && !targetPiece.HasEffectState(EffectStateType.Diseased) && damage.AbilityKey == AbilityKey.PoisonedTip)
-                    {
-                        if (!targetPiece.IsImmuneToStatusEffect(EffectStateType.Diseased))
-                        {
-                            targetPiece.EnableEffectState(EffectStateType.Antidote, 1);
-                        }
-                    }
-                    else if (damage.HasTag(DamageTag.Ice) && !targetPiece.HasEffectState(EffectStateType.IceImmunity))
-                    {
-                        if (!targetPiece.IsImmuneToStatusEffect(EffectStateType.Frozen))
-                        {
-                            targetPiece.EnableEffectState(EffectStateType.IceImmunity, 1);
-                        }
-                    }
-
-                    targetPiece.effectSink.SubtractHealth(0);
-                    return false;
-                }
-                else if (attackerPiece.boardPieceId == BoardPieceId.HeroRogue)
-                {
-                    if (!targetPiece.HasEffectState(EffectStateType.Antidote) && (targetPiece.IsPlayer() || targetPiece.IsBot()) && !targetPiece.HasEffectState(EffectStateType.Diseased) && damage.HasTag(DamageTag.Poison))
+                    else if (damage.HasTag(DamageTag.Poison) && !targetPiece.HasEffectState(EffectStateType.Antidote))
                     {
                         targetPiece.effectSink.SubtractHealth(0);
                         if (!targetPiece.IsImmuneToStatusEffect(EffectStateType.Diseased))
@@ -166,13 +141,13 @@
 
                         return false;
                     }
-                    else if (damage.HasTag(DamageTag.PhysicalMelee))
+                    else if (attackerPiece.boardPieceId == BoardPieceId.HeroRogue && damage.HasTag(DamageTag.PhysicalMelee))
                     {
                         targetPiece.effectSink.SubtractHealth(0);
                         return false;
                     }
                 }
-                else if (attackerPiece.boardPieceId == BoardPieceId.Tornado && (targetPiece.IsPlayer() || targetPiece.IsBot()))
+                else if (attackerPiece.boardPieceId == BoardPieceId.Tornado && (targetPiece.IsPlayer() || targetPiece.IsBot() || targetPiece.IsWarlockMinion()))
                 {
                     targetPiece.effectSink.SubtractHealth(0);
                     return false;
@@ -194,19 +169,19 @@
                         attackerPiece.DisableEffectState(EffectStateType.Frenzy);
                     }
                 }
-            }
 
-            if (!targetPiece.IsPlayer())
-            {
-                return true;
-            }
-
-            if (targetPiece.boardPieceId == BoardPieceId.HeroBarbarian)
-            {
-                if ((attackerPiece == null || !attackerPiece.HasPieceType(PieceType.Boss)) && (damage.HasTag(DamageTag.Acid) || damage.AbilityKey == AbilityKey.Petrify))
+                if (!targetPiece.IsPlayer())
                 {
-                    targetPiece.effectSink.SubtractHealth(0);
-                    return false;
+                    return true;
+                }
+
+                if (targetPiece.boardPieceId == BoardPieceId.HeroBarbarian)
+                {
+                    if ((attackerPiece == null || !attackerPiece.HasPieceType(PieceType.Boss)) && (damage.HasTag(DamageTag.Acid) || damage.AbilityKey == AbilityKey.Petrify))
+                    {
+                        targetPiece.effectSink.SubtractHealth(0);
+                        return false;
+                    }
                 }
             }
 
