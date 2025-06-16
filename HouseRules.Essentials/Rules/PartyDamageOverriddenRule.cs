@@ -124,7 +124,7 @@
                     else if (damage.HasTag(DamageTag.Ice) && !targetPiece.HasEffectState(EffectStateType.IceImmunity))
                     {
                         targetPiece.effectSink.SubtractHealth(0);
-                        if (!targetPiece.IsImmuneToStatusEffect(EffectStateType.Frozen))
+                        if (!targetPiece.IsImmuneToStatusEffect(EffectStateType.Frozen) && !targetPiece.HasEffectState(EffectStateType.Invulnerable3) && !targetPiece.HasEffectState(EffectStateType.Invulnerable1))
                         {
                             targetPiece.EnableEffectState(EffectStateType.IceImmunity, 1);
                         }
@@ -134,7 +134,7 @@
                     else if (damage.HasTag(DamageTag.Poison) && !targetPiece.HasEffectState(EffectStateType.Antidote))
                     {
                         targetPiece.effectSink.SubtractHealth(0);
-                        if (!targetPiece.IsImmuneToStatusEffect(EffectStateType.Diseased))
+                        if (!targetPiece.IsImmuneToStatusEffect(EffectStateType.Diseased) && !targetPiece.HasEffectState(EffectStateType.Invulnerable3) && !targetPiece.HasEffectState(EffectStateType.Invulnerable1))
                         {
                             targetPiece.EnableEffectState(EffectStateType.Antidote, 1);
                         }
@@ -146,6 +146,13 @@
                         targetPiece.effectSink.SubtractHealth(0);
                         return false;
                     }
+                    else if (damage.AbilityKey == AbilityKey.PoisonedTip || damage.AbilityKey == AbilityKey.HunterArrow)
+                    {
+                        targetPiece.effectSink.SubtractHealth(0);
+                        return false;
+                    }
+
+                    return true;
                 }
                 else if (attackerPiece.boardPieceId == BoardPieceId.Tornado && (targetPiece.IsPlayer() || targetPiece.IsBot() || targetPiece.IsWarlockMinion()))
                 {
