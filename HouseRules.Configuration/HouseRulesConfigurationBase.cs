@@ -15,8 +15,12 @@
         internal const string ModName = "HouseRules.Configuration";
         internal const string ModAuthor = "DemeoMods Team";
 
-        private const int NonVrSteamLobbySceneIndex = 2;
-        private const int NonVrCombinedSteamLobbySceneIndex = 3;
+        private const int NonVrSteamWindowsLobbySceneIndex = 2;
+        private const int NonVrOculusWindowsLobbySceneIndex = 2;
+        private const int SteamVRLobbySceneIndex = 1;
+        private const int RiftLobbySceneIndex = 1;
+        private static bool revolutions;
+        private static bool progressive;
 
         private static Action<object>? _logInfo;
         private static Action<object>? _logDebug;
@@ -111,40 +115,51 @@
         internal static void OnSceneLoaded(int buildIndex, string sceneName)
         {
             // LogDebug("OnSceneLoaded");
-            if (buildIndex == 0 || sceneName.Contains("Startup"))
+            if (MotherbrainGlobalVars.SelectedPlatform == MotherbrainPlatform.NonVrSteamWindows)
             {
+                if (buildIndex == NonVrSteamWindowsLobbySceneIndex)
+                {
+                    LogDebug("Recognized lobby in NonVrSteamWindows. Loading UI.");
+                    _ = new GameObject("HouseRulesUiNonVr", typeof(HouseRulesUiNonVr));
+                }
+
                 return;
             }
 
-            if (Environments.IsPcEdition())
+            if (MotherbrainGlobalVars.SelectedPlatform == MotherbrainPlatform.NonVrOculusWindows)
             {
-                if (buildIndex == NonVrSteamLobbySceneIndex || buildIndex == NonVrCombinedSteamLobbySceneIndex)
+                if (buildIndex == NonVrOculusWindowsLobbySceneIndex)
                 {
-                    LogDebug("Recognized lobby in PC. Loading UI.");
+                    LogDebug("Recognized lobby in NonVrOculusWindows. Loading UI.");
                     _ = new GameObject("HouseRulesUiNonVr", typeof(HouseRulesUiNonVr));
                 }
             }
-            else if (Environments.IsInHangouts() || sceneName.Contains("HobbyShop"))
+            else if (Environments.IsInHangouts())
             {
                 LogDebug("Recognized lobby in Hangouts. Loading UI.");
                 _ = new GameObject("HouseRulesUiHangouts", typeof(HouseRulesUiHangouts));
             }
-            else if (sceneName.Contains("Lobby"))
+            else if (MotherbrainGlobalVars.SelectedPlatform == MotherbrainPlatform.SteamVR)
             {
-                LogDebug("Recognized lobby in VR. Loading UI.");
-                _ = new GameObject("HouseRulesUiVr", typeof(HouseRulesUiVr));
+                if (buildIndex == SteamVRLobbySceneIndex)
+                {
+                    LogDebug("Recognized lobby in SteamVR. Loading UI.");
+                    _ = new GameObject("HouseRulesUiVr", typeof(HouseRulesUiVr));
+                }
             }
-            else
+            else if (MotherbrainGlobalVars.SelectedPlatform == MotherbrainPlatform.Rift)
             {
                 // LogDebug($"VR buildIndex: {buildIndex}");
-                bool revolutions = false;
-                bool progressive = false;
-                if (HR.SelectedRuleset != Ruleset.None)
+                if (buildIndex == RiftLobbySceneIndex)
                 {
-                    LogDebug("Recognized modded game in VR. Loading UI.");
-                    _ = new GameObject("HouseRulesUiGameVr", typeof(HouseRulesUiGameVr));
+                    LogDebug("Recognized lobby in Rift. Loading UI.");
+                    _ = new GameObject("HouseRulesUiVr", typeof(HouseRulesUiVr));
                 }
+            }
 
+            // If a scene is loaded while a ruleset is selected, we must have loaded a game level.
+            if (MotherbrainGlobalVars.IsRunningOnVRPlatform && HR.SelectedRuleset != Ruleset.None)
+            {
                 foreach (var rule in HR.SelectedRuleset.Rules)
                 {
                     if (rule.ToString().Contains("RevolutionsRule"))
@@ -155,6 +170,14 @@
                     if (rule.ToString().Contains("PieceProgressRule"))
                     {
                         progressive = true;
+                    }
+
+                    if (!revolutions && !progressive)
+                    {
+                        LogDebug("Recognized modded game in VR. Loading UI.");
+                        _ = new GameObject("HouseRulesUiGameVr", typeof(HouseRulesUiGameVr));
+
+                        return;
                     }
                 }
 
