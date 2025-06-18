@@ -287,6 +287,21 @@
                     hasPower2 = true;
                     if (value2.IsReplenishing)
                     {
+                        if (value2.AbilityKey == AbilityKey.Grapple)
+                        {
+                            _context.AbilityFactory.TryGetAbility(AbilityKey.Grapple, out var abilityG);
+                            source.effectSink.RemoveStatusEffect(EffectStateType.UsedHookThisTurn);
+                            abilityG.effectsPreventingUse.Clear();
+                            source.inventory.RemoveDisableCooldownFlags();
+                        }
+                        else if (value2.AbilityKey == AbilityKey.Zap)
+                        {
+                            _context.AbilityFactory.TryGetAbility(AbilityKey.Zap, out var abilityZ);
+                            source.effectSink.RemoveStatusEffect(EffectStateType.Discharge);
+                            abilityZ.effectsPreventingUse.Clear();
+                            source.inventory.RemoveDisableCooldownFlags();
+                        }
+
                         value2.flags &= (Inventory.ItemFlag)(-3);
                         source.inventory.Items[i] = value2;
                         source.AddGold(0);
