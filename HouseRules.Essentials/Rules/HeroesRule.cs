@@ -3,14 +3,11 @@
     using Boardgame;
     using Boardgame.BoardEntities;
     using Boardgame.BoardEntities.Abilities;
-    using Boardgame.BoardEntities.AI;
-    using Data.GameData;
     using DataKeys;
     using HarmonyLib;
     using HouseRules.Core;
     using HouseRules.Core.Types;
     using UnityEngine;
-    using static UnityEngine.UIElements.StylePropertyAnimationSystem;
 
     public sealed class HeroesRule : Rule, IConfigWritable<int>, IPatchable, IMultiplayerSafe
     {

@@ -2,7 +2,6 @@
 {
     using Boardgame;
     using Boardgame.BoardEntities;
-    using Boardgame.BoardEntities.Abilities;
     using Boardgame.BoardEntities.AI;
     using DataKeys;
     using HarmonyLib;
