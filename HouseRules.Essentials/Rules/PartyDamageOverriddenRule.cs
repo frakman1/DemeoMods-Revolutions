@@ -59,7 +59,7 @@
                         targetPiece.effectSink.SubtractHealth(0);
                         if (damage.AbilityKey == AbilityKey.Zap && !targetPiece.HasEffectState(EffectStateType.Invulnerable3) && !targetPiece.IsImmuneToStatusEffect(EffectStateType.Stunned) && !targetPiece.HasEffectState(EffectStateType.Stunned) && !targetPiece.HasEffectState(EffectStateType.Frozen))
                         {
-                            targetPiece.EnableEffectState(EffectStateType.Invulnerable1);
+                            targetPiece.EnableEffectState(EffectStateType.Invulnerable1, 1);
                         }
 
                         return false;
@@ -102,7 +102,7 @@
             {
                 if (attackerPiece.IsPlayer() && (targetPiece.IsPlayer() || targetPiece.IsBot() || targetPiece.IsWarlockMinion()))
                 {
-                    if (damage.AbilityKey == AbilityKey.Whirlwind || damage.AbilityKey == AbilityKey.PiercingSpear || damage.AbilityKey == AbilityKey.PlayerLeap || damage.AbilityKey == AbilityKey.Exterminate || damage.AbilityKey == AbilityKey.Implosion || damage.AbilityKey == AbilityKey.ScrollTsunami)
+                    if (damage.AbilityKey == AbilityKey.GodsFury || damage.AbilityKey == AbilityKey.Whirlwind || damage.AbilityKey == AbilityKey.PiercingSpear || damage.AbilityKey == AbilityKey.PlayerLeap || damage.AbilityKey == AbilityKey.Exterminate || damage.AbilityKey == AbilityKey.Implosion || damage.AbilityKey == AbilityKey.ScrollTsunami)
                     {
                         return false;
                     }
@@ -111,7 +111,7 @@
                         targetPiece.effectSink.SubtractHealth(0);
                         if (damage.AbilityKey == AbilityKey.Zap && !targetPiece.HasEffectState(EffectStateType.Invulnerable3) && !targetPiece.IsImmuneToStatusEffect(EffectStateType.Stunned) && !targetPiece.HasEffectState(EffectStateType.Stunned) && !targetPiece.HasEffectState(EffectStateType.Frozen))
                         {
-                            targetPiece.EnableEffectState(EffectStateType.Invulnerable1);
+                            targetPiece.EnableEffectState(EffectStateType.Invulnerable1, 1);
                         }
 
                         return false;
