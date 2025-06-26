@@ -116,7 +116,7 @@ namespace HouseRules.Core
             _lastCode = PhotonNetwork.CurrentRoom.Name;
             if (_lastCode != _roomCode)
             {
-                HouseRulesCoreBase.LogWarning($"Room {_lastCode} doesn't match original room {_roomCode}. Deactivating reconnection rules!");
+                HouseRulesCoreBase.LogWarning($"Room {_roomCode} doesn't match original room {_lastCode}. Deactivating reconnection rules!");
                 DeactivateReconnect();
             }
         }
@@ -180,12 +180,9 @@ namespace HouseRules.Core
             var levelSequence = Traverse.Create(_gameContext.gameStateMachine).Field<LevelSequence>("levelSequence").Value;
             MotherbrainGlobalVars.CurrentConfig = levelSequence.gameConfig;
 
-            if (IsReconnect)
-            {
-                DeactivateReconnect();
-            }
-
             _roomCode = PhotonNetwork.CurrentRoom.Name;
+            _lastCode = _roomCode;
+            DeactivateReconnect();
             HouseRulesCoreBase.LogDebug($"New game in room {_roomCode} started");
             ActivateRuleset();
             OnPreGameCreated();
@@ -213,8 +210,8 @@ namespace HouseRules.Core
                 return;
             }
 
-            HouseRulesCoreBase.LogWarning($"<--- Resuming ruleset after disconnection from room {_roomCode} --->");
-
+            GameUI.ShowCameraMessage($"<color=#F0F312>Host regained!</color> <color=#00FF00>RESUMING ruleset:</color> <color=#F0F312>{HR.SelectedRuleset.Name}</color>", 10);
+            HouseRulesCoreBase.LogWarning($"<--- Resuming ruleset after disconnection from room {_lastCode} --->");
             ActivateRuleset();
             OnPreGameCreated();
             OnPostGameCreated();
@@ -372,7 +369,7 @@ namespace HouseRules.Core
                     var isDisabled = rule is IDisableOnReconnect;
                     if (IsReconnect && isDisabled)
                     {
-                        HouseRulesCoreBase.LogDebug($"Skip activating rule type: {rule.GetType()}");
+                        HouseRulesCoreBase.LogDebug($"Skip already activate rule type: {rule.GetType()}");
                         continue;
                     }
                     else
