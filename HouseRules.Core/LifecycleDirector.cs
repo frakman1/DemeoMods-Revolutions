@@ -485,7 +485,14 @@ namespace HouseRules.Core
                 }
             }
 
-            ShowWelcomeMessage();
+            if (IsReconnect)
+            {
+                GameUI.ShowCameraMessage($"<color=#F0F312>Host regained!</color> <color=#00FF00>RESUMING ruleset:</color> <color=#F0F312>{HR.SelectedRuleset.Name}</color>", 10);
+            }
+            else
+            {
+                ShowWelcomeMessage();
+            }
         }
 
         private static void OnPostGameCreated()
