@@ -675,6 +675,8 @@
                             flags: (Inventory.ItemFlag)1,
                             originalOwner: -1,
                             replenishCooldown: 1));
+
+                        HR.ScheduleBoardSync();
                         piece.AddGold(0);
                     }
                 }
@@ -698,6 +700,8 @@
                             flags: (Inventory.ItemFlag)1,
                             originalOwner: -1,
                             replenishCooldown: 1));
+
+                        HR.ScheduleBoardSync();
                         piece.AddGold(0);
                     }
                 }
@@ -728,6 +732,8 @@
                             flags: (Inventory.ItemFlag)1,
                             originalOwner: -1,
                             replenishCooldown: 1));
+
+                        HR.ScheduleBoardSync();
                         piece.AddGold(0);
                     }
                 }
@@ -751,6 +757,8 @@
                             flags: (Inventory.ItemFlag)1,
                             originalOwner: -1,
                             replenishCooldown: 1));
+
+                        HR.ScheduleBoardSync();
                         piece.AddGold(0);
                     }
                 }
@@ -774,6 +782,8 @@
                             flags: (Inventory.ItemFlag)1,
                             originalOwner: -1,
                             replenishCooldown: 1));
+
+                        HR.ScheduleBoardSync();
                         piece.AddGold(0);
                     }
                 }
@@ -797,6 +807,8 @@
                             flags: (Inventory.ItemFlag)1,
                             originalOwner: -1,
                             replenishCooldown: 1));
+
+                        HR.ScheduleBoardSync();
                         piece.AddGold(0);
                     }
                 }
@@ -820,6 +832,8 @@
                             flags: (Inventory.ItemFlag)1,
                             originalOwner: -1,
                             replenishCooldown: 1));
+
+                        HR.ScheduleBoardSync();
                         piece.AddGold(0);
                     }
                 }

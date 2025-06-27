@@ -5,6 +5,7 @@
     using Boardgame.BoardEntities;
     using DataKeys;
     using HarmonyLib;
+    using HouseRules.Core;
     using HouseRules.Core.Types;
 
     public sealed class EnergyPotionRule : Rule, IConfigWritable<Dictionary<BoardPieceId, AbilityKey>>, IPatchable, IMultiplayerSafe
@@ -83,165 +84,24 @@
                 // Energy Potion tick/prevention and card removal per class
                 if (piece.HasEffectState(EffectStateType.ExtraEnergy))
                 {
-                    if (piece.boardPieceId == BoardPieceId.HeroBarbarian)
+                    for (int i = 0; i < piece.inventory.Items.Count; i++)
                     {
-                        for (int i = 0; i < piece.inventory.Items.Count; i++)
+                        value = piece.inventory.Items[i];
+                        if (value.AbilityKey == abilityKey)
                         {
-                            value = piece.inventory.Items[i];
-                            if (value.AbilityKey == abilityKey)
+                            if (value.IsReplenishing)
                             {
-                                if (value.IsReplenishing)
+                                hasChanged = true;
+                                howMany -= 1;
+                                if (howMany < 1)
                                 {
-                                    hasChanged = true;
-                                    howMany -= 1;
-                                    if (howMany < 1)
-                                    {
-                                        Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
-                                        piece.DisableEffectState(EffectStateType.ExtraEnergy);
-                                        piece.inventory.Items.Remove(value);
-                                    }
+                                    Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
+                                    piece.DisableEffectState(EffectStateType.ExtraEnergy);
+                                    piece.inventory.Items.Remove(value);
                                 }
-
-                                break;
                             }
-                        }
-                    }
-                    else if (piece.boardPieceId == BoardPieceId.HeroGuardian)
-                    {
-                        for (int i = 0; i < piece.inventory.Items.Count; i++)
-                        {
-                            value = piece.inventory.Items[i];
-                            if (value.AbilityKey == abilityKey)
-                            {
-                                if (value.IsReplenishing)
-                                {
-                                    hasChanged = true;
-                                    howMany -= 1;
-                                    if (howMany < 1)
-                                    {
-                                        Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
-                                        piece.DisableEffectState(EffectStateType.ExtraEnergy);
-                                        piece.inventory.Items.Remove(value);
-                                    }
-                                }
 
-                                break;
-                            }
-                        }
-                    }
-                    else if (piece.boardPieceId == BoardPieceId.HeroHunter)
-                    {
-                        for (int i = 0; i < piece.inventory.Items.Count; i++)
-                        {
-                            value = piece.inventory.Items[i];
-                            if (value.AbilityKey == abilityKey)
-                            {
-                                if (value.IsReplenishing)
-                                {
-                                    hasChanged = true;
-                                    howMany -= 1;
-                                    if (howMany < 1)
-                                    {
-                                        Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
-                                        piece.DisableEffectState(EffectStateType.ExtraEnergy);
-                                        piece.inventory.Items.Remove(value);
-                                    }
-                                }
-
-                                break;
-                            }
-                        }
-                    }
-                    else if (piece.boardPieceId == BoardPieceId.HeroBard)
-                    {
-                        for (int i = 0; i < piece.inventory.Items.Count; i++)
-                        {
-                            value = piece.inventory.Items[i];
-                            if (value.AbilityKey == abilityKey)
-                            {
-                                if (value.IsReplenishing)
-                                {
-                                    hasChanged = true;
-                                    howMany -= 1;
-                                    if (howMany < 1)
-                                    {
-                                        Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
-                                        piece.DisableEffectState(EffectStateType.ExtraEnergy);
-                                        piece.inventory.Items.Remove(value);
-                                    }
-                                }
-
-                                break;
-                            }
-                        }
-                    }
-                    else if (piece.boardPieceId == BoardPieceId.HeroSorcerer)
-                    {
-                        for (int i = 0; i < piece.inventory.Items.Count; i++)
-                        {
-                            value = piece.inventory.Items[i];
-                            if (value.AbilityKey == abilityKey)
-                            {
-                                if (value.IsReplenishing)
-                                {
-                                    hasChanged = true;
-                                    howMany -= 1;
-                                    if (howMany < 1)
-                                    {
-                                        Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
-                                        piece.DisableEffectState(EffectStateType.ExtraEnergy);
-                                        piece.inventory.Items.Remove(value);
-                                    }
-                                }
-
-                                break;
-                            }
-                        }
-                    }
-                    else if (piece.boardPieceId == BoardPieceId.HeroRogue)
-                    {
-                        for (int i = 0; i < piece.inventory.Items.Count; i++)
-                        {
-                            value = piece.inventory.Items[i];
-                            if (value.AbilityKey == abilityKey)
-                            {
-                                if (value.IsReplenishing)
-                                {
-                                    hasChanged = true;
-                                    howMany -= 1;
-                                    if (howMany < 1)
-                                    {
-                                        Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
-                                        piece.DisableEffectState(EffectStateType.ExtraEnergy);
-                                        piece.inventory.Items.Remove(value);
-                                    }
-                                }
-
-                                break;
-                            }
-                        }
-                    }
-                    else if (piece.boardPieceId == BoardPieceId.HeroWarlock)
-                    {
-                        for (int i = 0; i < piece.inventory.Items.Count; i++)
-                        {
-                            value = piece.inventory.Items[i];
-                            if (value.AbilityKey == abilityKey)
-                            {
-                                if (value.IsReplenishing)
-                                {
-                                    hasChanged = true;
-                                    howMany -= 1;
-                                    if (howMany < 1)
-                                    {
-                                        Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
-                                        piece.DisableEffectState(EffectStateType.ExtraEnergy);
-                                        piece.inventory.Items.Remove(value);
-                                    }
-                                }
-
-                                break;
-                            }
+                            break;
                         }
                     }
 
@@ -277,173 +137,27 @@
             else if (_globalAdjustments.TryGetValue(piece.boardPieceId, out var abilityKey))
             {
                 bool hasPower = false;
-                if (piece.boardPieceId == BoardPieceId.HeroBarbarian)
+                for (var i = 0; i < piece.inventory.Items.Count; i++)
                 {
-                    for (var i = 0; i < piece.inventory.Items.Count; i++)
+                    value = piece.inventory.Items[i];
+                    if (value.AbilityKey == abilityKey)
                     {
-                        value = piece.inventory.Items[i];
-                        if (value.AbilityKey == abilityKey)
-                        {
-                            hasPower = true;
-                            break;
-                        }
-                    }
-
-                    if (!hasPower)
-                    {
-                        Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item(
-                            abilityKey,
-                            flags: (Inventory.ItemFlag)1,
-                            originalOwner: -1,
-                            replenishCooldown: 1));
-                        piece.AddGold(0);
+                        hasPower = true;
+                        break;
                     }
                 }
-                else if (piece.boardPieceId == BoardPieceId.HeroGuardian)
+
+                if (!hasPower)
                 {
-                    for (var i = 0; i < piece.inventory.Items.Count; i++)
-                    {
-                        value = piece.inventory.Items[i];
-                        if (value.AbilityKey == abilityKey)
-                        {
-                            hasPower = true;
-                            break;
-                        }
-                    }
+                    Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
+                    piece.inventory.Items.Add(new Inventory.Item(
+                        abilityKey,
+                        flags: (Inventory.ItemFlag)1,
+                        originalOwner: -1,
+                        replenishCooldown: 1));
 
-                    if (!hasPower)
-                    {
-                        Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item(
-                            abilityKey,
-                            flags: (Inventory.ItemFlag)1,
-                            originalOwner: -1,
-                            replenishCooldown: 1));
-                        piece.AddGold(0);
-                    }
-                }
-                else if (piece.boardPieceId == BoardPieceId.HeroHunter)
-                {
-                    for (var i = 0; i < piece.inventory.Items.Count; i++)
-                    {
-                        value = piece.inventory.Items[i];
-                        if (value.AbilityKey == abilityKey)
-                        {
-                            hasPower = true;
-                            break;
-                        }
-
-                        if (value.AbilityKey == abilityKey)
-                        {
-                            piece.inventory.Items.Remove(value);
-                            Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
-                            break;
-                        }
-                    }
-
-                    if (!hasPower)
-                    {
-                        Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item(
-                            abilityKey,
-                            flags: (Inventory.ItemFlag)1,
-                            originalOwner: -1,
-                            replenishCooldown: 1));
-                        piece.AddGold(0);
-                    }
-                }
-                else if (piece.boardPieceId == BoardPieceId.HeroBard)
-                {
-                    for (var i = 0; i < piece.inventory.Items.Count; i++)
-                    {
-                        value = piece.inventory.Items[i];
-                        if (value.AbilityKey == abilityKey)
-                        {
-                            hasPower = true;
-                            break;
-                        }
-                    }
-
-                    if (!hasPower)
-                    {
-                        Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item(
-                            abilityKey,
-                            flags: (Inventory.ItemFlag)1,
-                            originalOwner: -1,
-                            replenishCooldown: 1));
-                        piece.AddGold(0);
-                    }
-                }
-                else if (piece.boardPieceId == BoardPieceId.HeroSorcerer)
-                {
-                    for (var i = 0; i < piece.inventory.Items.Count; i++)
-                    {
-                        value = piece.inventory.Items[i];
-                        if (value.AbilityKey == abilityKey)
-                        {
-                            hasPower = true;
-                            break;
-                        }
-                    }
-
-                    if (!hasPower)
-                    {
-                        Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item(
-                            abilityKey,
-                            flags: (Inventory.ItemFlag)1,
-                            originalOwner: -1,
-                            replenishCooldown: 1));
-                        piece.AddGold(0);
-                    }
-                }
-                else if (piece.boardPieceId == BoardPieceId.HeroRogue)
-                {
-                    for (var i = 0; i < piece.inventory.Items.Count; i++)
-                    {
-                        value = piece.inventory.Items[i];
-                        if (value.AbilityKey == abilityKey)
-                        {
-                            hasPower = true;
-                            break;
-                        }
-                    }
-
-                    if (!hasPower)
-                    {
-                        Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item(
-                            abilityKey,
-                            flags: (Inventory.ItemFlag)1,
-                            originalOwner: -1,
-                            replenishCooldown: 1));
-                        piece.AddGold(0);
-                    }
-                }
-                else if (piece.boardPieceId == BoardPieceId.HeroWarlock)
-                {
-                    for (var i = 0; i < piece.inventory.Items.Count; i++)
-                    {
-                        value = piece.inventory.Items[i];
-                        if (value.AbilityKey == abilityKey)
-                        {
-                            hasPower = true;
-                            break;
-                        }
-                    }
-
-                    if (!hasPower)
-                    {
-                        Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item(
-                            abilityKey,
-                            flags: (Inventory.ItemFlag)1,
-                            originalOwner: -1,
-                            replenishCooldown: 1));
-                        piece.AddGold(0);
-                    }
+                    HR.ScheduleBoardSync();
+                    piece.AddGold(0);
                 }
             }
 
