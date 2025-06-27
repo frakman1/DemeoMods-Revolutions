@@ -364,11 +364,33 @@ The [Settings Reference](../docs/SettingsReference.md) contains lists of all dif
   },
   ```
 
+  #### __EnergyPotion__: Using an Energy Potion gives 3 uses of new abilities to each hero class.
+  - Allows configuration of different abilities on a per-hero basis.
+  - To configure:
+    - Specify a Dictionary of [BoardPieceIds](../docs/SettingsReference.md#boardpieceids) and an ability.
+
+  ###### _Example JSON config for EnergyPotion_
+
+  ```json
+  {
+    "Rule": "EnergyPotion",
+    "Config": {
+      "HeroBard": "PVPBlink",
+      "HeroHunter": "PVPMissileSwarm",
+      "HeroSorcerer": "DeathBeam",
+      "HeroGuardian": "LeapHeavy",
+      "HeroRogue": "PVPFireball",
+      "HeroWarlock": "WeakeningShout",
+      "HeroBarbarian": "ImplosionExplosionRain"
+    }
+  },
+``` 
+
 #### __FreeAbilityOnCrit__: A Critical Hit rewards you with a free ability.
   - Whenever you score a critical hit, a user-configured card is added to your inventory.
   - Allows configuration of different abilities on a per-hero basis.
   - To configure:
-    - Specify a Dictionary of [BoardPieceIds](../docs/SettingsReference.md#boardpieceids) and abilities.
+    - Specify a Dictionary of [BoardPieceIds](../docs/SettingsReference.md#boardpieceids) and an ability.
 
   ###### _Example JSON config for FreeAbilityOnCrit_
 
