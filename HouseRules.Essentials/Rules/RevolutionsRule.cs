@@ -67,18 +67,22 @@
             }
 
             var ruleSet = HR.SelectedRuleset.Name;
-            if (!ruleSet.Contains("Demeo Re") && !ruleSet.Contains("TEST GAME"))
+            bool revolutions = false;
+            bool rev_progr = false;
+            foreach (var rule in HR.SelectedRuleset.Rules)
             {
-                return true;
+                if (rule.ToString().Contains("PieceProgressRule"))
+                {
+                    rev_progr = true;
+                }
+                else if (rule.ToString().Contains("RevolutionsRule"))
+                {
+                    revolutions = true;
+                }
             }
 
-            bool rev_progr = false;
             bool reloaded = false;
-            if (ruleSet.Contains("PROGRESSIVE") || ruleSet.Contains("TEST GAME"))
-            {
-                rev_progr = true;
-            }
-            else if (ruleSet.Equals("Demeo Reloaded"))
+            if (ruleSet.Equals("Demeo Reloaded"))
             {
                 reloaded = true;
             }
@@ -94,20 +98,19 @@
             // Handle Host reconnect makes returning players invulnerable when becoming master client again
             if (_isReconnect)
             {
-                if (piece.GetStat(Stats.Type.InnateCounterDamageExtraDamage) != 42 && piece.GetStat(Stats.Type.InnateCounterDamageExtraDamage) != 69)
+                HouseRulesEssentialsBase.LogWarning($"RECONNECT with {_numPlayers} players...");
+                if (reloaded)
                 {
-                    if (reloaded)
-                    {
-                        piece.effectSink.TrySetStatBaseValue(Stats.Type.InnateCounterDamageExtraDamage, 42);
-                    }
-                    else
-                    {
-                        piece.effectSink.TrySetStatBaseValue(Stats.Type.InnateCounterDamageExtraDamage, 69);
-                    }
-
-                    _isReconnect = false;
+                    piece.effectSink.TrySetStatBaseValue(Stats.Type.InnateCounterDamageExtraDamage, 42);
                 }
-                else if (_numPlayers > 1)
+                else if (revolutions)
+                {
+                    piece.effectSink.TrySetStatBaseValue(Stats.Type.InnateCounterDamageExtraDamage, 69);
+                }
+
+                _isReconnect = false;
+
+                if (_numPlayers > 1)
                 {
                     piece.effectSink.AddStatusEffect(EffectStateType.Invulnerable1);
                     piece.effectSink.SetStatusEffectDuration(EffectStateType.Invulnerable1, 1);
@@ -118,6 +121,7 @@
             // Handle fixing character stats and cards for Revolutions/Reloaded game when the Host reconnects and becomes the Master Client again
             if (GameStateMachine.IsMasterClient && !piece.IsDead() && piece.GetStat(Stats.Type.InnateCounterDamageExtraDamage) != 42 && piece.GetStat(Stats.Type.InnateCounterDamageExtraDamage) != 69)
             {
+                HouseRulesEssentialsBase.LogWarning("MasterClient changed. Fixing player stats...");
                 _isReconnect = true;
                 _checkPlayers = true;
                 int mage = 0;
@@ -857,6 +861,7 @@
             }
             else
             {
+                HouseRulesEssentialsBase.LogWarning($"{__result.boardPieceId} value set to {_globalGameType}");
                 __result.effectSink.TrySetStatBaseValue(Stats.Type.InnateCounterDamageExtraDamage, _globalGameType);
             }
         }

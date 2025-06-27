@@ -57,11 +57,6 @@
 
             if (__instance.effectStateType == EffectStateType.ExtraEnergy)
             {
-                if (piece.GetStat(Stats.Type.InnateCounterDamageExtraDamage) != 69 && !HR.SelectedRuleset.Name.Contains("Revolutions"))
-                {
-                    return;
-                }
-
                 Inventory.Item value;
                 int howMany = piece.effectSink.GetEffectStateDurationTurnsLeft(EffectStateType.ExtraEnergy);
                 bool hasChanged = false;
