@@ -50,7 +50,16 @@
             }
 
             Piece attackerPiece = attacker.piece;
-            if (!HR.SelectedRuleset.Name.Contains("Revolutions"))
+            bool revolutions = false;
+            foreach (var rule in HR.SelectedRuleset.Rules)
+            {
+                if (rule.ToString().Contains("PieceProgressRule") || rule.ToString().Contains("RevolutionsRule"))
+                {
+                    revolutions = true;
+                }
+            }
+
+            if (!revolutions)
             {
                 if (attackerPiece != null)
                 {
