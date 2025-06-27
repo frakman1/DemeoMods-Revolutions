@@ -4,7 +4,6 @@
     using Boardgame.BoardEntities;
     using DataKeys;
     using HarmonyLib;
-    using HouseRules.Core;
     using HouseRules.Core.Types;
 
     public sealed class TickAdjustedRule : Rule, IConfigWritable<bool>, IPatchable, IMultiplayerSafe, IDisableOnReconnect
