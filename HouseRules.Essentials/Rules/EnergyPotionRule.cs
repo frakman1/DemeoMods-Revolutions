@@ -1,26 +1,31 @@
 ﻿namespace HouseRules.Essentials.Rules
 {
+    using System.Collections.Generic;
     using Boardgame;
     using Boardgame.BoardEntities;
     using DataKeys;
     using HarmonyLib;
     using HouseRules.Core.Types;
 
-    public sealed class EnergyPotionRule : Rule, IConfigWritable<bool>, IPatchable, IMultiplayerSafe
+    public sealed class EnergyPotionRule : Rule, IConfigWritable<Dictionary<BoardPieceId, AbilityKey>>, IPatchable, IMultiplayerSafe
     {
-        public override string Description => "The Energy Potion can be activated";
+        public override string Description => "The Energy Potion gives players new abilities";
 
         private static Context _context;
         private static bool _isActivated;
+        private static Dictionary<BoardPieceId, AbilityKey> _globalAdjustments;
+        private readonly Dictionary<BoardPieceId, AbilityKey> _adjustments;
 
-        public EnergyPotionRule(bool value)
+        public EnergyPotionRule(Dictionary<BoardPieceId, AbilityKey> adjustments)
         {
+            _adjustments = adjustments;
         }
 
-        public bool GetConfigObject() => true;
+        public Dictionary<BoardPieceId, AbilityKey> GetConfigObject() => _adjustments;
 
         protected override void OnActivate(Context context)
         {
+            _globalAdjustments = _adjustments;
             _isActivated = true;
         }
 
@@ -64,6 +69,11 @@
                 return;
             }
 
+            if (!_globalAdjustments.TryGetValue(piece.boardPieceId, out var abilityKey))
+            {
+                return;
+            }
+
             if (__instance.effectStateType == EffectStateType.ExtraEnergy)
             {
                 Inventory.Item value;
@@ -78,7 +88,7 @@
                         for (int i = 0; i < piece.inventory.Items.Count; i++)
                         {
                             value = piece.inventory.Items[i];
-                            if (value.AbilityKey == AbilityKey.ImplosionExplosionRain)
+                            if (value.AbilityKey == abilityKey)
                             {
                                 if (value.IsReplenishing)
                                 {
@@ -101,7 +111,7 @@
                         for (int i = 0; i < piece.inventory.Items.Count; i++)
                         {
                             value = piece.inventory.Items[i];
-                            if (value.AbilityKey == AbilityKey.LeapHeavy)
+                            if (value.AbilityKey == abilityKey)
                             {
                                 if (value.IsReplenishing)
                                 {
@@ -124,7 +134,7 @@
                         for (int i = 0; i < piece.inventory.Items.Count; i++)
                         {
                             value = piece.inventory.Items[i];
-                            if (value.AbilityKey == AbilityKey.PVPMissileSwarm)
+                            if (value.AbilityKey == abilityKey)
                             {
                                 if (value.IsReplenishing)
                                 {
@@ -147,7 +157,7 @@
                         for (int i = 0; i < piece.inventory.Items.Count; i++)
                         {
                             value = piece.inventory.Items[i];
-                            if (value.AbilityKey == AbilityKey.PVPBlink)
+                            if (value.AbilityKey == abilityKey)
                             {
                                 if (value.IsReplenishing)
                                 {
@@ -170,7 +180,7 @@
                         for (int i = 0; i < piece.inventory.Items.Count; i++)
                         {
                             value = piece.inventory.Items[i];
-                            if (value.AbilityKey == AbilityKey.DeathBeam)
+                            if (value.AbilityKey == abilityKey)
                             {
                                 if (value.IsReplenishing)
                                 {
@@ -193,7 +203,7 @@
                         for (int i = 0; i < piece.inventory.Items.Count; i++)
                         {
                             value = piece.inventory.Items[i];
-                            if (value.AbilityKey == AbilityKey.PVPFireball)
+                            if (value.AbilityKey == abilityKey)
                             {
                                 if (value.IsReplenishing)
                                 {
@@ -216,7 +226,7 @@
                         for (int i = 0; i < piece.inventory.Items.Count; i++)
                         {
                             value = piece.inventory.Items[i];
-                            if (value.AbilityKey == AbilityKey.WeakeningShout)
+                            if (value.AbilityKey == abilityKey)
                             {
                                 if (value.IsReplenishing)
                                 {
@@ -264,7 +274,7 @@
             {
                 return true;
             }
-            else
+            else if (_globalAdjustments.TryGetValue(piece.boardPieceId, out var abilityKey))
             {
                 bool hasPower = false;
                 if (piece.boardPieceId == BoardPieceId.HeroBarbarian)
@@ -272,7 +282,7 @@
                     for (var i = 0; i < piece.inventory.Items.Count; i++)
                     {
                         value = piece.inventory.Items[i];
-                        if (value.AbilityKey == AbilityKey.ImplosionExplosionRain)
+                        if (value.AbilityKey == abilityKey)
                         {
                             hasPower = true;
                             break;
@@ -283,7 +293,7 @@
                     {
                         Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
                         piece.inventory.Items.Add(new Inventory.Item(
-                            AbilityKey.ImplosionExplosionRain,
+                            abilityKey,
                             flags: (Inventory.ItemFlag)1,
                             originalOwner: -1,
                             replenishCooldown: 1));
@@ -295,7 +305,7 @@
                     for (var i = 0; i < piece.inventory.Items.Count; i++)
                     {
                         value = piece.inventory.Items[i];
-                        if (value.AbilityKey == AbilityKey.LeapHeavy)
+                        if (value.AbilityKey == abilityKey)
                         {
                             hasPower = true;
                             break;
@@ -306,7 +316,7 @@
                     {
                         Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
                         piece.inventory.Items.Add(new Inventory.Item(
-                            AbilityKey.LeapHeavy,
+                            abilityKey,
                             flags: (Inventory.ItemFlag)1,
                             originalOwner: -1,
                             replenishCooldown: 1));
@@ -318,13 +328,13 @@
                     for (var i = 0; i < piece.inventory.Items.Count; i++)
                     {
                         value = piece.inventory.Items[i];
-                        if (value.AbilityKey == AbilityKey.PVPMissileSwarm)
+                        if (value.AbilityKey == abilityKey)
                         {
                             hasPower = true;
                             break;
                         }
 
-                        if (value.AbilityKey == AbilityKey.Zap)
+                        if (value.AbilityKey == abilityKey)
                         {
                             piece.inventory.Items.Remove(value);
                             Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
@@ -336,7 +346,7 @@
                     {
                         Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
                         piece.inventory.Items.Add(new Inventory.Item(
-                            AbilityKey.PVPMissileSwarm,
+                            abilityKey,
                             flags: (Inventory.ItemFlag)1,
                             originalOwner: -1,
                             replenishCooldown: 1));
@@ -348,7 +358,7 @@
                     for (var i = 0; i < piece.inventory.Items.Count; i++)
                     {
                         value = piece.inventory.Items[i];
-                        if (value.AbilityKey == AbilityKey.PVPBlink)
+                        if (value.AbilityKey == abilityKey)
                         {
                             hasPower = true;
                             break;
@@ -359,7 +369,7 @@
                     {
                         Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
                         piece.inventory.Items.Add(new Inventory.Item(
-                            AbilityKey.PVPBlink,
+                            abilityKey,
                             flags: (Inventory.ItemFlag)1,
                             originalOwner: -1,
                             replenishCooldown: 1));
@@ -371,7 +381,7 @@
                     for (var i = 0; i < piece.inventory.Items.Count; i++)
                     {
                         value = piece.inventory.Items[i];
-                        if (value.AbilityKey == AbilityKey.DeathBeam)
+                        if (value.AbilityKey == abilityKey)
                         {
                             hasPower = true;
                             break;
@@ -382,7 +392,7 @@
                     {
                         Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
                         piece.inventory.Items.Add(new Inventory.Item(
-                            AbilityKey.DeathBeam,
+                            abilityKey,
                             flags: (Inventory.ItemFlag)1,
                             originalOwner: -1,
                             replenishCooldown: 1));
@@ -394,7 +404,7 @@
                     for (var i = 0; i < piece.inventory.Items.Count; i++)
                     {
                         value = piece.inventory.Items[i];
-                        if (value.AbilityKey == AbilityKey.PVPFireball)
+                        if (value.AbilityKey == abilityKey)
                         {
                             hasPower = true;
                             break;
@@ -405,7 +415,7 @@
                     {
                         Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
                         piece.inventory.Items.Add(new Inventory.Item(
-                            AbilityKey.PVPFireball,
+                            abilityKey,
                             flags: (Inventory.ItemFlag)1,
                             originalOwner: -1,
                             replenishCooldown: 1));
@@ -417,7 +427,7 @@
                     for (var i = 0; i < piece.inventory.Items.Count; i++)
                     {
                         value = piece.inventory.Items[i];
-                        if (value.AbilityKey == AbilityKey.WeakeningShout)
+                        if (value.AbilityKey == abilityKey)
                         {
                             hasPower = true;
                             break;
@@ -428,7 +438,7 @@
                     {
                         Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
                         piece.inventory.Items.Add(new Inventory.Item(
-                            AbilityKey.WeakeningShout,
+                            abilityKey,
                             flags: (Inventory.ItemFlag)1,
                             originalOwner: -1,
                             replenishCooldown: 1));
