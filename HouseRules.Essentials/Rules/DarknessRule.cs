@@ -4,7 +4,6 @@
     using Boardgame;
     using Boardgame.Board;
     using Boardgame.BoardEntities;
-    using Boardgame.BoardEntities.Abilities;
     using Boardgame.BoardEntities.AI;
     using Boardgame.LevelLoading;
     using Boardgame.TurnOrder;
@@ -98,8 +97,8 @@
                 }
                 else
                 {
-                    prob = 0;
-                    list = new List<TileEffect> { };
+                    prob = 0f;
+                    list = null;
                     return;
                 }
             }
