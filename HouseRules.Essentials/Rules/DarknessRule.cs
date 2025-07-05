@@ -4,6 +4,7 @@
     using Boardgame;
     using Boardgame.Board;
     using Boardgame.BoardEntities;
+    using Boardgame.BoardEntities.Abilities;
     using Boardgame.BoardEntities.AI;
     using Boardgame.LevelLoading;
     using Boardgame.TurnOrder;
@@ -14,12 +15,13 @@
     public sealed class DarknessRule : Rule, IConfigWritable<Dictionary<BoardPieceId, int>>,
         IPatchable, IMultiplayerSafe, IDisableOnReconnect
     {
-        public override string Description => "Some Heroes have modified vision range";
+        public override string Description => "Some board pieces have modified vision range";
 
         private readonly Dictionary<BoardPieceId, int> _adjustments;
         private static Dictionary<BoardPieceId, int> _globalAdjustments;
         private static bool _isActivated;
         private static List<Piece> _playerPieces;
+        private static Piece tempPiece;
 
         public DarknessRule(Dictionary<BoardPieceId, int> adjustments)
         {
@@ -127,11 +129,42 @@
             }
         }
 
-        private static void MotherTracker_TrackUnitDefeated_Prefix(Piece defeatedUnit, Piece attackerUnit)
+        private static void MotherTracker_TrackUnitDefeated_Prefix(Piece defeatedUnit, Piece attackerUnit, Damage damage)
         {
             if (!_isActivated)
             {
                 return;
+            }
+
+            if (tempPiece != null)
+            {
+                if (attackerUnit.HasPieceType(PieceType.Prop))
+                {
+                    attackerUnit = tempPiece;
+                }
+                else
+                {
+                    tempPiece = null;
+                }
+            }
+
+            if (damage != null)
+            {
+                if (damage.AbilityKey == AbilityKey.ExplodingIceLamp || damage.AbilityKey == AbilityKey.ExplodingVortexLamp || damage.AbilityKey == AbilityKey.ExplodingOilLamp || damage.AbilityKey == AbilityKey.ExplodingWaterLamp)
+                {
+                    foreach (var piece in _playerPieces)
+                    {
+                        if (piece.boardPieceId == BoardPieceId.HeroBarbarian)
+                        {
+                            attackerUnit = piece;
+                        }
+                    }
+                }
+                else if (defeatedUnit.HasPieceType(PieceType.Prop))
+                {
+                    tempPiece = attackerUnit;
+                    return;
+                }
             }
 
             if (!defeatedUnit.IsCreature())
@@ -245,30 +278,9 @@
                 }
             }
 
-            if (attackerUnit.HasEffectState(EffectStateType.TorchPlayer))
-            {
-                var torched = attackerUnit.effectSink.GetEffectStateDurationTurnsLeft(EffectStateType.TorchPlayer);
-                if (torched == 1)
-                {
-                    attackerUnit.effectSink.RemoveStatusEffect(EffectStateType.TorchPlayer);
-                    attackerUnit.effectSink.AddStatusEffect(EffectStateType.TorchPlayer, torched + 2);
-                }
-                else if (torched < 8)
-                {
-                    attackerUnit.effectSink.RemoveStatusEffect(EffectStateType.TorchPlayer);
-                    attackerUnit.effectSink.AddStatusEffect(EffectStateType.TorchPlayer, torched + 1);
-                }
-                else
-                {
-                    attackerUnit.effectSink.RemoveStatusEffect(EffectStateType.TorchPlayer);
-                    attackerUnit.effectSink.AddStatusEffect(EffectStateType.TorchPlayer, 8);
-                }
-            }
-            else
-            {
-                attackerUnit.effectSink.RemoveStatusEffect(EffectStateType.TorchPlayer);
-                attackerUnit.effectSink.AddStatusEffect(EffectStateType.TorchPlayer, 2);
-            }
+            var torched = attackerUnit.effectSink.GetEffectStateDurationTurnsLeft(EffectStateType.TorchPlayer);
+            attackerUnit.effectSink.RemoveStatusEffect(EffectStateType.TorchPlayer);
+            attackerUnit.effectSink.AddStatusEffect(EffectStateType.TorchPlayer, torched + 2);
         }
     }
 }
