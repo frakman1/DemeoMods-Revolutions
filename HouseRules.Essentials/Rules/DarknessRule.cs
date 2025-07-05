@@ -19,7 +19,6 @@
         private readonly Dictionary<BoardPieceId, int> _adjustments;
         private static Dictionary<BoardPieceId, int> _globalAdjustments;
         private static bool _isActivated;
-        private static bool _check;
         private static List<Piece> _playerPieces;
 
         public DarknessRule(Dictionary<BoardPieceId, int> adjustments)
@@ -143,10 +142,10 @@
             if (!attackerUnit.IsPlayer())
             {
                 Piece piece2;
+                PieceAI pieceAI = attackerUnit.pieceAI;
                 var gameContext = Traverse.Create(typeof(GameHub)).Field<GameContext>("gameContext").Value;
                 if (attackerUnit.boardPieceId == BoardPieceId.WarlockMinion && attackerUnit.GetHealth() > 0)
                 {
-                    PieceAI pieceAI = attackerUnit.pieceAI;
                     if (pieceAI == null)
                     {
                         return;
@@ -162,14 +161,12 @@
                 }
                 else if (attackerUnit.boardPieceId == BoardPieceId.SellswordArbalestierActive)
                 {
-                    PieceAI pieceAI = attackerUnit.pieceAI;
                     if (pieceAI == null)
                     {
                         return;
                     }
                     else if (pieceAI.memory.TryGetAssociatedPiece(gameContext.pieceAndTurnController, out piece2))
                     {
-                        _check = true;
                         attackerUnit = piece2;
                     }
                     else
@@ -183,14 +180,8 @@
                     {
                         if (piece.boardPieceId == BoardPieceId.HeroHunter)
                         {
-                            _check = true;
                             attackerUnit = piece;
                         }
-                    }
-
-                    if (!_check)
-                    {
-                        return;
                     }
                 }
                 else if (attackerUnit.boardPieceId == BoardPieceId.Tornado)
@@ -199,14 +190,8 @@
                     {
                         if (piece.boardPieceId == BoardPieceId.HeroBard)
                         {
-                            _check = true;
                             attackerUnit = piece;
                         }
-                    }
-
-                    if (!_check)
-                    {
-                        return;
                     }
                 }
                 else if (attackerUnit.boardPieceId == BoardPieceId.GrapplingTotem)
@@ -215,14 +200,8 @@
                     {
                         if (piece.boardPieceId == BoardPieceId.HeroBarbarian)
                         {
-                            _check = true;
                             attackerUnit = piece;
                         }
-                    }
-
-                    if (!_check)
-                    {
-                        return;
                     }
                 }
                 else if (attackerUnit.boardPieceId == BoardPieceId.SwordOfAvalon)
@@ -231,14 +210,8 @@
                     {
                         if (piece.boardPieceId == BoardPieceId.HeroRogue)
                         {
-                            _check = true;
                             attackerUnit = piece;
                         }
-                    }
-
-                    if (!_check)
-                    {
-                        return;
                     }
                 }
                 else if (attackerUnit.boardPieceId == BoardPieceId.SmiteWard)
@@ -247,14 +220,8 @@
                     {
                         if (piece.boardPieceId == BoardPieceId.HeroGuardian)
                         {
-                            _check = true;
                             attackerUnit = piece;
                         }
-                    }
-
-                    if (!_check)
-                    {
-                        return;
                     }
                 }
                 else if (attackerUnit.HasEffectState(EffectStateType.ConfusedPermanentVisualOnly) && (attackerUnit.boardPieceId == BoardPieceId.IceElemental || attackerUnit.boardPieceId == BoardPieceId.FireElemental))
@@ -263,14 +230,8 @@
                     {
                         if (piece.boardPieceId == BoardPieceId.HeroSorcerer)
                         {
-                            _check = true;
                             attackerUnit = piece;
                         }
-                    }
-
-                    if (!_check)
-                    {
-                        return;
                     }
                 }
                 else
@@ -303,18 +264,11 @@
                     attackerUnit.effectSink.AddStatusEffect(EffectStateType.TorchPlayer, 8);
                 }
             }
-            else if (_check && attackerUnit.HasEffectState(EffectStateType.TorchPlayer))
-            {
-                attackerUnit.effectSink.RemoveStatusEffect(EffectStateType.TorchPlayer);
-                attackerUnit.effectSink.AddStatusEffect(EffectStateType.TorchPlayer, 1);
-            }
             else
             {
                 attackerUnit.effectSink.RemoveStatusEffect(EffectStateType.TorchPlayer);
                 attackerUnit.effectSink.AddStatusEffect(EffectStateType.TorchPlayer, 2);
             }
-
-            _check = false;
         }
     }
 }
