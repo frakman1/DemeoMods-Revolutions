@@ -129,7 +129,7 @@
             }
         }
 
-        private static void MotherTracker_TrackUnitDefeated_Prefix(Piece defeatedUnit, Piece attackerUnit, Damage damage)
+        private static void MotherTracker_TrackUnitDefeated_Prefix(Piece defeatedUnit, Piece attackerUnit)
         {
             if (!_isActivated)
             {
@@ -148,23 +148,10 @@
                 }
             }
 
-            if (damage != null)
+            if (defeatedUnit.HasPieceType(PieceType.Prop))
             {
-                if (damage.AbilityKey == AbilityKey.ExplodingIceLamp || damage.AbilityKey == AbilityKey.ExplodingVortexLamp || damage.AbilityKey == AbilityKey.ExplodingOilLamp || damage.AbilityKey == AbilityKey.ExplodingWaterLamp)
-                {
-                    foreach (var piece in _playerPieces)
-                    {
-                        if (piece.boardPieceId == BoardPieceId.HeroBarbarian)
-                        {
-                            attackerUnit = piece;
-                        }
-                    }
-                }
-                else if (defeatedUnit.HasPieceType(PieceType.Prop))
-                {
-                    tempPiece = attackerUnit;
-                    return;
-                }
+                tempPiece = attackerUnit;
+                return;
             }
 
             if (!defeatedUnit.IsCreature())
