@@ -17,25 +17,21 @@
 
             var piecesAdjustedRule = new PieceConfigAdjustedRule(new List<PieceConfigAdjustedRule.PieceProperty>
             {
-                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.EarthElemental, Property = "PreciseHealth", Value = 1 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.EarthElemental, Property = "PreciseAttack", Value = 1 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.EarthElemental, Property = "AttackDamage", Value = 3 },
-                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.EarthElemental, Property = "PowerIndex", Value = 1 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.SilentSentinel, Property = "PreciseHealth", Value = 1 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.SilentSentinel, Property = "PreciseAttack", Value = 1 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.SilentSentinel, Property = "StartHealth", Value = 30 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.SilentSentinel, Property = "AttackDamage", Value = 5 },
-                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.SilentSentinel, Property = "PowerIndex", Value = 3 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.Wyvern, Property = "PreciseHealth", Value = 1 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.Wyvern, Property = "PreciseAttack", Value = 1 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.Wyvern, Property = "StartHealth", Value = 44 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.Wyvern, Property = "AttackDamage", Value = 7 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.Wyvern, Property = "MoveRange", Value = 3 },
-                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.Wyvern, Property = "PowerIndex", Value = 3 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.HeroBarbarian, Property = "StartHealth", Value = 1 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.HeroBard, Property = "StartHealth", Value = 1 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.HeroGuardian, Property = "StartHealth", Value = 1 },
-                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.HeroGuardian, Property = "StartArmor", Value = 0 },
+                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.HeroGuardian, Property = "StartArmor", Value = 2 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.HeroHunter, Property = "StartHealth", Value = 1 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.HeroRogue, Property = "StartHealth", Value = 1 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.HeroSorcerer, Property = "StartHealth", Value = 1 },
@@ -53,7 +49,7 @@
                 { BoardPieceId.ElvenArcher, 1 },
                 { BoardPieceId.ElvenHound, 2 },
                 { BoardPieceId.RootHound, 2 },
-                { BoardPieceId.TheUnheard, 2 },
+                { BoardPieceId.TheUnspoken, 2 },
                 { BoardPieceId.Bandit, 1 },
                 { BoardPieceId.DruidArcher, 1 },
                 { BoardPieceId.DruidHoundMaster, 1 },
@@ -68,16 +64,14 @@
                 { BoardPieceId.Thug, 1 },
                 { BoardPieceId.ElvenMystic, 2 },
                 { BoardPieceId.ElvenSkirmisher, 1 },
-                { BoardPieceId.GoblinFighter, 1 },
-                { BoardPieceId.GoblinRanger, 1 },
+                { BoardPieceId.GoblinFighter, 2 },
+                { BoardPieceId.GoblinRanger, 3 },
                 { BoardPieceId.ChestGoblin, 1 },
                 { BoardPieceId.EarthElemental, 1 },
                 { BoardPieceId.GiantSlime, 1 },
                 { BoardPieceId.ElvenMarauder, 1 },
                 { BoardPieceId.IceElemental, 2 },
                 { BoardPieceId.GiantSpider, 1 },
-                { BoardPieceId.Cavetroll, 1 },
-                { BoardPieceId.BigBoiMutant, 1 },
                 { BoardPieceId.ServantOfAlfaragh, 1 },
             };
             var myExitDeckFloor1 = new Dictionary<BoardPieceId, int>
@@ -264,6 +258,7 @@
             var bardCards = new List<StartCardsModifiedRule.CardConfig>
             {
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.StrengthenCourage, ReplenishFrequency = 1 },
+                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.EnemyFlashbang, ReplenishFrequency = 1 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Teleport, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Heal, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Tornado, ReplenishFrequency = 0 },
@@ -797,74 +792,9 @@
                 { BoardPieceId.JeweledScarab, new List<Behaviour> { Behaviour.Patrol, Behaviour.FleeToFOW } },
             });
 
-            var piecePieceTypeRule = new PiecePieceTypeListOverriddenRule(new Dictionary<BoardPieceId, List<PieceType>>
-            {
-                { BoardPieceId.Wyvern, new List<PieceType> { PieceType.Creature, PieceType.ForestCreature, PieceType.DesertCreature, PieceType.ValidCorruptionTarget } },
-                { BoardPieceId.ReptileArcher, new List<PieceType> { PieceType.GiantSlime, PieceType.Creature, PieceType.ForestCreature, PieceType.DesertCreature, PieceType.Reptile, PieceType.ValidCorruptionTarget } },
-                { BoardPieceId.ReptileMutantWizard, new List<PieceType> { PieceType.GiantSlime, PieceType.Creature, PieceType.ForestCreature, PieceType.DesertCreature, PieceType.Reptile, PieceType.ValidCorruptionTarget } },
-                { BoardPieceId.GeneralRonthian, new List<PieceType> { PieceType.GiantSlime, PieceType.Creature, PieceType.ForestCreature, PieceType.DesertCreature, PieceType.ValidCorruptionTarget } },
-                { BoardPieceId.RootBeast, new List<PieceType> { PieceType.GiantSlime, PieceType.Creature, PieceType.ForestCreature, PieceType.DesertCreature } },
-                { BoardPieceId.RootHound, new List<PieceType> { PieceType.GiantSlime, PieceType.Creature, PieceType.Canine, PieceType.Rootling, PieceType.ForestCreature, PieceType.DesertCreature, PieceType.ValidCorruptionTarget } },
-                { BoardPieceId.DruidArcher, new List<PieceType> { PieceType.GiantSlime, PieceType.Creature, PieceType.ForestCreature, PieceType.DesertCreature } },
-                { BoardPieceId.DruidHoundMaster, new List<PieceType> { PieceType.GiantSlime, PieceType.Creature, PieceType.ForestCreature, PieceType.DesertCreature } },
-                { BoardPieceId.ElvenArcher, new List<PieceType> { PieceType.GiantSlime, PieceType.Creature, PieceType.ForestCreature, PieceType.DesertCreature, PieceType.ValidCorruptionTarget } },
-                { BoardPieceId.ElvenHound, new List<PieceType> { PieceType.GiantSlime, PieceType.Creature, PieceType.Canine, PieceType.ForestCreature, PieceType.DesertCreature, PieceType.ValidCorruptionTarget } },
-                { BoardPieceId.TheUnspoken, new List<PieceType> { PieceType.GiantSlime, PieceType.Creature, PieceType.ForestCreature, PieceType.DesertCreature } },
-                { BoardPieceId.GoblinChieftan, new List<PieceType> { PieceType.GiantSlime, PieceType.Creature, PieceType.ForestCreature, PieceType.DesertCreature, PieceType.Goblin, PieceType.ValidCorruptionTarget } },
-                { BoardPieceId.GoblinMadUn, new List<PieceType> { PieceType.GiantSlime, PieceType.Creature, PieceType.ForestCreature, PieceType.DesertCreature, PieceType.Goblin, PieceType.ValidCorruptionTarget } },
-                { BoardPieceId.ScabRat, new List<PieceType> { PieceType.GiantSlime, PieceType.Creature, PieceType.ForestCreature, PieceType.DesertCreature, PieceType.Rat, PieceType.ValidCorruptionTarget } },
-                { BoardPieceId.Spider, new List<PieceType> { PieceType.GiantSlime, PieceType.Creature, PieceType.ForestCreature, PieceType.DesertCreature, PieceType.ValidCorruptionTarget } },
-                { BoardPieceId.Rat, new List<PieceType> { PieceType.GiantSlime, PieceType.Creature, PieceType.Rat, PieceType.ForestCreature, PieceType.DesertCreature, PieceType.ValidCorruptionTarget } },
-                { BoardPieceId.TheUnheard, new List<PieceType> { PieceType.GiantSlime, PieceType.Creature, PieceType.ForestCreature, PieceType.DesertCreature, PieceType.Rat, PieceType.ValidCorruptionTarget } },
-                { BoardPieceId.Slimeling, new List<PieceType> { PieceType.SmallSlime, PieceType.Creature, PieceType.ForestCreature, PieceType.DesertCreature } },
-                { BoardPieceId.Thug, new List<PieceType> { PieceType.GiantSlime, PieceType.Creature, PieceType.ForestCreature, PieceType.DesertCreature, PieceType.Thief, PieceType.ValidCorruptionTarget } },
-                { BoardPieceId.Bandit, new List<PieceType> { PieceType.GiantSlime, PieceType.Creature, PieceType.ForestCreature, PieceType.DesertCreature, PieceType.Thief, PieceType.ValidCorruptionTarget } },
-                { BoardPieceId.ElvenMystic, new List<PieceType> { PieceType.GiantSlime, PieceType.Creature, PieceType.ForestCreature, PieceType.DesertCreature, PieceType.NonTeleportable } },
-                { BoardPieceId.ElvenPriest, new List<PieceType> { PieceType.GiantSlime, PieceType.Creature, PieceType.ForestCreature, PieceType.DesertCreature } },
-                { BoardPieceId.ElvenSkirmisher, new List<PieceType> { PieceType.GiantSlime, PieceType.Creature, PieceType.ForestCreature, PieceType.DesertCreature, PieceType.ValidCorruptionTarget } },
-                { BoardPieceId.ElvenSpearman, new List<PieceType> { PieceType.GiantSlime, PieceType.Creature, PieceType.ForestCreature, PieceType.DesertCreature, PieceType.ValidCorruptionTarget } },
-                { BoardPieceId.EarthElemental, new List<PieceType> { PieceType.GiantSlime, PieceType.Creature, PieceType.ForestCreature, PieceType.DesertCreature } },
-                { BoardPieceId.Cavetroll, new List<PieceType> { PieceType.GiantSlime, PieceType.Creature, PieceType.ForestCreature, PieceType.DesertCreature, PieceType.ValidCorruptionTarget, PieceType.TooHeavyToGrapple } },
-                { BoardPieceId.BigBoiMutant, new List<PieceType> { PieceType.GiantSlime, PieceType.Creature, PieceType.ForestCreature, PieceType.DesertCreature, PieceType.Reptile, PieceType.ValidCorruptionTarget, PieceType.TooHeavyToGrapple } },
-                { BoardPieceId.SilentSentinel, new List<PieceType> { PieceType.Creature, PieceType.ForestCreature, PieceType.DesertCreature, PieceType.TooHeavyToGrapple } },
-                { BoardPieceId.ServantOfAlfaragh, new List<PieceType> { PieceType.GiantSlime, PieceType.Creature, PieceType.ForestCreature, PieceType.DesertCreature, PieceType.NonTeleportable, PieceType.TooHeavyToGrapple } },
-                { BoardPieceId.GiantSlime, new List<PieceType> { PieceType.GiantSlime, PieceType.Creature, PieceType.ForestCreature, PieceType.DesertCreature, PieceType.ValidCorruptionTarget } },
-                { BoardPieceId.GiantSpider, new List<PieceType> { PieceType.GiantSlime, PieceType.Creature, PieceType.ForestCreature, PieceType.DesertCreature, PieceType.ValidCorruptionTarget, PieceType.TooHeavyToGrapple } },
-                { BoardPieceId.ElvenMarauder, new List<PieceType> { PieceType.GiantSlime, PieceType.Creature, PieceType.ForestCreature, PieceType.DesertCreature, PieceType.ValidCorruptionTarget } },
-                { BoardPieceId.Gorgon, new List<PieceType> { PieceType.GiantSlime, PieceType.Creature, PieceType.ForestCreature, PieceType.DesertCreature, PieceType.ValidCorruptionTarget } },
-                { BoardPieceId.Brookmare, new List<PieceType> { PieceType.GiantSlime, PieceType.Creature, PieceType.ForestCreature, PieceType.DesertCreature, PieceType.ValidCorruptionTarget } },
-                { BoardPieceId.Sigataur, new List<PieceType> { PieceType.GiantSlime, PieceType.Creature, PieceType.ForestCreature, PieceType.DesertCreature, PieceType.ValidCorruptionTarget } },
-                { BoardPieceId.IceElemental, new List<PieceType> { PieceType.GiantSlime, PieceType.Creature, PieceType.ForestCreature, PieceType.DesertCreature, PieceType.Brittle } },
-                { BoardPieceId.FireElemental, new List<PieceType> { PieceType.GiantSlime, PieceType.Creature, PieceType.ForestCreature, PieceType.DesertCreature, PieceType.ValidCorruptionTarget } },
-                { BoardPieceId.GoblinFighter, new List<PieceType> { PieceType.GiantSlime, PieceType.Creature, PieceType.ForestCreature, PieceType.DesertCreature, PieceType.Goblin, PieceType.ValidCorruptionTarget } },
-                { BoardPieceId.GoblinRanger, new List<PieceType> { PieceType.GiantSlime, PieceType.Creature, PieceType.ForestCreature, PieceType.DesertCreature, PieceType.Goblin, PieceType.ValidCorruptionTarget } },
-                { BoardPieceId.ChestGoblin, new List<PieceType> { PieceType.GiantSlime, PieceType.Creature, PieceType.ForestCreature, PieceType.DesertCreature, PieceType.Goblin, PieceType.ValidCorruptionTarget } },
-            });
-
             var abilityDamageAllRule = new AbilityDamageAllOverriddenRule(new Dictionary<AbilityKey, List<int>>
             {
                 { AbilityKey.GrapplingTotemHook, new List<int> { 2, 2, 2, 2 } },
-            });
-
-            var pieceDamageResistRule = new PieceDamageResistRule(new List<BoardPieceId>
-            {
-                { BoardPieceId.ElvenQueen },
-                { BoardPieceId.WizardBoss },
-                { BoardPieceId.BossTown },
-                { BoardPieceId.MotherCy },
-                { BoardPieceId.RootLord },
-                { BoardPieceId.RatKing },
-                { BoardPieceId.Wyvern },
-                { BoardPieceId.SilentSentinel },
-            });
-
-            var pieceCounterDamageRule = new PieceCounterDamageRule(new Dictionary<BoardPieceId, int>
-            {
-                { BoardPieceId.FireElemental, 1 },
-                { BoardPieceId.IceElemental, 1 },
-                { BoardPieceId.ElvenQueen, 1 },
-                { BoardPieceId.Wyvern, 1 },
-                { BoardPieceId.SilentSentinel, 1 },
             });
 
             var pieceUseWhenKilledRule = new PieceUseWhenKilledOverriddenRule(new Dictionary<BoardPieceId, List<AbilityKey>>
@@ -878,7 +808,7 @@
                 new StatusEffectData
                 {
                     effectStateType = EffectStateType.Torch,
-                    durationTurns = 5,
+                    durationTurns = 6,
                     damagePerTurn = 0,
                     clearOnNewLevel = false,
                     tickWhen = StatusEffectsConfig.TickWhen.StartTurn,
@@ -886,7 +816,7 @@
                 new StatusEffectData
                 {
                     effectStateType = EffectStateType.TorchPlayer,
-                    durationTurns = 4,
+                    durationTurns = 10,
                     damagePerTurn = 0,
                     clearOnNewLevel = false,
                     tickWhen = StatusEffectsConfig.TickWhen.StartTurn,
@@ -901,18 +831,8 @@
                 },
             });
 
-            var tileEffectDuration = new TileEffectDurationOverriddenRule(new Dictionary<TileEffect, int>
-            {
-                { TileEffect.Gas, 3 },
-                { TileEffect.Acid, 9 },
-                { TileEffect.Web, 3 },
-                { TileEffect.Water, 4 },
-                { TileEffect.Corruption, 5 },
-            });
-
             var aoeAdjustedRule = new AbilityAoeAdjustedRule(new Dictionary<AbilityKey, int>
             {
-                { AbilityKey.EnemyFlashbang, 2 },
                 { AbilityKey.BlindingLight, 2 },
                 { AbilityKey.LeapHeavy, 1 },
                 { AbilityKey.Leap, 1 },
@@ -940,32 +860,11 @@
                 { AbilityKey.Javelin, new List<EffectStateType> { EffectStateType.Weaken1Turn } },
             });
 
-            var freeBuffRule = new FreeBuffOnKillRule(new Dictionary<BoardPieceId, EffectStateType>
-            {
-                { BoardPieceId.HeroGuardian, EffectStateType.Antidote },
-                { BoardPieceId.HeroHunter, EffectStateType.Antidote },
-                { BoardPieceId.HeroBard, EffectStateType.Antidote },
-                { BoardPieceId.HeroBarbarian, EffectStateType.Antidote },
-                { BoardPieceId.HeroRogue, EffectStateType.Antidote },
-                { BoardPieceId.HeroWarlock, EffectStateType.Antidote },
-                { BoardPieceId.HeroSorcerer, EffectStateType.Antidote },
-            });
-
-            var freeHealOnHitRule = new FreeHealOnHitRule(new List<BoardPieceId>
-            {
-                { BoardPieceId.HeroRogue },
-                { BoardPieceId.HeroWarlock },
-                { BoardPieceId.HeroBard },
-                { BoardPieceId.HeroBarbarian },
-                { BoardPieceId.HeroGuardian },
-                { BoardPieceId.HeroSorcerer },
-                { BoardPieceId.HeroHunter },
-            });
-
             var freeReplenishablesOnCritRule = new FreeReplenishablesOnCritRule(new List<BoardPieceId>
             {
                 { BoardPieceId.HeroBarbarian },
                 { BoardPieceId.HeroBard },
+                { BoardPieceId.HeroGuardian },
                 { BoardPieceId.HeroRogue },
                 { BoardPieceId.HeroSorcerer },
                 { BoardPieceId.HeroHunter },
@@ -980,7 +879,7 @@
                 { BoardPieceId.HeroBarbarian, 1 },
                 { BoardPieceId.HeroGuardian, 1 },
                 { BoardPieceId.HeroSorcerer, 1 },
-                { BoardPieceId.HeroHunter, 1},
+                { BoardPieceId.HeroHunter, 1 },
             });
 
             var abilityActionCostRule = new AbilityActionCostAdjustedRule(new Dictionary<AbilityKey, bool>
@@ -1056,18 +955,12 @@
                 allowedPotionsRule,
                 pieceAbilityRule,
                 pieceBehaviourListRule,
-                piecePieceTypeRule,
                 abilityDamageAllRule,
-                pieceDamageResistRule,
-                pieceCounterDamageRule,
                 pieceUseWhenKilledRule,
                 statusEffectRule,
-                tileEffectDuration,
                 aoeAdjustedRule,
                 targetEffectRule,
                 enemyCooldownRule,
-                freeBuffRule,
-                freeHealOnHitRule,
                 freeReplenishablesOnCritRule,
                 freeActionPointsOnCritRule,
                 freeMaxHealthOnKillRule,
