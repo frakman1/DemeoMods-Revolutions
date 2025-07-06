@@ -927,13 +927,13 @@
 
             var pieceDownedCountRule = new PieceDownedCountAdjustedRule(new Dictionary<BoardPieceId, int>
             {
-                { BoardPieceId.HeroGuardian, 2 },
-                { BoardPieceId.HeroHunter, 2 },
-                { BoardPieceId.HeroBard, 2 },
-                { BoardPieceId.HeroBarbarian, 2 },
-                { BoardPieceId.HeroRogue, 2 },
-                { BoardPieceId.HeroWarlock, 2 },
-                { BoardPieceId.HeroSorcerer, 2 },
+                { BoardPieceId.HeroGuardian, 0 },
+                { BoardPieceId.HeroHunter, 0 },
+                { BoardPieceId.HeroBard, 0 },
+                { BoardPieceId.HeroBarbarian, 0 },
+                { BoardPieceId.HeroRogue, 0 },
+                { BoardPieceId.HeroWarlock, 0 },
+                { BoardPieceId.HeroSorcerer, 0 },
             });
 
 

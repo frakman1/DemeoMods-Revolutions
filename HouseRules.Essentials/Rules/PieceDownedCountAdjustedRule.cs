@@ -91,10 +91,10 @@
                         {
                             countReplacement--;
                         }
-
-                        __result.effectSink.TrySetStatBaseValue(Stats.Type.DownedCounter, countReplacement);
                     }
                 }
+
+                __result.effectSink.TrySetStatBaseValue(Stats.Type.DownedCounter, countReplacement);
             }
         }
     }
