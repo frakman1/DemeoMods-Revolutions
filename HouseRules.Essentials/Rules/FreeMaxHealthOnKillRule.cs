@@ -205,6 +205,11 @@
             {
                 if (attackerUnit.boardPieceId == replacement.Key)
                 {
+                    if (attackerUnit.HasEffectState(EffectStateType.Downed))
+                    {
+                        attackerUnit.effectSink.RemoveStatusEffect(EffectStateType.Downed);
+                    }
+
                     attackerUnit.effectSink.TrySetStatMaxValue(Stats.Type.Health, attackerUnit.GetMaxHealth() + replacement.Value);
                     attackerUnit.effectSink.TrySetStatBaseValue(Stats.Type.Health, attackerUnit.GetHealth() + replacement.Value);
                     attackerUnit.DisableEffectState(EffectStateType.Heal);

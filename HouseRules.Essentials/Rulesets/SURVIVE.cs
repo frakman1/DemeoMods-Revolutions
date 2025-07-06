@@ -882,6 +882,23 @@
                 { BoardPieceId.HeroHunter, 1 },
             });
 
+            var freeActionPointsOnCritRule = new FreeActionPointsOnCritRule(new List<BoardPieceId>
+            {
+                { BoardPieceId.HeroGuardian },
+                { BoardPieceId.HeroRogue },
+            });
+
+            var freeRandomBuffOnKillRule = new FreeRandomBuffOnKillRule(new List<BoardPieceId>
+            {
+                { BoardPieceId.HeroBarbarian },
+                { BoardPieceId.HeroBard },
+                { BoardPieceId.HeroGuardian },
+                { BoardPieceId.HeroRogue },
+                { BoardPieceId.HeroSorcerer },
+                { BoardPieceId.HeroHunter },
+                { BoardPieceId.HeroWarlock },
+            });
+
             var abilityActionCostRule = new AbilityActionCostAdjustedRule(new Dictionary<AbilityKey, bool>
             {
                 { AbilityKey.Zap, false },
@@ -919,6 +936,7 @@
                 { BoardPieceId.HeroSorcerer, 2 },
             });
 
+
             var enemyHealthScaledRule = new EnemyHealthScaledRule(1.0f);
             var enemyAttackScaledRule = new EnemyAttackScaledRule(1.0f);
             var enableDoorsRule = new EnemyDoorOpeningEnabledRule(true);
@@ -932,12 +950,6 @@
                 "ForestFloor02",
                 "ForestFloor01",
                 "ElvenFloor14",
-            });
-
-            var freeActionPointsOnCritRule = new FreeActionPointsOnCritRule(new List<BoardPieceId>
-            {
-                { BoardPieceId.HeroGuardian },
-                { BoardPieceId.HeroRogue },
             });
 
             var levelPropertiesRule = new LevelPropertiesModifiedRule(new Dictionary<string, int>
@@ -975,6 +987,7 @@
                 freeReplenishablesOnCritRule,
                 freeActionPointsOnCritRule,
                 freeMaxHealthOnKillRule,
+                freeRandomBuffOnKillRule,
                 abilityActionCostRule,
                 statModifiersRule,
                 pieceDownedCountRule,
