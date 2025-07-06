@@ -86,7 +86,7 @@
                 else
                 {
                     prob = 0f;
-                    list = null;
+                    list = new List<TileEffect> { };
                     return;
                 }
             }
