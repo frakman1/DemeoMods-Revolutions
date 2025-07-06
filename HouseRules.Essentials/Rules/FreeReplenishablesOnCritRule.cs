@@ -65,7 +65,7 @@ namespace HouseRules.Essentials.Rules
                 return;
             }
 
-            if (source.GetStat(Stats.Type.InnateCounterDamageExtraDamage) != 69 && !HR.SelectedRuleset.Name.Contains("Revolutions"))
+            if (source.GetStat(Stats.Type.InnateCounterDamageExtraDamage) != 69 && !HR.SelectedRuleset.Name.Contains("Revolutions") && !HR.SelectedRuleset.Name.Contains("SURVIVE"))
             {
                 return;
             }

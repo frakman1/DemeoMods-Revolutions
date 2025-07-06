@@ -25,13 +25,13 @@
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.SilentSentinel, Property = "AttackDamage", Value = 5 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.Wyvern, Property = "PreciseHealth", Value = 1 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.Wyvern, Property = "PreciseAttack", Value = 1 },
-                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.Wyvern, Property = "StartHealth", Value = 44 },
+                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.Wyvern, Property = "StartHealth", Value = 64 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.Wyvern, Property = "AttackDamage", Value = 7 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.Wyvern, Property = "MoveRange", Value = 3 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.HeroBarbarian, Property = "StartHealth", Value = 1 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.HeroBard, Property = "StartHealth", Value = 1 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.HeroGuardian, Property = "StartHealth", Value = 1 },
-                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.HeroGuardian, Property = "StartArmor", Value = 2 },
+                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.HeroGuardian, Property = "StartArmor", Value = 1 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.HeroHunter, Property = "StartHealth", Value = 1 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.HeroRogue, Property = "StartHealth", Value = 1 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.HeroSorcerer, Property = "StartHealth", Value = 1 },
@@ -242,7 +242,7 @@
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.GrapplingSmash, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.GrapplingTotem, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.PlayerLeap, ReplenishFrequency = 0 },
-                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.ExplodingLampPlaceholder, ReplenishFrequency = 1 },
+                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.ExplodingLampPlaceholder, ReplenishFrequency = 2 },
             };
             var warlockCards = new List<StartCardsModifiedRule.CardConfig>
             {
@@ -258,7 +258,7 @@
             var bardCards = new List<StartCardsModifiedRule.CardConfig>
             {
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.StrengthenCourage, ReplenishFrequency = 1 },
-                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.EnemyFlashbang, ReplenishFrequency = 1 },
+                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.EnemyFlashbang, ReplenishFrequency = 2 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Teleport, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Heal, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Tornado, ReplenishFrequency = 0 },
@@ -291,13 +291,13 @@
             var assassinCards = new List<StartCardsModifiedRule.CardConfig>
             {
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Stealth, ReplenishFrequency = 1 },
+                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.DiseasedBite, ReplenishFrequency = 2 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Teleport, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Heal, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Blink, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.SwordOfAvalon, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.CursedDagger, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Flashbang, ReplenishFrequency = 0 },
-                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.PoisonGasGrenade, ReplenishFrequency = 0 },
             };
             var sorcererCards = new List<StartCardsModifiedRule.CardConfig>
             {
@@ -905,7 +905,18 @@
 
             var statModifiersRule = new StatModifiersOverriddenRule(new Dictionary<AbilityKey, int>
             {
-                { AbilityKey.ReplenishArmor, 2 },
+                { AbilityKey.ReplenishArmor, 1 },
+            });
+
+            var pieceDownedCountRule = new PieceDownedCountAdjustedRule(new Dictionary<BoardPieceId, int>
+            {
+                { BoardPieceId.HeroGuardian, 2 },
+                { BoardPieceId.HeroHunter, 2 },
+                { BoardPieceId.HeroBard, 2 },
+                { BoardPieceId.HeroBarbarian, 2 },
+                { BoardPieceId.HeroRogue, 2 },
+                { BoardPieceId.HeroWarlock, 2 },
+                { BoardPieceId.HeroSorcerer, 2 },
             });
 
             var enemyHealthScaledRule = new EnemyHealthScaledRule(1.0f);
@@ -966,6 +977,7 @@
                 freeMaxHealthOnKillRule,
                 abilityActionCostRule,
                 statModifiersRule,
+                pieceDownedCountRule,
                 enemyHealthScaledRule,
                 enemyAttackScaledRule,
                 enableDoorsRule,
