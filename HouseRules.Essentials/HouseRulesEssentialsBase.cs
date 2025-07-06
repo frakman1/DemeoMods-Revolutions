@@ -89,6 +89,7 @@
             HR.Rulebook.Register(typeof(FreeBuffOnKillRule));
             HR.Rulebook.Register(typeof(FreeHealOnCritRule));
             HR.Rulebook.Register(typeof(FreeHealOnHitRule));
+            HR.Rulebook.Register(typeof(FreeRandomBuffOnKillRule));
             HR.Rulebook.Register(typeof(FreeReplenishablesOnCritRule));
             HR.Rulebook.Register(typeof(GoldPickedUpMultipliedRule));
             HR.Rulebook.Register(typeof(GrappleUnhookedRule));

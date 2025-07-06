@@ -219,11 +219,12 @@ namespace HouseRules.Essentials.Rules
                     isFastForward = true;
                     HouseRulesEssentialsBase.LogWarning("Fast Forward mode detected");
                 }
+
                 if (replacements[0].Contains("skiplevel1"))
                 {
                     isSkipLevel1 = true;
                     HouseRulesEssentialsBase.LogWarning("Skip Level 1 mode detected");
-                }                
+                }
             }
 
             int rndLevel = Random.Range(1, 6);
@@ -493,8 +494,9 @@ namespace HouseRules.Essentials.Rules
                         _randomMaps[1] = "ForestShopFloor";
                         if (!isSkipLevel1)
                         {
-                            _randomMaps[2] = "TownsEntrance";                        
+                            _randomMaps[2] = "TownsEntrance";
                         }
+
                         _randomMaps[3] = "ForestShopFloor";
                         break;
                     case LevelSequence.GameType.ElvenQueen:
@@ -503,18 +505,20 @@ namespace HouseRules.Essentials.Rules
                         _randomMaps[0] = "TownsEntrance";
                         _randomMaps[1] = "ForestShopFloor";
                         if (!isSkipLevel1)
-                        {                        
+                        {
                             _randomMaps[2] = "TownsEntrance";
                         }
+
                         _randomMaps[3] = "ForestShopFloor";
                         break;
                     case LevelSequence.GameType.Forest:
                         _randomMaps[0] = "TownsEntrance";
                         _randomMaps[1] = "ForestShopFloor";
                         if (!isSkipLevel1)
-                        {                        
+                        {
                             _randomMaps[2] = "ElvenFloor15";
                         }
+
                         _randomMaps[3] = "ForestShopFloor";
                         break;
                 }
