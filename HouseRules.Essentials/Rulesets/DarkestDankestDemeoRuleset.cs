@@ -17,7 +17,6 @@
 
             var piecesAdjustedRule = new PieceConfigAdjustedRule(new List<PieceConfigAdjustedRule.PieceProperty>
             {
-                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.Torch, Property = "StartHealth", Value = 4 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.GoblinChieftan, Property = "WaterTrailChance", Value = 0.2f },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.GoblinRanger, Property = "WaterTrailChance", Value = 0.2f },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.GoblinFighter, Property = "WaterTrailChance", Value = 0.2f },
@@ -71,6 +70,18 @@
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.Mimic, Property = "AttackDamage", Value = 8 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.Mimic, Property = "MoveRange", Value = 4 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.Mimic, Property = "PowerIndex", Value = 3 },
+                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.HeroBarbarian, Property = "VisionRange", Value = 1 },
+                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.HeroBard, Property = "VisionRange", Value = 1 },
+                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.HeroGuardian, Property = "VisionRange", Value = 1 },
+                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.HeroHunter, Property = "VisionRange", Value = 1 },
+                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.HeroRogue, Property = "VisionRange", Value = 1 },
+                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.HeroSorcerer, Property = "VisionRange", Value = 1 },
+                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.HeroWarlock, Property = "VisionRange", Value = 1 },
+                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.GuidingLight, Property = "VisionRange", Value = 4 },
+                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.EyeOfAvalon, Property = "VisionRange", Value = 4 },
+                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.Verochka, Property = "VisionRange", Value = 1 },
+                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.WarlockMinion, Property = "VisionRange", Value = 1 },
+                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.SellswordArbalestierActive, Property = "VisionRange", Value = 1 },
             });
 
             var myEntranceDeckFloor1 = new Dictionary<BoardPieceId, int>
@@ -984,20 +995,26 @@
                 { BoardPieceId.Torch, EffectStateType.Panic },
             });
 
-            var darknessRule = new DarknessRule(new Dictionary<BoardPieceId, int>
+            var darknessRule = new DarknessRule(new Dictionary<BoardPieceId, EffectStateType>
             {
-                { BoardPieceId.HeroGuardian, 1 },
-                { BoardPieceId.HeroHunter, 1 },
-                { BoardPieceId.HeroBard, 1 },
-                { BoardPieceId.HeroBarbarian, 1 },
-                { BoardPieceId.HeroRogue, 1 },
-                { BoardPieceId.HeroWarlock, 1 },
-                { BoardPieceId.HeroSorcerer, 1 },
-                { BoardPieceId.GuidingLight, 4 },
-                { BoardPieceId.EyeOfAvalon, 4 },
-                { BoardPieceId.Verochka, 1 },
-                { BoardPieceId.WarlockMinion, 1 },
-                { BoardPieceId.SellswordArbalestierActive, 1 },
+                { BoardPieceId.HeroGuardian, EffectStateType.TorchPlayer },
+                { BoardPieceId.HeroHunter, EffectStateType.TorchPlayer },
+                { BoardPieceId.HeroBard, EffectStateType.TorchPlayer },
+                { BoardPieceId.HeroBarbarian, EffectStateType.TorchPlayer },
+                { BoardPieceId.HeroRogue, EffectStateType.TorchPlayer },
+                { BoardPieceId.HeroWarlock, EffectStateType.TorchPlayer },
+                { BoardPieceId.HeroSorcerer, EffectStateType.TorchPlayer },
+            });
+
+            var freeBuffRule = new FreeBuffOnKillRule(new Dictionary<BoardPieceId, EffectStateType>
+            {
+                { BoardPieceId.HeroGuardian, EffectStateType.Antidote },
+                { BoardPieceId.HeroHunter, EffectStateType.Antidote },
+                { BoardPieceId.HeroBard, EffectStateType.Antidote },
+                { BoardPieceId.HeroBarbarian, EffectStateType.Antidote },
+                { BoardPieceId.HeroRogue, EffectStateType.Antidote },
+                { BoardPieceId.HeroWarlock, EffectStateType.Antidote },
+                { BoardPieceId.HeroSorcerer, EffectStateType.Antidote },
             });
 
             var freeHealOnCritRule = new FreeHealOnHitRule(new List<BoardPieceId> { BoardPieceId.HeroBarbarian, BoardPieceId.HeroBard, BoardPieceId.HeroRogue, BoardPieceId.HeroGuardian, BoardPieceId.HeroSorcerer, BoardPieceId.HeroHunter, BoardPieceId.HeroWarlock });
@@ -1054,6 +1071,7 @@
                 applyEffectOnHitRule,
                 enemyCooldownRule,
                 darknessRule,
+                freeBuffRule,
                 freeHealOnCritRule,
                 enemyHealthScaledRule,
                 enemyAttackScaledRule,

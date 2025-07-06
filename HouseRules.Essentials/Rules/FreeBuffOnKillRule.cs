@@ -11,10 +11,10 @@
     using HarmonyLib;
     using HouseRules.Core.Types;
 
-    public sealed class DarknessRule : Rule, IConfigWritable<Dictionary<BoardPieceId, EffectStateType>>,
+    public sealed class FreeBuffOnKillRule : Rule, IConfigWritable<Dictionary<BoardPieceId, EffectStateType>>,
         IPatchable, IMultiplayerSafe, IDisableOnReconnect
     {
-        public override string Description => "Players gain vision range per kill";
+        public override string Description => "Players gain a buff per kill";
 
         private readonly Dictionary<BoardPieceId, EffectStateType> _adjustments;
         private static Dictionary<BoardPieceId, EffectStateType> _globalAdjustments;
@@ -22,7 +22,7 @@
         private static List<Piece> _playerPieces;
         private static Piece tempPiece;
 
-        public DarknessRule(Dictionary<BoardPieceId, EffectStateType> adjustments)
+        public FreeBuffOnKillRule(Dictionary<BoardPieceId, EffectStateType> adjustments)
         {
             _adjustments = adjustments;
         }
@@ -43,21 +43,15 @@
         private static void Patch(Harmony harmony)
         {
             harmony.Patch(
-                original: AccessTools.Method(typeof(LevelLoaderAndInitializer), "GetFloorTileEffects"),
-                postfix: new HarmonyMethod(
-                    typeof(DarknessRule),
-                    nameof(LevelLoaderAndInitializer_GetFloorTileEffects_Postfix)));
-
-            harmony.Patch(
                 original: AccessTools.Method(typeof(MotherTracker), "TrackUnitDefeated"),
                 prefix: new HarmonyMethod(
-                    typeof(DarknessRule),
+                    typeof(FreeBuffOnKillRule),
                     nameof(MotherTracker_TrackUnitDefeated_Prefix)));
 
             harmony.Patch(
                 original: AccessTools.Constructor(typeof(RearrangePlayerTurnOrder), new[] { typeof(TurnQueue) }),
                 postfix: new HarmonyMethod(
-                    typeof(DarknessRule),
+                    typeof(FreeBuffOnKillRule),
                     nameof(RearrangePlayerTurnOrder_Constructor_Postfix)));
         }
 
@@ -71,28 +65,6 @@
             }
 
             _playerPieces = turnQueue.GetPlayerPieces();
-        }
-
-        private static void LevelLoaderAndInitializer_GetFloorTileEffects_Postfix(out float prob, out List<TileEffect> list)
-        {
-            if (!_isActivated)
-            {
-                if (MotherbrainGlobalVars.CurrentConfig == GameConfigType.Forest)
-                {
-                    prob = 0.1f;
-                    list = new List<TileEffect> { TileEffect.Water };
-                    return;
-                }
-                else
-                {
-                    prob = 0f;
-                    list = null;
-                    return;
-                }
-            }
-
-            prob = 0.2f;
-            list = new List<TileEffect> { TileEffect.Acid };
         }
 
         private static void MotherTracker_TrackUnitDefeated_Prefix(Piece defeatedUnit, Piece attackerUnit)
