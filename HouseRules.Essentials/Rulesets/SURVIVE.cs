@@ -13,7 +13,7 @@
         {
             const string name = "SURVIVE!";
             const string description = "Can you be survive (or be the last alive) in a dangerous dungeon?";
-            const string longdesc = "\n<color=#770077>* * </color><color=#FF0000>SURVIVE THE DUNGEON!</color> <color=#770077>* *</color>\n<u><b>RECOMMENDED:</u></b> Don't play multiple of the same class\n\n<color=#003300>Gain ranodm buffs by defeating enemies\nLye will destroy all enemies except Keyholders and Bosses\nCritical hits will heal you and increase your max health by one!</color>\n\n<color=#FFFFFF><b><u>Other ways to gain buffs:</u></b></color>\n<color=#090900>Assassin - Ballista kills\nBarbarian - Leviathan kills\nBard - Tornado kills\nGuardian - Behemoth kills\nHunter - Verochka kills\nSorcerer - Summoned Elemental kills\nWarlock - Cana kills\nWhoever hires him - Arly Owl kills</color>";
+            const string longdesc = "\n<color=#770077>* * </color><color=#FF0000>SURVIVE THE DUNGEON WITH 1 LIFE!</color> <color=#770077>* *</color>\n<u><b>RECOMMENDED:</u></b> Don't play multiple of the same class\n\n<color=#003300>Gain ranodm buffs by defeating enemies\nLye will destroy all enemies except Keyholders and Bosses\nCritical hits will heal you and increase your max health by one!</color>\n\n<color=#FFFFFF><b><u>Other ways to gain buffs:</u></b></color>\n<color=#090900>Assassin - Ballista kills\nBarbarian - Leviathan kills\nBard - Tornado kills\nGuardian - Behemoth kills\nHunter - Verochka kills\nSorcerer - Summoned Elemental kills\nWarlock - Cana kills\nWhoever hires him - Arly Owl kills</color>";
 
             var piecesAdjustedRule = new PieceConfigAdjustedRule(new List<PieceConfigAdjustedRule.PieceProperty>
             {

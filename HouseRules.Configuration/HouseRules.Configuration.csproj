@@ -77,7 +77,7 @@
             <Private>false</Private>
         </Reference>
         <Reference Include="MelonLoader">
-            <Private>false</Private>
+            <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Demeo\MelonLoader\MelonLoader.dll</HintPath>
         </Reference>
     </ItemGroup>
 
