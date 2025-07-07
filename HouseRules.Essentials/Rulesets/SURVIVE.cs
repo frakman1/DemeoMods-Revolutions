@@ -36,6 +36,17 @@
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.HeroRogue, Property = "StartHealth", Value = 1 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.HeroSorcerer, Property = "StartHealth", Value = 1 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.HeroWarlock, Property = "StartHealth", Value = 1 },
+                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.Verochka, Property = "StartHealth", Value = 4 },
+                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.WarlockMinion, Property = "StartHealth", Value = 3 },
+                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.MonsterBait, Property = "StartHealth", Value = 8 },
+                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.Tornado, Property = "ActionPoint", Value = 2 },
+                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.SellswordArbalestierActive, Property = "StartHealth", Value = 5 },
+                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.ElvenQueen, Property = "StartHealth", Value = 75 },
+                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.BossTown, Property = "StartHealth", Value = 167 },
+                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.RootLord, Property = "StartHealth", Value = 85 },
+                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.MotherCy, Property = "StartHealth", Value = 70 },
+                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.RatKing, Property = "StartHealth", Value = 142 },
+                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.WizardBoss, Property = "StartHealth", Value = 160 },
             });
 
             var myEntranceDeckFloor1 = new Dictionary<BoardPieceId, int>
@@ -269,13 +280,13 @@
             var guardianCards = new List<StartCardsModifiedRule.CardConfig>
             {
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.LeapHeavy, ReplenishFrequency = 1 },
+                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.ReplenishArmor, ReplenishFrequency = 1 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Teleport, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Heal, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Whirlwind, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.PiercingSpear, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.BeaconOfSmite, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.WarCry, ReplenishFrequency = 0 },
-                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.ReplenishArmor, ReplenishFrequency = 0 },
             };
             var hunterCards = new List<StartCardsModifiedRule.CardConfig>
             {
@@ -829,6 +840,14 @@
                     clearOnNewLevel = false,
                     tickWhen = StatusEffectsConfig.TickWhen.StartTurn,
                 },
+                new StatusEffectData
+                {
+                    effectStateType = EffectStateType.PlayerBerserk,
+                    durationTurns = 1,
+                    damagePerTurn = 0,
+                    clearOnNewLevel = false,
+                    tickWhen = StatusEffectsConfig.TickWhen.EndTurn,
+                },
             });
 
             var aoeAdjustedRule = new AbilityAoeAdjustedRule(new Dictionary<AbilityKey, int>
@@ -936,7 +955,19 @@
                 { BoardPieceId.HeroSorcerer, 0 },
             });
 
+            var pieceDamageResistRule = new PieceDamageResistRule(new List<BoardPieceId>
+            {
+                { BoardPieceId.ElvenQueen },
+                { BoardPieceId.WizardBoss },
+                { BoardPieceId.BossTown },
+                { BoardPieceId.MotherCy },
+                { BoardPieceId.RootLord },
+                { BoardPieceId.RatKing },
+                { BoardPieceId.Wyvern },
+            });
 
+            var queenBuffs = new ElvenQueenBuffsRule(true);
+            var queenSuperBuffs = new ElvenQueenSuperBuffRule(true);
             var enemyHealthScaledRule = new EnemyHealthScaledRule(1.0f);
             var enemyAttackScaledRule = new EnemyAttackScaledRule(1.0f);
             var enableDoorsRule = new EnemyDoorOpeningEnabledRule(true);
@@ -991,6 +1022,9 @@
                 abilityActionCostRule,
                 statModifiersRule,
                 pieceDownedCountRule,
+                pieceDamageResistRule,
+                queenBuffs,
+                queenSuperBuffs,
                 enemyHealthScaledRule,
                 enemyAttackScaledRule,
                 enableDoorsRule,

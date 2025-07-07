@@ -17,7 +17,7 @@
 
         private readonly List<BoardPieceId> _adjustments;
         private static List<BoardPieceId> _globalAdjustments;
-        private static List<EffectStateType> _effectStates = new List<EffectStateType> { EffectStateType.TorchPlayer, EffectStateType.FireImmunity, EffectStateType.Antidote, EffectStateType.Berserk, EffectStateType.Courageous, EffectStateType.Deflect, EffectStateType.IceImmunity, EffectStateType.ExtraAction, EffectStateType.Fearless, EffectStateType.Frenzy, EffectStateType.Recovery, EffectStateType.Heroic, EffectStateType.IceImmunity, EffectStateType.Invisibility, EffectStateType.Invulnerable1, EffectStateType.Luck, EffectStateType.MagicShield, EffectStateType.Petrified, EffectStateType.Resilience, EffectStateType.SpellPower, EffectStateType.Stealthed, EffectStateType.Wet };
+        private static List<EffectStateType> _effectStates = new List<EffectStateType> { EffectStateType.FireImmunity, EffectStateType.Antidote, EffectStateType.PlayerBerserk, EffectStateType.Courageous, EffectStateType.Deflect, EffectStateType.IceImmunity, EffectStateType.ExtraAction, EffectStateType.Fearless, EffectStateType.Recovery, EffectStateType.Heroic, EffectStateType.IceImmunity, EffectStateType.Invisibility, EffectStateType.Invulnerable1, EffectStateType.Luck, EffectStateType.MagicShield, EffectStateType.Petrified, EffectStateType.Resilience, EffectStateType.SpellPower, EffectStateType.Stealthed, EffectStateType.Wet, EffectStateType.Blinded, EffectStateType.CorruptedRage, EffectStateType.MarkOfVerga, EffectStateType.Overcharge, EffectStateType.Netted, EffectStateType.Tangled, EffectStateType.TorchPlayer, EffectStateType.Weaken1Turn };
         private static bool _isActivated;
         private static List<Piece> _playerPieces;
         private static Piece tempPiece;
@@ -210,6 +210,17 @@
                 var buffed = attackerUnit.effectSink.GetEffectStateDurationTurnsLeft(effect);
                 attackerUnit.effectSink.RemoveStatusEffect(effect);
                 attackerUnit.effectSink.AddStatusEffect(effect, buffed + 1);
+                if (effect == EffectStateType.ExtraAction)
+                {
+                    attackerUnit.effectSink.TryGetStat(Stats.Type.ActionPoints, out int currentAP);
+                    attackerUnit.effectSink.TrySetStatBaseValue(Stats.Type.ActionPoints, currentAP + 1);
+                }
+
+                if (effect == EffectStateType.Resilience)
+                {
+                    attackerUnit.effectSink.TryGetStat(Stats.Type.MagicArmor, out int currentArmor);
+                    attackerUnit.effectSink.TrySetStatBaseValue(Stats.Type.MagicArmor, currentArmor + 1);
+                }
             }
         }
     }
