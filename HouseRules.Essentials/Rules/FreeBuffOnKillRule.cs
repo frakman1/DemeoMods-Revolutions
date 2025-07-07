@@ -207,7 +207,7 @@
                 {
                     var buffed = attackerUnit.effectSink.GetEffectStateDurationTurnsLeft(replacement.Value);
                     attackerUnit.effectSink.RemoveStatusEffect(replacement.Value);
-                    attackerUnit.effectSink.AddStatusEffect(replacement.Value, buffed + 1);
+                    attackerUnit.effectSink.AddStatusEffect(replacement.Value, buffed + 2);
                 }
             }
         }

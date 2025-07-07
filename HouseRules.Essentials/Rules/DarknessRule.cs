@@ -80,19 +80,19 @@
                 if (MotherbrainGlobalVars.CurrentConfig == GameConfigType.Forest)
                 {
                     prob = 0.1f;
-                    list = new List<TileEffect> { TileEffect.Water };
-                    return;
+                    list = [TileEffect.Water];
                 }
                 else
                 {
                     prob = 0f;
-                    list = new List<TileEffect> { };
-                    return;
+                    list = [];
                 }
             }
-
-            prob = 0.2f;
-            list = new List<TileEffect> { TileEffect.Acid };
+            else
+            {
+                prob = 0.2f;
+                list = [TileEffect.Acid];
+            }
         }
 
         private static void MotherTracker_TrackUnitDefeated_Prefix(Piece defeatedUnit, Piece attackerUnit)
