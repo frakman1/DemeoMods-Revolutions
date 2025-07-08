@@ -14,7 +14,7 @@
     public sealed class DarknessRule : Rule, IConfigWritable<Dictionary<BoardPieceId, EffectStateType>>,
         IPatchable, IMultiplayerSafe, IDisableOnReconnect
     {
-        public override string Description => "Players gain vision range per kill";
+        public override string Description => "Players gain vision range via torch per kill";
 
         private readonly Dictionary<BoardPieceId, EffectStateType> _adjustments;
         private static Dictionary<BoardPieceId, EffectStateType> _globalAdjustments;

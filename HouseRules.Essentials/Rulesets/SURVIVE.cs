@@ -11,9 +11,9 @@
     {
         internal static Ruleset Create()
         {
-            const string name = "SURVIVE!";
+            const string name = "<b><color=#FF0000>S<color=#E80000>U<color=#CF0000>R<color=#B80000>V<color=#9F0000>I<color=#880000>V<color=#6F0000>E<color=#580000>!</b>";
             const string description = "Finish the cursed dungeon with only 1 life starting with 1 health!";
-            const string longdesc = "\n<color=#770077>* * </color><color=#FF0000>Survive this CURSED DUNGEON With only 1 life starting with 1 health!</color> <color=#770077>* *</color>\n<u><b>HIGHLY RECOMMENDED:</u></b> Don't play multiple of the same class!\n\n<color=#003300>ALL bosses and keyholders are immune to Hunter's Mark and Net\nHeroes can't directly hurt each other with any AoE abilities\nGain 1 life and 1 max life by defeating enemies\n50% chance to gain random effects by defeating enemies\nStealth, Leap, Zap, Arrow, Grapple, Feral Charge, and Courage Shanty are 0 action cost\nCritical hits replenish the above abilities OR instead give 1 more action to Assassin and Guardian</color>\n\n<color=#FFFFFF><b><u>Other ways to gain life and buffs:</u></b></color>\n<color=#090900>Break a lamp that kills something\nAssassin - Ballista kills\nBarbarian - Leviathan kills\nBard - Tornado kills\nGuardian - Behemoth kills\nHunter - Non-Boned Verochka kills\nSorcerer - Summoned Elemental kills\nWarlock - Cana kills\nWhoever hires him - Arly Owl kills</color>";
+            const string longdesc = "\n<color=#770077>* * </color><color=#FF0000>Survive this CURSED DUNGEON With only 1 life starting with 1 health!</color> <color=#770077>* *</color>\n<u><b>HIGHLY RECOMMENDED:</u></b> Don't play multiple of the same class!\n\n<color=#003300>ALL bosses and keyholders are immune to Hunter's Mark and Net\nHeroes can't directly hurt each other with any AoE abilities\nGain 1 life and 1 max life by defeating enemies\n50% chance to gain random effects by defeating enemies\nStealth, Leap, Zap, Arrow, Grapple, Feral Charge, and Courage Shanty are 0 action cost\nCritical hits replenish the above abilities OR instead give 1 more action to Assassin and Guardian</color>\nHero turn order is randomized after each round\n\n<color=#FFFFFF><b><u>Other ways to gain life and buffs:</u></b></color>\n<color=#090900>Break a lamp that kills something\nAssassin - Ballista kills\nBarbarian - Leviathan kills\nBard - Tornado kills\nGuardian - Behemoth kills\nHunter - Non-Boned Verochka kills\nSorcerer - Summoned Elemental kills\nWarlock - Cana kills\nWhoever hires him - Arly Owl kills</color>";
 
             var piecesAdjustedRule = new PieceConfigAdjustedRule(new List<PieceConfigAdjustedRule.PieceProperty>
             {
@@ -40,6 +40,7 @@
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.HeroWarlock, Property = "StartHealth", Value = 1 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.Verochka, Property = "StartHealth", Value = 4 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.WarlockMinion, Property = "StartHealth", Value = 3 },
+                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.WarlockMinion, Property = "StartAttack", Value = 2 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.MonsterBait, Property = "StartHealth", Value = 8 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.Tornado, Property = "ActionPoint", Value = 2 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.SellswordArbalestierActive, Property = "StartHealth", Value = 5 },
@@ -1009,6 +1010,7 @@
             var reviveEffectsRule = new ReviveRemovesEffectsRule(true);
             var courageShantyRule = new StrengthenCourageAddsHpRule(1);
             var partyDamageRule = new PartyDamageOverriddenRule(true);
+            var turnOrderRandomRule = new TurnOrderRandomizedRule(true);
 
             var smallLevelSequenceRule = new SmallLevelSequenceOverriddenRule(new List<string>
             {
@@ -1076,6 +1078,7 @@
                 reviveEffectsRule,
                 courageShantyRule,
                 partyDamageRule,
+                turnOrderRandomRule,
                 smallLevelSequenceRule,
                 levelPropertiesRule);
         }
