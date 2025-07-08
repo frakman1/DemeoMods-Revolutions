@@ -157,7 +157,16 @@
 
         private void UpdateSelectedText()
         {
-            var setName = HR.SelectedRuleset.Displayname;
+            string setName;
+            if (HR.SelectedRuleset.Displayname != null)
+            {
+                setName = HR.SelectedRuleset.Displayname;
+            }
+            else
+            {
+                setName = HR.SelectedRuleset.Name;
+            }
+
             _selectedText.text = $"Selected ruleset: {setName}";
         }
     }

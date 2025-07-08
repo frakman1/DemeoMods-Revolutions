@@ -17,7 +17,7 @@
 
         private readonly Dictionary<BoardPieceId, float> _adjustments;
         private static Dictionary<BoardPieceId, float> _globalAdjustments;
-        private static List<EffectStateType> _effectStates = new List<EffectStateType> { EffectStateType.FireImmunity, EffectStateType.Antidote, EffectStateType.PlayerBerserk, EffectStateType.Courageous, EffectStateType.Deflect, EffectStateType.IceImmunity, EffectStateType.ExtraAction, EffectStateType.Fearless, EffectStateType.Recovery, EffectStateType.Heroic, EffectStateType.IceImmunity, EffectStateType.Invisibility, EffectStateType.Invulnerable1, EffectStateType.Luck, EffectStateType.MagicShield, EffectStateType.Petrified, EffectStateType.Resilience, EffectStateType.SpellPower, EffectStateType.Stealthed, EffectStateType.Wet, EffectStateType.Blinded, EffectStateType.MarkOfVerga, EffectStateType.Overcharge, EffectStateType.Netted, EffectStateType.Tangled, EffectStateType.TorchPlayer, EffectStateType.Weaken1Turn };
+        private static List<EffectStateType> _effectStates = new List<EffectStateType> { EffectStateType.FireImmunity, EffectStateType.Antidote, EffectStateType.PlayerBerserk, EffectStateType.Courageous, EffectStateType.Deflect, EffectStateType.IceImmunity, EffectStateType.ExtraAction, EffectStateType.Fearless, EffectStateType.Recovery, EffectStateType.Heroic, EffectStateType.IceImmunity, EffectStateType.Invisibility, EffectStateType.Invulnerable1, EffectStateType.Luck, EffectStateType.MagicShield, EffectStateType.Petrified, EffectStateType.Resilience, EffectStateType.SpellPower, EffectStateType.Stealthed, EffectStateType.Wet, EffectStateType.Blinded, EffectStateType.MarkOfVerga, EffectStateType.Overcharge, EffectStateType.Netted, EffectStateType.Tangled, EffectStateType.Weaken1Turn };
         private static bool _isActivated;
         private static List<Piece> _playerPieces;
         private static Piece tempPiece;
@@ -207,6 +207,7 @@
             int buff = Random.Range(1, _effectStates.Count + 1);
             {
                 var effect = _effectStates[buff];
+                HouseRulesEssentialsBase.LogWarning($"Random buff: {buff}");
                 var buffed = attackerUnit.effectSink.GetEffectStateDurationTurnsLeft(effect);
 
                 if (effect == EffectStateType.Stealthed || effect == EffectStateType.Invisibility)
