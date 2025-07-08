@@ -16,7 +16,8 @@
             foreach (var ruleset in HR.Rulebook.Rulesets)
             {
                 var newName = $"(Custom) {ruleset.Name}";
-                var rulesetCopy = Ruleset.NewInstance(newName, ruleset.Description, ruleset.Longdesc, ruleset.Rules);
+                var newDisplayName = $"(Custom) {ruleset.Displayname}";
+                var rulesetCopy = Ruleset.NewInstance(newName, newDisplayName, ruleset.Description, ruleset.Longdesc, ruleset.Rules);
                 RulesetImporter.WriteToDirectory(rulesetCopy, directory);
             }
         }

@@ -9,6 +9,7 @@
         internal static Ruleset Create()
         {
             const string name = "Difficulty: Legendary";
+            const string displayname = name;
             const string description = "Increased game difficulty for those who want to be a legend.";
             const string longdesc = "";
 
@@ -32,6 +33,7 @@
 
             return Ruleset.NewInstance(
                 name,
+                displayname,
                 description,
                 longdesc,
                 cardEnergyAttack,

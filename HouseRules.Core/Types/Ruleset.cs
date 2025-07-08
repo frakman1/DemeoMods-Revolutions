@@ -11,6 +11,11 @@
         public string Name { get; }
 
         /// <summary>
+        /// Gets the UI display name of the ruleset.
+        /// </summary>
+        public string Displayname { get; }
+
+        /// <summary>
         /// Gets the description of the ruleset.
         /// </summary>
         public string Description { get; }
@@ -38,22 +43,23 @@
         /// <summary>
         /// Represents the empty/missing ruleset.
         /// </summary>
-        public static readonly Ruleset None = NewInstance("None", "No custom ruleset.", string.Empty);
+        public static readonly Ruleset None = NewInstance("None", "<color=#B31106FF><b>None</b></color>", "No custom ruleset.", string.Empty);
 
-        public static Ruleset NewInstance(string name, string description, string longdesc, params Rule[] rules)
+        public static Ruleset NewInstance(string name, string displayname ,string description, string longdesc, params Rule[] rules)
         {
-            return NewInstance(name, description, longdesc, rules.ToList());
+            return NewInstance(name, displayname, description, longdesc, rules.ToList());
         }
 
-        public static Ruleset NewInstance(string name, string description, string longdesc, List<Rule> rules)
+        public static Ruleset NewInstance(string name, string displayname ,string description, string longdesc, List<Rule> rules)
         {
             var safeForMultiplayer = rules.All(r => r is IMultiplayerSafe);
             var syncables = rules.Aggregate(SyncableTrigger.None, (data, rule) => data | rule.ModifiedSyncables);
-            return new Ruleset(name, description, longdesc, rules, safeForMultiplayer, syncables);
+            return new Ruleset(name, displayname ,description, longdesc, rules, safeForMultiplayer, syncables);
         }
 
         private Ruleset(
             string name,
+            string displayname,
             string description,
             string longdesc,
             List<Rule> rules,
@@ -61,6 +67,7 @@
             SyncableTrigger modifiedSyncables)
         {
             Name = name;
+            Displayname = displayname;
             Description = description;
             Longdesc = longdesc;
             Rules = rules;

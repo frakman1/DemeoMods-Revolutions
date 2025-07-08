@@ -9,6 +9,7 @@ namespace HouseRules.Essentials.Rulesets
         internal static Ruleset Create()
         {
             const string name = "No Surprises";
+            const string displayname = name;
             const string description = "No surprises in the dark or coming through doors.";
             const string longdesc = "";
 
@@ -21,6 +22,7 @@ namespace HouseRules.Essentials.Rulesets
 
             return Ruleset.NewInstance(
                 name,
+                displayname,
                 description,
                 longdesc,
                 levelPropertiesRule,

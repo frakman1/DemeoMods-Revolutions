@@ -10,6 +10,7 @@
         internal static Ruleset Create()
         {
             const string name = "The Swirl";
+            const string displayname = name;
             const string description = "Only poison, fireballs and vortexes. Health and POIs aplenty, but must defeat all enemies to escape.";
             const string longdesc = "";
 
@@ -109,6 +110,7 @@
 
             return Ruleset.NewInstance(
                 name,
+                displayname,
                 description,
                 longdesc,
                 startingCardsRule,

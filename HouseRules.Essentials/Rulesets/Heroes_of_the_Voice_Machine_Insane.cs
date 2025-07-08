@@ -15,6 +15,7 @@
             // Heroes of the Voice Machine Insane PROGRESSIVE
             // by BobtheBunny  version 1.2
             const string name = "Heroes of the Voice Machine (INSANE PROGRESSIVE)";
+            const string displayname = "<color=#FFFF00><b>Heroes of the Voice Machine</b></color>\n<color=#D456FD><b>(INSANE PROGRESSIVE)</b></color>";
             const string description = "The adventure begins.. take an (even greater) chance! Roll the dice.";
             const string longdesc = "Many thanks to TheGrayAlien!\nThis is a rebuild of BobtheBunnys Legend of the Voice Machine mod with the leveling features of the DemeoRevolutions Progressive mods.\n\nTheme is based on a popular TTRPG stream by a bunch of nerdy voice actors and their hit animated series.\n\nSorcerer\nThe snarky and witty gunslinger. Descendant of royalty and tragedy, his soul is corrupt.\n\nGuardian\nUnsure and often unreliable, but always lovable cleric. She is every bit as much a warrior as a healer.\n\nBarbarian\nMuscles, big weapon, yells a lot, and always fond of ale. He would like to rage.\n\nBard\nGird your loins and tap your toes, this clever artist can weave melodies and magic to aid his friends in battle.\n\nHunter\nA powerful druid if she had more confidence in herself. Her people count on her to lead some day, but for now just try not to die.\n\nAssassin\nMove fast and strike with dagger-dagger-dagger. He's got a few tricks up his sleeve and feathers in his cloak.\n\nWarlock\nArcher with a pet bear. Which one has a more pleasant attitude? You wont have time to ask before you are marked for death.";
 
@@ -1817,6 +1818,7 @@
 
             return Ruleset.NewInstance(
                 name,
+                displayname,
                 description,
                 longdesc,
                 // pieceKeyholderRule,

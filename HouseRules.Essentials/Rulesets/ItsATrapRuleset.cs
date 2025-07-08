@@ -12,6 +12,7 @@
         internal static Ruleset Create()
         {
             const string name = "It's A Trap!";
+            const string displayname = name;
             const string description = "Everything you need to build devious traps for your enemies, but try not to kill your friends.";
             const string longdesc = "";
 
@@ -358,6 +359,7 @@
 
             return Ruleset.NewInstance(
                 name,
+                displayname,
                 description,
                 longdesc,
                 abilityActionCostRule,

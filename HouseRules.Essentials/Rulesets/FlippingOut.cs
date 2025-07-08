@@ -10,6 +10,7 @@
         internal static Ruleset Create()
         {
             const string name = "Flipping Out!";
+            const string displayname = name;
             const string description = "Coin Flips ONLY! BIG ENEMIES! Heads... or tails?";
             const string longdesc = "";
 
@@ -288,6 +289,7 @@
 
             return Ruleset.NewInstance(
                 name,
+                displayname,
                 description,
                 longdesc,
                 enemyRespawnDisabledRule,

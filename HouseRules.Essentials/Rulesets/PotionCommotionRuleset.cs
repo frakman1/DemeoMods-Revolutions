@@ -10,6 +10,7 @@
         internal static Ruleset Create()
         {
             const string name = "Potion Commotion";
+            const string displayname = name;
             const string description = "All your cards are potions. 1.5x CardEnergy. Free Sneak on Crit. Enemies do not respawn.";
             const string longdesc = "";
 
@@ -66,6 +67,7 @@
 
             return Ruleset.NewInstance(
                 name,
+                displayname,
                 description,
                 longdesc,
                 allowedCardsRule,

@@ -119,7 +119,18 @@
             button.transform.localPosition = new Vector2(-325f, 0);
 
             var buttonText =
-                _elementCreator.CreateText(ruleset.Name, Color.white, NonVrElementCreator.ButtonFontSize);
+                    _elementCreator.CreateText(" ", Color.white, NonVrElementCreator.ButtonFontSize);
+            if (ruleset.Displayname != null)
+            {
+                buttonText =
+                    _elementCreator.CreateText(ruleset.Displayname, Color.white, NonVrElementCreator.ButtonFontSize);
+            }
+            else
+            {
+                buttonText =
+                    _elementCreator.CreateText(ruleset.Name, Color.white, NonVrElementCreator.ButtonFontSize);
+            }
+
             buttonText.GetComponent<Graphic>().raycastTarget = false;
             var buttonTextTransform = (RectTransform)buttonText.transform;
             buttonTextTransform.SetParent(container.transform, worldPositionStays: false);
@@ -147,68 +158,7 @@
 
         private void UpdateSelectedText()
         {
-            var setName = HR.SelectedRuleset.Name;
-            if (setName.Equals("None"))
-            {
-                setName = "<color=#B31106FF><b>None</b></color>";
-            }
-            else if (setName.Contains("Demeo Revolutions"))
-            {
-                if (setName.Contains("(EASY"))
-                {
-                    setName = "<color=#057004><b>Demeo Revolutions</b></color> <color=#1D21E0><b>(EASY)</b></color>";
-                }
-                else if (setName.Contains("(HARD"))
-                {
-                    setName = "<color=#057004><b>Demeo Revolutions</b></color> <color=#5611A2><b>(HARD)</b></color>";
-                }
-                else if (setName.Contains("(LEGENDARY PROGRESSIVE"))
-                {
-                    setName = "<color=#057004><b>Demeo Revolutions</b></color> <color=#9F11A2><b>(LEGENDARY PROGRESSIVE)</b></color>";
-                }
-                else if (setName.Contains("(LEGENDARY"))
-                {
-                    setName = "<color=#057004><b>Demeo Revolutions</b></color> <color=#9F11A2><b>(LEGENDARY)</b></color>";
-                }
-                else if (setName.Contains("(SMALL"))
-                {
-                    setName = "<color=#057004><b>Demeo Revolutions</b></color> <color=#1D21E0><b>(SMALL PROGRESSIVE)</b></color>";
-                }
-                else if (setName.Contains("PROGRESSIVE"))
-                {
-                    setName = "<color=#057004><b>Demeo Revolutions</b></color> <color=#A2115D><b>(PROGRESSIVE)</b></color>";
-                }
-                else if (setName.Equals("Demeo Revolutions"))
-                {
-                    setName = "<color=#057004><b>Demeo Revolutions</b></color>";
-                }
-                else
-                {
-                    string tempName = setName;
-                    setName = "<color=#057004><b>" + tempName + "</b></color>";
-                }
-            }
-            else if (setName.Equals("Friendly Competition"))
-            {
-                setName = "<color=#1D1E00><b>Friendly Competition</b></color>";
-            }
-            else if (setName.Equals("Darkest Dankest Demeo"))
-            {
-                setName = "<color=#080800><b>Darkest Dankest Demeo</b></color>";
-            }
-            else if (setName.Contains("Voice Machine (PROGRESSIVE"))
-            {
-                setName = "<color=#AAEA04><b>Heroes of the Voice Machine</b></color> <color=#A2115D><b>(PROGRESSIVE)</b></color>";
-            }
-            else if (setName.Contains("Voice Machine (EASY PROGRESSIVE"))
-            {
-                setName = "<color=#AAEA04><b>Heroes of the Voice Machine</b></color> <color=#1D21E0><b>(EASY PROGRESSIVE)</b></color>";
-            }
-            else if (setName.Contains("Voice Machine (INSANE PROGRESSIVE"))
-            {
-                setName = "<color=#AAEA04><b>Heroes of the Voice Machine</b></color> <color=#9F11A2><b>(INSANE PROGRESSIVE)</b></color>";
-            }
-
+            var setName = HR.SelectedRuleset.Displayname;
             _selectedText.text = $"Selected ruleset: {setName}";
         }
     }

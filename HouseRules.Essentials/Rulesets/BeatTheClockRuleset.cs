@@ -11,6 +11,7 @@
         internal static Ruleset Create()
         {
             const string name = "Beat The Clock!";
+            const string displayname = name;
             const string description = "Ultra health. Ultra card recycling. Only 15 rounds to escape...";
             const string longdesc = "";
 
@@ -51,6 +52,7 @@
 
             return Ruleset.NewInstance(
                 name,
+                displayname,
                 description,
                 longdesc,
                 healthRule,

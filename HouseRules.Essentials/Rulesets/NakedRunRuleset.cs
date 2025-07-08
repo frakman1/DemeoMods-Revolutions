@@ -10,6 +10,7 @@
         internal static Ruleset Create()
         {
             const string name = "Naked Run";
+            const string displayname = name;
             const string description = "No Chests, No Healing Fountains, One pile of Gold and only the 1 life...";
             const string longdesc = "By KennGuy and ShaunSheep\n\nYou get no chests, no healing fountains, no potion racks, ONE pile of gold, no starting cards, and only ONE life.\nThe rest of the gameplay and maps are the same.\nYou can get more class cards as the mana pool fills.\nBe afraid. Be resourceful.";
 
@@ -91,6 +92,7 @@
 
             return Ruleset.NewInstance(
                 name,
+                displayname,
                 description,
                 longdesc,
                 startingCardsRule,

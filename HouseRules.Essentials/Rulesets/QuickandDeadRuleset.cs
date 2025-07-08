@@ -9,6 +9,7 @@ namespace HouseRules.Essentials.Rulesets
         internal static Ruleset Create()
         {
             const string name = "Quick and the Dead";
+            const string displayname = name;
             const string description = "A mode with a small hand but fast turnaround time on cards means you need to not hesitate.";
             const string longdesc = "";
 
@@ -21,6 +22,7 @@ namespace HouseRules.Essentials.Rulesets
 
             return Ruleset.NewInstance(
                 name,
+                displayname,
                 description,
                 longdesc,
                 levelPropertiesRule,

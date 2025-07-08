@@ -11,6 +11,7 @@
         internal static Ruleset Create()
         {
             const string name = "Blobophobia";
+            const string displayname = name;
             const string description = "Money Slimes everywhere. On my face and in my hair.";
             const string longdesc = "";
 
@@ -445,6 +446,7 @@
 
             return Ruleset.NewInstance(
                 name,
+                displayname,
                 description,
                 longdesc,
                 blobophobiaRule,

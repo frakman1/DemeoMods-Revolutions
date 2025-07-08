@@ -1,7 +1,6 @@
 ﻿namespace Common.UI.Element
 {
     using System;
-    using System.Text;
     using Boardgame.NonVR.Ui;
     using TMPro;
     using UnityEngine;
@@ -87,65 +86,26 @@
                 fontSize = 18;
                 if (setName.Contains("Demeo Revolutions"))
                 {
-                    if (setName.Contains("(EASY"))
-                    {
-                        setName = "<color=#00FF00><b>Demeo Revolutions</b></color>\n<color=#567FFD><b>(EASY)</b></color>";
-                    }
-                    else if (setName.Contains("(HARD"))
-                    {
-                        setName = "<color=#00FF00><b>Demeo Revolutions</b></color>\n<color=#8156FD><b>(HARD)</b></color>";
-                    }
-                    else if (setName.Contains("(LEGENDARY PROGRESSIVE"))
+                    if (setName.Contains("(LEGENDARY PROGRESSIVE"))
                     {
                         fontSize = 16;
-                        setName = "<color=#00FF00><b>Demeo Revolutions</b></color>\n<color=#D456FD><b>(LEGENDARY PROGRESSIVE)</b></color>";
-                    }
-                    else if (setName.Contains("(LEGENDARY"))
-                    {
-                        setName = "<color=#00FF00><b>Demeo Revolutions</b></color>\n<color=#D456FD><b>(LEGENDARY)</b></color>";
                     }
                     else if (setName.Contains("(SMALL"))
                     {
                         fontSize = 16;
-                        setName = "<color=#00FF00><b>Demeo Revolutions</b></color>\n<color=#567FFD><b>(SMALL PROGRESSIVE)</b></color>";
-                    }
-                    else if (setName.Contains("PROGRESSIVE"))
-                    {
-                        setName = "<color=#00FF00><b>Demeo Revolutions</b></color>\n<color=#FD56D3><b>(PROGRESSIVE)</b></color>";
                     }
                     else if (setName.Equals("Demeo Revolutions"))
                     {
                         fontSize = 22;
-                        setName = "<color=#00FF00><b>Demeo Revolutions</b></color>";
-                    }
+                     }
                     else
                     {
                         fontSize = 16;
-                        setName = "<color=#00FFFF><b>" + setName + "</b></color>";
                     }
                 }
-                else if (setName.Equals("Friendly Competition"))
-                {
-                    setName = "<color=#FFFF00><b>Friendly Competition</b></color>";
-                }
-                else if (setName.Equals("Darkest Dankest Demeo"))
-                {
-                    setName = "<color=#000000><b>Darkest Dankest Demeo</b></color>";
-                }
-                else if (setName.Contains("Voice Machine (PROGRESSIVE"))
+                else if (setName.Contains("Voice Machine ("))
                 {
                     fontSize = 16;
-                    setName = "<color=#FFFF00><b>Heroes of the Voice Machine</b></color>\n<color=#FD56D3><b>(PROGRESSIVE)</b></color>";
-                }
-                else if (setName.Contains("Voice Machine (EASY PROGRESSIVE"))
-                {
-                    fontSize = 16;
-                    setName = "<color=#FFFF00><b>Heroes of the Voice Machine</b></color>\n<color=#567FFD><b>(EASY PROGRESSIVE)</b></color>";
-                }
-                else if (setName.Contains("Voice Machine (INSANE PROGRESSIVE"))
-                {
-                    fontSize = 16;
-                    setName = "<color=#FFFF00><b>Heroes of the Voice Machine</b></color>\n<color=#D456FD><b>(INSANE PROGRESSIVE)</b></color>";
                 }
             }
 

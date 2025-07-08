@@ -62,6 +62,7 @@
             var rulesetConfig = new RulesetConfig
             {
                 Name = ruleset.Name,
+                Displayname = ruleset.Displayname,
                 Description = ruleset.Description,
                 Longdesc = ruleset.Longdesc,
                 Rules = ruleEntries,
@@ -117,7 +118,7 @@
             }
 
             HouseRulesConfigurationBase.LogDebug($"Successfully imported ruleset from: {fileName}");
-            return Ruleset.NewInstance(rulesetConfig.Name, rulesetConfig.Description, rulesetConfig.Longdesc, rules);
+            return Ruleset.NewInstance(rulesetConfig.Name, rulesetConfig.Displayname, rulesetConfig.Description, rulesetConfig.Longdesc, rules);
         }
 
         private static (Type RuleType, Type ConfigType) FindRuleAndConfigType(string ruleName)
@@ -224,6 +225,7 @@
         private struct RulesetConfig
         {
             public string Name;
+            public string Displayname;
             public string Description;
             public string Longdesc;
             public List<RuleConfigEntry> Rules;

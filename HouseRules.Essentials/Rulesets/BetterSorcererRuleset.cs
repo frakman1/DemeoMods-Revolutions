@@ -10,6 +10,7 @@
         internal static Ruleset Create()
         {
             const string name = "Better Sorcerer";
+            const string displayname = name;
             const string description = "No Cost for Zap - No electrical damage/effects to teammates.";
             const string longdesc = "";
 
@@ -29,6 +30,7 @@
 
             return Ruleset.NewInstance(
                 name,
+                displayname,
                 description,
                 longdesc,
                 zapRule,

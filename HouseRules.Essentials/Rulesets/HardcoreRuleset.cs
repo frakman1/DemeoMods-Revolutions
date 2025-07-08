@@ -10,6 +10,7 @@
         internal static Ruleset Create()
         {
             const string name = "Hardcore";
+            const string displayname = name;
             const string description = "You only get one life. No knockdowns. Can your team survive?";
             const string longdesc = "";
 
@@ -26,6 +27,7 @@
 
             return Ruleset.NewInstance(
                 name,
+                displayname,
                 description,
                 longdesc,
                 pieceDownedCountRule);

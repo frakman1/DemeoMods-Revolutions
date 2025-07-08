@@ -11,6 +11,7 @@
         internal static Ruleset Create()
         {
             const string name = "Arachnophobia";
+            const string displayname = name;
             const string description = "Money Spiders everywhere. On my face and in my hair.";
             const string longdesc = "";
 
@@ -310,6 +311,7 @@
 
             return Ruleset.NewInstance(
                 name,
+                displayname,
                 description,
                 longdesc,
                 abilityDamageRule,

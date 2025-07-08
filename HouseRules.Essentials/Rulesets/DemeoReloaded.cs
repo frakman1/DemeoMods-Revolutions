@@ -11,6 +11,7 @@
         internal static Ruleset Create()
         {
             const string name = "Demeo Reloaded";
+            const string displayname = name;
             const string description = "The fight for the future begins...";
             const string longdesc = "";
 
@@ -693,6 +694,7 @@
 
             return Ruleset.NewInstance(
                 name,
+                displayname,
                 description,
                 longdesc,
                 spawnCategoriesRule,

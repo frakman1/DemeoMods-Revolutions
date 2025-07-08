@@ -11,6 +11,7 @@
         internal static Ruleset Create()
         {
             const string name = "Hunter's Paradise";
+            const string displayname = name;
             const string description = "Pets, pets, pets! And hunter's mark.";
             const string longdesc = "";
 
@@ -88,6 +89,7 @@
 
             return Ruleset.NewInstance(
                 name,
+                displayname,
                 description,
                 longdesc,
                 startingCardsRule,

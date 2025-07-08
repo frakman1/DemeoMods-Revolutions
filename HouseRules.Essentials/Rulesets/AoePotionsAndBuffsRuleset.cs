@@ -10,6 +10,7 @@
         internal static Ruleset Create()
         {
             const string name = "3x3 Potions and Buffs";
+            const string displayname = name;
             const string description = "Heal, Strength, Speed, Adamant, Vitality, Damage Resist, Focus, One More Thing, Antidote, Repair Armor and Bard buffs are 3x3 AOE.";
             const string longdesc = "";
 
@@ -40,6 +41,7 @@
 
             return Ruleset.NewInstance(
                 name,
+                displayname,
                 description,
                 longdesc,
                 abilityAoeRule,

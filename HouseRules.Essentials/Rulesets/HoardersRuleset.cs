@@ -9,6 +9,7 @@ namespace HouseRules.Essentials.Rulesets
         internal static Ruleset Create()
         {
             const string name = "Hoarders";
+            const string displayname = name;
             const string description = "A large hand size but you may not get them fast enough. (SKIRMISH ONLY)";
             const string longdesc = "";
 
@@ -21,6 +22,7 @@ namespace HouseRules.Essentials.Rulesets
 
             return Ruleset.NewInstance(
                 name,
+                displayname,
                 description,
                 longdesc,
                 levelPropertiesRule,

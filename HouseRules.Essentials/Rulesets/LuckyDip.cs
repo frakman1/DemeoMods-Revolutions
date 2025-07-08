@@ -11,6 +11,7 @@
         internal static Ruleset Create()
         {
             const string name = "LuckyDip";
+            const string displayname = name;
             const string description = "Life is like a box of chocolates + AOE changes, so stay close to your allies";
             const string longdesc = "";
 
@@ -261,6 +262,7 @@
 
             return Ruleset.NewInstance(
                 name,
+                displayname,
                 description,
                 longdesc,
                 abilityDamageRule,

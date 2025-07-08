@@ -10,6 +10,7 @@
         internal static Ruleset Create()
         {
             const string name = "Earth Wind & Fire";
+            const string displayname = name;
             const string description = "Not the band. Let's get Elemental";
             const string longdesc = "";
 
@@ -291,6 +292,7 @@
 
             return Ruleset.NewInstance(
                 name,
+                displayname,
                 description,
                 longdesc,
                 abilityDamageRule,
