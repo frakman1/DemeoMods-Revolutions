@@ -13,7 +13,7 @@
         {
             const string name = "SURVIVE!";
             const string description = "Finish the cursed dungeon with only 1 life starting with 1 health!";
-            const string longdesc = "\n<color=#770077>* * </color><color=#FF0000>Survive this CURSED DUNGEON With only 1 life starting with 1 health!</color> <color=#770077>* *</color>\n<u><b>HIGHLY RECOMMENDED:</u></b> Don't play multiple of the same class!\n\n<color=#003300>Heroes can't directly hurt each other with any AoE abilities\nGain 1 life and 1 max life by defeating enemies\n50% chance to gain random effects by defeating enemies\nStealth, Leap, Zap, Arrow, Grapple, Feral Charge, and Courage Shanty are 0 action cost\nCritical hits replenish the above abilities OR instead give 1 more action to Assassin and Guardian</color>\n\n<color=#FFFFFF><b><u>Other ways to gain life and buffs:</u></b></color>\n<color=#090900>Break a lamp that kills something\nAssassin - Ballista kills\nBarbarian - Leviathan kills\nBard - Tornado kills\nGuardian - Behemoth kills\nHunter - Non-Boned Verochka kills\nSorcerer - Summoned Elemental kills\nWarlock - Cana kills\nWhoever hires him - Arly Owl kills</color>";
+            const string longdesc = "\n<color=#770077>* * </color><color=#FF0000>Survive this CURSED DUNGEON With only 1 life starting with 1 health!</color> <color=#770077>* *</color>\n<u><b>HIGHLY RECOMMENDED:</u></b> Don't play multiple of the same class!\n\n<color=#003300>ALL bosses and keyholders are immune to Hunter's Mark and Net\nHeroes can't directly hurt each other with any AoE abilities\nGain 1 life and 1 max life by defeating enemies\n50% chance to gain random effects by defeating enemies\nStealth, Leap, Zap, Arrow, Grapple, Feral Charge, and Courage Shanty are 0 action cost\nCritical hits replenish the above abilities OR instead give 1 more action to Assassin and Guardian</color>\n\n<color=#FFFFFF><b><u>Other ways to gain life and buffs:</u></b></color>\n<color=#090900>Break a lamp that kills something\nAssassin - Ballista kills\nBarbarian - Leviathan kills\nBard - Tornado kills\nGuardian - Behemoth kills\nHunter - Non-Boned Verochka kills\nSorcerer - Summoned Elemental kills\nWarlock - Cana kills\nWhoever hires him - Arly Owl kills</color>";
 
             var piecesAdjustedRule = new PieceConfigAdjustedRule(new List<PieceConfigAdjustedRule.PieceProperty>
             {
@@ -43,16 +43,17 @@
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.MonsterBait, Property = "StartHealth", Value = 8 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.Tornado, Property = "ActionPoint", Value = 2 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.SellswordArbalestierActive, Property = "StartHealth", Value = 5 },
-                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.ElvenQueen, Property = "StartHealth", Value = 75 },
-                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.BossTown, Property = "StartHealth", Value = 167 },
+                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.ElvenQueen, Property = "StartHealth", Value = 60 },
+                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.BossTown, Property = "StartHealth", Value = 155 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.RootLord, Property = "StartHealth", Value = 85 },
-                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.MotherCy, Property = "StartHealth", Value = 70 },
-                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.RatKing, Property = "StartHealth", Value = 142 },
-                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.WizardBoss, Property = "StartHealth", Value = 160 },
+                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.MotherCy, Property = "StartHealth", Value = 50 },
+                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.RatKing, Property = "StartHealth", Value = 135 },
+                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.WizardBoss, Property = "StartHealth", Value = 125 },
             });
 
             var pieceImmunityRule = new PieceImmunityListAdjustedRule(new Dictionary<BoardPieceId, List<EffectStateType>>
             {
+                { BoardPieceId.MotherCy, new List<EffectStateType> { EffectStateType.Stunned, EffectStateType.Frozen, EffectStateType.Tangled, EffectStateType.Blinded, EffectStateType.MarkOfAvalon, EffectStateType.Confused, EffectStateType.Disoriented, EffectStateType.AbilityBlocked, EffectStateType.Netted } },
                 { BoardPieceId.ElvenQueen, new List<EffectStateType> { EffectStateType.Stunned, EffectStateType.Frozen, EffectStateType.Tangled, EffectStateType.Panic, EffectStateType.Blinded, EffectStateType.Confused, EffectStateType.Disoriented, EffectStateType.AbilityBlocked, EffectStateType.Netted, EffectStateType.MarkOfAvalon } },
                 { BoardPieceId.RatKing, new List<EffectStateType> { EffectStateType.Stunned, EffectStateType.Frozen, EffectStateType.Panic, EffectStateType.Blinded, EffectStateType.Confused, EffectStateType.Diseased, EffectStateType.Disoriented, EffectStateType.AbilityBlocked, EffectStateType.Netted, EffectStateType.MarkOfAvalon } },
                 { BoardPieceId.RootLord, new List<EffectStateType> { EffectStateType.Stunned, EffectStateType.Frozen, EffectStateType.Tangled, EffectStateType.Panic, EffectStateType.Blinded, EffectStateType.MarkOfAvalon, EffectStateType.Confused, EffectStateType.Disoriented, EffectStateType.AbilityBlocked, EffectStateType.Netted } },

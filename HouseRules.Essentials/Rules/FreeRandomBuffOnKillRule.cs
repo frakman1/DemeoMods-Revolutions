@@ -132,7 +132,7 @@
                         return;
                     }
                 }
-                else if (attackerUnit.boardPieceId == BoardPieceId.Verochka)
+                else if (attackerUnit.boardPieceId == BoardPieceId.Verochka && attackerUnit.HasEffectState(EffectStateType.ConfusedPermanentVisualOnly))
                 {
                     foreach (var piece in _playerPieces)
                     {

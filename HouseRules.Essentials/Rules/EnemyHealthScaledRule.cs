@@ -80,7 +80,7 @@
             {
                 range = Random.Range(0.75f, 1f);
             }
-            else if (ruleSet.Contains("PROGRESSIVE") || HR.SelectedRuleset.Name.Equals("TEST GAME"))
+            else if (ruleSet.Contains("PROGRESSIVE") || HR.SelectedRuleset.Name.Equals("SURVIVE!"))
             {
                 var gameContext = Traverse.Create(typeof(GameHub)).Field<GameContext>("gameContext").Value;
                 if (gameContext.levelLoaderAndInitializer.GetLevelSequence().CurrentLevelIndex == 1)
