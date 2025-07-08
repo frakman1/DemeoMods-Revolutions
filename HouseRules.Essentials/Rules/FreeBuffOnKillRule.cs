@@ -12,7 +12,7 @@
     public sealed class FreeBuffOnKillRule : Rule, IConfigWritable<Dictionary<BoardPieceId, EffectStateType>>,
         IPatchable, IMultiplayerSafe, IDisableOnReconnect
     {
-        public override string Description => "Players gain a buff per kill";
+        public override string Description => "Heroes each gain or increase a specific buff per kill";
 
         private readonly Dictionary<BoardPieceId, EffectStateType> _adjustments;
         private static Dictionary<BoardPieceId, EffectStateType> _globalAdjustments;
@@ -130,7 +130,7 @@
                         return;
                     }
                 }
-                else if (attackerUnit.boardPieceId == BoardPieceId.Verochka)
+                else if (attackerUnit.boardPieceId == BoardPieceId.Verochka && attackerUnit.HasEffectState(EffectStateType.ConfusedPermanentVisualOnly))
                 {
                     foreach (var piece in _playerPieces)
                     {
@@ -205,9 +205,76 @@
             {
                 if (attackerUnit.boardPieceId == replacement.Key)
                 {
-                    var buffed = attackerUnit.effectSink.GetEffectStateDurationTurnsLeft(replacement.Value);
-                    attackerUnit.effectSink.RemoveStatusEffect(replacement.Value);
-                    attackerUnit.effectSink.AddStatusEffect(replacement.Value, buffed + 2);
+                    var effect = replacement.Value;
+                    var buffed = attackerUnit.effectSink.GetEffectStateDurationTurnsLeft(effect);
+                    if (effect == EffectStateType.Stealthed || effect == EffectStateType.Invisibility)
+                    {
+                        attackerUnit.effectSink.RemoveStatusEffect(effect);
+                        attackerUnit.effectSink.AddStatusEffect(effect, buffed + 1);
+                    }
+                    else if (effect == EffectStateType.Luck || effect == EffectStateType.Petrified || effect == EffectStateType.Invulnerable1 || effect == EffectStateType.Tangled || effect == EffectStateType.Weaken1Turn || effect == EffectStateType.PlayerBerserk)
+                    {
+                        if (buffed > 0)
+                        {
+                            return;
+                        }
+
+                        attackerUnit.effectSink.RemoveStatusEffect(effect);
+                        attackerUnit.effectSink.AddStatusEffect(effect, 1);
+                    }
+                    else if (effect == EffectStateType.Resilience)
+                    {
+                        attackerUnit.effectSink.TryGetStat(Stats.Type.MagicArmor, out int currentArmor);
+                        attackerUnit.effectSink.TrySetStatBaseValue(Stats.Type.MagicArmor, currentArmor + 1);
+                    }
+                    else if (effect == EffectStateType.ExtraAction)
+                    {
+                        attackerUnit.effectSink.RemoveStatusEffect(effect);
+                        attackerUnit.effectSink.AddStatusEffect(effect, buffed + 1);
+                        attackerUnit.effectSink.TryGetStat(Stats.Type.ActionPoints, out int currentAP);
+                        attackerUnit.effectSink.TrySetStatBaseValue(Stats.Type.ActionPoints, currentAP + 1);
+                    }
+                    else if (effect == EffectStateType.Fearless)
+                    {
+                        if (attackerUnit.HasEffectState(EffectStateType.Heroic))
+                        {
+                            buffed = attackerUnit.effectSink.GetEffectStateDurationTurnsLeft(EffectStateType.Heroic);
+                            attackerUnit.DisableEffectState(EffectStateType.Heroic);
+                        }
+                        else if (attackerUnit.HasEffectState(EffectStateType.Courageous))
+                        {
+                            buffed = attackerUnit.effectSink.GetEffectStateDurationTurnsLeft(EffectStateType.Courageous);
+                            attackerUnit.DisableEffectState(EffectStateType.Courageous);
+                        }
+
+                        attackerUnit.DisableEffectState(effect);
+                        attackerUnit.EnableEffectState(effect, buffed + 1);
+                    }
+                    else if (effect == EffectStateType.Heroic)
+                    {
+                        if (attackerUnit.HasEffectState(EffectStateType.Fearless))
+                        {
+                            return;
+                        }
+
+                        if (attackerUnit.HasEffectState(EffectStateType.Courageous))
+                        {
+                            buffed = attackerUnit.effectSink.GetEffectStateDurationTurnsLeft(EffectStateType.Courageous);
+                            attackerUnit.DisableEffectState(EffectStateType.Courageous);
+                        }
+
+                        attackerUnit.DisableEffectState(effect);
+                        attackerUnit.EnableEffectState(effect, buffed + 1);
+                    }
+                    else if (effect == EffectStateType.Courageous && (attackerUnit.HasEffectState(EffectStateType.Fearless) || attackerUnit.HasEffectState(EffectStateType.Heroic)))
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        attackerUnit.effectSink.RemoveStatusEffect(effect);
+                        attackerUnit.effectSink.AddStatusEffect(effect, buffed + 2);
+                    }
                 }
             }
         }
