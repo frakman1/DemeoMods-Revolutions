@@ -50,16 +50,16 @@
             }
 
             Piece attackerPiece = attacker.piece;
-            bool revovive = false;
+            bool revolutions = false;
             foreach (var rule in HR.SelectedRuleset.Rules)
             {
-                if (rule.ToString().Contains("PieceProgressRule") || rule.ToString().Contains("RevolutionsRule") || HR.SelectedRuleset.Name.Equals("SURVIVE!"))
+                if (rule.ToString().Contains("PieceProgressRule") || rule.ToString().Contains("RevolutionsRule"))
                 {
-                    revovive = true;
+                    revolutions = true;
                 }
             }
 
-            if (!revovive)
+            if (!revolutions && !HR.SelectedRuleset.Name.Equals("SURVIVE!"))
             {
                 if (attackerPiece != null)
                 {
@@ -79,7 +79,7 @@
 
                 return true;
             }
-            else
+            else if (revolutions)
             {
                 if (targetPiece.IsWarlockMinion() && (attackerPiece == null || !attackerPiece.HasPieceType(PieceType.Boss)) && damage.HasTag(DamageTag.Undefined))
                 {
@@ -157,7 +157,7 @@
                         targetPiece.effectSink.SubtractHealth(0);
                         return false;
                     }
-                    else if (damage.AbilityKey == AbilityKey.PoisonedTip || damage.AbilityKey == AbilityKey.HunterArrow)
+                    else if (damage.AbilityKey == AbilityKey.HunterArrow)
                     {
                         targetPiece.effectSink.SubtractHealth(0);
                         return false;
@@ -170,29 +170,31 @@
                     targetPiece.effectSink.SubtractHealth(0);
                     return false;
                 }
-                else if (attackerPiece.boardPieceId == BoardPieceId.GrapplingTotem && damage.AbilityKey == AbilityKey.GrapplingTotemHook)
-                {
-                    targetPiece.effectSink.AddStatusEffect(EffectStateType.Tangled);
-                }
-                else if (attackerPiece.IsWarlockMinion())
-                {
-                    // Cana gets Frenzy if at or below half health
-                    if (attackerPiece.GetHealth() <= attackerPiece.GetMaxHealth() / 2)
-                    {
-                        attackerPiece.EnableEffectState(EffectStateType.Frenzy);
-                        attackerPiece.effectSink.SetStatusEffectDuration(EffectStateType.Frenzy, 1);
-                    }
-                    else if (attackerPiece.HasEffectState(EffectStateType.Frenzy))
-                    {
-                        attackerPiece.DisableEffectState(EffectStateType.Frenzy);
-                    }
-                }
 
-                if (!targetPiece.IsPlayer())
+                if (!HR.SelectedRuleset.Name.Equals("SURVIVE!"))
                 {
-                    return true;
+                    if (attackerPiece.boardPieceId == BoardPieceId.GrapplingTotem && damage.AbilityKey == AbilityKey.GrapplingTotemHook)
+                    {
+                        targetPiece.effectSink.AddStatusEffect(EffectStateType.Tangled);
+                    }
+                    else if (attackerPiece.IsWarlockMinion())
+                    {
+                        // Cana gets Frenzy if at or below half health
+                        if (attackerPiece.GetHealth() <= attackerPiece.GetMaxHealth() / 2)
+                        {
+                            attackerPiece.EnableEffectState(EffectStateType.Frenzy);
+                            attackerPiece.effectSink.SetStatusEffectDuration(EffectStateType.Frenzy, 1);
+                        }
+                        else if (attackerPiece.HasEffectState(EffectStateType.Frenzy))
+                        {
+                            attackerPiece.DisableEffectState(EffectStateType.Frenzy);
+                        }
+                    }
                 }
+            }
 
+            if (targetPiece.IsPlayer() && revolutions)
+            {
                 if (targetPiece.boardPieceId == BoardPieceId.HeroBarbarian)
                 {
                     if ((attackerPiece == null || !attackerPiece.HasPieceType(PieceType.Boss)) && (damage.HasTag(DamageTag.Acid) || damage.AbilityKey == AbilityKey.Petrify))
@@ -201,27 +203,27 @@
                         return false;
                     }
                 }
-            }
 
-            if (attackerPiece == null)
-            {
-                return true;
-            }
+                if (attackerPiece == null)
+                {
+                    return true;
+                }
 
-            if (targetPiece.boardPieceId == BoardPieceId.HeroHunter && !attackerPiece.HasPieceType(PieceType.Boss) && damage.HasTag(DamageTag.Ice))
-            {
-                targetPiece.effectSink.SubtractHealth(0);
-                return false;
-            }
-            else if (targetPiece.boardPieceId == BoardPieceId.HeroGuardian && !attackerPiece.HasPieceType(PieceType.Boss) && damage.HasTag(DamageTag.Fire))
-            {
-                targetPiece.effectSink.SubtractHealth(0);
-                return false;
-            }
-            else if (targetPiece.boardPieceId == BoardPieceId.HeroSorcerer && !attackerPiece.HasPieceType(PieceType.Boss) && damage.HasTag(DamageTag.Electricity))
-            {
-                targetPiece.effectSink.SubtractHealth(0);
-                return false;
+                if (targetPiece.boardPieceId == BoardPieceId.HeroHunter && !attackerPiece.HasPieceType(PieceType.Boss) && damage.HasTag(DamageTag.Ice))
+                {
+                    targetPiece.effectSink.SubtractHealth(0);
+                    return false;
+                }
+                else if (targetPiece.boardPieceId == BoardPieceId.HeroGuardian && !attackerPiece.HasPieceType(PieceType.Boss) && damage.HasTag(DamageTag.Fire))
+                {
+                    targetPiece.effectSink.SubtractHealth(0);
+                    return false;
+                }
+                else if (targetPiece.boardPieceId == BoardPieceId.HeroSorcerer && !attackerPiece.HasPieceType(PieceType.Boss) && damage.HasTag(DamageTag.Electricity))
+                {
+                    targetPiece.effectSink.SubtractHealth(0);
+                    return false;
+                }
             }
 
             return true;
