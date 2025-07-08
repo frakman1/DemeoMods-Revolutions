@@ -165,13 +165,13 @@
 
                     return true;
                 }
-                else if (attackerPiece.boardPieceId == BoardPieceId.Tornado && (targetPiece.IsPlayer() || targetPiece.IsBot() || targetPiece.IsWarlockMinion()))
+                else if ((attackerPiece.boardPieceId == BoardPieceId.Tornado || attackerPiece.boardPieceId == BoardPieceId.SmiteWard || attackerPiece.boardPieceId == BoardPieceId.SwordOfAvalon || attackerPiece.boardPieceId == BoardPieceId.Verochka) && (targetPiece.IsPlayer() || targetPiece.IsBot() || targetPiece.IsWarlockMinion()))
                 {
                     targetPiece.effectSink.SubtractHealth(0);
                     return false;
                 }
 
-                if (!HR.SelectedRuleset.Name.Equals("SURVIVE!"))
+                if (revolutions)
                 {
                     if (attackerPiece.boardPieceId == BoardPieceId.GrapplingTotem && damage.AbilityKey == AbilityKey.GrapplingTotemHook)
                     {
