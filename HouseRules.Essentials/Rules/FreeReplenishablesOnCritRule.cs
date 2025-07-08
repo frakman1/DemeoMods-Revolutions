@@ -79,7 +79,7 @@ namespace HouseRules.Essentials.Rules
             }
 
             Inventory.Item value;
-            if (source.boardPieceId == BoardPieceId.HeroRogue)
+            if (source.boardPieceId == BoardPieceId.HeroRogue && !HR.SelectedRuleset.Name.Contains("SURVIVE"))
             {
                 for (int i = 0; i < source.inventory.Items.Count; i++)
                 {

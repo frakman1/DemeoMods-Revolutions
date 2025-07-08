@@ -10,24 +10,24 @@
     using HouseRules.Core.Types;
     using UnityEngine;
 
-    public sealed class FreeRandomBuffOnKillRule : Rule, IConfigWritable<List<BoardPieceId>>,
+    public sealed class FreeRandomBuffOnKillRule : Rule, IConfigWritable<Dictionary<BoardPieceId, float>>,
         IPatchable, IMultiplayerSafe, IDisableOnReconnect
     {
-        public override string Description => "Players gain a random buff per kill";
+        public override string Description => "Players have a chance to gain a random buff per kill";
 
-        private readonly List<BoardPieceId> _adjustments;
-        private static List<BoardPieceId> _globalAdjustments;
-        private static List<EffectStateType> _effectStates = new List<EffectStateType> { EffectStateType.FireImmunity, EffectStateType.Antidote, EffectStateType.PlayerBerserk, EffectStateType.Courageous, EffectStateType.Deflect, EffectStateType.IceImmunity, EffectStateType.ExtraAction, EffectStateType.Fearless, EffectStateType.Recovery, EffectStateType.Heroic, EffectStateType.IceImmunity, EffectStateType.Invisibility, EffectStateType.Invulnerable1, EffectStateType.Luck, EffectStateType.MagicShield, EffectStateType.Petrified, EffectStateType.Resilience, EffectStateType.SpellPower, EffectStateType.Stealthed, EffectStateType.Wet, EffectStateType.Blinded, EffectStateType.CorruptedRage, EffectStateType.MarkOfVerga, EffectStateType.Overcharge, EffectStateType.Netted, EffectStateType.Tangled, EffectStateType.TorchPlayer, EffectStateType.Weaken1Turn };
+        private readonly Dictionary<BoardPieceId, float> _adjustments;
+        private static Dictionary<BoardPieceId, float> _globalAdjustments;
+        private static List<EffectStateType> _effectStates = new List<EffectStateType> { EffectStateType.FireImmunity, EffectStateType.Antidote, EffectStateType.PlayerBerserk, EffectStateType.Courageous, EffectStateType.Deflect, EffectStateType.IceImmunity, EffectStateType.ExtraAction, EffectStateType.Fearless, EffectStateType.Recovery, EffectStateType.Heroic, EffectStateType.IceImmunity, EffectStateType.Invisibility, EffectStateType.Invulnerable1, EffectStateType.Luck, EffectStateType.MagicShield, EffectStateType.Petrified, EffectStateType.Resilience, EffectStateType.SpellPower, EffectStateType.Stealthed, EffectStateType.Wet, EffectStateType.Blinded, EffectStateType.MarkOfVerga, EffectStateType.Overcharge, EffectStateType.Netted, EffectStateType.Tangled, EffectStateType.TorchPlayer, EffectStateType.Weaken1Turn };
         private static bool _isActivated;
         private static List<Piece> _playerPieces;
         private static Piece tempPiece;
 
-        public FreeRandomBuffOnKillRule(List<BoardPieceId> adjustments)
+        public FreeRandomBuffOnKillRule(Dictionary<BoardPieceId, float> adjustments)
         {
             _adjustments = adjustments;
         }
 
-        public List<BoardPieceId> GetConfigObject() => _adjustments;
+        public Dictionary<BoardPieceId, float> GetConfigObject() => _adjustments;
 
         protected override void OnActivate(Context context)
         {
@@ -208,18 +208,74 @@
             {
                 var effect = _effectStates[buff];
                 var buffed = attackerUnit.effectSink.GetEffectStateDurationTurnsLeft(effect);
-                attackerUnit.effectSink.RemoveStatusEffect(effect);
-                attackerUnit.effectSink.AddStatusEffect(effect, buffed + 1);
-                if (effect == EffectStateType.ExtraAction)
-                {
-                    attackerUnit.effectSink.TryGetStat(Stats.Type.ActionPoints, out int currentAP);
-                    attackerUnit.effectSink.TrySetStatBaseValue(Stats.Type.ActionPoints, currentAP + 1);
-                }
 
-                if (effect == EffectStateType.Resilience)
+                if (effect == EffectStateType.Stealthed || effect == EffectStateType.Invisibility)
+                {
+                    attackerUnit.effectSink.RemoveStatusEffect(effect);
+                    attackerUnit.effectSink.AddStatusEffect(effect, buffed + 1);
+                }
+                else if (effect == EffectStateType.Luck || effect == EffectStateType.Petrified || effect == EffectStateType.Invulnerable1 || effect == EffectStateType.Tangled || effect == EffectStateType.Weaken1Turn || effect == EffectStateType.PlayerBerserk)
+                {
+                    if (buffed > 0)
+                    {
+                        return;
+                    }
+
+                    attackerUnit.effectSink.RemoveStatusEffect(effect);
+                    attackerUnit.effectSink.AddStatusEffect(effect, 1);
+                }
+                else if (effect == EffectStateType.Resilience)
                 {
                     attackerUnit.effectSink.TryGetStat(Stats.Type.MagicArmor, out int currentArmor);
                     attackerUnit.effectSink.TrySetStatBaseValue(Stats.Type.MagicArmor, currentArmor + 1);
+                }
+                else if (effect == EffectStateType.ExtraAction)
+                {
+                    attackerUnit.effectSink.RemoveStatusEffect(effect);
+                    attackerUnit.effectSink.AddStatusEffect(effect, buffed + 1);
+                    attackerUnit.effectSink.TryGetStat(Stats.Type.ActionPoints, out int currentAP);
+                    attackerUnit.effectSink.TrySetStatBaseValue(Stats.Type.ActionPoints, currentAP + 1);
+                }
+                else if (effect == EffectStateType.Fearless)
+                {
+                    if (attackerUnit.HasEffectState(EffectStateType.Heroic))
+                    {
+                        buffed = attackerUnit.effectSink.GetEffectStateDurationTurnsLeft(EffectStateType.Heroic);
+                        attackerUnit.DisableEffectState(EffectStateType.Heroic);
+                    }
+                    else if (attackerUnit.HasEffectState(EffectStateType.Courageous))
+                    {
+                        buffed = attackerUnit.effectSink.GetEffectStateDurationTurnsLeft(EffectStateType.Courageous);
+                        attackerUnit.DisableEffectState(EffectStateType.Courageous);
+                    }
+
+                    attackerUnit.DisableEffectState(effect);
+                    attackerUnit.EnableEffectState(effect, buffed + 1);
+                }
+                else if (effect == EffectStateType.Heroic)
+                {
+                    if (attackerUnit.HasEffectState(EffectStateType.Fearless))
+                    {
+                        return;
+                    }
+
+                    if (attackerUnit.HasEffectState(EffectStateType.Courageous))
+                    {
+                        buffed = attackerUnit.effectSink.GetEffectStateDurationTurnsLeft(EffectStateType.Courageous);
+                        attackerUnit.DisableEffectState(EffectStateType.Courageous);
+                    }
+
+                    attackerUnit.DisableEffectState(effect);
+                    attackerUnit.EnableEffectState(effect, buffed + 1);
+                }
+                else if (effect == EffectStateType.Courageous && (attackerUnit.HasEffectState(EffectStateType.Fearless) || attackerUnit.HasEffectState(EffectStateType.Heroic)))
+                {
+                    return;
+                }
+                else
+                {
+                    attackerUnit.effectSink.RemoveStatusEffect(effect);
+                    attackerUnit.effectSink.AddStatusEffect(effect, buffed + 2);
                 }
             }
         }

@@ -12,8 +12,8 @@
         internal static Ruleset Create()
         {
             const string name = "SURVIVE!";
-            const string description = "Can you be survive (or be the last alive) in a dangerous dungeon?";
-            const string longdesc = "\n<color=#770077>* * </color><color=#FF0000>SURVIVE THE DUNGEON WITH 1 LIFE!</color> <color=#770077>* *</color>\n<u><b>RECOMMENDED:</u></b> Don't play multiple of the same class\n\n<color=#003300>Gain ranodm buffs and max life by defeating enemies\nStealth, Leap, Zap, Arrow, Grapple, Feral Charge, and Courage Shanty are 0 action cost!\nCritical hits will replenish those abilities or instead give 1 more move for the Assassin and Guardian!</color>\n\n<color=#FFFFFF><b><u>Other ways to gain life and buffs:</u></b></color>\n<color=#090900>Break a lamp that kills something\nAssassin - Ballista kills\nBarbarian - Leviathan kills\nBard - Tornado kills\nGuardian - Behemoth kills\nHunter - Verochka kills\nSorcerer - Summoned Elemental kills\nWarlock - Cana kills\nWhoever hires him - Arly Owl kills</color>";
+            const string description = "Finish the cursed dungeon with only 1 life starting with 1 health!";
+            const string longdesc = "\n<color=#770077>* * </color><color=#FF0000>Survive this CURSED DUNGEON With only 1 life starting with 1 health!</color> <color=#770077>* *</color>\n<u><b>HIGHLY RECOMMENDED:</u></b> Don't play multiple of the same class!\n\n<color=#003300>Gain 1 life and 1 max life by defeating enemies\n50% chance to gain random effects by defeating enemies\nStealth, Leap, Zap, Arrow, Grapple, Feral Charge, and Courage Shanty are 0 action cost\nCritical hits will replenish the above abilities or instead give 1 more action for the Assassin and Guardian</color>\n\n<color=#FFFFFF><b><u>Other ways to gain life and buffs:</u></b></color>\n<color=#090900>Break a lamp that kills something\nAssassin - Ballista kills\nBarbarian - Leviathan kills\nBard - Tornado kills\nGuardian - Behemoth kills\nHunter - Verochka kills\nSorcerer - Summoned Elemental kills\nWarlock - Cana kills\nWhoever hires him - Arly Owl kills</color>";
 
             var piecesAdjustedRule = new PieceConfigAdjustedRule(new List<PieceConfigAdjustedRule.PieceProperty>
             {
@@ -21,13 +21,15 @@
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.EarthElemental, Property = "AttackDamage", Value = 3 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.SilentSentinel, Property = "PreciseHealth", Value = 1 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.SilentSentinel, Property = "PreciseAttack", Value = 1 },
-                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.SilentSentinel, Property = "StartHealth", Value = 30 },
-                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.SilentSentinel, Property = "AttackDamage", Value = 5 },
+                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.SilentSentinel, Property = "StartHealth", Value = 50 },
+                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.SilentSentinel, Property = "AttackDamage", Value = 6 },
+                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.SilentSentinel, Property = "BerserkBelowHealth", Value = 0.5f },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.Wyvern, Property = "PreciseHealth", Value = 1 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.Wyvern, Property = "PreciseAttack", Value = 1 },
-                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.Wyvern, Property = "StartHealth", Value = 64 },
-                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.Wyvern, Property = "AttackDamage", Value = 7 },
-                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.Wyvern, Property = "MoveRange", Value = 3 },
+                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.Wyvern, Property = "StartHealth", Value = 72 },
+                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.Wyvern, Property = "AttackDamage", Value = 8 },
+                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.Wyvern, Property = "BerserkBelowHealth", Value = .66f },
+                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.Wyvern, Property = "MoveRange", Value = 4 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.HeroBarbarian, Property = "StartHealth", Value = 1 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.HeroBard, Property = "StartHealth", Value = 1 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.HeroGuardian, Property = "StartHealth", Value = 1 },
@@ -49,10 +51,19 @@
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.WizardBoss, Property = "StartHealth", Value = 160 },
             });
 
+            var pieceImmunityRule = new PieceImmunityListAdjustedRule(new Dictionary<BoardPieceId, List<EffectStateType>>
+            {
+                { BoardPieceId.ElvenQueen, new List<EffectStateType> { EffectStateType.Stunned, EffectStateType.Frozen, EffectStateType.Tangled, EffectStateType.Panic, EffectStateType.Blinded, EffectStateType.Confused, EffectStateType.Disoriented, EffectStateType.AbilityBlocked, EffectStateType.Netted, EffectStateType.MarkOfAvalon } },
+                { BoardPieceId.RatKing, new List<EffectStateType> { EffectStateType.Stunned, EffectStateType.Frozen, EffectStateType.Panic, EffectStateType.Blinded, EffectStateType.Confused, EffectStateType.Diseased, EffectStateType.Disoriented, EffectStateType.AbilityBlocked, EffectStateType.Netted, EffectStateType.MarkOfAvalon } },
+                { BoardPieceId.RootLord, new List<EffectStateType> { EffectStateType.Stunned, EffectStateType.Frozen, EffectStateType.Tangled, EffectStateType.Panic, EffectStateType.Blinded, EffectStateType.MarkOfAvalon, EffectStateType.Confused, EffectStateType.Disoriented, EffectStateType.AbilityBlocked, EffectStateType.Netted } },
+                { BoardPieceId.MotherCy, new List<EffectStateType> { EffectStateType.Stunned, EffectStateType.Frozen, EffectStateType.Tangled, EffectStateType.Panic, EffectStateType.Blinded, EffectStateType.MarkOfAvalon, EffectStateType.Confused, EffectStateType.Disoriented, EffectStateType.AbilityBlocked, EffectStateType.Netted } },
+                { BoardPieceId.WizardBoss, new List<EffectStateType> { EffectStateType.Stunned, EffectStateType.Frozen, EffectStateType.Tangled, EffectStateType.Panic, EffectStateType.Blinded, EffectStateType.MarkOfAvalon, EffectStateType.Diseased, EffectStateType.CorruptedRage, EffectStateType.Corruption, EffectStateType.Confused, EffectStateType.Disoriented, EffectStateType.AbilityBlocked, EffectStateType.Netted } },
+                { BoardPieceId.BossTown, new List<EffectStateType> { EffectStateType.Stunned, EffectStateType.Frozen, EffectStateType.Tangled, EffectStateType.Panic, EffectStateType.Blinded, EffectStateType.MarkOfAvalon, EffectStateType.Confused, EffectStateType.Weaken1Turn, EffectStateType.ConfusedPermanentVisualOnly, EffectStateType.Petrified, EffectStateType.Disoriented, EffectStateType.AbilityBlocked, EffectStateType.Netted } },
+            });
+
             var myEntranceDeckFloor1 = new Dictionary<BoardPieceId, int>
             {
                 { BoardPieceId.ElvenSpearman, 1 },
-                { BoardPieceId.SmallCorruption, 2 },
                 { BoardPieceId.ReptileArcher, 1 },
                 { BoardPieceId.ReptileMutantWizard, 1 },
                 { BoardPieceId.LargeCorruption, 2 },
@@ -61,15 +72,15 @@
                 { BoardPieceId.ElvenHound, 2 },
                 { BoardPieceId.RootHound, 2 },
                 { BoardPieceId.TheUnspoken, 2 },
-                { BoardPieceId.Bandit, 1 },
-                { BoardPieceId.DruidArcher, 1 },
+                { BoardPieceId.Bandit, 2 },
+                { BoardPieceId.DruidArcher, 2 },
                 { BoardPieceId.DruidHoundMaster, 1 },
                 { BoardPieceId.GoblinChieftan, 1 },
                 { BoardPieceId.GoblinMadUn, 1 },
                 { BoardPieceId.RootBeast, 2 },
                 { BoardPieceId.ScabRat, 1 },
-                { BoardPieceId.Spider, 3 },
-                { BoardPieceId.Rat, 3 },
+                { BoardPieceId.Spider, 2 },
+                { BoardPieceId.Rat, 1 },
                 { BoardPieceId.TheUnheard, 2 },
                 { BoardPieceId.Slimeling, 3 },
                 { BoardPieceId.Thug, 1 },
@@ -152,6 +163,7 @@
                 { BoardPieceId.GoblinRanger, 2 },
                 { BoardPieceId.Sigataur, 1 },
                 { BoardPieceId.GiantSlime, 1 },
+                { BoardPieceId.BigBoiMutant, 1 },
                 { BoardPieceId.IceElemental, 2 },
                 { BoardPieceId.ElvenMarauder, 2 },
                 { BoardPieceId.GiantSpider, 2 },
@@ -188,6 +200,7 @@
                 { BoardPieceId.SporeFungus, 2 },
                 { BoardPieceId.ChestGoblin, 1 },
                 { BoardPieceId.EarthElemental, 1 },
+                { BoardPieceId.BigBoiMutant, 1 },
                 { BoardPieceId.Sigataur, 1 },
                 { BoardPieceId.GiantSlime, 1 },
                 { BoardPieceId.ElvenMarauder, 1 },
@@ -247,7 +260,6 @@
             {
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Grapple, ReplenishFrequency = 1 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Net, ReplenishFrequency = 1 },
-                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Teleport, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Heal, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.GrapplingPush, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.GrapplingSmash, ReplenishFrequency = 0 },
@@ -258,19 +270,18 @@
             var warlockCards = new List<StartCardsModifiedRule.CardConfig>
             {
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.MinionCharge, ReplenishFrequency = 1 },
-                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Teleport, ReplenishFrequency = 0 },
+                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.MagicMissile, ReplenishFrequency = 1 },
+                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.MagicMissile, ReplenishFrequency = 1 },
+                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Portal, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Heal, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Implode, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.MissileSwarm, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Deflect, ReplenishFrequency = 0 },
-                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.MagicMissile, ReplenishFrequency = 0 },
-                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.MagicMissile, ReplenishFrequency = 0 },
             };
             var bardCards = new List<StartCardsModifiedRule.CardConfig>
             {
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.StrengthenCourage, ReplenishFrequency = 1 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.EnemyFlashbang, ReplenishFrequency = 2 },
-                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Teleport, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Heal, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Tornado, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.SongOfRecovery, ReplenishFrequency = 0 },
@@ -281,7 +292,6 @@
             {
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.LeapHeavy, ReplenishFrequency = 1 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.ReplenishArmor, ReplenishFrequency = 1 },
-                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Teleport, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Heal, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Whirlwind, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.PiercingSpear, ReplenishFrequency = 0 },
@@ -292,7 +302,6 @@
             {
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.HunterArrow, ReplenishFrequency = 1 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.EnemyFireball, ReplenishFrequency = 1 },
-                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Teleport, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Heal, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Exterminate, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.PoisonedTip, ReplenishFrequency = 0 },
@@ -303,7 +312,6 @@
             {
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Stealth, ReplenishFrequency = 1 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.DiseasedBite, ReplenishFrequency = 2 },
-                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Teleport, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Heal, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Blink, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.SwordOfAvalon, ReplenishFrequency = 0 },
@@ -314,7 +322,6 @@
             {
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Zap, ReplenishFrequency = 1 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Electricity, ReplenishFrequency = 1 },
-                new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Teleport, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Heal, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Fireball, ReplenishFrequency = 0 },
                 new StartCardsModifiedRule.CardConfig { Card = AbilityKey.Freeze, ReplenishFrequency = 0 },
@@ -432,9 +439,7 @@
                         AbilityKey.MonsterBait,
                         AbilityKey.Confuse,
                         AbilityKey.Exterminate,
-                        AbilityKey.CallCompanion,
                         AbilityKey.PoisonedTip,
-                        AbilityKey.MarkOfAvalon,
                         AbilityKey.Exterminate,
                         AbilityKey.CallCompanion,
                         AbilityKey.MonsterBait,
@@ -513,13 +518,11 @@
                         AbilityKey.Implode,
                         AbilityKey.MissileSwarm,
                         AbilityKey.Portal,
-                        AbilityKey.MinionCharge,
                         AbilityKey.Deflect,
                         AbilityKey.GuidingLight,
                         AbilityKey.Implode,
                         AbilityKey.MissileSwarm,
                         AbilityKey.Portal,
-                        AbilityKey.MinionCharge,
                         AbilityKey.Deflect,
                         AbilityKey.GuidingLight,
                         AbilityKey.Implode,
@@ -596,12 +599,12 @@
                         AbilityKey.WebBomb,
                         AbilityKey.SodiumHydroxide,
                         AbilityKey.FreeAP,
-                        AbilityKey.CallCompanion,
                         AbilityKey.ScarePowder,
                         AbilityKey.SodiumHydroxide,
                         AbilityKey.VialOfFireImmunity,
                         AbilityKey.ScrollTsunami,
                         AbilityKey.Regroup,
+                        AbilityKey.Exterminate,
                         AbilityKey.WaterBottle,
                         AbilityKey.LuckPotion,
                         AbilityKey.ScrollElectricity,
@@ -654,7 +657,6 @@
                         AbilityKey.WebBomb,
                         AbilityKey.SodiumHydroxide,
                         AbilityKey.FreeAP,
-                        AbilityKey.MinionCharge,
                         AbilityKey.ScarePowder,
                         AbilityKey.SodiumHydroxide,
                         AbilityKey.VialOfIceImmunity,
@@ -842,6 +844,14 @@
                 },
                 new StatusEffectData
                 {
+                    effectStateType = EffectStateType.Netted,
+                    durationTurns = 1,
+                    damagePerTurn = 0,
+                    clearOnNewLevel = false,
+                    tickWhen = StatusEffectsConfig.TickWhen.EndTurn,
+                },
+                new StatusEffectData
+                {
                     effectStateType = EffectStateType.PlayerBerserk,
                     durationTurns = 1,
                     damagePerTurn = 0,
@@ -907,15 +917,15 @@
                 { BoardPieceId.HeroRogue },
             });
 
-            var freeRandomBuffOnKillRule = new FreeRandomBuffOnKillRule(new List<BoardPieceId>
+            var freeRandomBuffOnKillRule = new FreeRandomBuffOnKillRule(new Dictionary<BoardPieceId, float>
             {
-                { BoardPieceId.HeroBarbarian },
-                { BoardPieceId.HeroBard },
-                { BoardPieceId.HeroGuardian },
-                { BoardPieceId.HeroRogue },
-                { BoardPieceId.HeroSorcerer },
-                { BoardPieceId.HeroHunter },
-                { BoardPieceId.HeroWarlock },
+                { BoardPieceId.HeroBarbarian, .5f },
+                { BoardPieceId.HeroBard, .5f },
+                { BoardPieceId.HeroGuardian, .5f },
+                { BoardPieceId.HeroRogue, .5f },
+                { BoardPieceId.HeroSorcerer, .5f },
+                { BoardPieceId.HeroHunter, .5f },
+                { BoardPieceId.HeroWarlock, .5f },
             });
 
             var abilityActionCostRule = new AbilityActionCostAdjustedRule(new Dictionary<AbilityKey, bool>
@@ -963,7 +973,27 @@
                 { BoardPieceId.MotherCy },
                 { BoardPieceId.RootLord },
                 { BoardPieceId.RatKing },
+                { BoardPieceId.SilentSentinel },
                 { BoardPieceId.Wyvern },
+            });
+
+            var backstabConfigRule = new BackstabConfigOverriddenRule(new List<BoardPieceId>
+            {
+                { BoardPieceId.HeroBard },
+                { BoardPieceId.HeroRogue },
+            });
+
+            var abilityBackstabRule = new AbilityBackstabAdjustedRule(new Dictionary<AbilityKey, bool>
+            {
+                { AbilityKey.NotesOfConfusion, true },
+                { AbilityKey.ShatteringVoice, true },
+                { AbilityKey.DiseasedBite, true },
+            });
+
+            var breaksStealthRule = new AbilityBreaksStealthAdjustedRule(new Dictionary<AbilityKey, bool>
+            {
+                { AbilityKey.PoisonGasGrenade, false },
+                { AbilityKey.DiseasedBite, false },
             });
 
             var queenBuffs = new ElvenQueenBuffsRule(true);
@@ -973,6 +1003,12 @@
             var enableDoorsRule = new EnemyDoorOpeningEnabledRule(true);
             var pieceKeyholderRule = new PieceKeyholderRule(true);
             var enemyRespawnDisabledRule = new EnemyRespawnDisabledRule(true);
+            var grappleUnhookedRule = new GrappleUnhookedRule(true);
+            var goldPickupRule = new GoldPickedUpMultipliedRule(1);
+            var reviveEffectsRule = new ReviveRemovesEffectsRule(true);
+            var courageShantyRule = new StrengthenCourageAddsHpRule(1);
+            var partyDamageRule = new PartyDamageOverriddenRule(true);
+
             var smallLevelSequenceRule = new SmallLevelSequenceOverriddenRule(new List<string>
             {
                 "TownsFloor05",
@@ -1002,6 +1038,7 @@
                 description,
                 longdesc,
                 piecesAdjustedRule,
+                pieceImmunityRule,
                 myMonsterDeckRule,
                 startingCardsRule,
                 allowedChestCardsRule,
@@ -1023,6 +1060,9 @@
                 statModifiersRule,
                 pieceDownedCountRule,
                 pieceDamageResistRule,
+                backstabConfigRule,
+                abilityBackstabRule,
+                breaksStealthRule,
                 queenBuffs,
                 queenSuperBuffs,
                 enemyHealthScaledRule,
@@ -1030,6 +1070,11 @@
                 enableDoorsRule,
                 pieceKeyholderRule,
                 enemyRespawnDisabledRule,
+                grappleUnhookedRule,
+                goldPickupRule,
+                reviveEffectsRule,
+                courageShantyRule,
+                partyDamageRule,
                 smallLevelSequenceRule,
                 levelPropertiesRule);
         }
