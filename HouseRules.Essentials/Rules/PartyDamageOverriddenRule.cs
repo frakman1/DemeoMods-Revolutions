@@ -50,16 +50,16 @@
             }
 
             Piece attackerPiece = attacker.piece;
-            bool revolutions = false;
+            bool revovive = false;
             foreach (var rule in HR.SelectedRuleset.Rules)
             {
-                if (rule.ToString().Contains("PieceProgressRule") || rule.ToString().Contains("RevolutionsRule"))
+                if (rule.ToString().Contains("PieceProgressRule") || rule.ToString().Contains("RevolutionsRule") || HR.SelectedRuleset.Name.Equals("SURVIVE!"))
                 {
-                    revolutions = true;
+                    revovive = true;
                 }
             }
 
-            if (!revolutions)
+            if (!revovive)
             {
                 if (attackerPiece != null)
                 {
@@ -79,34 +79,36 @@
 
                 return true;
             }
-
-            if (targetPiece.IsWarlockMinion() && (attackerPiece == null || !attackerPiece.HasPieceType(PieceType.Boss)) && damage.HasTag(DamageTag.Undefined))
+            else
             {
-                targetPiece.DisableEffectState(EffectStateType.CorruptedRage);
-                targetPiece.effectSink.SubtractHealth(0);
-                return false;
+                if (targetPiece.IsWarlockMinion() && (attackerPiece == null || !attackerPiece.HasPieceType(PieceType.Boss)) && damage.HasTag(DamageTag.Undefined))
+                {
+                    targetPiece.DisableEffectState(EffectStateType.CorruptedRage);
+                    targetPiece.effectSink.SubtractHealth(0);
+                    return false;
+                }
+                else if (targetPiece.boardPieceId == BoardPieceId.HeroWarlock && (attackerPiece == null || !attackerPiece.HasPieceType(PieceType.Boss)) && damage.HasTag(DamageTag.Undefined))
+                {
+                    targetPiece.DisableEffectState(EffectStateType.CorruptedRage);
+                    targetPiece.effectSink.TrySetStatBaseValue(Stats.Type.CorruptionAP, 0);
+
+                    // if (targetPiece.GetActionPoints() > -1)
+                    // {
+                    targetPiece.effectSink.TryAddActionPoints(1);
+
+                    // }
+                    targetPiece.effectSink.SubtractHealth(0);
+                    return false;
+                }
+
+                if (targetPiece.boardPieceId == BoardPieceId.Verochka && damage.HasTag(DamageTag.Ice) && (attackerPiece == null || !attackerPiece.HasPieceType(PieceType.Boss)))
+                {
+                    targetPiece.effectSink.SubtractHealth(0);
+                    return false;
+                }
             }
-            else if (targetPiece.boardPieceId == BoardPieceId.HeroWarlock && (attackerPiece == null || !attackerPiece.HasPieceType(PieceType.Boss)) && damage.HasTag(DamageTag.Undefined))
-            {
-                targetPiece.DisableEffectState(EffectStateType.CorruptedRage);
-                targetPiece.effectSink.TrySetStatBaseValue(Stats.Type.CorruptionAP, 0);
 
-                // if (targetPiece.GetActionPoints() > -1)
-                // {
-                targetPiece.effectSink.TryAddActionPoints(1);
-
-                // }
-                targetPiece.effectSink.SubtractHealth(0);
-                return false;
-            }
-
-            if (targetPiece.boardPieceId == BoardPieceId.Verochka && damage.HasTag(DamageTag.Ice) && (attackerPiece == null || !attackerPiece.HasPieceType(PieceType.Boss)))
-            {
-                targetPiece.effectSink.SubtractHealth(0);
-                return false;
-            }
-
-            // Players can't hurt or give negative effects to other players/pets intentionally in Revolutions games
+            // Players can't hurt or give negative effects to other players/pets intentionally in Revolutions and SURVIVE games
             if (attackerPiece != null)
             {
                 if (attackerPiece.IsPlayer() && (targetPiece.IsPlayer() || targetPiece.IsBot() || targetPiece.IsWarlockMinion()))
