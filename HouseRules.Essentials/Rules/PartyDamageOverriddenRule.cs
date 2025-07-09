@@ -59,7 +59,7 @@
                 }
             }
 
-            if (!revolutions && !HR.SelectedRuleset.Name.Equals("SURVIVE!"))
+            if (!revolutions && !HR.SelectedRuleset.Name.Contains("SURVIVE"))
             {
                 if (attackerPiece != null)
                 {

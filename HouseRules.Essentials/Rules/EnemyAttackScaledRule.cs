@@ -84,7 +84,7 @@
                     }
                 }
             }
-            else if (HR.SelectedRuleset.Name.Contains("PROGRESSIVE") || HR.SelectedRuleset.Name.Equals("SURVIVE!"))
+            else if (HR.SelectedRuleset.Name.Contains("PROGRESSIVE") || HR.SelectedRuleset.Name.Contains("SURVIVE"))
             {
                 var gameContext = Traverse.Create(typeof(GameHub)).Field<GameContext>("gameContext").Value;
                 var level = gameContext.levelLoaderAndInitializer.GetLevelSequence().CurrentLevelIndex;
