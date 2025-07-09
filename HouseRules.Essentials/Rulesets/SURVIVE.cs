@@ -13,7 +13,7 @@
         {
             const string name = "SURVIVE!";
             const string displayname = "<b><color=#FF0000>S<color=#E80000>U<color=#CF0000>R<color=#B80000>V<color=#9F0000>I<color=#880000>V<color=#6F0000>E<color=#580000>!</b>";
-            const string description = "Finish the cursed dungeon with only 1 life starting with 1 health!";
+            const string description = "Survive starting with 1 life and 1 health!";
             const string longdesc = "\n<color=#770077>* * </color><color=#FF0000>Finish a CURSED DUNGEON With only 1 life!</color> <color=#770077>* *</color>\n<u><b>HIGHLY RECOMMENDED:</u></b> Don't play multiple of the same class!\n\n<color=#003300>ALL bosses and keyholders are immune to Hunter's Mark and Net\nHeroes can't directly hurt each other with any AoE abilities\nGain 1 life and 1 max life by defeating enemies\n50% chance to gain random effects by defeating enemies\nStealth, Leap, Zap, Arrow, Grapple, Feral Charge, and Courage Shanty are 0 action cost\nCritical hits replenish the above abilities OR instead give 1 more action to Assassin and Guardian</color>\nHero turn order is randomized after each round\n\n<color=#FFFFFF><b><u>Other ways to gain life and buffs:</u></b></color>\n<color=#090900>Break a lamp that kills something\nAssassin - Ballista kills\nBarbarian - Leviathan kills\nBard - Tornado kills\nGuardian - Behemoth kills\nHunter - Non-Boned Verochka kills\nSorcerer - Summoned Elemental kills\nWarlock - Cana kills\nWhoever hires him - Arly Owl kills</color>";
 
             var piecesAdjustedRule = new PieceConfigAdjustedRule(new List<PieceConfigAdjustedRule.PieceProperty>
@@ -45,7 +45,7 @@
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.MonsterBait, Property = "StartHealth", Value = 8 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.Tornado, Property = "ActionPoint", Value = 2 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.SellswordArbalestierActive, Property = "StartHealth", Value = 5 },
-                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.ElvenQueen, Property = "StartHealth", Value = 90 },
+                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.ElvenQueen, Property = "StartHealth", Value = 85 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.BossTown, Property = "StartHealth", Value = 155 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.RootLord, Property = "StartHealth", Value = 95 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.MotherCy, Property = "StartHealth", Value = 70 },
@@ -460,7 +460,6 @@
                         AbilityKey.GodsFury,
                         AbilityKey.Blink,
                         AbilityKey.PoisonGasGrenade,
-                        AbilityKey.CoinFlip,
                         AbilityKey.CursedDagger,
                         AbilityKey.ProximityMine,
                         AbilityKey.Flashbang,
@@ -556,6 +555,7 @@
                         AbilityKey.LuckPotion,
                         AbilityKey.ScrollElectricity,
                         AbilityKey.MarkOfVerga,
+                        AbilityKey.EnergyPotion,
                     }
                 },
                 {
@@ -594,6 +594,7 @@
                         AbilityKey.LuckPotion,
                         AbilityKey.ScrollElectricity,
                         AbilityKey.Confuse,
+                        AbilityKey.EnergyPotion,
                     }
                 },
                 {
@@ -612,6 +613,7 @@
                         AbilityKey.LuckPotion,
                         AbilityKey.ScrollElectricity,
                         AbilityKey.MarkOfAvalon,
+                        AbilityKey.EnergyPotion,
                     }
                 },
                 {
@@ -632,6 +634,7 @@
                         AbilityKey.LuckPotion,
                         AbilityKey.ScrollElectricity,
                         AbilityKey.Blink,
+                        AbilityKey.EnergyPotion,
                     }
                 },
                 {
@@ -651,6 +654,7 @@
                         AbilityKey.LuckPotion,
                         AbilityKey.ScrollElectricity,
                         AbilityKey.Fireball,
+                        AbilityKey.EnergyPotion,
                     }
                 },
                 {
@@ -861,6 +865,14 @@
                     clearOnNewLevel = false,
                     tickWhen = StatusEffectsConfig.TickWhen.EndTurn,
                 },
+                new StatusEffectData
+                {
+                    effectStateType = EffectStateType.ExtraEnergy,
+                    durationTurns = 2,
+                    damagePerTurn = 0,
+                    clearOnNewLevel = false,
+                    tickWhen = StatusEffectsConfig.TickWhen.EndTurn,
+                },
             });
 
             var aoeAdjustedRule = new AbilityAoeAdjustedRule(new Dictionary<AbilityKey, int>
@@ -931,6 +943,17 @@
                 { BoardPieceId.HeroWarlock, .5f },
             });
 
+            var energyRule = new EnergyPotionRule(new Dictionary<BoardPieceId, AbilityKey>
+            {
+                { BoardPieceId.HeroHunter, AbilityKey.CoinFlip },
+                { BoardPieceId.HeroSorcerer, AbilityKey.DeathBeam },
+                { BoardPieceId.HeroBard, AbilityKey.ScarePowder },
+                { BoardPieceId.HeroBarbarian, AbilityKey.SpawnRandomLamp },
+                { BoardPieceId.HeroWarlock, AbilityKey.ImplosionExplosionRain },
+                { BoardPieceId.HeroGuardian, AbilityKey.Grab },
+                { BoardPieceId.HeroRogue, AbilityKey.FretsOfFire },
+            });
+
             var abilityActionCostRule = new AbilityActionCostAdjustedRule(new Dictionary<AbilityKey, bool>
             {
                 { AbilityKey.Zap, false },
@@ -950,6 +973,9 @@
                 { AbilityKey.Grapple, false },
                 { AbilityKey.Net, true },
                 { AbilityKey.ImplosionExplosionRain, false },
+                { AbilityKey.FretsOfFire, false },
+                { AbilityKey.CoinFlip, false },
+                { AbilityKey.Grab, false },
             });
 
             var statModifiersRule = new StatModifiersOverriddenRule(new Dictionary<AbilityKey, int>
@@ -997,6 +1023,13 @@
             {
                 { AbilityKey.PoisonGasGrenade, false },
                 { AbilityKey.DiseasedBite, false },
+                { AbilityKey.FretsOfFire, false },
+                { AbilityKey.CoinFlip, false },
+                { AbilityKey.DeathBeam, false },
+                { AbilityKey.ScarePowder, false },
+                { AbilityKey.SpawnRandomLamp, false },
+                { AbilityKey.ImplosionExplosionRain, false },
+                { AbilityKey.Grab, false },
             });
 
             var queenBuffs = new ElvenQueenBuffsRule(true);
@@ -1062,6 +1095,7 @@
                 freeActionPointsOnCritRule,
                 freeMaxHealthOnKillRule,
                 freeRandomBuffOnKillRule,
+                energyRule,
                 abilityActionCostRule,
                 statModifiersRule,
                 pieceDownedCountRule,

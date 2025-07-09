@@ -2,6 +2,7 @@
 {
     using Boardgame;
     using Boardgame.BoardEntities;
+    using Boardgame.LevelLoading;
     using DataKeys;
     using HarmonyLib;
     using HouseRules.Core;
@@ -62,15 +63,16 @@
             if (HR.SelectedRuleset.Name.Contains("LEGENDARY") || HR.SelectedRuleset.Name.Equals("TEST GAME"))
             {
                 var gameContext = Traverse.Create(typeof(GameHub)).Field<GameContext>("gameContext").Value;
-                if (gameContext.levelLoaderAndInitializer.GetLevelSequence().CurrentLevelIndex == 1)
+                var level = gameContext.levelLoaderAndInitializer.GetLevelSequence().CurrentLevelIndex;
+                if (level == 1)
                 {
                     range = Random.Range(1, 2);
                 }
-                else if (gameContext.levelLoaderAndInitializer.GetLevelSequence().CurrentLevelIndex == 3)
+                else if (level == 3)
                 {
                     range = Random.Range(2, 3);
                 }
-                else if (gameContext.levelLoaderAndInitializer.GetLevelSequence().CurrentLevelIsLastLevel)
+                else if (level == 5)
                 {
                     if (config.HasPieceType(PieceType.Boss))
                     {
@@ -85,15 +87,16 @@
             else if (HR.SelectedRuleset.Name.Contains("PROGRESSIVE") || HR.SelectedRuleset.Name.Equals("SURVIVE!"))
             {
                 var gameContext = Traverse.Create(typeof(GameHub)).Field<GameContext>("gameContext").Value;
-                if (gameContext.levelLoaderAndInitializer.GetLevelSequence().CurrentLevelIndex == 2)
+                var level = gameContext.levelLoaderAndInitializer.GetLevelSequence().CurrentLevelIndex;
+                if (level == 1)
                 {
                     range = Random.Range(0, 2);
                 }
-                else if (gameContext.levelLoaderAndInitializer.GetLevelSequence().CurrentLevelIndex == 3)
+                else if (level == 3)
                 {
                     range = Random.Range(1, 3);
                 }
-                else if (gameContext.levelLoaderAndInitializer.GetLevelSequence().CurrentLevelIsLastLevel)
+                else if (level == 5)
                 {
                     if (config.HasPieceType(PieceType.Boss))
                     {

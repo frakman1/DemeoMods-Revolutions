@@ -204,26 +204,25 @@
             }
 
             // Add random effect to player here
-            int buff = Random.Range(1, _effectStates.Count + 1);
+            int buff = Random.Range(0, _effectStates.Count);
             {
                 var effect = _effectStates[buff];
-                HouseRulesEssentialsBase.LogWarning($"Random buff: {buff}");
                 var buffed = attackerUnit.effectSink.GetEffectStateDurationTurnsLeft(effect);
 
                 if (effect == EffectStateType.Stealthed || effect == EffectStateType.Invisibility)
                 {
-                    attackerUnit.effectSink.RemoveStatusEffect(effect);
-                    attackerUnit.effectSink.AddStatusEffect(effect, buffed + 1);
+                    attackerUnit.DisableEffectState(effect);
+                    attackerUnit.EnableEffectState(effect, buffed + 1);
                 }
-                else if (effect == EffectStateType.Luck || effect == EffectStateType.Petrified || effect == EffectStateType.Invulnerable1 || effect == EffectStateType.Tangled || effect == EffectStateType.Weaken1Turn || effect == EffectStateType.PlayerBerserk)
+                else if (effect == EffectStateType.Luck || effect == EffectStateType.Petrified || effect == EffectStateType.Invulnerable1 || effect == EffectStateType.Netted || effect == EffectStateType.Tangled || effect == EffectStateType.Weaken1Turn || effect == EffectStateType.PlayerBerserk)
                 {
                     if (buffed > 0)
                     {
                         return;
                     }
 
-                    attackerUnit.effectSink.RemoveStatusEffect(effect);
-                    attackerUnit.effectSink.AddStatusEffect(effect, 1);
+                    attackerUnit.DisableEffectState(effect);
+                    attackerUnit.EnableEffectState(effect, 1);
                 }
                 else if (effect == EffectStateType.Resilience)
                 {
@@ -232,8 +231,8 @@
                 }
                 else if (effect == EffectStateType.ExtraAction)
                 {
-                    attackerUnit.effectSink.RemoveStatusEffect(effect);
-                    attackerUnit.effectSink.AddStatusEffect(effect, buffed + 1);
+                    attackerUnit.DisableEffectState(effect);
+                    attackerUnit.EnableEffectState(effect, buffed + 1);
                     attackerUnit.effectSink.TryGetStat(Stats.Type.ActionPoints, out int currentAP);
                     attackerUnit.effectSink.TrySetStatBaseValue(Stats.Type.ActionPoints, currentAP + 1);
                 }
@@ -275,8 +274,8 @@
                 }
                 else
                 {
-                    attackerUnit.effectSink.RemoveStatusEffect(effect);
-                    attackerUnit.effectSink.AddStatusEffect(effect, buffed + 2);
+                    attackerUnit.DisableEffectState(effect);
+                    attackerUnit.EnableEffectState(effect, buffed + 2);
                 }
             }
         }

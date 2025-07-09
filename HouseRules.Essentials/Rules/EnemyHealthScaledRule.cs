@@ -83,15 +83,16 @@
             else if (ruleSet.Contains("PROGRESSIVE") || HR.SelectedRuleset.Name.Equals("SURVIVE!"))
             {
                 var gameContext = Traverse.Create(typeof(GameHub)).Field<GameContext>("gameContext").Value;
-                if (gameContext.levelLoaderAndInitializer.GetLevelSequence().CurrentLevelIndex == 1)
+                var level = gameContext.levelLoaderAndInitializer.GetLevelSequence().CurrentLevelIndex;
+                if (level == 1)
                 {
                     range = Random.Range(1.0f, 1.3f);
                 }
-                else if (gameContext.levelLoaderAndInitializer.GetLevelSequence().CurrentLevelIndex == 3)
+                else if (level == 3)
                 {
                     range = Random.Range(1.3f, 1.6f);
                 }
-                else if (gameContext.levelLoaderAndInitializer.GetLevelSequence().CurrentLevelIsLastLevel)
+                else if (level == 5)
                 {
                     if (config.HasPieceType(PieceType.Boss))
                     {

@@ -1135,6 +1135,7 @@
                 { BoardPieceId.HeroHunter },
                 { BoardPieceId.HeroWarlock },
             });
+
             var freeAbilityOnCritRule = new FreeAbilityOnCritRule(new Dictionary<BoardPieceId, AbilityKey>
             {
                 { BoardPieceId.HeroHunter, AbilityKey.Bone },

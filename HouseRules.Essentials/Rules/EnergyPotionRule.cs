@@ -10,7 +10,7 @@
 
     public sealed class EnergyPotionRule : Rule, IConfigWritable<Dictionary<BoardPieceId, AbilityKey>>, IPatchable, IMultiplayerSafe
     {
-        public override string Description => "Using the Energy Potion can give players a new ability with 3 total uses";
+        public override string Description => "Using the Energy Potion can give players a new ability with limited uses";
 
         private static Context _context;
         private static bool _isActivated;
