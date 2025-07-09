@@ -815,6 +815,10 @@
             var abilityDamageAllRule = new AbilityDamageAllOverriddenRule(new Dictionary<AbilityKey, List<int>>
             {
                 { AbilityKey.GrapplingTotemHook, new List<int> { 2, 2, 2, 2 } },
+                { AbilityKey.AcidSpit, new List<int> { 4, 8, 4, 8 } },
+                { AbilityKey.PVPFireball, new List<int> { 5, 10, 5, 10 } },
+                { AbilityKey.WaterExplosion, new List<int> { 3, 3, 3, 3 } },
+                { AbilityKey.PVPMissileSwarm, new List<int> { 3, 3, 3, 3 } },
             });
 
             var pieceUseWhenKilledRule = new PieceUseWhenKilledOverriddenRule(new Dictionary<BoardPieceId, List<AbilityKey>>
@@ -947,11 +951,11 @@
             {
                 { BoardPieceId.HeroHunter, AbilityKey.CoinFlip },
                 { BoardPieceId.HeroSorcerer, AbilityKey.DeathBeam },
-                { BoardPieceId.HeroBard, AbilityKey.ScarePowder },
-                { BoardPieceId.HeroBarbarian, AbilityKey.SpawnRandomLamp },
-                { BoardPieceId.HeroWarlock, AbilityKey.ImplosionExplosionRain },
-                { BoardPieceId.HeroGuardian, AbilityKey.Grab },
-                { BoardPieceId.HeroRogue, AbilityKey.FretsOfFire },
+                { BoardPieceId.HeroBard, AbilityKey.WaterExplosion },
+                { BoardPieceId.HeroBarbarian, AbilityKey.PVPFireball },
+                { BoardPieceId.HeroWarlock, AbilityKey.AcidSpit },
+                { BoardPieceId.HeroGuardian, AbilityKey.ImplosionExplosionRain },
+                { BoardPieceId.HeroRogue, AbilityKey.PVPMissileSwarm },
             });
 
             var abilityActionCostRule = new AbilityActionCostAdjustedRule(new Dictionary<AbilityKey, bool>
@@ -962,20 +966,16 @@
                 { AbilityKey.HunterArrow, false },
                 { AbilityKey.StrengthenCourage, false },
                 { AbilityKey.MinionCharge, false },
-                { AbilityKey.SpellPower, false },
-                { AbilityKey.PVPBlink, false },
-                { AbilityKey.PVPMissileSwarm, false },
+                { AbilityKey.WaterExplosion, false },
                 { AbilityKey.PVPFireball, false },
-                { AbilityKey.WeakeningShout, false },
                 { AbilityKey.LeapHeavy, false },
-                { AbilityKey.SpawnRandomLamp, false },
                 { AbilityKey.DeathBeam, false },
                 { AbilityKey.Grapple, false },
                 { AbilityKey.Net, true },
                 { AbilityKey.ImplosionExplosionRain, false },
-                { AbilityKey.FretsOfFire, false },
+                { AbilityKey.AcidSpit, false },
                 { AbilityKey.CoinFlip, false },
-                { AbilityKey.Grab, false },
+                { AbilityKey.PVPMissileSwarm, false },
             });
 
             var statModifiersRule = new StatModifiersOverriddenRule(new Dictionary<AbilityKey, int>
@@ -1023,13 +1023,13 @@
             {
                 { AbilityKey.PoisonGasGrenade, false },
                 { AbilityKey.DiseasedBite, false },
-                { AbilityKey.FretsOfFire, false },
+                { AbilityKey.AcidSpit, false },
                 { AbilityKey.CoinFlip, false },
                 { AbilityKey.DeathBeam, false },
-                { AbilityKey.ScarePowder, false },
-                { AbilityKey.SpawnRandomLamp, false },
+                { AbilityKey.PVPFireball, false },
+                { AbilityKey.WaterExplosion, false },
                 { AbilityKey.ImplosionExplosionRain, false },
-                { AbilityKey.Grab, false },
+                { AbilityKey.PVPMissileSwarm, false },
             });
 
             var queenBuffs = new ElvenQueenBuffsRule(true);
