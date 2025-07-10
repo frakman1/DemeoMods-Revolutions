@@ -74,7 +74,7 @@
                 }
                 else if (level == 5)
                 {
-                    if (config.HasPieceType(PieceType.Boss))
+                    if (config.HasPieceType(PieceType.Boss) || config.PowerIndex > 20)
                     {
                         range = 5;
                     }
@@ -98,13 +98,13 @@
                 }
                 else if (level == 5)
                 {
-                    if (config.HasPieceType(PieceType.Boss))
+                    if (config.HasPieceType(PieceType.Boss) || config.PowerIndex > 20)
                     {
                         range = 5;
                     }
                     else
                     {
-                        range = Random.Range(2, 5);
+                        range = Random.Range(2, 4);
                     }
                 }
             }
