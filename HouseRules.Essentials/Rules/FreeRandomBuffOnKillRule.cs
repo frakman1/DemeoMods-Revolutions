@@ -17,10 +17,10 @@
 
         private readonly Dictionary<BoardPieceId, float> _adjustments;
         private static Dictionary<BoardPieceId, float> _globalAdjustments;
-        private static List<EffectStateType> _effectStates = new List<EffectStateType> { EffectStateType.FireImmunity, EffectStateType.Antidote, EffectStateType.PlayerBerserk, EffectStateType.Courageous, EffectStateType.Deflect, EffectStateType.IceImmunity, EffectStateType.ExtraAction, EffectStateType.Fearless, EffectStateType.Recovery, EffectStateType.Heroic, EffectStateType.IceImmunity, EffectStateType.Invisibility, EffectStateType.Invulnerable1, EffectStateType.Luck, EffectStateType.MagicShield, EffectStateType.Petrified, EffectStateType.Resilience, EffectStateType.SpellPower, EffectStateType.Stealthed, EffectStateType.Wet, EffectStateType.Blinded, EffectStateType.MarkOfVerga, EffectStateType.Overcharge, EffectStateType.Netted, EffectStateType.Tangled, EffectStateType.Weaken1Turn };
+        private static List<EffectStateType> _effectStates = new List<EffectStateType> { EffectStateType.FireImmunity, EffectStateType.Antidote, EffectStateType.PlayerBerserk, EffectStateType.Courageous, EffectStateType.Deflect, EffectStateType.IceImmunity, EffectStateType.ExtraAction, EffectStateType.Fearless, EffectStateType.Recovery, EffectStateType.Heroic, EffectStateType.IceImmunity, EffectStateType.Invisibility, EffectStateType.Invulnerable3, EffectStateType.Luck, EffectStateType.MagicShield, EffectStateType.Petrified, EffectStateType.Resilience, EffectStateType.SpellPower, EffectStateType.Stealthed, EffectStateType.Wet, EffectStateType.Blinded, EffectStateType.MarkOfVerga, EffectStateType.Overcharge, EffectStateType.Tangled, EffectStateType.Weaken1Turn };
         private static bool _isActivated;
         private static List<Piece> _playerPieces;
-        private static Piece tempPiece;
+        private static Piece? tempPiece;
 
         public FreeRandomBuffOnKillRule(Dictionary<BoardPieceId, float> adjustments)
         {
@@ -209,30 +209,53 @@
                 var effect = _effectStates[buff];
                 var buffed = attackerUnit.effectSink.GetEffectStateDurationTurnsLeft(effect);
 
-                if (effect == EffectStateType.Stealthed || effect == EffectStateType.Invisibility)
-                {
-                    attackerUnit.DisableEffectState(effect);
-                    attackerUnit.EnableEffectState(effect, buffed + 1);
-                }
-                else if (effect == EffectStateType.Luck || effect == EffectStateType.Petrified || effect == EffectStateType.Invulnerable1 || effect == EffectStateType.Netted || effect == EffectStateType.Tangled || effect == EffectStateType.Weaken1Turn || effect == EffectStateType.PlayerBerserk)
+                if (effect == EffectStateType.Luck || effect == EffectStateType.SpellPower)
                 {
                     if (buffed > 0)
                     {
                         return;
                     }
 
-                    attackerUnit.DisableEffectState(effect);
+                    attackerUnit.EnableEffectState(effect);
+                }
+                else if (effect == EffectStateType.Petrified || effect == EffectStateType.Tangled || effect == EffectStateType.Weaken1Turn || effect == EffectStateType.PlayerBerserk)
+                {
+                    if (buffed > 0)
+                    {
+                        return;
+                    }
+
+                    attackerUnit.EnableEffectState(effect, 1);
+                }
+                else if (effect == EffectStateType.Invulnerable3)
+                {
+                    if (buffed > 0)
+                    {
+                        attackerUnit.effectSink.SetStatusEffectDuration(effect, buffed + 1);
+                        return;
+                    }
+
                     attackerUnit.EnableEffectState(effect, 1);
                 }
                 else if (effect == EffectStateType.Resilience)
                 {
                     attackerUnit.effectSink.TryGetStat(Stats.Type.MagicArmor, out int currentArmor);
-                    attackerUnit.effectSink.TrySetStatBaseValue(Stats.Type.MagicArmor, currentArmor + 1);
+                    if (currentArmor < 10)
+                    {
+                        attackerUnit.effectSink.TrySetStatBaseValue(Stats.Type.MagicArmor, currentArmor + 1);
+                    }
                 }
                 else if (effect == EffectStateType.ExtraAction)
                 {
-                    attackerUnit.DisableEffectState(effect);
-                    attackerUnit.EnableEffectState(effect, buffed + 1);
+                    if (buffed > 0)
+                    {
+                        attackerUnit.effectSink.SetStatusEffectDuration(effect, buffed + 1);
+                    }
+                    else
+                    {
+                        attackerUnit.EnableEffectState(effect, 1);
+                    }
+
                     attackerUnit.effectSink.TryGetStat(Stats.Type.ActionPoints, out int currentAP);
                     attackerUnit.effectSink.TrySetStatBaseValue(Stats.Type.ActionPoints, currentAP + 1);
                 }
@@ -249,8 +272,13 @@
                         attackerUnit.DisableEffectState(EffectStateType.Courageous);
                     }
 
-                    attackerUnit.DisableEffectState(effect);
-                    attackerUnit.EnableEffectState(effect, buffed + 1);
+                    if (buffed > 0)
+                    {
+                        attackerUnit.effectSink.SetStatusEffectDuration(effect, buffed + 1);
+                        return;
+                    }
+
+                    attackerUnit.EnableEffectState(effect, 1);
                 }
                 else if (effect == EffectStateType.Heroic)
                 {
@@ -265,17 +293,35 @@
                         attackerUnit.DisableEffectState(EffectStateType.Courageous);
                     }
 
-                    attackerUnit.DisableEffectState(effect);
-                    attackerUnit.EnableEffectState(effect, buffed + 1);
+                    if (buffed > 0)
+                    {
+                        attackerUnit.effectSink.SetStatusEffectDuration(effect, buffed + 1);
+                        return;
+                    }
+
+                    attackerUnit.EnableEffectState(effect, 1);
                 }
-                else if (effect == EffectStateType.Courageous && (attackerUnit.HasEffectState(EffectStateType.Fearless) || attackerUnit.HasEffectState(EffectStateType.Heroic)))
+                else if (effect == EffectStateType.Courageous)
                 {
-                    return;
+                    if (attackerUnit.HasEffectState(EffectStateType.Fearless) || attackerUnit.HasEffectState(EffectStateType.Heroic))
+                    {
+                        return;
+                    }
+                    else if (buffed > 0)
+                    {
+                        attackerUnit.effectSink.SetStatusEffectDuration(effect, buffed + 1);
+                        return;
+                    }
+
+                    attackerUnit.EnableEffectState(effect, 1);
+                }
+                else if (buffed > 0)
+                {
+                    attackerUnit.effectSink.SetStatusEffectDuration(effect, buffed + 1);
                 }
                 else
                 {
-                    attackerUnit.DisableEffectState(effect);
-                    attackerUnit.EnableEffectState(effect, buffed + 2);
+                    attackerUnit.EnableEffectState(effect, 1);
                 }
             }
         }

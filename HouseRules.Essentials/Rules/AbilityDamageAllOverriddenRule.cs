@@ -34,8 +34,8 @@
             ReplaceAbilities(context, _originals);
         }
 
-        private static Dictionary<AbilityKey, List<int>> ReplaceAbilities(Context context,
-            Dictionary<AbilityKey, List<int>> replacements)
+        private static Dictionary<AbilityKey, List<int>> ReplaceAbilities(
+            Context context, Dictionary<AbilityKey, List<int>> replacements)
         {
             var originals = new Dictionary<AbilityKey, List<int>>();
 

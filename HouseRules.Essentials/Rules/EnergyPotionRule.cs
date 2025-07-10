@@ -12,7 +12,6 @@
     {
         public override string Description => "Using the Energy Potion can give players a new ability with limited uses";
 
-        private static Context _context;
         private static bool _isActivated;
         private static Dictionary<BoardPieceId, AbilityKey> _globalAdjustments;
         private readonly Dictionary<BoardPieceId, AbilityKey> _adjustments;

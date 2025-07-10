@@ -16,6 +16,7 @@
         private const float RoundsLeftMessageDurationSeconds = 5f;
 
         public override string Description => "Round count is limited";
+
         private static int _globalRoundLimit;
         private static int _globalRoundsPlayed;
         private static bool _isActivated;

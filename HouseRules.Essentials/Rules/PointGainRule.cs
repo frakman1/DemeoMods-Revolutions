@@ -537,7 +537,6 @@
 
             if (targets.Length != 0)
             {
-
                 var gameContext = Traverse.Create(typeof(GameHub)).Field<GameContext>("gameContext").Value;
                 for (int i = 0; i < targets.Length; i++)
                 {

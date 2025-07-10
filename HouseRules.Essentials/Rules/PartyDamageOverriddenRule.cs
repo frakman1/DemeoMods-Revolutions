@@ -135,7 +135,7 @@
                     else if (damage.HasTag(DamageTag.Ice) && !targetPiece.HasEffectState(EffectStateType.IceImmunity))
                     {
                         targetPiece.effectSink.SubtractHealth(0);
-                        if (!targetPiece.IsImmuneToStatusEffect(EffectStateType.Frozen) && !targetPiece.HasEffectState(EffectStateType.Invulnerable3) && !targetPiece.HasEffectState(EffectStateType.Invulnerable1))
+                        if (!targetPiece.IsImmuneToStatusEffect(EffectStateType.Frozen) && !targetPiece.HasEffectState(EffectStateType.Invulnerable3))
                         {
                             targetPiece.EnableEffectState(EffectStateType.IceImmunity, 1);
                         }
@@ -145,7 +145,7 @@
                     else if (damage.HasTag(DamageTag.Poison) && !targetPiece.HasEffectState(EffectStateType.Antidote))
                     {
                         targetPiece.effectSink.SubtractHealth(0);
-                        if (!targetPiece.IsImmuneToStatusEffect(EffectStateType.Diseased) && !targetPiece.HasEffectState(EffectStateType.Invulnerable3) && !targetPiece.HasEffectState(EffectStateType.Invulnerable1))
+                        if (!targetPiece.IsImmuneToStatusEffect(EffectStateType.Diseased) && !targetPiece.HasEffectState(EffectStateType.Invulnerable3))
                         {
                             targetPiece.EnableEffectState(EffectStateType.Antidote, 1);
                         }

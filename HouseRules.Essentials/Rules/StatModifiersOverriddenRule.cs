@@ -54,6 +54,7 @@
                         throw new InvalidOperationException(
                             $"AbilityKey [{replacement.Key}] does not have a corresponding StatModifier.");
                     }
+
                     originals[replacement.Key] = Traverse.Create(statModifier).Field<int>("additiveBonus").Value;
                     Traverse.Create(statModifier).Field<int>("additiveBonus").Value = replacement.Value;
                 });

@@ -814,8 +814,7 @@
             var abilityDamageAllRule = new AbilityDamageAllOverriddenRule(new Dictionary<AbilityKey, List<int>>
             {
                 { AbilityKey.GrapplingTotemHook, new List<int> { 2, 2, 2, 2 } },
-                { AbilityKey.AcidSpit, new List<int> { 4, 8, 4, 8 } },
-                { AbilityKey.PVPFireball, new List<int> { 5, 10, 5, 10 } },
+                { AbilityKey.PVPFireball, new List<int> { 10, 20, 5, 10 } },
                 { AbilityKey.WaterExplosion, new List<int> { 3, 3, 3, 3 } },
                 { AbilityKey.PVPMissileSwarm, new List<int> { 3, 3, 3, 3 } },
             });
@@ -905,6 +904,8 @@
             var targetEffectRule = new AbilityTargetEffectsRule(new Dictionary<AbilityKey, List<EffectStateType>>
             {
                 { AbilityKey.Javelin, new List<EffectStateType> { EffectStateType.Weaken1Turn } },
+                { AbilityKey.PanicPowderArrow, new List<EffectStateType> { EffectStateType.Panic, EffectStateType.Netted } },
+                { AbilityKey.AcidSpit, new List<EffectStateType> { EffectStateType.Diseased } },
             });
 
             var freeReplenishablesOnCritRule = new FreeReplenishablesOnCritRule(new List<BoardPieceId>
@@ -1041,7 +1042,7 @@
             var grappleUnhookedRule = new GrappleUnhookedRule(true);
             var goldPickupRule = new GoldPickedUpMultipliedRule(1);
             var reviveEffectsRule = new ReviveRemovesEffectsRule(true);
-            var courageShantyRule = new StrengthenCourageAddsHpRule(1);
+            var courageShantyRule = new CourageShantyAddsHpRule(1);
             var partyDamageRule = new PartyDamageOverriddenRule(true);
             var turnOrderRandomRule = new TurnOrderRandomizedRule(true);
 

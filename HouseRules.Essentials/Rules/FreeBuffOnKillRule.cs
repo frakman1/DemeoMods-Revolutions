@@ -18,7 +18,7 @@
         private static Dictionary<BoardPieceId, EffectStateType> _globalAdjustments;
         private static bool _isActivated;
         private static List<Piece> _playerPieces;
-        private static Piece tempPiece;
+        private static Piece? tempPiece;
 
         public FreeBuffOnKillRule(Dictionary<BoardPieceId, EffectStateType> adjustments)
         {
@@ -207,30 +207,53 @@
                 {
                     var effect = replacement.Value;
                     var buffed = attackerUnit.effectSink.GetEffectStateDurationTurnsLeft(effect);
-                    if (effect == EffectStateType.Stealthed || effect == EffectStateType.Invisibility)
-                    {
-                        attackerUnit.effectSink.RemoveStatusEffect(effect);
-                        attackerUnit.effectSink.AddStatusEffect(effect, buffed + 1);
-                    }
-                    else if (effect == EffectStateType.Luck || effect == EffectStateType.Petrified || effect == EffectStateType.Invulnerable1 || effect == EffectStateType.Tangled || effect == EffectStateType.Weaken1Turn || effect == EffectStateType.PlayerBerserk)
+                    if (effect == EffectStateType.Luck || effect == EffectStateType.SpellPower)
                     {
                         if (buffed > 0)
                         {
                             return;
                         }
 
-                        attackerUnit.effectSink.RemoveStatusEffect(effect);
-                        attackerUnit.effectSink.AddStatusEffect(effect, 1);
+                        attackerUnit.EnableEffectState(effect);
+                    }
+                    else if (effect == EffectStateType.Petrified || effect == EffectStateType.Tangled || effect == EffectStateType.Weaken1Turn || effect == EffectStateType.PlayerBerserk)
+                    {
+                        if (buffed > 0)
+                        {
+                            return;
+                        }
+
+                        attackerUnit.EnableEffectState(effect, 1);
+                    }
+                    else if (effect == EffectStateType.Invulnerable3)
+                    {
+                        if (buffed > 0)
+                        {
+                            attackerUnit.effectSink.SetStatusEffectDuration(effect, buffed + 1);
+                            return;
+                        }
+
+                        attackerUnit.EnableEffectState(effect, 1);
                     }
                     else if (effect == EffectStateType.Resilience)
                     {
                         attackerUnit.effectSink.TryGetStat(Stats.Type.MagicArmor, out int currentArmor);
-                        attackerUnit.effectSink.TrySetStatBaseValue(Stats.Type.MagicArmor, currentArmor + 1);
+                        if (currentArmor < 10)
+                        {
+                            attackerUnit.effectSink.TrySetStatBaseValue(Stats.Type.MagicArmor, currentArmor + 1);
+                        }
                     }
                     else if (effect == EffectStateType.ExtraAction)
                     {
-                        attackerUnit.effectSink.RemoveStatusEffect(effect);
-                        attackerUnit.effectSink.AddStatusEffect(effect, buffed + 1);
+                        if (buffed > 0)
+                        {
+                            attackerUnit.effectSink.SetStatusEffectDuration(effect, buffed + 1);
+                        }
+                        else
+                        {
+                            attackerUnit.EnableEffectState(effect, 1);
+                        }
+
                         attackerUnit.effectSink.TryGetStat(Stats.Type.ActionPoints, out int currentAP);
                         attackerUnit.effectSink.TrySetStatBaseValue(Stats.Type.ActionPoints, currentAP + 1);
                     }
@@ -247,8 +270,13 @@
                             attackerUnit.DisableEffectState(EffectStateType.Courageous);
                         }
 
-                        attackerUnit.DisableEffectState(effect);
-                        attackerUnit.EnableEffectState(effect, buffed + 1);
+                        if (buffed > 0)
+                        {
+                            attackerUnit.effectSink.SetStatusEffectDuration(effect, buffed + 1);
+                            return;
+                        }
+
+                        attackerUnit.EnableEffectState(effect, 1);
                     }
                     else if (effect == EffectStateType.Heroic)
                     {
@@ -263,17 +291,35 @@
                             attackerUnit.DisableEffectState(EffectStateType.Courageous);
                         }
 
-                        attackerUnit.DisableEffectState(effect);
-                        attackerUnit.EnableEffectState(effect, buffed + 1);
+                        if (buffed > 0)
+                        {
+                            attackerUnit.effectSink.SetStatusEffectDuration(effect, buffed + 1);
+                            return;
+                        }
+
+                        attackerUnit.EnableEffectState(effect, 1);
                     }
-                    else if (effect == EffectStateType.Courageous && (attackerUnit.HasEffectState(EffectStateType.Fearless) || attackerUnit.HasEffectState(EffectStateType.Heroic)))
+                    else if (effect == EffectStateType.Courageous)
                     {
-                        return;
+                        if (attackerUnit.HasEffectState(EffectStateType.Fearless) || attackerUnit.HasEffectState(EffectStateType.Heroic))
+                        {
+                            return;
+                        }
+                        else if (buffed > 0)
+                        {
+                            attackerUnit.effectSink.SetStatusEffectDuration(effect, buffed + 1);
+                            return;
+                        }
+
+                        attackerUnit.EnableEffectState(effect, 1);
+                    }
+                    else if (buffed > 0)
+                    {
+                        attackerUnit.effectSink.SetStatusEffectDuration(effect, buffed + 1);
                     }
                     else
                     {
-                        attackerUnit.effectSink.RemoveStatusEffect(effect);
-                        attackerUnit.effectSink.AddStatusEffect(effect, buffed + 2);
+                        attackerUnit.EnableEffectState(effect, 1);
                     }
                 }
             }

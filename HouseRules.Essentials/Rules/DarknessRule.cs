@@ -20,7 +20,7 @@
         private static Dictionary<BoardPieceId, EffectStateType> _globalAdjustments;
         private static bool _isActivated;
         private static List<Piece> _playerPieces;
-        private static Piece tempPiece;
+        private static Piece? tempPiece;
 
         public DarknessRule(Dictionary<BoardPieceId, EffectStateType> adjustments)
         {

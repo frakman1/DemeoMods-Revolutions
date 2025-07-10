@@ -18,7 +18,7 @@
         private static Dictionary<BoardPieceId, int> _globalAdjustments;
         private static bool _isActivated;
         private static List<Piece> _playerPieces;
-        private static Piece tempPiece;
+        private static Piece? tempPiece;
 
         public FreeMaxHealthOnKillRule(Dictionary<BoardPieceId, int> adjustments)
         {
