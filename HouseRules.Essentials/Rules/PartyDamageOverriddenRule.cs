@@ -16,6 +16,7 @@
         public override string Description => "Some player attacks that would hurt other players... won't";
 
         private static bool _isActivated;
+        private static Piece? _targetPiece;
 
         public PartyDamageOverriddenRule(bool value)
         {
@@ -34,6 +35,31 @@
                 prefix: new HarmonyMethod(
                     typeof(PartyDamageOverriddenRule),
                     nameof(Damage_DealDamage_Prefix)));
+
+            harmony.Patch(
+                original: AccessTools.Method(typeof(Piece), "EnableEffectState"),
+                postfix: new HarmonyMethod(
+                    typeof(PartyDamageOverriddenRule),
+                    nameof(Piece_EnableEffectState_Postfix)));
+        }
+
+        private static void Piece_EnableEffectState_Postfix()
+        {
+            if (!_isActivated)
+            {
+                return;
+            }
+
+            if (_targetPiece != null)
+            {
+                if (!_targetPiece.IsImmuneToStatusEffect(EffectStateType.Stunned))
+                {
+                    _targetPiece.DisableEffectState(EffectStateType.Stunned);
+                    _targetPiece.effectSink.SubtractHealth(0);
+                }
+            }
+
+            _targetPiece = null;
         }
 
         private static bool Damage_DealDamage_Prefix(Target target, Damage damage, Target attacker)
@@ -65,10 +91,9 @@
                 {
                     if (attackerPiece.IsPlayer() && (targetPiece.IsPlayer() || targetPiece.IsBot() || targetPiece.IsWarlockMinion()) && damage.HasTag(DamageTag.Electricity))
                     {
-                        targetPiece.effectSink.SubtractHealth(0);
-                        if (damage.AbilityKey == AbilityKey.Zap && !targetPiece.HasEffectState(EffectStateType.Invulnerable3) && !targetPiece.IsImmuneToStatusEffect(EffectStateType.Stunned) && !targetPiece.HasEffectState(EffectStateType.Stunned) && !targetPiece.HasEffectState(EffectStateType.Frozen))
+                        if (damage.AbilityKey == AbilityKey.Zap)
                         {
-                            targetPiece.EnableEffectState(EffectStateType.Invulnerable1, 1);
+                            _targetPiece = targetPiece;
                         }
 
                         return false;
@@ -119,12 +144,7 @@
                     }
                     else if (damage.HasTag(DamageTag.Electricity))
                     {
-                        targetPiece.effectSink.SubtractHealth(0);
-                        if (damage.AbilityKey == AbilityKey.Zap && !targetPiece.HasEffectState(EffectStateType.Invulnerable3) && !targetPiece.IsImmuneToStatusEffect(EffectStateType.Stunned) && !targetPiece.HasEffectState(EffectStateType.Stunned) && !targetPiece.HasEffectState(EffectStateType.Frozen))
-                        {
-                            targetPiece.EnableEffectState(EffectStateType.Invulnerable1, 1);
-                        }
-
+                        _targetPiece = targetPiece;
                         return false;
                     }
                     else if (damage.HasTag(DamageTag.Fire))
@@ -145,9 +165,9 @@
                     else if (damage.HasTag(DamageTag.Poison) && !targetPiece.HasEffectState(EffectStateType.Antidote))
                     {
                         targetPiece.effectSink.SubtractHealth(0);
-                        if (!targetPiece.IsImmuneToStatusEffect(EffectStateType.Diseased) && !targetPiece.HasEffectState(EffectStateType.Invulnerable3))
+                        if (!targetPiece.IsImmuneToStatusEffect(EffectStateType.Diseased) && !targetPiece.HasEffectState(EffectStateType.Antidote))
                         {
-                            targetPiece.EnableEffectState(EffectStateType.Antidote, 1);
+                            targetPiece.EnableEffectState(EffectStateType.Antidote, 2);
                         }
 
                         return false;
