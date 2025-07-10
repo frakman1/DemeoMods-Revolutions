@@ -144,7 +144,11 @@
                     }
                     else if (damage.HasTag(DamageTag.Electricity))
                     {
-                        _targetPiece = targetPiece;
+                        if (damage.AbilityKey == AbilityKey.Zap)
+                        {
+                            _targetPiece = targetPiece;
+                        }
+
                         return false;
                     }
                     else if (damage.HasTag(DamageTag.Fire))
