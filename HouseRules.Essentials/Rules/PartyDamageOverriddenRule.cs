@@ -89,7 +89,7 @@
             {
                 if (attackerPiece != null)
                 {
-                    if (attackerPiece.IsPlayer() && (targetPiece.IsPlayer() || targetPiece.IsBot() || targetPiece.IsWarlockMinion()) && damage.HasTag(DamageTag.Electricity))
+                    if (attackerPiece.IsPlayer() && (targetPiece.IsPlayer() || targetPiece.IsBot() || targetPiece.IsWarlockMinion() || targetPiece.HasEffectState(EffectStateType.ConfusedPermanentVisualOnly)) && damage.HasTag(DamageTag.Electricity))
                     {
                         if (damage.AbilityKey == AbilityKey.Zap)
                         {
@@ -136,7 +136,7 @@
             // Players can't hurt or give negative effects to other players/pets intentionally in Revolutions and SURVIVE games
             if (attackerPiece != null)
             {
-                if (attackerPiece.IsPlayer() && (targetPiece.IsPlayer() || targetPiece.IsBot() || targetPiece.IsWarlockMinion()))
+                if (attackerPiece.IsPlayer() && (targetPiece.IsPlayer() || targetPiece.IsBot() || targetPiece.IsWarlockMinion() || targetPiece.HasEffectState(EffectStateType.ConfusedPermanentVisualOnly)))
                 {
                     if (damage.AbilityKey == AbilityKey.GodsFury || damage.AbilityKey == AbilityKey.Whirlwind || damage.AbilityKey == AbilityKey.PiercingSpear || damage.AbilityKey == AbilityKey.PlayerLeap || damage.AbilityKey == AbilityKey.Exterminate || damage.AbilityKey == AbilityKey.Implosion || damage.AbilityKey == AbilityKey.ScrollTsunami || damage.AbilityKey == AbilityKey.DeathBeam)
                     {
