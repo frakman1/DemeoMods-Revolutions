@@ -17,13 +17,13 @@
 
         private static bool _isActivated;
         private readonly bool _adjustments;
-        private static bool _ElectricOnly;
+        private static bool _electricOnly;
         private static Piece? _targetPiece;
 
         public PartyDamageOverriddenRule(bool adjustments)
         {
             _adjustments = adjustments;
-            _ElectricOnly = _adjustments;
+            _electricOnly = _adjustments;
         }
 
         public bool GetConfigObject() => _adjustments;
@@ -90,7 +90,7 @@
             }
 
             // value is true so only prevent player caused electrical effects versus other players and pets
-            if (_ElectricOnly)
+            if (_electricOnly)
             {
                 if (attackerPiece != null)
                 {
