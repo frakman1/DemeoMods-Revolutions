@@ -1045,7 +1045,7 @@
             var goldPickupRule = new GoldPickedUpMultipliedRule(1);
             var reviveEffectsRule = new ReviveRemovesEffectsRule(true);
             var courageShantyRule = new CourageShantyAddsHpRule(1);
-            var partyDamageRule = new PartyDamageOverriddenRule(true);
+            var partyDamageRule = new PartyDamageOverriddenRule(false);
             var turnOrderRandomRule = new TurnOrderRandomizedRule(true);
 
             var smallLevelSequenceRule = new SmallLevelSequenceOverriddenRule(new List<string>

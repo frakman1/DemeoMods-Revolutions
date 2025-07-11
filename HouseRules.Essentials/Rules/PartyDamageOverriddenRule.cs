@@ -16,13 +16,17 @@
         public override string Description => "Some player attacks that would hurt other players... won't";
 
         private static bool _isActivated;
+        private readonly bool _adjustments;
+        private static bool _ElectricOnly;
         private static Piece? _targetPiece;
 
-        public PartyDamageOverriddenRule(bool value)
+        public PartyDamageOverriddenRule(bool adjustments)
         {
+            _adjustments = adjustments;
+            _ElectricOnly = _adjustments;
         }
 
-        public bool GetConfigObject() => true;
+        public bool GetConfigObject() => _adjustments;
 
         protected override void OnActivate(Context context) => _isActivated = true;
 
@@ -85,7 +89,8 @@
                 }
             }
 
-            if (!revolutions && !HR.SelectedRuleset.Name.Contains("SURVIVE"))
+            // value is true so only prevent player caused electrical effects versus other players and pets
+            if (_ElectricOnly)
             {
                 if (attackerPiece != null)
                 {
@@ -104,7 +109,8 @@
 
                 return true;
             }
-            else if (revolutions)
+
+            if (revolutions)
             {
                 if (targetPiece.IsWarlockMinion() && (attackerPiece == null || !attackerPiece.HasPieceType(PieceType.Boss)) && damage.HasTag(DamageTag.Undefined))
                 {
@@ -133,7 +139,7 @@
                 }
             }
 
-            // Players can't hurt or give negative effects to other players/pets intentionally in Revolutions and SURVIVE games
+            // value is false so players can't hurt or give negative effects to other players/pets intentionally
             if (attackerPiece != null)
             {
                 if (attackerPiece.IsPlayer() && (targetPiece.IsPlayer() || targetPiece.IsBot() || targetPiece.IsWarlockMinion() || targetPiece.HasEffectState(EffectStateType.ConfusedPermanentVisualOnly)))
