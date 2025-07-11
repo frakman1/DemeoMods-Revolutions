@@ -101,15 +101,7 @@
                 fontSize = 5;
                 if (setName.Contains("Demeo Revolutions"))
                 {
-                    if (setName.Contains("(LEGENDARY PROGRESSIVE"))
-                    {
-                        fontSize = 4;
-                    }
-                    else if (setName.Contains("(SMALL"))
-                    {
-                        fontSize = 4;
-                    }
-                    else if (setName.Equals("Demeo Revolutions"))
+                    if (!setName.Contains("(") && !setName.Contains(")"))
                     {
                         fontSize = 6;
                     }
