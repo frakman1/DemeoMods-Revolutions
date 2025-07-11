@@ -899,6 +899,7 @@
                 { BoardPieceId.GiantSpider, new List<AbilityKey> { AbilityKey.EnemyKnockbackMelee, AbilityKey.SpiderWebshot } },
                 { BoardPieceId.GiantSlime, new List<AbilityKey> { AbilityKey.EnemyMelee, AbilityKey.AcidSpit } },
                 { BoardPieceId.ScabRat, new List<AbilityKey> { AbilityKey.EnemyMelee, AbilityKey.DiseasedBite } },
+                { BoardPieceId.RootGolem, new List<AbilityKey> { AbilityKey.EnemyMelee, AbilityKey.EnemyKnockbackMelee, AbilityKey.MarkTargetTile } },
             });
 
             var pieceBehaviourListRule = new PieceBehavioursListOverriddenRule(new Dictionary<BoardPieceId, List<Behaviour>>
@@ -919,6 +920,7 @@
                 { BoardPieceId.GiantSpider, new List<Behaviour> { Behaviour.Patrol, Behaviour.AttackPlayer, Behaviour.RangedAttackHighPrio } },
                 { BoardPieceId.GiantSlime, new List<Behaviour> { Behaviour.Patrol, Behaviour.AttackPlayer, Behaviour.RangedAttackHighPrio } },
                 { BoardPieceId.ScabRat, new List<Behaviour> { Behaviour.Patrol, Behaviour.Swarm, Behaviour.AttackPlayer } },
+                { BoardPieceId.RootGolem, new List<Behaviour> { Behaviour.Patrol, Behaviour.AttackPlayer, Behaviour.AttackRandomTile } },
             });
 
             var pieceImmunityRule = new PieceImmunityListAdjustedRule(new Dictionary<BoardPieceId, List<EffectStateType>>

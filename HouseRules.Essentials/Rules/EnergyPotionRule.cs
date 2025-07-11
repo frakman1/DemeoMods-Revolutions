@@ -108,7 +108,6 @@
                     {
                         Traverse.Create(__instance).Field<int>("durationTurnsLeft").Value = howMany + 1;
                         piece.effectSink.SetStatusEffectDuration(EffectStateType.ExtraEnergy, howMany);
-                        piece.effectSink.AddStatusEffect(EffectStateType.It, 1);
                     }
                 }
             }
