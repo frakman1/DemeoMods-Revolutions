@@ -12,7 +12,7 @@
         internal static Ruleset Create()
         {
             const string name = "Darkest Dankest Demeo";
-            const string displayname = "<b><color=#222222>Darkest Dankest Demeo</color></b>";
+            const string displayname = "<b><color=#000000>Darkest <color=#002200>Dankest <color=#000022>Demeo</color></b>";
             const string description = "Can you defeat the darkness in this filthy dungeon?";
             const string longdesc = "\n<color=#770077>* * </color><color=#FF0000>A DARK GLOOMY MUSTINESS ENGULFS THE DUNGEON!</color> <color=#770077>* *</color>\n<u><b>RECOMMENDED:</u></b> Don't play multiple of the same class\n\n<color=#003300>Gain TorchLight buffs by defeating enemies\nLye will destroy all enemies except Keyholders and Bosses\nCritical hits will heal you for one (if hurt)</color>\n\n<color=#FFFFFF><b><u>Other ways to gain TorchLight:</u></b></color>\n<color=#090900>Assassin - Ballista kills\nBarbarian - Leviathan kills\nBard - Tornado kills\nGuardian - Behemoth kills\nHunter - Verochka kills\nSorcerer - Summoned Elemental kills\nWarlock - Cana kills\nWhoever hires him - Arly Owl kills</color>";
 
