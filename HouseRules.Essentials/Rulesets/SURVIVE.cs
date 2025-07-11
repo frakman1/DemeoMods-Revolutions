@@ -63,14 +63,14 @@
 
             var pieceImmunityRule = new PieceImmunityListAdjustedRule(new Dictionary<BoardPieceId, List<EffectStateType>>
             {
-                { BoardPieceId.SilentSentinel, new List<EffectStateType> { EffectStateType.Stunned, EffectStateType.Frozen, EffectStateType.Tangled, EffectStateType.Blinded, EffectStateType.MarkOfAvalon, EffectStateType.Confused, EffectStateType.Panic, EffectStateType.Disoriented, EffectStateType.AbilityBlocked, EffectStateType.Netted, EffectStateType.PVPConfused } },
-                { BoardPieceId.Wyvern, new List<EffectStateType> { EffectStateType.Stunned, EffectStateType.Frozen, EffectStateType.Tangled, EffectStateType.Blinded, EffectStateType.MarkOfAvalon, EffectStateType.Confused, EffectStateType.Disoriented, EffectStateType.AbilityBlocked, EffectStateType.Netted, EffectStateType.PVPConfused } },
-                { BoardPieceId.ElvenQueen, new List<EffectStateType> { EffectStateType.Stunned, EffectStateType.Frozen, EffectStateType.Tangled, EffectStateType.Panic, EffectStateType.Blinded, EffectStateType.Confused, EffectStateType.Disoriented, EffectStateType.AbilityBlocked, EffectStateType.Netted, EffectStateType.MarkOfAvalon, EffectStateType.PVPConfused } },
-                { BoardPieceId.RatKing, new List<EffectStateType> { EffectStateType.Stunned, EffectStateType.Frozen, EffectStateType.Panic, EffectStateType.Blinded, EffectStateType.Confused, EffectStateType.Diseased, EffectStateType.Disoriented, EffectStateType.AbilityBlocked, EffectStateType.Netted, EffectStateType.MarkOfAvalon, EffectStateType.PVPConfused } },
-                { BoardPieceId.RootLord, new List<EffectStateType> { EffectStateType.Stunned, EffectStateType.Frozen, EffectStateType.Tangled, EffectStateType.Panic, EffectStateType.Blinded, EffectStateType.MarkOfAvalon, EffectStateType.Confused, EffectStateType.Disoriented, EffectStateType.AbilityBlocked, EffectStateType.Netted, EffectStateType.PVPConfused } },
-                { BoardPieceId.MotherCy, new List<EffectStateType> { EffectStateType.Stunned, EffectStateType.Frozen, EffectStateType.Tangled, EffectStateType.Panic, EffectStateType.Blinded, EffectStateType.MarkOfAvalon, EffectStateType.Confused, EffectStateType.Disoriented, EffectStateType.AbilityBlocked, EffectStateType.Netted, EffectStateType.PVPConfused } },
-                { BoardPieceId.WizardBoss, new List<EffectStateType> { EffectStateType.Stunned, EffectStateType.Frozen, EffectStateType.Tangled, EffectStateType.Panic, EffectStateType.Blinded, EffectStateType.MarkOfAvalon, EffectStateType.Diseased, EffectStateType.CorruptedRage, EffectStateType.Corruption, EffectStateType.Confused, EffectStateType.Disoriented, EffectStateType.AbilityBlocked, EffectStateType.Netted, EffectStateType.PVPConfused } },
-                { BoardPieceId.BossTown, new List<EffectStateType> { EffectStateType.Stunned, EffectStateType.Frozen, EffectStateType.Tangled, EffectStateType.Panic, EffectStateType.Blinded, EffectStateType.MarkOfAvalon, EffectStateType.Confused, EffectStateType.Weaken1Turn, EffectStateType.ConfusedPermanentVisualOnly, EffectStateType.Petrified, EffectStateType.Disoriented, EffectStateType.AbilityBlocked, EffectStateType.Netted, EffectStateType.PVPConfused } },
+                { BoardPieceId.CavetrollBoss, new List<EffectStateType> { EffectStateType.Stunned, EffectStateType.Frozen, EffectStateType.Tangled, EffectStateType.Blinded, EffectStateType.MarkOfAvalon, EffectStateType.Confused, EffectStateType.Panic, EffectStateType.Disoriented, EffectStateType.AbilityBlocked, EffectStateType.Netted } },
+                { BoardPieceId.Wyvern, new List<EffectStateType> { EffectStateType.Stunned, EffectStateType.Frozen, EffectStateType.Tangled, EffectStateType.Blinded, EffectStateType.MarkOfAvalon, EffectStateType.Confused, EffectStateType.Disoriented, EffectStateType.AbilityBlocked, EffectStateType.Netted } },
+                { BoardPieceId.ElvenQueen, new List<EffectStateType> { EffectStateType.Stunned, EffectStateType.Frozen, EffectStateType.Tangled, EffectStateType.Panic, EffectStateType.Blinded, EffectStateType.Confused, EffectStateType.Disoriented, EffectStateType.AbilityBlocked, EffectStateType.Netted, EffectStateType.MarkOfAvalon } },
+                { BoardPieceId.RatKing, new List<EffectStateType> { EffectStateType.Stunned, EffectStateType.Frozen, EffectStateType.Panic, EffectStateType.Blinded, EffectStateType.Confused, EffectStateType.Diseased, EffectStateType.Disoriented, EffectStateType.AbilityBlocked, EffectStateType.Netted, EffectStateType.MarkOfAvalon } },
+                { BoardPieceId.RootLord, new List<EffectStateType> { EffectStateType.Stunned, EffectStateType.Frozen, EffectStateType.Tangled, EffectStateType.Panic, EffectStateType.Blinded, EffectStateType.MarkOfAvalon, EffectStateType.Confused, EffectStateType.Disoriented, EffectStateType.AbilityBlocked, EffectStateType.Netted } },
+                { BoardPieceId.MotherCy, new List<EffectStateType> { EffectStateType.Stunned, EffectStateType.Frozen, EffectStateType.Tangled, EffectStateType.Panic, EffectStateType.Blinded, EffectStateType.MarkOfAvalon, EffectStateType.Confused, EffectStateType.Disoriented, EffectStateType.AbilityBlocked, EffectStateType.Netted } },
+                { BoardPieceId.WizardBoss, new List<EffectStateType> { EffectStateType.Stunned, EffectStateType.Frozen, EffectStateType.Tangled, EffectStateType.Panic, EffectStateType.Blinded, EffectStateType.MarkOfAvalon, EffectStateType.Diseased, EffectStateType.CorruptedRage, EffectStateType.Corruption, EffectStateType.Confused, EffectStateType.Disoriented, EffectStateType.AbilityBlocked, EffectStateType.Netted } },
+                { BoardPieceId.BossTown, new List<EffectStateType> { EffectStateType.Stunned, EffectStateType.Frozen, EffectStateType.Tangled, EffectStateType.Panic, EffectStateType.Blinded, EffectStateType.MarkOfAvalon, EffectStateType.Confused, EffectStateType.Weaken1Turn, EffectStateType.ConfusedPermanentVisualOnly, EffectStateType.Petrified, EffectStateType.Disoriented, EffectStateType.AbilityBlocked, EffectStateType.Netted } },
             });
 
             var myEntranceDeckFloor1 = new Dictionary<BoardPieceId, int>
@@ -792,6 +792,7 @@
                 { AbilityKey.PVPMissileSwarm, new List<int> { 3, 3, 3, 3 } },
                 { AbilityKey.LeapHeavy, new List<int> { 3, 3, 3, 3 } },
                 { AbilityKey.Leap, new List<int> { 1, 1, 1, 1 } },
+                { AbilityKey.DeathFlurry, new List<int> { 8, 8, 8, 8 } },
             });
 
             var pieceUseWhenKilledRule = new PieceUseWhenKilledOverriddenRule(new Dictionary<BoardPieceId, List<AbilityKey>>
@@ -927,7 +928,7 @@
                 { BoardPieceId.HeroSorcerer, AbilityKey.DeathBeam },
                 { BoardPieceId.HeroBard, AbilityKey.WaterExplosion },
                 { BoardPieceId.HeroBarbarian, AbilityKey.PVPFireball },
-                { BoardPieceId.HeroWarlock, AbilityKey.PVPConfuse},
+                { BoardPieceId.HeroWarlock, AbilityKey.DeathFlurry },
                 { BoardPieceId.HeroGuardian, AbilityKey.ImplosionExplosionRain },
                 { BoardPieceId.HeroRogue, AbilityKey.PVPMissileSwarm },
             });
@@ -947,7 +948,7 @@
                 { AbilityKey.Grapple, false },
                 { AbilityKey.Net, true },
                 { AbilityKey.ImplosionExplosionRain, false },
-                { AbilityKey.PVPConfuse, false },
+                { AbilityKey.DeathFlurry, false },
                 { AbilityKey.CoinFlip, false },
                 { AbilityKey.PVPMissileSwarm, false },
             });
@@ -997,7 +998,7 @@
             {
                 { AbilityKey.PoisonGasGrenade, false },
                 { AbilityKey.DiseasedBite, false },
-                { AbilityKey.PVPConfuse, false },
+                { AbilityKey.DeathFlurry, false },
                 { AbilityKey.CoinFlip, false },
                 { AbilityKey.DeathBeam, false },
                 { AbilityKey.PVPFireball, false },
