@@ -136,7 +136,7 @@
                 }
             }
 
-            // value is false so players can't hurt or give negative effects to other players/pets intentionally
+            // value is false so players can't hurt or give any negative effects to other players/pets intentionally
             if (attackerPiece != null)
             {
                 if (attackerPiece.IsPlayer() && (targetPiece.IsPlayer() || targetPiece.IsBot() || targetPiece.IsWarlockMinion() || targetPiece.HasEffectState(EffectStateType.ConfusedPermanentVisualOnly)))
