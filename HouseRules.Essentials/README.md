@@ -299,15 +299,15 @@ The [Settings Reference](../docs/SettingsReference.md) contains lists of all dif
     },
   ```
 
-#### __StrengthenCourageAddsHP__: In addition to normal effects, Courage Shanty also adds HP
+#### __CourageShantyAddsHp__: In addition to normal effects, Courage Shanty also adds HP
   - To configure:
-    - Specify a decimal number for how many HP to add to the target each time StrengthenCourage is used.
+    - Specify a decimal number for how many HP to add to the target each time CourageShanty is used.
 
-  ###### _Example JSON config for StrengthenCourageAddsHP_
+  ###### _Example JSON config for CourageShantyAddsHp_
 
   ```json
   {
-    "Rule": "StrengthenCourageAddsHP",
+    "Rule": "CourageShantyAddsHp",
     "Config": 2
   },
   ```
@@ -364,10 +364,12 @@ The [Settings Reference](../docs/SettingsReference.md) contains lists of all dif
   },
   ```
 
-  #### __EnergyPotion__: Using an Energy Potion gives 3 uses of new abilities to each hero class.
+#### __EnergyPotion__: Using the Energy Potion gives every hero a new replenishable ability that can have a limited number of total uses.
+  - A user-configured replenishable card is added to every hero's inventory.
   - Allows configuration of different abilities on a per-hero basis.
   - To configure:
-    - Specify a Dictionary of [BoardPieceIds](../docs/SettingsReference.md#boardpieceids) and an ability.
+    - Specify a Dictionary of [BoardPieceIds](../docs/SettingsReference.md#boardpieceids) and abilities.
+    - NOTE: The number of uses of this new ability is based on the StatusEffectsConfig you set for the DurationTurns of EnergyPotion. If you don't set it, then it's a permanent new ability.
 
   ###### _Example JSON config for EnergyPotion_
 
@@ -406,6 +408,79 @@ The [Settings Reference](../docs/SettingsReference.md) contains lists of all dif
     }
   },
 ```  
+
+#### __FreeBuffOnKill__: Defeating an enemy rewards you with a free buff.
+  - Whenever you defeat a creature, a user-configured effect is added to you.
+  - Allows configuration of different effects on a per-hero basis.
+  - To configure:
+    - Specify a Dictionary of [BoardPieceIds](../docs/SettingsReference.md#boardpieceids) and an effect.
+
+  ###### _Example JSON config for FreeBuffOnKill_
+
+  ```json
+  FreeBuffOnKill rule usage example:
+  {
+    "Rule": "FreeBuffOnKill",
+    "Config":
+    {
+      "HeroGuardian": "Antidote",
+      "HeroHunter": "FireImmunity",
+      "HeroBard": "IceImmunity",
+      "HeroBarbarian": "Stealthed",
+      "HeroRogue": "PlayerBerserk",
+      "HeroWarlock": "Spellpower",
+      "HeroSorcerer": "Antidote"
+    }
+  }
+``` 
+
+#### __FreeMaxHealthOnKill__: Adds health and Max Health to specified heroes when defeating creatures.
+  - Whenever specified hereos defeat an enemy they increase in both health and maximum health.
+    - Specify a Dictionary of [BoardPieceIds](../docs/SettingsReference.md#boardpieceids)
+    - Specify an integer representing the amount of health to increase per defeated enemy.
+
+  ###### _Example JSON config for FreeMaxHealthOnKill_
+
+  ```json
+   {
+    "Rule": "FreeMaxHealthOnKill",
+    "Config":
+    {
+      "HeroRogue": 1,
+      "HeroWarlock": 1,
+      "HeroBard": 1,
+      "HeroBarbarian": 1,
+      "HeroGuardian": 1,
+      "HeroSorcerer": 1,
+      "HeroHunter": 1
+    }
+  }
+  ```
+
+  #### __FreeRandomBuffOnKill__: Defeating an enemy rewards you with a free random buff.
+  - Whenever you defeat a creature, a random effect is added to you.
+  - Allows configuration of different chance of getting a buff on a per-hero basis.
+  - To configure:
+    - Specify a Dictionary of [BoardPieceIds](../docs/SettingsReference.md#boardpieceids)
+    - Specify a float representing the percentage chance of getting buffed. (0.1 = 10% and 1.0 = 100%)
+
+  ###### _Example JSON config for FreeRandomBuffOnKill_
+
+  ```json
+  {
+    "Rule": "FreeRandomBuffOnKill",
+    "Config":
+    {
+      "HeroBarbarian": 0.5,
+      "HeroBard": 0.9,
+      "HeroGuardian": 0.8,
+      "HeroRogue": 0.7,
+      "HeroSorcerer": 0.5,
+      "HeroHunter": 0.5,
+      "HeroWarlock": 0.6
+    }
+  }
+  ```
 
 #### __GoldPickedUpMultiplied__: 💰Gold💰 picked up is multiplied
   - To configure:
@@ -575,6 +650,19 @@ The [Settings Reference](../docs/SettingsReference.md) contains lists of all dif
   },
   ```
 
+  #### __PartyDamageOverridden__: Protects party members and their summons from party damage.
+  - To configure:
+    - Specify `true` to protect against party electrical damage only.
+    - Specify `false` to protect against ALL party damage.
+
+  ###### _Example JSON config for PartyDamageOverridden_
+
+  ```json
+  {
+    "Rule": "PartyDamageOverridden",
+    "Config": false
+  },
+ ```
 
 #### __PetsFocusHunterMark__: Pets focus on hunter marked enemies
   - To configure:
