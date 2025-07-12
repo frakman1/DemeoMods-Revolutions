@@ -646,7 +646,6 @@
                         AbilityKey.ExtraActionPotion,
                         AbilityKey.Strength,
                         AbilityKey.Speed,
-                        AbilityKey.VigorPotion,
                     }
                 },
                 {
@@ -660,7 +659,6 @@
                         AbilityKey.ExtraActionPotion,
                         AbilityKey.Strength,
                         AbilityKey.Speed,
-                        AbilityKey.VigorPotion,
                     }
                 },
                 {
@@ -674,7 +672,6 @@
                         AbilityKey.ExtraActionPotion,
                         AbilityKey.Strength,
                         AbilityKey.Speed,
-                        AbilityKey.VigorPotion,
                     }
                 },
                 {
@@ -688,7 +685,6 @@
                         AbilityKey.ExtraActionPotion,
                         AbilityKey.Strength,
                         AbilityKey.Speed,
-                        AbilityKey.VigorPotion,
                     }
                 },
                 {
@@ -702,7 +698,6 @@
                         AbilityKey.ExtraActionPotion,
                         AbilityKey.Strength,
                         AbilityKey.Speed,
-                        AbilityKey.VigorPotion,
                     }
                 },
                 {
@@ -716,7 +711,6 @@
                         AbilityKey.ExtraActionPotion,
                         AbilityKey.MagicPotion,
                         AbilityKey.Speed,
-                        AbilityKey.VigorPotion,
                     }
                 },
                 {
@@ -730,7 +724,6 @@
                         AbilityKey.ExtraActionPotion,
                         AbilityKey.MagicPotion,
                         AbilityKey.Speed,
-                        AbilityKey.VigorPotion,
                     }
                 },
             });

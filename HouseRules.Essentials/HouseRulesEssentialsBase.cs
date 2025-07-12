@@ -160,6 +160,7 @@
             HR.Rulebook.Register(Heroes_of_the_Voice_Machine.Create());
             // HR.Rulebook.Register(Heroes_of_the_Voice_Machine_Easy.Create()); // 3/2/24 not ready yet
             // HR.Rulebook.Register(Heroes_of_the_Voice_Machine_Insane.Create()); // 3/2/24 not ready yet
+            HR.Rulebook.Register(QoL_OnlyRuleset.Create());
             HR.Rulebook.Register(HardcoreRuleset.Create());
             HR.Rulebook.Register(Arachnophobia.Create());
             HR.Rulebook.Register(Blobophobia.Create());
