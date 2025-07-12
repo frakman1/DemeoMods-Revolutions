@@ -9,7 +9,7 @@ HouseRules API.
 
 ## Rulesets
 
-### Built-in Rulesets
+### SOME of the Built-in Rulesets
 
 - __Earth Wind & Fire__ : Not the band. Let's get Elemental.
 - __🕷️Arachnophobia🕷️__ : Offers a fresh adventure to be played on the RootsOfEvil Map.
