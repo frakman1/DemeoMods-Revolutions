@@ -1,6 +1,6 @@
 ![image](https://github.com/TheGrayAlien/DemeoMods/assets/103865052/06ee6335-dccc-43a8-8b3d-3e017aa500a9)
 
-Want to make your own rulesets using my rules? Details here: [HouseRules Revolutiosn Essentials README](https://github.com/TheGrayAlien/DemeoMods/blob/DemeoRevolutions/HouseRules.Essentials/README.md)
+Want to make your own rulesets using my rules? Details here: [HouseRules Revolutions Essentials README](https://github.com/TheGrayAlien/DemeoMods/blob/DemeoRevolutions/HouseRules.Essentials/README.md)
 
 New Rulesets:
 =============
