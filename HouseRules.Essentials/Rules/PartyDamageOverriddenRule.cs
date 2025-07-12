@@ -23,14 +23,20 @@
         public PartyDamageOverriddenRule(bool adjustments)
         {
             _adjustments = adjustments;
-            _electricOnly = _adjustments;
         }
 
         public bool GetConfigObject() => _adjustments;
 
-        protected override void OnActivate(Context context) => _isActivated = true;
+        protected override void OnActivate(Context context)
+        {
+            _isActivated = true;
+            _electricOnly = _adjustments;
+        }
 
-        protected override void OnDeactivate(Context context) => _isActivated = false;
+        protected override void OnDeactivate(Context context)
+        {
+            _isActivated = false;
+        }
 
         private static void Patch(Harmony harmony)
         {
