@@ -1,4 +1,4 @@
-# HouseRules Essentials
+# HouseRules Revolutions Essentials
 
 A collection of predefined rules and rulesets for HouseRules.Core
 
