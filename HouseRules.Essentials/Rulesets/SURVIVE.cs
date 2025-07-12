@@ -1021,15 +1021,16 @@
             {
                 { "FloorOnePotionStand", 1 },
                 { "FloorOneMerchant", 0 },
-                { "FloorOneLootChests", 6 },
+                { "FloorOneLootChests", 5 },
                 { "FloorOneSellswords", 1 },
-                { "FloorTwoPotionStand", 1 },
+                { "FloorTwoPotionStand", 2 },
                 { "FloorTwoVillagers", 1 },
-                { "FloorTwoLootChests", 8 },
+                { "FloorTwoLootChests", 6 },
                 { "FloorTwoSellswords", 1 },
                 { "FloorThreeBeggars", 1 },
                 { "FloorThreeHealingFountains", 1 },
-                { "FloorThreeLootChests", 4 },
+                { "FloorThreeLootChests", 2 },
+                { "FloorThreePotionStand", 1 },
             });
 
             return Ruleset.NewInstance(
