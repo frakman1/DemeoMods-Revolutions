@@ -418,7 +418,6 @@ The [Settings Reference](../docs/SettingsReference.md) contains lists of all dif
   ###### _Example JSON config for FreeBuffOnKill_
 
   ```json
-  FreeBuffOnKill rule usage example:
   {
     "Rule": "FreeBuffOnKill",
     "Config":
