@@ -80,18 +80,18 @@
                 if (MotherbrainGlobalVars.CurrentConfig == GameConfigType.Forest)
                 {
                     prob = 0.1f;
-                    list = [TileEffect.Water];
+                    list = new List<TileEffect> { TileEffect.Water };
                 }
                 else
                 {
                     prob = 0f;
-                    list = [];
+                    list = new List<TileEffect> { };
                 }
             }
             else
             {
                 prob = 0.2f;
-                list = [TileEffect.Acid];
+                list = new List<TileEffect> { TileEffect.Acid };
             }
         }
 
