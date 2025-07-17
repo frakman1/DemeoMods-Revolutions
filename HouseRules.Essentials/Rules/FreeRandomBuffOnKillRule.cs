@@ -92,7 +92,7 @@
                 return;
             }
 
-            if (!defeatedUnit.IsCreature())
+            if (attackerUnit == null || !defeatedUnit.IsCreature() || defeatedUnit.HasEffectState(EffectStateType.WizardDoppelganger))
             {
                 return;
             }
