@@ -210,7 +210,7 @@
                     return;
                 }
 
-                if (!attackerUnit.IsPlayer())
+                if (!attackerUnit.IsPlayer() && !isCana)
                 {
                     return;
                 }
