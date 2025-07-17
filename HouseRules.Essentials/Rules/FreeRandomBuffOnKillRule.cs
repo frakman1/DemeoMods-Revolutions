@@ -99,22 +99,35 @@
 
             if (!attackerUnit.IsPlayer())
             {
+                bool isCana = false;
                 Piece piece2;
                 PieceAI pieceAI = attackerUnit.pieceAI;
                 var gameContext = Traverse.Create(typeof(GameHub)).Field<GameContext>("gameContext").Value;
                 if (attackerUnit.boardPieceId == BoardPieceId.WarlockMinion && attackerUnit.GetHealth() > 0)
                 {
-                    if (pieceAI == null)
+                    foreach (var replacement in _globalAdjustments)
                     {
-                        return;
+                        if (replacement.Key == BoardPieceId.WarlockMinion)
+                        {
+                            isCana = true;
+                            break;
+                        }
                     }
-                    else if (pieceAI.memory.TryGetAssociatedPiece(gameContext.pieceAndTurnController, out piece2))
+
+                    if (!isCana)
                     {
-                        attackerUnit = piece2;
-                    }
-                    else
-                    {
-                        return;
+                        if (pieceAI == null)
+                        {
+                            return;
+                        }
+                        else if (pieceAI.memory.TryGetAssociatedPiece(gameContext.pieceAndTurnController, out piece2))
+                        {
+                            attackerUnit = piece2;
+                        }
+                        else
+                        {
+                            return;
+                        }
                     }
                 }
                 else if (attackerUnit.boardPieceId == BoardPieceId.SellswordArbalestierActive)
