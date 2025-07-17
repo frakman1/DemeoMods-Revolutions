@@ -330,6 +330,10 @@
                     {
                         attackerUnit.effectSink.SetStatusEffectDuration(effect, buffed + 1);
                     }
+                    else if (replacement.Key == BoardPieceId.WarlockMinion)
+                    {
+                        attackerUnit.EnableEffectState(effect, 2);
+                    }
                     else
                     {
                         attackerUnit.EnableEffectState(effect, 1);
