@@ -413,7 +413,7 @@ The [Settings Reference](../docs/SettingsReference.md) contains lists of all dif
   - Whenever you defeat a creature, a user-configured effect is added to you.
   - Allows configuration of different effects on a per-hero basis.
   - To configure:
-    - Specify a Dictionary of [BoardPieceIds](../docs/SettingsReference.md#boardpieceids) and an effect.
+    - Specify a Dictionary of [BoardPieceIds](../docs/SettingsReference.md#boardpieceids) (must be Heroes and/or Cana) and an effect.
 
   ###### _Example JSON config for FreeBuffOnKill_
 
@@ -422,6 +422,7 @@ The [Settings Reference](../docs/SettingsReference.md) contains lists of all dif
     "Rule": "FreeBuffOnKill",
     "Config":
     {
+      "WarlockMinion": "Frenzy",
       "HeroGuardian": "Antidote",
       "HeroHunter": "FireImmunity",
       "HeroBard": "IceImmunity",
@@ -460,7 +461,7 @@ The [Settings Reference](../docs/SettingsReference.md) contains lists of all dif
   - Whenever you defeat a creature, a random effect is added to you.
   - Allows configuration of different chance of getting a buff on a per-hero basis.
   - To configure:
-    - Specify a Dictionary of [BoardPieceIds](../docs/SettingsReference.md#boardpieceids)
+    - Specify a Dictionary of [BoardPieceIds](../docs/SettingsReference.md#boardpieceids) (must be Heroes and/or Cana)
     - Specify a float representing the percentage chance of getting buffed. (0.1 = 10% and 1.0 = 100%)
 
   ###### _Example JSON config for FreeRandomBuffOnKill_
@@ -470,6 +471,7 @@ The [Settings Reference](../docs/SettingsReference.md) contains lists of all dif
     "Rule": "FreeRandomBuffOnKill",
     "Config":
     {
+      "WarlockMinion": 0.5,
       "HeroBarbarian": 0.5,
       "HeroBard": 0.9,
       "HeroGuardian": 0.8,
