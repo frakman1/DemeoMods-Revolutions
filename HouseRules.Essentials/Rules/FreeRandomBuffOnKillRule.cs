@@ -92,29 +92,42 @@
                 return;
             }
 
-            if (!defeatedUnit.IsCreature())
+            if (attackerUnit == null || !defeatedUnit.IsCreature() || defeatedUnit.HasEffectState(EffectStateType.WizardDoppelganger))
             {
                 return;
             }
 
             if (!attackerUnit.IsPlayer())
             {
+                bool isCana = false;
                 Piece piece2;
                 PieceAI pieceAI = attackerUnit.pieceAI;
                 var gameContext = Traverse.Create(typeof(GameHub)).Field<GameContext>("gameContext").Value;
                 if (attackerUnit.boardPieceId == BoardPieceId.WarlockMinion && attackerUnit.GetHealth() > 0)
                 {
-                    if (pieceAI == null)
+                    foreach (var replacement in _globalAdjustments)
                     {
-                        return;
+                        if (replacement.Key == BoardPieceId.WarlockMinion)
+                        {
+                            isCana = true;
+                            break;
+                        }
                     }
-                    else if (pieceAI.memory.TryGetAssociatedPiece(gameContext.pieceAndTurnController, out piece2))
+
+                    if (!isCana)
                     {
-                        attackerUnit = piece2;
-                    }
-                    else
-                    {
-                        return;
+                        if (pieceAI == null)
+                        {
+                            return;
+                        }
+                        else if (pieceAI.memory.TryGetAssociatedPiece(gameContext.pieceAndTurnController, out piece2))
+                        {
+                            attackerUnit = piece2;
+                        }
+                        else
+                        {
+                            return;
+                        }
                     }
                 }
                 else if (attackerUnit.boardPieceId == BoardPieceId.SellswordArbalestierActive)
@@ -197,7 +210,7 @@
                     return;
                 }
 
-                if (!attackerUnit.IsPlayer())
+                if (!attackerUnit.IsPlayer() && !isCana)
                 {
                     return;
                 }
@@ -205,123 +218,131 @@
 
             // Add random effect to player here
             int buff = Random.Range(0, _effectStates.Count);
+            foreach (var replacement in _globalAdjustments)
             {
-                var effect = _effectStates[buff];
-                var buffed = attackerUnit.effectSink.GetEffectStateDurationTurnsLeft(effect);
-
-                if (effect == EffectStateType.Luck || effect == EffectStateType.SpellPower)
+                if (attackerUnit.boardPieceId == replacement.Key)
                 {
-                    if (buffed > 0)
+                    var effect = _effectStates[buff];
+                    var buffed = attackerUnit.effectSink.GetEffectStateDurationTurnsLeft(effect);
+
+                    if (effect == EffectStateType.Luck || effect == EffectStateType.SpellPower)
                     {
-                        return;
-                    }
+                        if (buffed > 0)
+                        {
+                            return;
+                        }
 
-                    attackerUnit.EnableEffectState(effect);
-                }
-                else if (effect == EffectStateType.Petrified || effect == EffectStateType.Tangled || effect == EffectStateType.Weaken1Turn || effect == EffectStateType.PlayerBerserk)
-                {
-                    if (buffed > 0)
+                        attackerUnit.EnableEffectState(effect);
+                    }
+                    else if (effect == EffectStateType.Petrified || effect == EffectStateType.Tangled || effect == EffectStateType.Weaken1Turn || effect == EffectStateType.PlayerBerserk)
                     {
-                        return;
-                    }
+                        if (buffed > 0)
+                        {
+                            return;
+                        }
 
-                    attackerUnit.EnableEffectState(effect, 1);
-                }
-                else if (effect == EffectStateType.Invulnerable3)
-                {
-                    if (buffed > 0)
+                        attackerUnit.EnableEffectState(effect, 1);
+                    }
+                    else if (effect == EffectStateType.Invulnerable3)
+                    {
+                        if (buffed > 0)
+                        {
+                            attackerUnit.effectSink.SetStatusEffectDuration(effect, buffed + 1);
+                            return;
+                        }
+
+                        attackerUnit.EnableEffectState(effect, 1);
+                    }
+                    else if (effect == EffectStateType.Resilience)
+                    {
+                        attackerUnit.effectSink.TryGetStat(Stats.Type.MagicArmor, out int currentArmor);
+                        if (currentArmor < 10)
+                        {
+                            attackerUnit.effectSink.TrySetStatBaseValue(Stats.Type.MagicArmor, currentArmor + 1);
+                        }
+                    }
+                    else if (effect == EffectStateType.ExtraAction)
+                    {
+                        if (buffed > 0)
+                        {
+                            attackerUnit.effectSink.SetStatusEffectDuration(effect, buffed + 1);
+                        }
+                        else
+                        {
+                            attackerUnit.EnableEffectState(effect, 1);
+                        }
+
+                        attackerUnit.effectSink.TryGetStat(Stats.Type.ActionPoints, out int currentAP);
+                        attackerUnit.effectSink.TrySetStatBaseValue(Stats.Type.ActionPoints, currentAP + 1);
+                    }
+                    else if (effect == EffectStateType.Fearless)
+                    {
+                        if (attackerUnit.HasEffectState(EffectStateType.Heroic))
+                        {
+                            buffed = attackerUnit.effectSink.GetEffectStateDurationTurnsLeft(EffectStateType.Heroic);
+                            attackerUnit.DisableEffectState(EffectStateType.Heroic);
+                        }
+                        else if (attackerUnit.HasEffectState(EffectStateType.Courageous))
+                        {
+                            buffed = attackerUnit.effectSink.GetEffectStateDurationTurnsLeft(EffectStateType.Courageous);
+                            attackerUnit.DisableEffectState(EffectStateType.Courageous);
+                        }
+
+                        if (buffed > 0)
+                        {
+                            attackerUnit.effectSink.SetStatusEffectDuration(effect, buffed + 1);
+                            return;
+                        }
+
+                        attackerUnit.EnableEffectState(effect, 1);
+                    }
+                    else if (effect == EffectStateType.Heroic)
+                    {
+                        if (attackerUnit.HasEffectState(EffectStateType.Fearless))
+                        {
+                            return;
+                        }
+
+                        if (attackerUnit.HasEffectState(EffectStateType.Courageous))
+                        {
+                            buffed = attackerUnit.effectSink.GetEffectStateDurationTurnsLeft(EffectStateType.Courageous);
+                            attackerUnit.DisableEffectState(EffectStateType.Courageous);
+                        }
+
+                        if (buffed > 0)
+                        {
+                            attackerUnit.effectSink.SetStatusEffectDuration(effect, buffed + 1);
+                            return;
+                        }
+
+                        attackerUnit.EnableEffectState(effect, 1);
+                    }
+                    else if (effect == EffectStateType.Courageous)
+                    {
+                        if (attackerUnit.HasEffectState(EffectStateType.Fearless) || attackerUnit.HasEffectState(EffectStateType.Heroic))
+                        {
+                            return;
+                        }
+                        else if (buffed > 0)
+                        {
+                            attackerUnit.effectSink.SetStatusEffectDuration(effect, buffed + 1);
+                            return;
+                        }
+
+                        attackerUnit.EnableEffectState(effect, 1);
+                    }
+                    else if (buffed > 0)
                     {
                         attackerUnit.effectSink.SetStatusEffectDuration(effect, buffed + 1);
-                        return;
                     }
-
-                    attackerUnit.EnableEffectState(effect, 1);
-                }
-                else if (effect == EffectStateType.Resilience)
-                {
-                    attackerUnit.effectSink.TryGetStat(Stats.Type.MagicArmor, out int currentArmor);
-                    if (currentArmor < 10)
+                    else if (replacement.Key == BoardPieceId.WarlockMinion)
                     {
-                        attackerUnit.effectSink.TrySetStatBaseValue(Stats.Type.MagicArmor, currentArmor + 1);
-                    }
-                }
-                else if (effect == EffectStateType.ExtraAction)
-                {
-                    if (buffed > 0)
-                    {
-                        attackerUnit.effectSink.SetStatusEffectDuration(effect, buffed + 1);
+                        attackerUnit.EnableEffectState(effect, 2);
                     }
                     else
                     {
                         attackerUnit.EnableEffectState(effect, 1);
                     }
-
-                    attackerUnit.effectSink.TryGetStat(Stats.Type.ActionPoints, out int currentAP);
-                    attackerUnit.effectSink.TrySetStatBaseValue(Stats.Type.ActionPoints, currentAP + 1);
-                }
-                else if (effect == EffectStateType.Fearless)
-                {
-                    if (attackerUnit.HasEffectState(EffectStateType.Heroic))
-                    {
-                        buffed = attackerUnit.effectSink.GetEffectStateDurationTurnsLeft(EffectStateType.Heroic);
-                        attackerUnit.DisableEffectState(EffectStateType.Heroic);
-                    }
-                    else if (attackerUnit.HasEffectState(EffectStateType.Courageous))
-                    {
-                        buffed = attackerUnit.effectSink.GetEffectStateDurationTurnsLeft(EffectStateType.Courageous);
-                        attackerUnit.DisableEffectState(EffectStateType.Courageous);
-                    }
-
-                    if (buffed > 0)
-                    {
-                        attackerUnit.effectSink.SetStatusEffectDuration(effect, buffed + 1);
-                        return;
-                    }
-
-                    attackerUnit.EnableEffectState(effect, 1);
-                }
-                else if (effect == EffectStateType.Heroic)
-                {
-                    if (attackerUnit.HasEffectState(EffectStateType.Fearless))
-                    {
-                        return;
-                    }
-
-                    if (attackerUnit.HasEffectState(EffectStateType.Courageous))
-                    {
-                        buffed = attackerUnit.effectSink.GetEffectStateDurationTurnsLeft(EffectStateType.Courageous);
-                        attackerUnit.DisableEffectState(EffectStateType.Courageous);
-                    }
-
-                    if (buffed > 0)
-                    {
-                        attackerUnit.effectSink.SetStatusEffectDuration(effect, buffed + 1);
-                        return;
-                    }
-
-                    attackerUnit.EnableEffectState(effect, 1);
-                }
-                else if (effect == EffectStateType.Courageous)
-                {
-                    if (attackerUnit.HasEffectState(EffectStateType.Fearless) || attackerUnit.HasEffectState(EffectStateType.Heroic))
-                    {
-                        return;
-                    }
-                    else if (buffed > 0)
-                    {
-                        attackerUnit.effectSink.SetStatusEffectDuration(effect, buffed + 1);
-                        return;
-                    }
-
-                    attackerUnit.EnableEffectState(effect, 1);
-                }
-                else if (buffed > 0)
-                {
-                    attackerUnit.effectSink.SetStatusEffectDuration(effect, buffed + 1);
-                }
-                else
-                {
-                    attackerUnit.EnableEffectState(effect, 1);
                 }
             }
         }

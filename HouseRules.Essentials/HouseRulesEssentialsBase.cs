@@ -138,6 +138,7 @@
             HR.Rulebook.Register(typeof(StartCardsModifiedRule));
             HR.Rulebook.Register(typeof(StatModifiersOverriddenRule));
             HR.Rulebook.Register(typeof(StatusEffectConfigRule));
+            HR.Rulebook.Register(typeof(StrengthenCourageAddsHpRule));
             HR.Rulebook.Register(typeof(TickAdjustedRule));
             HR.Rulebook.Register(typeof(TileEffectDurationOverriddenRule));
             HR.Rulebook.Register(typeof(TurnOrderOverriddenRule));
