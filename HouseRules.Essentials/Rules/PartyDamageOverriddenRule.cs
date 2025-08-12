@@ -92,6 +92,7 @@
                 if (rule.ToString().Contains("PieceProgressRule") || rule.ToString().Contains("RevolutionsRule"))
                 {
                     revolutions = true;
+                    break;
                 }
             }
 
@@ -109,11 +110,7 @@
 
                         return false;
                     }
-
-                    return true;
                 }
-
-                return true;
             }
 
             if (revolutions)
@@ -143,7 +140,7 @@
             }
 
             // value is false so players can't hurt or give any negative effects to other players/pets intentionally
-            if (attackerPiece != null)
+            if (_electricOnly == false && attackerPiece != null)
             {
                 if (attackerPiece.IsPlayer() && (targetPiece.IsPlayer() || targetPiece.IsBot() || targetPiece.IsWarlockMinion() || targetPiece.HasEffectState(EffectStateType.ConfusedPermanentVisualOnly)))
                 {
