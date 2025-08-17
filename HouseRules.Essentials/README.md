@@ -610,7 +610,7 @@ The [Settings Reference](../docs/SettingsReference.md) contains lists of all dif
   - Within the game the `AIDirectorController` deals Monsters from the MonsterDeck when populating the levels.
   - Two subdecks are used for each floor. One subdeck is used when players are near the Entrance, and another nearer the exit.
   - The subdecks are called 'standard' and 'spike' within the game code, but we're callling them 'Entrance' and 'Exit' for simplicity.
-  - The final 'Boss' level only has a single subDeck
+  - The final 'Boss' level only has a single subDeck.
   - In addition to the MonsterDeck, configuration for the KeyHolder for each floor and the Boss is also required.
   - To configure:
     - Specify a lists of [BoardPieceIds](../docs/SettingsReference.md#boardpieceids) for each of the five subdecks.
@@ -665,6 +665,69 @@ The [Settings Reference](../docs/SettingsReference.md) contains lists of all dif
       "KeyHolderFloor1": "Cavetroll",
       "KeyHolderFloor2": "Sigataur",
       "Boss": "Brookmare"
+    }
+  },
+  ```
+
+  #### __MyMonsterDeckOverridden__: The MonsterDeck which is used for spawning monsters is overridden except for the main boss.
+  - This rule is a more advanced implementation of SpawnCategoriesOverridden, and will directly configure the MonsterDeck from lists.
+  - Within the game the `AIDirectorController` deals Monsters from the MonsterDeck when populating the levels.
+  - Two subdecks are used for each floor. One subdeck is used when players are near the Entrance, and another nearer the exit.
+  - The subdecks are called 'standard' and 'spike' within the game code, but we're callling them 'Entrance' and 'Exit' for simplicity.
+  - The final 'Boss' level only has a single subDeck and uses the existing boss for the currently selected adventure.
+  - In addition to the MonsterDeck, configuration for the KeyHolder for each floor and the Boss is also required.
+  - To configure:
+    - Specify a lists of [BoardPieceIds](../docs/SettingsReference.md#boardpieceids) for each of the five subdecks.
+    - The subdecks must be named `EntranceDeckFloor1`, `ExitDeckFloor1`, `EntranceDeckFloor2`, `ExitDeckFloor2`, `BossDeck`
+    - Specify single [BoardPieceId](../docs/SettingsReference.md#boardpieceids) for each of `KeyHolderFloor1` and `KeyHolderFloor2`
+
+  ###### _Example JSON config for MyMonsterDeckOverridden_
+
+  ```json
+  {
+    "Rule": "MyMonsterDeckOverridden",
+    "Config": {
+      "EntranceDeckFloor1": {
+        "Spider": 0,
+        "IceElemental": 2,
+        "ChestGoblin": 3,
+        "FireElemental": 2
+      },
+      "ExitDeckFloor1": {
+        "Rat": 20,
+        "Spider": 20,
+        "IceElemental": 2,
+        "ChestGoblin": 3,
+        "Mimic": 1,
+        "GoblinMadUn": 1,
+        "DruidArcher": 1
+      },
+      "EntranceDeckFloor2": {
+        "Spider": 10,
+        "GoblinFighter": 0,
+        "SporeFungus": 10,
+        "SpiderEgg": 3,
+        "FireElemental": 2,
+        "ElvenArcher": 2
+      },
+      "ExitDeckFloor2": {
+        "Spider": 20,
+        "Rat": 30,
+        "Bandit": 2,
+        "ChestGoblin": 3,
+        "ElvenPriest": 4,
+        "ElvenMarauder": 2
+      },
+      "BossDeck": {
+        "SpiderEgg": 10,
+        "TheUnseen": 0,
+        "TheUnheard": 0,
+        "TheUnspoken": 0,
+        "Slimeling": 0,
+        "ElvenSkirmisher": 2
+      },
+      "KeyHolderFloor1": "Cavetroll",
+      "KeyHolderFloor2": "Sigataur",
     }
   },
   ```
