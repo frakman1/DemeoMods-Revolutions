@@ -618,7 +618,7 @@ The [Settings Reference](../docs/SettingsReference.md) contains lists of all dif
 
   ```json
   {
-    "Rule": "LevelSequenceOverridden",
+    "Rule": "MyRandomLevelSequenceOverridden",
     "Config": [ "ElvenFloor01", "ForestFloor09", "ElvenFloor08", "ElvenFloor17", "SewersFloor08", "SewersFloor11", "ForestFloor01", "ElvenFloor14" ]
   },
   ```
