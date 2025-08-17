@@ -106,6 +106,7 @@
             HR.Rulebook.Register(typeof(LevelExitLockedUntilOneHeroRemainsRule));
             HR.Rulebook.Register(typeof(LevelPropertiesModifiedRule));
             HR.Rulebook.Register(typeof(LevelSequenceOverriddenRule));
+            HR.Rulebook.Register(typeof(MyRandomLevelSequenceOverriddenRule));
             HR.Rulebook.Register(typeof(MonsterDeckOverriddenRule));
             HR.Rulebook.Register(typeof(MyMonsterDeckOverriddenRule));
             HR.Rulebook.Register(typeof(PartyDamageOverriddenRule));
