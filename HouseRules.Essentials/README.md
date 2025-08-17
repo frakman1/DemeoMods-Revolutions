@@ -605,6 +605,24 @@ The [Settings Reference](../docs/SettingsReference.md) contains lists of all dif
   },
   ```
 
+  #### __MyRandomLevelSequenceOverridden__: The Level Sequence of dungeon floors is overridden and randomized.
+  - List of levels must be at least 3 items long.
+  - Shop levels will be added automatically. Do not include them in the list unless you want MORE shops randomly.
+  - It is possible to use levels from any book (Elven, Sewers, Forest) together in a single list
+  - Level soundtracks may not match the played level or adventure (e.g. The shop "Ah Customers, Welcome" will always play on 2nd and 4th levels)
+  - Level names are ElvenFloor01-17, SewersFloor01-12, ForestFloor01-03, ForestFloor05-09, ShopFloor02, SewersShopFloor & ForestShopFloor
+  - To configure:
+    - Specify a list of [LevelNames](../docs/LevelNames.md).
+
+  ###### _Example JSON config for MyRandomLevelSequenceOverridden_
+
+  ```json
+  {
+    "Rule": "LevelSequenceOverridden",
+    "Config": [ "ElvenFloor01", "ForestFloor09", "ElvenFloor08", "ElvenFloor17", "SewersFloor08", "SewersFloor11", "ForestFloor01", "ElvenFloor14" ]
+  },
+  ```
+
 #### __MonsterDeckOverridden__: The MonsterDeck which is used for spawning monsters is overridden.
   - This rule is a more advanced implementation of SpawnCategoriesOverridden, and will directly configure the MonsterDeck from lists.
   - Within the game the `AIDirectorController` deals Monsters from the MonsterDeck when populating the levels.
