@@ -727,7 +727,7 @@ The [Settings Reference](../docs/SettingsReference.md) contains lists of all dif
         "ElvenSkirmisher": 2
       },
       "KeyHolderFloor1": "Cavetroll",
-      "KeyHolderFloor2": "Sigataur",
+      "KeyHolderFloor2": "Sigataur"
     }
   },
   ```
