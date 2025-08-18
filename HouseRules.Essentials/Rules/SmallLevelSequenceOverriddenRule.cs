@@ -15,6 +15,7 @@
 
         private static bool isRandomMaps;
         private static bool isFastForward;
+        private static bool isSkipLevel1;
         private static List<string> _globalAdjustments;
         private static List<string> _randomMaps = new List<string>
                     { string.Empty, string.Empty, string.Empty, string.Empty, string.Empty };
@@ -200,10 +201,16 @@
             {
                 isRandomMaps = true;
                 isFastForward = false;
+                isSkipLevel1 = false;
                 if (replacements[0].Contains("fastforward"))
                 {
                     isFastForward = true;
                     HouseRulesEssentialsBase.LogWarning("Fast Forward mode detected");
+                }
+                else if (replacements[0].Contains("skiplevel1"))
+                {
+                    isSkipLevel1 = true;
+                    HouseRulesEssentialsBase.LogWarning("Skip Level 1 mode detected");
                 }
             }
 
@@ -376,29 +383,14 @@
 
             if (isFastForward)
             {
-                switch (gsmLevelSequence.gameType)
-                {
-                    case LevelSequence.GameType.Town:
-                        _randomMaps[0] = "CryptEntrance";
-                        _randomMaps[1] = "ForestShopFloor";
-                        _randomMaps[2] = "TownsEntrance";
-                        _randomMaps[3] = "ForestShopFloor";
-                        break;
-                    case LevelSequence.GameType.ElvenQueen:
-                    case LevelSequence.GameType.RatKing:
-                    case LevelSequence.GameType.Desert:
-                        _randomMaps[0] = "TownsEntrance";
-                        _randomMaps[1] = "ForestShopFloor";
-                        _randomMaps[2] = "TownsEntrance";
-                        _randomMaps[3] = "ForestShopFloor";
-                        break;
-                    case LevelSequence.GameType.Forest:
-                        _randomMaps[0] = "ElvenFloor15";
-                        _randomMaps[1] = "ForestShopFloor";
-                        _randomMaps[2] = "ElvenFloor15";
-                        _randomMaps[3] = "ForestShopFloor";
-                        break;
-                }
+                _randomMaps[0] = "TownsEntrance";
+                _randomMaps[1] = "ForestShopFloor";
+                _randomMaps[2] = "TownsEntrance";
+                _randomMaps[3] = "ForestShopFloor";
+            }
+            else if (isSkipLevel1)
+            {
+                _randomMaps[0] = "TownsEntrance";
             }
 
             HouseRulesEssentialsBase.LogWarning("Randomly generated level sequence loaded");
