@@ -138,14 +138,14 @@
                 case SerializableEvent.Type.OnMoved:
                     if (!_isMove)
                     {
-                        var pieceId = Traverse.Create(serializableEvent).Field<int>("pieceId").Value;
+                        /*var pieceId = Traverse.Create(serializableEvent).Field<int>("pieceId").Value;
                         Piece thisPiece = _gameContext.pieceAndTurnController.GetPiece(pieceId);
                         if (thisPiece.IsPlayer())
-                        {
+                        {*/
                             // HouseRulesCoreBase.LogDebug($"---OnMoved--- {thisPiece.GetPieceConfig().PieceNameLocalizationKey} {whatUp}");
                             _isMove = true;
                             return false;
-                        }
+                        //}
                     }
 
                     // HouseRulesCoreBase.LogDebug($"------ {whatUp}");
@@ -167,6 +167,9 @@
                 case SerializableEvent.Type.SlimeFusion:
                 case SerializableEvent.Type.UpdateFogAndSpawn:
                     // HouseRulesCoreBase.LogDebug($"<<<>>> {whatUp}");
+                    return true;
+                case SerializableEvent.Type.OnActionBegin:
+                case SerializableEvent.Type.StartTurn:
                     return true;
                 case SerializableEvent.Type.EndAction:
                 case SerializableEvent.Type.EndTurn:
@@ -232,13 +235,17 @@
                 case AbilityKey.DigRatsNest:
                 case AbilityKey.MiniBarricade:
                 case AbilityKey.MagicWall:
-                case AbilityKey.Implode:
+                    // HouseRulesCoreBase.LogDebug($"<<<Spawn>>> {whatUp}");
+                    return true;
+                case AbilityKey.VortexDust:
                 case AbilityKey.Implosion:
                 case AbilityKey.WaterExplosion:
                 case AbilityKey.TelekineticBurst:
                 case AbilityKey.Telekinesis:
-                    // HouseRulesCoreBase.LogDebug($"<<<Spawn>>> {whatUp}");
-                    return true;
+                    {
+                        _gameContext.serializableEventQueue.SendResponseEvent(new SerializableEventUpdateFog());
+                        return false;
+                    }
             }
 
             var abilityName = abilityKey.ToString();
