@@ -114,7 +114,7 @@ The [Settings Reference](../docs/SettingsReference.md) contains lists of all dif
   - CriticalHitDamage is adjusted to double normal damage.
   - To configure:
     - Specify the [AbilityKey](../docs/SettingsReference.md#abilitykeys) of the ability to modify.
-    - Specify a positive integers for targetDamage and critDamage respectively E.g.: `"Zap": [ 2, 5 ]` will set Zap targetDamage to 2 and critDmage to 5.
+    - Specify positive integers for targetDamage and critDamage respectively E.g.: `"Zap": [ 2, 5 ]` will set Zap targetDamage to 2 and critDmage to 5.
 
   ###### _Example JSON config for AbilityDamageOverridden_
 
@@ -124,6 +124,24 @@ The [Settings Reference](../docs/SettingsReference.md) contains lists of all dif
     "Config": {
       "Zap": [ 2, 4 ],
       "Whirlwind": [ 4, 8 ]
+    }
+  },
+  ```
+
+#### __AbilityDamageAllOverridden__: Ability targetDamage and critDamage are adjusted
+  - Only functions for abilities which do damage. (You can't make a Heal hurt).
+  - To configure:
+    - Specify the [AbilityKey](../docs/SettingsReference.md#abilitykeys) of the ability to modify.
+    - Specify positive integers for targetDamage, critDamage, splashDamage, and critSplashDamage respectively E.g.: `"Fireball": [ 2, 5, 2, 5 ]` will set Fireball targetDamage and splashDamage to 2 while setting critDmage and critSpashDamage to 5.
+
+  ###### _Example JSON config for AbilityDamageAllOverridden_
+
+  ```json
+  {
+    "Rule": "AbilityDamageAllOverridden",
+    "Config": {
+      "Fireball": [ 2, 4, 2 4 ],
+      "Whirlwind": [ 4, 8, 4, 8 ]
     }
   },
   ```
