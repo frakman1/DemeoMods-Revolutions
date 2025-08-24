@@ -109,6 +109,27 @@ The [Settings Reference](../docs/SettingsReference.md) contains lists of all dif
   },
   ```
 
+#### __AbilityBreaksStealthAdjusted__: Ability breaksStealth is adjusted
+  - Will allow abilities to no longer break stealth.
+  - Doesn't affect current abilities that don't break stealth unless specified `true`.
+  - To configure:
+    - Specify the [AbilityKey](../docs/SettingsReference.md#abilitykeys) of the ability to modify.
+    - Specify a bool for breaksStealth E.g.: `"PlayerMelee": false` would allow stealthed melee attacks to keep stealth after.
+
+  ###### _Example JSON config for AbilityBreaksStealthAdjusted_
+
+  ```json
+    {
+      "Rule": "AbilityBreaksStealthAdjusted",
+      "Config": {
+        "PoisonGasGrenade": false,
+        "Flashbang": false,
+        "DiseasedBite": false,
+        "PVPFireball": false
+      }
+    }
+  ```
+
 #### __AbilityDamageOverridden__: Ability targetDamage and critDamage are adjusted
   - Only functions for abilities which do damage. (You can't make a Heal hurt).
   - CriticalHitDamage is adjusted to double normal damage.
@@ -206,6 +227,7 @@ The [Settings Reference](../docs/SettingsReference.md) contains lists of all dif
     }
   },
   ```
+
 #### __BackstabConfigOverridden__: A list of Pieces may use 🔪Backstab🔪 instead of just the Assassin
   - Replaces the hardcoded default of HeroRogue with a configurable list.
   - Now everyone can benefit from Backstab bonus.
