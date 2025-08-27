@@ -486,14 +486,14 @@ namespace HouseRules.Essentials.Rules
 
             if (isFastForward)
             {
-                _randomMaps[0] = "TownsEntrance";
+                _randomMaps[0] = "ForestEntrance";
                 _randomMaps[1] = "ForestShopFloor";
-                _randomMaps[2] = "TownsEntrance";
+                _randomMaps[2] = "ForestEntrance";
                 _randomMaps[3] = "ForestShopFloor";
             }
             else if (isSkipLevel1)
             {
-                _randomMaps[0] = "TownsEntrance";
+                _randomMaps[0] = "ForestEntrance";
             }
 
             HouseRulesEssentialsBase.LogWarning("Randomly generated level sequence loaded");
