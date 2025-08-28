@@ -636,13 +636,13 @@
                         AbilityKey.ExtraActionPotion,
                         AbilityKey.GodsFury,
                         AbilityKey.Confuse,
-                        AbilityKey.RatWhisperer,
+                        AbilityKey.NaturesCall,
                         AbilityKey.CallCompanion,
                         AbilityKey.PoisonedTip,
                         AbilityKey.MarkOfAvalon,
                         AbilityKey.MonsterBait,
                         AbilityKey.Confuse,
-                        AbilityKey.RatWhisperer,
+                        AbilityKey.NaturesCall,
                         AbilityKey.Exterminate,
                         AbilityKey.CallCompanion,
                         AbilityKey.PoisonedTip,
@@ -1162,7 +1162,7 @@
                 { AbilityKey.Shockwave, new List<int> { 5, 5, 5, 5 } },
                 { AbilityKey.DeathFlurry, new List<int> { 5, 5, 5, 5 } },
                 { AbilityKey.TornadoCharge, new List<int> { 3, 3, 3, 3 } },
-                { AbilityKey.PVPMissileSwarm, new List<int> { 3, 6, 3, 6 } },
+                { AbilityKey.PVPMissileSwarm, new List<int> { 3, 4, 3, 4 } },
                 { AbilityKey.PVPFireball, new List<int> { 5, 10, 5, 10 } },
             });
 
@@ -1228,7 +1228,7 @@
 
             var abilityRandomPieceRule = new AbilityRandomPieceListRule(new Dictionary<AbilityKey, List<BoardPieceId>>
             {
-                { AbilityKey.RatWhisperer, new List<BoardPieceId> { BoardPieceId.PoisonousRat, BoardPieceId.Spider } },
+                { AbilityKey.NaturesCall, new List<BoardPieceId> { BoardPieceId.PoisonousRat, BoardPieceId.Spider } },
             });
 
             var tileEffectRule = new TileEffectDurationOverriddenRule(new Dictionary<TileEffect, int>
@@ -1450,7 +1450,7 @@
             var turnOrderRule = new TurnOrderOverriddenRule(new TurnOrderOverriddenRule.Scores
             { Bard = 18, Guardian = 14, Warlock = 13, Sorcerer = 12, Barbarian = 11, Hunter = 10, Assassin = 9, Downed = -10, Javelin = 20, Deflect = 2, Mark = 7, Varga = 5 });
 
-            var partyDamageRule = new PartyDamageOverriddenRule(true);
+            var partyDamageRule = new PartyDamageOverriddenRule(false);
             var petsFocusMarkOfAvalonRule = new PetsFocusHunterMarkRule(true);
             var enemyRespawnDisabledRule = new EnemyRespawnDisabledRule(true);
             var cardEnergyFromAttackRule = new CardEnergyFromAttackMultipliedRule(1.0f);

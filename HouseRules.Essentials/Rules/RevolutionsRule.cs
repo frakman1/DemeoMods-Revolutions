@@ -87,28 +87,27 @@
             }
 
             Inventory.Item value;
-            /*var ruleSet = HR.SelectedRuleset.Name;
+            var ruleSet = HR.SelectedRuleset.Name;
             bool revolutions = false;
             bool rev_progr = false;
+            bool reloaded = false;
             foreach (var rule in HR.SelectedRuleset.Rules)
             {
                 if (rule.ToString().Contains("PieceProgressRule"))
                 {
                     rev_progr = true;
                 }
-                else if (rule.ToString().Contains("RevolutionsRule"))
+                else if (ruleSet.Contains("Demeo Revolutions"))
                 {
                     revolutions = true;
                 }
+                else if (ruleSet.Equals("Demeo Reloaded"))
+                {
+                    reloaded = true;
+                }
             }
 
-            bool reloaded = false;
-            if (ruleSet.Equals("Demeo Reloaded"))
-            {
-                reloaded = true;
-            }
-
-            var gameContext = Traverse.Create(typeof(GameHub)).Field<GameContext>("gameContext").Value;
+            /*var gameContext = Traverse.Create(typeof(GameHub)).Field<GameContext>("gameContext").Value;
             if (_checkPlayers)
             {
                 _numPlayers = gameContext.pieceAndTurnController.GetNumberOfPlayerPieces();
@@ -153,10 +152,12 @@
             }*/
 
             // Handle fixing character stats and cards for Revolutions/Reloaded game when the Host reconnects and becomes the Master Client again
-            /*if (_isReconnect && GameStateMachine.IsMasterClient && !piece.IsDead())
+            if (_isReconnect && GameStateMachine.IsMasterClient && !piece.IsDead())
             {
                 HouseRulesEssentialsBase.LogWarning($"Regained HOST so fixing player stats/cards for {piece.boardPieceId}...");
-                if (piece.GetStat(Stats.Type.InnateCounterDamageExtraDamage) == 42 || piece.GetStat(Stats.Type.InnateCounterDamageExtraDamage) == 69)
+
+                // if (piece.GetStat(Stats.Type.InnateCounterDamageExtraDamage) == 42 || piece.GetStat(Stats.Type.InnateCounterDamageExtraDamage) == 69)
+                if (reloaded || revolutions)
                 {
                     int mage = 0;
                     int runner = 0;
@@ -544,7 +545,7 @@
 
                 piece.effectSink.TrySetStatBaseValue(Stats.Type.InnateCounterDamageExtraDamage, _globalGameType);
                 piece.AddGold(0);
-            }*/
+            }
 
             // Remove One-Time replenishables if used
             if (piece.boardPieceId == BoardPieceId.HeroHunter)
