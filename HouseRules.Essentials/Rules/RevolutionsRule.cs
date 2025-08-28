@@ -97,7 +97,7 @@
                 {
                     rev_progr = true;
                 }
-                else if (ruleSet.Contains("Demeo Revolutions"))
+                else if (ruleSet.Contains("Revolutions"))
                 {
                     revolutions = true;
                 }
@@ -151,8 +151,15 @@
                 }
             }*/
 
+            // Determine if Host is returning to Revolutions/Reloaded game as Client
+            if ((revolutions || reloaded) && piece.GetStat(Stats.Type.InnateCounterDamageExtraDamage) != 42 && piece.GetStat(Stats.Type.InnateCounterDamageExtraDamage) != 69)
+            {
+                HouseRulesEssentialsBase.LogWarning($"Reconnect true for piece {piece.boardPieceId}");
+                _isReconnect = true;
+            }
+
             // Handle fixing character stats and cards for Revolutions/Reloaded game when the Host reconnects and becomes the Master Client again
-            if (_isReconnect && GameStateMachine.IsMasterClient && !piece.IsDead())
+            if (_isReconnect && GameStateMachine.IsMasterClient && !piece.IsDead() && piece.GetStat(Stats.Type.InnateCounterDamageExtraDamage) != 42 && piece.GetStat(Stats.Type.InnateCounterDamageExtraDamage) != 69)
             {
                 HouseRulesEssentialsBase.LogWarning($"Regained HOST so fixing player stats/cards for {piece.boardPieceId}...");
 
@@ -907,9 +914,9 @@
 
                 return;
             }
-            else
+            else if (GameStateMachine.IsMasterClient)
             {
-                // HouseRulesEssentialsBase.LogWarning($"{__result.boardPieceId} value set to {_globalGameType}");
+                HouseRulesEssentialsBase.LogWarning($"{__result.boardPieceId} value set to {_globalGameType}");
                 __result.effectSink.TrySetStatBaseValue(Stats.Type.InnateCounterDamageExtraDamage, _globalGameType);
             }
         }
