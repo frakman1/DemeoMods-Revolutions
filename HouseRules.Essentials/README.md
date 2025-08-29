@@ -109,12 +109,33 @@ The [Settings Reference](../docs/SettingsReference.md) contains lists of all dif
   },
   ```
 
+#### __AbilityBreaksStealthAdjusted__: Ability breaksStealth is adjusted
+  - Will allow abilities to no longer break stealth.
+  - Doesn't affect current abilities that don't break stealth unless specified `true`.
+  - To configure:
+    - Specify the [AbilityKey](../docs/SettingsReference.md#abilitykeys) of the ability to modify.
+    - Specify a bool for breaksStealth E.g.: `"PlayerMelee": false` would allow stealthed melee attacks to keep stealth after.
+
+  ###### _Example JSON config for AbilityBreaksStealthAdjusted_
+
+  ```json
+    {
+      "Rule": "AbilityBreaksStealthAdjusted",
+      "Config": {
+        "PoisonGasGrenade": false,
+        "Flashbang": false,
+        "DiseasedBite": false,
+        "PVPFireball": false
+      }
+    }
+  ```
+
 #### __AbilityDamageOverridden__: Ability targetDamage and critDamage are adjusted
   - Only functions for abilities which do damage. (You can't make a Heal hurt).
   - CriticalHitDamage is adjusted to double normal damage.
   - To configure:
     - Specify the [AbilityKey](../docs/SettingsReference.md#abilitykeys) of the ability to modify.
-    - Specify a positive integers for targetDamage and critDamage respectively E.g.: `"Zap": [ 2, 5 ]` will set Zap targetDamage to 2 and critDmage to 5.
+    - Specify positive integers for targetDamage and critDamage respectively E.g.: `"Zap": [ 2, 5 ]` will set Zap targetDamage to 2 and critDmage to 5.
 
   ###### _Example JSON config for AbilityDamageOverridden_
 
@@ -124,6 +145,24 @@ The [Settings Reference](../docs/SettingsReference.md) contains lists of all dif
     "Config": {
       "Zap": [ 2, 4 ],
       "Whirlwind": [ 4, 8 ]
+    }
+  },
+  ```
+
+#### __AbilityDamageAllOverridden__: Ability targetDamage and critDamage are adjusted
+  - Only functions for abilities which do damage. (You can't make a Heal hurt).
+  - To configure:
+    - Specify the [AbilityKey](../docs/SettingsReference.md#abilitykeys) of the ability to modify.
+    - Specify positive integers for targetDamage, critDamage, splashDamage, and critSplashDamage respectively E.g.: `"Fireball": [ 2, 5, 2, 5 ]` will set Fireball targetDamage and splashDamage to 2 while setting critDmage and critSpashDamage to 5.
+
+  ###### _Example JSON config for AbilityDamageAllOverridden_
+
+  ```json
+  {
+    "Rule": "AbilityDamageAllOverridden",
+    "Config": {
+      "Fireball": [ 2, 4, 2 4 ],
+      "Whirlwind": [ 4, 8, 4, 8 ]
     }
   },
   ```
@@ -188,6 +227,7 @@ The [Settings Reference](../docs/SettingsReference.md) contains lists of all dif
     }
   },
   ```
+
 #### __BackstabConfigOverridden__: A list of Pieces may use 🔪Backstab🔪 instead of just the Assassin
   - Replaces the hardcoded default of HeroRogue with a configurable list.
   - Now everyone can benefit from Backstab bonus.
@@ -571,19 +611,37 @@ The [Settings Reference](../docs/SettingsReference.md) contains lists of all dif
 
 #### __LevelSequenceOverridden__: The Level Sequence of dungeon floors is overridden.
   - List of levels must be exactly five items long. The game will crash at the end if the list is any longer.
-  - Shop levels can be replaced with game levels.
+  - It is possible to use levels from any book (Elven, Sewers, Forest) together in a single list
+  - Level soundtracks may not match the played level or adventure (e.g. The shop "Ah Customers, Welcome" will always play on 2nd and 4th levels)
+  - Level names are ElvenFloor01-17, SewersFloor01-12, ForestFloor01-03, ForestFloor05-09, ShopFloor02, SewersShopFloor & ForestShopFloor
+  - To configure:
+    - Specify a list of [LevelNames](../docs/LevelNames.md).
+    - If list is longer than 5 the map list will be randomized (not based on your list at all)
+
+  ###### _Example JSON config for LevelSequenceOverridden_
+
+  ```json
+  {
+    "Rule": "LevelSequenceOverridden",
+    "Config": [ "ElvenFloor01", "SewersShopFloor", "ForestFloor09", "ForestShopFloor", "ElvenFloor08" ]
+  },
+  ```
+
+  #### __MyRandomLevelSequenceOverridden__: The Level Sequence of dungeon floors is overridden and randomized.
+  - List of levels must be at least 3 items long.
+  - Shop levels will be added automatically. Do not include them in the list unless you want MORE shops randomly.
   - It is possible to use levels from any book (Elven, Sewers, Forest) together in a single list
   - Level soundtracks may not match the played level or adventure (e.g. The shop "Ah Customers, Welcome" will always play on 2nd and 4th levels)
   - Level names are ElvenFloor01-17, SewersFloor01-12, ForestFloor01-03, ForestFloor05-09, ShopFloor02, SewersShopFloor & ForestShopFloor
   - To configure:
     - Specify a list of [LevelNames](../docs/LevelNames.md).
 
-  ###### _Example JSON config for LevelPropertiesModified_
+  ###### _Example JSON config for MyRandomLevelSequenceOverridden_
 
   ```json
   {
-    "Rule": "LevelSequenceOverridden",
-    "Config": [ "ElvenFloor01", "SewersFloor07", "ForestFloor09", "ForestShopFloor", "ElvenFloor08" ]
+    "Rule": "MyRandomLevelSequenceOverridden",
+    "Config": [ "ElvenFloor01", "ForestFloor09", "ElvenFloor08", "ElvenFloor17", "SewersFloor08", "SewersFloor11", "ForestFloor01" ]
   },
   ```
 
@@ -592,7 +650,7 @@ The [Settings Reference](../docs/SettingsReference.md) contains lists of all dif
   - Within the game the `AIDirectorController` deals Monsters from the MonsterDeck when populating the levels.
   - Two subdecks are used for each floor. One subdeck is used when players are near the Entrance, and another nearer the exit.
   - The subdecks are called 'standard' and 'spike' within the game code, but we're callling them 'Entrance' and 'Exit' for simplicity.
-  - The final 'Boss' level only has a single subDeck
+  - The final 'Boss' level only has a single subDeck.
   - In addition to the MonsterDeck, configuration for the KeyHolder for each floor and the Boss is also required.
   - To configure:
     - Specify a lists of [BoardPieceIds](../docs/SettingsReference.md#boardpieceids) for each of the five subdecks.
@@ -647,6 +705,69 @@ The [Settings Reference](../docs/SettingsReference.md) contains lists of all dif
       "KeyHolderFloor1": "Cavetroll",
       "KeyHolderFloor2": "Sigataur",
       "Boss": "Brookmare"
+    }
+  },
+  ```
+
+  #### __MyMonsterDeckOverridden__: The MonsterDeck which is used for spawning monsters is overridden except for the main boss.
+  - This rule is a more advanced implementation of SpawnCategoriesOverridden, and will directly configure the MonsterDeck from lists.
+  - Within the game the `AIDirectorController` deals Monsters from the MonsterDeck when populating the levels.
+  - Two subdecks are used for each floor. One subdeck is used when players are near the Entrance, and another nearer the exit.
+  - The subdecks are called 'standard' and 'spike' within the game code, but we're callling them 'Entrance' and 'Exit' for simplicity.
+  - The final 'Boss' level only has a single subDeck and uses the existing boss for the currently selected adventure.
+  - In addition to the MonsterDeck, configuration for the KeyHolder for each floor and the Boss is also required.
+  - To configure:
+    - Specify a lists of [BoardPieceIds](../docs/SettingsReference.md#boardpieceids) for each of the five subdecks.
+    - The subdecks must be named `EntranceDeckFloor1`, `ExitDeckFloor1`, `EntranceDeckFloor2`, `ExitDeckFloor2`, `BossDeck`
+    - Specify single [BoardPieceId](../docs/SettingsReference.md#boardpieceids) for each of `KeyHolderFloor1` and `KeyHolderFloor2`
+
+  ###### _Example JSON config for MyMonsterDeckOverridden_
+
+  ```json
+  {
+    "Rule": "MyMonsterDeckOverridden",
+    "Config": {
+      "EntranceDeckFloor1": {
+        "Spider": 0,
+        "IceElemental": 2,
+        "ChestGoblin": 3,
+        "FireElemental": 2
+      },
+      "ExitDeckFloor1": {
+        "Rat": 20,
+        "Spider": 20,
+        "IceElemental": 2,
+        "ChestGoblin": 3,
+        "Mimic": 1,
+        "GoblinMadUn": 1,
+        "DruidArcher": 1
+      },
+      "EntranceDeckFloor2": {
+        "Spider": 10,
+        "GoblinFighter": 0,
+        "SporeFungus": 10,
+        "SpiderEgg": 3,
+        "FireElemental": 2,
+        "ElvenArcher": 2
+      },
+      "ExitDeckFloor2": {
+        "Spider": 20,
+        "Rat": 30,
+        "Bandit": 2,
+        "ChestGoblin": 3,
+        "ElvenPriest": 4,
+        "ElvenMarauder": 2
+      },
+      "BossDeck": {
+        "SpiderEgg": 10,
+        "TheUnseen": 0,
+        "TheUnheard": 0,
+        "TheUnspoken": 0,
+        "Slimeling": 0,
+        "ElvenSkirmisher": 2
+      },
+      "KeyHolderFloor1": "Cavetroll",
+      "KeyHolderFloor2": "Sigataur"
     }
   },
   ```

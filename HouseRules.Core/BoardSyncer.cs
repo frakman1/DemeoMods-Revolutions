@@ -226,11 +226,17 @@
                 case AbilityKey.SwordOfAvalon:
                 case AbilityKey.BeaconOfSmite:
                 case AbilityKey.BeaconOfHealing:
+                case AbilityKey.EyeOfAvalon:
                 case AbilityKey.RaiseRoots:
                 case AbilityKey.CallCompanion:
                 case AbilityKey.DigRatsNest:
                 case AbilityKey.MiniBarricade:
                 case AbilityKey.MagicWall:
+                case AbilityKey.VortexDust:
+                case AbilityKey.Implosion:
+                case AbilityKey.WaterExplosion:
+                case AbilityKey.TelekineticBurst:
+                case AbilityKey.Telekinesis:
                     // HouseRulesCoreBase.LogDebug($"<<<Spawn>>> {whatUp}");
                     return true;
             }

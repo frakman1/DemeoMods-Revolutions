@@ -1,30 +1,27 @@
 # Demeo Parameter Names
 
-A full list of all of the different parameter names used by HouseRules rules
+A full list of all of the different parameter names used by HouseRules Revolutions rules. The abilities listed to the right in -> (parentheses) are ones from previous builds
 
 ## AbilityKey(s)
 
 - AbsorbCorruption
 - AbsorbMySoul
 - AcidSpit
-- DamageResistPotion
-- Antidote
-- Arrow
+- Antidote -> (Antitoxin)
+- ArbalestierPoisonedTip -> (ArbalestierPoisonTip)
 - Banish
 - Barrage
-- MiniBarricade
-- RatWhisperer
+- BeaconOfHealing -> (HealingWard)
+- BeaconOfSmite -> (TheBehemoth)
 - BlindingLight
 - Blink
 - BlockAbilities
 - Bone
-- ProximityMine
 - BossBerserkOnDeath
-- SodiumHydroxide
 - CallCompanion
 - Charge
 - CoinFlip
-- StrengthenCourage
+- Confuse -> (ScrollOfCharm)
 - CursedDagger
 - DamageResistPotion
 - DeathDropJavelin
@@ -40,9 +37,10 @@ A full list of all of the different parameter names used by HouseRules rules
 - DropChest
 - EarthShatter
 - Electricity
+- EvlenSummonerDeflect
 - Emerge
 - EnemyArrow
-- EnemyArrowSnipe
+- EnemyArrowSnipe -> (EnemyHunterArrowSnipe)
 - EnemyDropStolenGoods
 - EnemyFireball
 - EnemyFrostball
@@ -55,7 +53,6 @@ A full list of all of the different parameter names used by HouseRules rules
 - EnemyMeleeBleed
 - EnemyPikeMeleeAttack
 - EnemySplashWater
-- EnemySplashWaterCorruption
 - EnemyStealCard
 - EnemyStealGold
 - EnemyTurretDamageProjectile
@@ -63,27 +60,30 @@ A full list of all of the different parameter names used by HouseRules rules
 - EnergyPotion
 - Explosion
 - ExplosiveOrb
+- Exterminate -> (HailOfArrows)
 - ExtraActionPotion
-- VialOfFireImmunity
+- EyeOfAvalon -> (DetectEnemies)
 - Fireball
-- Flashbang
+- Flashbang -> (Flashbomb)
+- FreeAP -> (OneMoreThing)
 - Freeze
 - GasLamp
 - GoblinBruteCharge
 - Grab
 - GuidingLight
-- SplittingArrow
 - HealingLight
-- Heal
-- BeaconOfHealing
-- GodsFury
-- MarkOfAvalon
-- Tornado
+- Heal -> (HealingPotion)
+- HunterArrow -> (Arrow)
+- God
+- GodsFury -> (HeavensFury)
+- Grab
 - IceExplosion
-- VialOfIceImmunity
 - IceLamp
 - Implode
+- Implosion -> (Vortex)
 - ImplosionExplosionRain
+- Invulnerability -> (AdamantPotion)
+- Javelin
 - LaySpiderEgg
 - Leap
 - LeapHeavy
@@ -91,30 +91,54 @@ A full list of all of the different parameter names used by HouseRules rules
 - LetItRain
 - LightningBolt
 - LuckPotion
-- MonsterBait
-- MagicWall
+- MagicWall -> MagicBarrier
 - MagicMissile
 - MagicPotion
 - MagicShield
+- MarkOfAvalon -> (HuntersMark)
 - MarkTargetTile
+- MiniBarricade -> (Barricade)
 - MinionCharge
 - MinionMelee
 - MinionRespawnInitiator
 - MissileSwarm
+- Monsterbait -> (Lure)
+- NaturesCall -> (BeastWhisperer)
+- NotesOfConfusion -> (PiercingVoice)
 - OilLamp
-- ExtraActionPotion
 - Overcharge
 - Overload
-- ScarePowder
 - Petrify
-- PiercingSpear
-- NotesOfConfusion
-- PoisonGasGrenade
+- PiercingSpear -> (PiercingThrow)
+- PoisonGasGrenade -> (PoisonBomb)
 - PoisonGas
 - PoisonedTip
 - Portal
+- PlayerMelee
+- ProximityMine -> (BoobyTrap)
+- PVPAdmantPotion
+- PVPBarricade
+- PVPBeastWhisperer
+- PVPBlink
+- PVPBlockAbilities
+- PVPConfuse -> (PVPScrollOfCharm)
+- PVPCursedDagger
+- PVPEnemyInvulnerability
+- PVPFireball
+- PVPGasLamp
+- PVPGrapplingSmash
+- PVPHuntersMark
+- PVPIceLamp
+- PVPMissileSwarm
+- PVPOilLamp
+- PVPPoisonTip
+- PVPProximityMine
+- PVPReplenishArmor
+- PVPStealth
+- PVPSummonElemental
+- PVPVortexLamp
 - RaiseRoots
-- RatBomb
+- RatKingBomb -> (RatBomb)
 - RatFrenzy
 - RatWhisperer
 - RatsNest
@@ -123,56 +147,66 @@ A full list of all of the different parameter names used by HouseRules rules
 - ReleaseEnergy
 - RemoveCorruption
 - RemoveScorpionFrenzy
-- SwordOfAvalon
 - ReplenishArmor
 - ReplenishBarkArmor
 - RevealPath
 - ScabRat
+- ScarePowder -> (PanicPowder)
 - ScrollElectricity
-- Confuse
 - ScrollTsunami
 - ShatteringVoice
 - Shockwave
 - Shuffle
-- Javelin
+- SodiumHydroxide -> (BottleOfLye)
+- SplittingArrow
 - SnakeBossLongRange
 - SnakeBossShortRange
-- Stealth
+- Stealth -> (Sneak)
 - SongOfRecovery
 - SongOfResilience
+- SpawnBossMinions -> (SummonBossMinions)
 - SpawnCorruptionNode
 - SpawnCultists
 - SpawnEnemyTurret
 - SpawnGoldPile
+- SpawnGreaterMonster -> (SummonGreaterMonster)
 - SpawnJeweledScarab
+- SpawnLesserMonster -> (SummonLesserMonster)
+- SpawnMediumMonster -> (SummonMediumMonster)
 - SpawnMoreUnseenOnDeath
 - SpawnMushrooms
 - SpawnRandomLamp
 - SpawnRat
 - SpawnSlime
 - SpawnSpiderlings
-- SpellPower
-- SpiderWebshot
-- Strength
+- SpawnSummoningRiftGreater -> (SpawnSummoningGreaterRift)
+- SpawnSummoningRiftLesser -> (SpawnSummoningLesserRift)
+- SpawnSummoningRiftMedium -> (SpawnSummoningMediumRift)
+- Speed -> (SwiftnessPotion)
+- SpellPower -> (SpellPowerPotion)
+- SpiderWebShot
+- Strength -> (StrengthPotion)
+- StrengthenCourage -> (CourageShanty)
 - StrengthenMinion
-- SpawnBossMinions
 - SummonElemental
 - SummonMinion
-- Speed
+- SwordOfAvalon -> (RepeatingBallista)
 - Telekinesis
+- Teleport
 - TeleportEnemy
 - TeleportLamp
-- Teleport
-- BeaconOfSmite
 - ThornPowder
 - TileBlock
 - TileUnblock
-- TorchLight
+- TorchLight -> (Torch)
+- Tornado -> (HurricaneAnthem)
 - TornadoCharge
 - Tsunami
 - TurretDamageProjectile
 - TurretHealProjectile
 - TurretHighDamageProjectile
+- VialOfIceImmunity -> (IceImmunePotion)
+- VialOfFireImmunity -> (FireImmunePotion)
 - VerminFrenzy
 - VigorPotion
 - VortexDust
@@ -180,17 +214,18 @@ A full list of all of the different parameter names used by HouseRules rules
 - WarCry
 - WaterBottle
 - WaterDive
+- WaterSplashCorruption -> (EnemySplashWaterCorruption)
 - Weaken
 - WebBomb
 - Whip
 - WhipSmall
-- Whirlwind
+- Whirlwind -> (WhirlwindAttack)
 - WizardBossFocusFire
 - WizardBossShuffle
 - WizardBossSpawnDoppelgangers
 - WizardBossSqueeze
 - WizardBossZap
-- WoodBone
+- WoodBone -> (WoodenBone)
 - Zap
 
 ## Behaviour(s)

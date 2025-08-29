@@ -13,18 +13,18 @@
             const string name = "SURVIVE!";
             const string displayname = "<b><color=#FF0000>S<color=#E80000>U<color=#CF0000>R<color=#B80000>V<color=#9F0000>I<color=#880000>V<color=#6F0000>E<color=#580000>!</b>";
             const string description = "Survive starting with 1 life and 1 health!";
-            const string longdesc = "\n<color=#770077>* * </color><color=#FF0000>Finish a CURSED DUNGEON With only 1 life!</color> <color=#770077>* *</color>\n<u><b>HIGHLY RECOMMENDED:</u></b> Don't play multiple of the same class!\n\n<color=#003300>ALL bosses and keyholders are immune to Hunter's Mark and Net\nHeroes can't directly hurt each other with any AoE abilities\nGain 1 life and 1 max life by defeating enemies\n50% chance to gain random effects by defeating enemies\nStealth, Leap, Zap, Arrow, Grapple, Feral Charge, and Courage Shanty are 0 action cost\nCritical hits replenish the above abilities OR instead give 1 more action to Assassin and Guardian</color>\nHero turn order is randomized after each round\n\n<color=#FFFFFF><b><u>Other ways to gain life and buffs:</u></b></color>\n<color=#090900>Break a lamp that kills something\nAssassin - Ballista kills\nBarbarian - Leviathan kills\nBard - Tornado kills\nGuardian - Behemoth kills\nHunter - Non-Boned Verochka kills\nSorcerer - Summoned Elemental kills\nWarlock - Cana kills\nWhoever hires him - Arly Owl kills</color>";
+            const string longdesc = "\n<color=#770077>* * </color><color=#FF0000>Finish a CURSED DUNGEON With only 1 life!</color> <color=#770077>* *</color>\n<u><b>NECESSARY:</u></b> Don't play multiple of the same class!\n\n<color=#003300>ALL bosses and keyholders are immune to Hunter's Mark and Net\nHeroes can't directly hurt each other with any AoE abilities\nGain 1 life and 1 max life by defeating enemies\n50% chance to gain random effects by defeating enemies\nStealth, Leap, Zap, Arrow, Grapple, Feral Charge, and Courage Shanty are 0 action cost\nCritical hits replenish the above abilities OR instead give 1 more action to Assassin and Guardian</color>\nHero turn order is randomized after each round\n\n<color=#FFFFFF><b><u>Other ways to gain life and buffs:</u></b></color>\n<color=#090900>Break a lamp that kills something\nAssassin - Ballista kills\nBarbarian - Leviathan kills\nBard - Tornado kills\nGuardian - Behemoth kills\nHunter - Non-Boned Verochka kills\nSorcerer - Summoned Elemental kills\nWarlock - Cana kills\nWhoever hires him - Arly Owl kills</color>";
 
             var piecesAdjustedRule = new PieceConfigAdjustedRule(new List<PieceConfigAdjustedRule.PieceProperty>
             {
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.ElvenMarauder, Property = "PowerIndex", Value = 2 },
-                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.SilentSentinel, Property = "PowerIndex", Value = 3 },
+                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.SilentSentinel, Property = "PowerIndex", Value = 4 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.Brookmare, Property = "PowerIndex", Value = 2 },
-                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.BigBoiMutant, Property = "PowerIndex", Value = 3 },
-                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.Cavetroll, Property = "PowerIndex", Value = 3 },
+                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.BigBoiMutant, Property = "PowerIndex", Value = 4 },
+                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.Cavetroll, Property = "PowerIndex", Value = 4 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.GoblinMadUn, Property = "PowerIndex", Value = 2 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.GiantSlime, Property = "PowerIndex", Value = 2 },
-                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.GiantSpider, Property = "PowerIndex", Value = 3 },
+                new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.GiantSpider, Property = "PowerIndex", Value = 4 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.Sigataur, Property = "PowerIndex", Value = 2 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.RootGolem, Property = "PowerIndex", Value = 2 },
                 new PieceConfigAdjustedRule.PieceProperty { Piece = BoardPieceId.ServantOfAlfaragh, Property = "PowerIndex", Value = 2 },
@@ -153,17 +153,17 @@
             };
             var myExitDeckFloor2 = new Dictionary<BoardPieceId, int>
             {
-                { BoardPieceId.ElvenSpearman, 1 },
-                { BoardPieceId.RootHound, 1 },
+                { BoardPieceId.ElvenSpearman, 2 },
+                { BoardPieceId.RootHound, 2 },
                 { BoardPieceId.Bandit, 1 },
-                { BoardPieceId.DruidArcher, 1 },
+                { BoardPieceId.DruidArcher, 2 },
                 { BoardPieceId.DruidHoundMaster, 1 },
                 { BoardPieceId.GoblinChieftan, 1 },
                 { BoardPieceId.GoblinMadUn, 1 },
                 { BoardPieceId.RootBeast, 1 },
                 { BoardPieceId.ScabRat, 1 },
-                { BoardPieceId.TheUnheard, 1 },
-                { BoardPieceId.Slimeling, 1 },
+                { BoardPieceId.TheUnheard, 2 },
+                { BoardPieceId.Slimeling, 2 },
                 { BoardPieceId.Thug, 1 },
                 { BoardPieceId.ElvenPriest, 1 },
                 { BoardPieceId.ElvenSkirmisher, 1 },
@@ -182,14 +182,18 @@
             };
             var myBossDeck = new Dictionary<BoardPieceId, int>
             {
+                { BoardPieceId.ChestGoblin, 1 },
+                { BoardPieceId.ElvenSpearman, 2 },
+                { BoardPieceId.RootHound, 1 },
+                { BoardPieceId.Bandit, 1 },
                 { BoardPieceId.ReptileArcher, 1 },
                 { BoardPieceId.ElvenArcher, 1 },
                 { BoardPieceId.DruidArcher, 1 },
                 { BoardPieceId.GoblinMadUn, 1 },
-                { BoardPieceId.RootBeast, 1 },
+                { BoardPieceId.RootBeast, 2 },
                 { BoardPieceId.ScabRat, 1 },
                 { BoardPieceId.RatNest, 1 },
-                { BoardPieceId.TheUnheard, 1 },
+                { BoardPieceId.TheUnheard, 2 },
                 { BoardPieceId.Thug, 1 },
                 { BoardPieceId.ElvenSkirmisher, 1 },
                 { BoardPieceId.EarthElemental, 1 },

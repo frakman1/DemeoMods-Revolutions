@@ -152,6 +152,7 @@
                         if (piece.boardPieceId == BoardPieceId.HeroHunter)
                         {
                             attackerUnit = piece;
+                            break;
                         }
                     }
                 }
@@ -162,6 +163,7 @@
                         if (piece.boardPieceId == BoardPieceId.HeroBard)
                         {
                             attackerUnit = piece;
+                            break;
                         }
                     }
                 }
@@ -172,6 +174,7 @@
                         if (piece.boardPieceId == BoardPieceId.HeroBarbarian)
                         {
                             attackerUnit = piece;
+                            break;
                         }
                     }
                 }
@@ -182,6 +185,7 @@
                         if (piece.boardPieceId == BoardPieceId.HeroRogue)
                         {
                             attackerUnit = piece;
+                            break;
                         }
                     }
                 }
@@ -192,6 +196,7 @@
                         if (piece.boardPieceId == BoardPieceId.HeroGuardian)
                         {
                             attackerUnit = piece;
+                            break;
                         }
                     }
                 }
@@ -202,6 +207,7 @@
                         if (piece.boardPieceId == BoardPieceId.HeroSorcerer)
                         {
                             attackerUnit = piece;
+                            break;
                         }
                     }
                 }
@@ -220,11 +226,17 @@
             int buff = Random.Range(0, _effectStates.Count);
             foreach (var replacement in _globalAdjustments)
             {
+                int chance = (int)(replacement.Value * 100);
+                var rndChance = Random.Range(0, 100);
                 if (attackerUnit.boardPieceId == replacement.Key)
                 {
+                    if (rndChance > chance)
+                    {
+                        return;
+                    }
+
                     var effect = _effectStates[buff];
                     var buffed = attackerUnit.effectSink.GetEffectStateDurationTurnsLeft(effect);
-
                     if (effect == EffectStateType.Luck || effect == EffectStateType.SpellPower)
                     {
                         if (buffed > 0)
@@ -343,6 +355,8 @@
                     {
                         attackerUnit.EnableEffectState(effect, 1);
                     }
+
+                    break;
                 }
             }
         }
