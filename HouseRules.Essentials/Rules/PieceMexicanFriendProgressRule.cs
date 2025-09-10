@@ -7,14 +7,14 @@
     using HarmonyLib;
     using HouseRules.Core.Types;
 
-    public sealed class PieceMexicanProgressRule : Rule, IConfigWritable<bool>, IPatchable, IMultiplayerSafe
+    public sealed class PieceMexicanFriendProgressRule : Rule, IConfigWritable<bool>, IPatchable, IMultiplayerSafe
     {
         public override string Description => "Hero progression levels are enabled";
 
         private static Context _context;
         private static bool _isActivated;
 
-        public PieceMexicanProgressRule(bool value)
+        public PieceMexicanFriendProgressRule(bool value)
         {
         }
 
@@ -33,19 +33,19 @@
             harmony.Patch(
                 original: AccessTools.Method(typeof(Piece), "CreatePiece"),
                 postfix: new HarmonyMethod(
-                    typeof(PieceMexicanProgressRule),
+                    typeof(PieceMexicanFriendProgressRule),
                     nameof(CreatePiece_MexicanProgression_Postfix)));
 
             harmony.Patch(
                 original: AccessTools.Method(typeof(SerializableEventQueue), "RespondToRequest"),
                 prefix: new HarmonyMethod(
-                    typeof(PieceMexicanProgressRule),
+                    typeof(PieceMexicanFriendProgressRule),
                     nameof(SerializableEventQueue_RespondToRequest_Prefix)));
 
             harmony.Patch(
                 original: AccessTools.Method(typeof(Inventory), "RestoreReplenishables"),
                 prefix: new HarmonyMethod(
-                    typeof(PieceMexicanProgressRule),
+                    typeof(PieceMexicanFriendProgressRule),
                     nameof(Inventory_RestoreReplenishables_Prefix)));
         }
 
@@ -122,67 +122,19 @@
                 GameUI.ShowCameraMessage("<color=#F0F312>The party has</color> <color=#00FF00>LEVELED UP</color><color=#F0F312>!</color>", 8);
                 if (nextLevel == 3)
                 {
-                    if (piece.boardPieceId == BoardPieceId.HeroBarbarian)
-                    {
-                        var abilityPromise = _context.AbilityFactory.LoadAbility(AbilityKey.Grapple);
-                        abilityPromise.OnLoaded(ability =>
-                        {
-                            ability.costActionPoint = false;
-                        });
-                    }
-                    else if (piece.boardPieceId == BoardPieceId.HeroGuardian)
-                    {
-                        var abilityPromise = _context.AbilityFactory.LoadAbility(AbilityKey.ReplenishArmor);
-                        abilityPromise.OnLoaded(ability =>
-                        {
-                            ability.costActionPoint = false;
-                        });
-                    }
-                    else if (piece.boardPieceId == BoardPieceId.HeroBard)
-                    {
-                        var abilityPromise = _context.AbilityFactory.LoadAbility(AbilityKey.StrengthenCourage);
-                        abilityPromise.OnLoaded(ability =>
-                        {
-                            ability.costActionPoint = false;
-                        });
-                    }
-                    else if (piece.boardPieceId == BoardPieceId.HeroRogue)
-                    {
-                        var abilityPromise = _context.AbilityFactory.LoadAbility(AbilityKey.Stealth);
-                        abilityPromise.OnLoaded(ability =>
-                        {
-                            ability.costActionPoint = false;
-                        });
-                    }
-                    else if (piece.boardPieceId == BoardPieceId.HeroHunter)
-                    {
-                        var abilityPromise = _context.AbilityFactory.LoadAbility(AbilityKey.HunterArrow);
-                        abilityPromise.OnLoaded(ability =>
-                        {
-                            ability.costActionPoint = false;
-                        });
-                    }
-                    else if (piece.boardPieceId == BoardPieceId.HeroSorcerer)
-                    {
-                        var abilityPromise = _context.AbilityFactory.LoadAbility(AbilityKey.Implosion);
-                        abilityPromise.OnLoaded(ability =>
-                        {
-                            ability.costActionPoint = false;
-                        });
-                    }
-                    else if (piece.boardPieceId == BoardPieceId.HeroWarlock)
-                    {
-                        var abilityPromise = _context.AbilityFactory.LoadAbility(AbilityKey.MinionCharge);
-                        abilityPromise.OnLoaded(ability =>
-                        {
-                            ability.costActionPoint = false;
-                        });
-                    }
+                    piece.AddGold(200);
+                }
+                else if (nextLevel == 4)
+                {
+                    piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.Heal,
+                            flags: 0,
+                            originalOwner: -1,
+                            replenishCooldown: 0));
+                    piece.AddGold(0);
                 }
                 else if (nextLevel == 5)
                 {
-                    piece.effectSink.TrySetStatMaxValue(Stats.Type.Health, piece.GetMaxHealth() + 2);
-                    piece.effectSink.TrySetStatBaseValue(Stats.Type.Health, piece.GetHealth() + 2);
                     piece.effectSink.TrySetStatBaseValue(Stats.Type.DownedCounter, piece.GetStat(Stats.Type.DownedCounter) - 1);
                     piece.effectSink.TrySetStatBaseValue(Stats.Type.DownedTimer, piece.GetStat(Stats.Type.DownedTimer) + 1);
                 }
@@ -255,7 +207,7 @@
                     else if (piece.boardPieceId == BoardPieceId.HeroSorcerer)
                     {
                         piece.inventory.Items.Add(new Inventory.Item(
-                            AbilityKey.Implode,
+                            AbilityKey.DeathBeam,
                             flags: (Inventory.ItemFlag)1,
                             originalOwner: -1,
                             replenishCooldown: 3));
@@ -280,6 +232,11 @@
                         piece.effectSink.TrySetStatBaseValue(Stats.Type.MagicBonus, piece.GetStat(Stats.Type.MagicBonus) + 1);
                         piece.effectSink.TrySetStatMaxValue(Stats.Type.MagicBonus, piece.GetStatMax(Stats.Type.MagicBonus) + 1);
                     }
+                    else if (piece.boardPieceId == BoardPieceId.HeroBard || piece.boardPieceId == BoardPieceId.HeroRogue)
+                    {
+                        piece.effectSink.TrySetStatBaseValue(Stats.Type.Speed, piece.GetStat(Stats.Type.Speed) + 1);
+                        piece.effectSink.TrySetStatMaxValue(Stats.Type.Speed, piece.GetStatMax(Stats.Type.Speed) + 1);
+                    }
                     else
                     {
                         piece.effectSink.TrySetStatBaseValue(Stats.Type.Strength, piece.GetStat(Stats.Type.Strength) + 1);
@@ -293,20 +250,20 @@
                 }
                 else if (nextLevel == 7)
                 {
-                    piece.effectSink.TrySetStatMaxValue(Stats.Type.Health, piece.GetMaxHealth() + 1);
-                    piece.effectSink.TrySetStatBaseValue(Stats.Type.Health, piece.GetHealth() + 1);
-                    piece.effectSink.TrySetStatBaseValue(Stats.Type.Speed, piece.GetStat(Stats.Type.Speed) + 1);
-                    piece.effectSink.TrySetStatMaxValue(Stats.Type.Speed, piece.GetStatMax(Stats.Type.Speed) + 1);
-
                     if (piece.boardPieceId == BoardPieceId.HeroSorcerer || piece.boardPieceId == BoardPieceId.HeroWarlock)
                     {
-                        piece.effectSink.TrySetStatBaseValue(Stats.Type.MagicBonus, piece.GetStat(Stats.Type.MagicBonus) + 1);
-                        piece.effectSink.TrySetStatMaxValue(Stats.Type.MagicBonus, piece.GetStatMax(Stats.Type.MagicBonus) + 1);
+                        piece.effectSink.TrySetStatBaseValue(Stats.Type.Speed, piece.GetStat(Stats.Type.Speed) + 1);
+                        piece.effectSink.TrySetStatMaxValue(Stats.Type.Speed, piece.GetStatMax(Stats.Type.Speed) + 1);
                     }
-                    else
+                    else if (piece.boardPieceId == BoardPieceId.HeroBard || piece.boardPieceId == BoardPieceId.HeroRogue)
                     {
                         piece.effectSink.TrySetStatBaseValue(Stats.Type.Strength, piece.GetStat(Stats.Type.Strength) + 1);
                         piece.effectSink.TrySetStatMaxValue(Stats.Type.Strength, piece.GetStatMax(Stats.Type.Strength) + 1);
+                    }
+                    else
+                    {
+                        piece.effectSink.TrySetStatBaseValue(Stats.Type.MagicBonus, piece.GetStat(Stats.Type.MagicBonus) + 1);
+                        piece.effectSink.TrySetStatMaxValue(Stats.Type.MagicBonus, piece.GetStatMax(Stats.Type.MagicBonus) + 1);
                     }
                 }
                 else if (nextLevel == 10)
@@ -319,17 +276,11 @@
 
                     piece.effectSink.TrySetStatBaseValue(Stats.Type.Speed, piece.GetStat(Stats.Type.Speed) - 1);
                     piece.effectSink.TrySetStatMaxValue(Stats.Type.Speed, piece.GetStatMax(Stats.Type.Speed) - 1);
+                    piece.effectSink.TrySetStatBaseValue(Stats.Type.MagicBonus, piece.GetStat(Stats.Type.MagicBonus) - 1);
+                    piece.effectSink.TrySetStatMaxValue(Stats.Type.MagicBonus, piece.GetStatMax(Stats.Type.MagicBonus) - 1);
+                    piece.effectSink.TrySetStatBaseValue(Stats.Type.Strength, piece.GetStat(Stats.Type.Strength) - 1);
+                    piece.effectSink.TrySetStatMaxValue(Stats.Type.Strength, piece.GetStatMax(Stats.Type.Strength) - 1);
 
-                    if (piece.boardPieceId == BoardPieceId.HeroSorcerer || piece.boardPieceId == BoardPieceId.HeroWarlock)
-                    {
-                        piece.effectSink.TrySetStatBaseValue(Stats.Type.MagicBonus, piece.GetStat(Stats.Type.MagicBonus) - 1);
-                        piece.effectSink.TrySetStatMaxValue(Stats.Type.MagicBonus, piece.GetStatMax(Stats.Type.MagicBonus) - 1);
-                    }
-                    else
-                    {
-                        piece.effectSink.TrySetStatBaseValue(Stats.Type.Strength, piece.GetStat(Stats.Type.Strength) - 1);
-                        piece.effectSink.TrySetStatMaxValue(Stats.Type.Strength, piece.GetStatMax(Stats.Type.Strength) - 1);
-                    }
                 }
             }
 

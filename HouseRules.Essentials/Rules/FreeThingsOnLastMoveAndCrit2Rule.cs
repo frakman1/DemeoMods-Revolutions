@@ -7,7 +7,7 @@
     using HarmonyLib;
     using HouseRules.Core.Types;
 
-    public sealed class FreeThingsOnLastMoveAndCritRule : Rule, IConfigWritable<List<BoardPieceId>>, IPatchable, IMultiplayerSafe
+    public sealed class FreeThingsOnLastMoveAndCrit2Rule : Rule, IConfigWritable<List<BoardPieceId>>, IPatchable, IMultiplayerSafe
     {
         public override string Description => "Some Heroes gain effects by getting critical hits on their last move";
 
@@ -17,7 +17,7 @@
 
         private readonly List<BoardPieceId> _adjustments;
 
-        public FreeThingsOnLastMoveAndCritRule(List<BoardPieceId> adjustments)
+        public FreeThingsOnLastMoveAndCrit2Rule(List<BoardPieceId> adjustments)
         {
             _adjustments = adjustments;
         }
@@ -38,7 +38,7 @@
             harmony.Patch(
                 original: AccessTools.Method(typeof(Ability), "GenerateAttackDamage"),
                 postfix: new HarmonyMethod(
-                    typeof(FreeThingsOnLastMoveAndCritRule),
+                    typeof(FreeThingsOnLastMoveAndCrit2Rule),
                     nameof(Ability_GenerateAttackDamage_Postfix)));
         }
 
@@ -73,104 +73,6 @@
 
             var level = source.GetStatMax(Stats.Type.CritChance);
 
-            // At level 1
-            if (source.boardPieceId == BoardPieceId.HeroRogue)
-            {
-                var buffed = source.effectSink.GetEffectStateDurationTurnsLeft(EffectStateType.ExtraAction);
-                if (buffed > 0)
-                {
-                    source.effectSink.SetStatusEffectDuration(EffectStateType.ExtraAction, buffed + 1);
-                }
-                else
-                {
-                    source.EnableEffectState(EffectStateType.ExtraAction, 2);
-                }
-            }
-            else if (source.boardPieceId == BoardPieceId.HeroGuardian)
-            {
-                source.effectSink.TryGetStat(Stats.Type.Armor, out int armor);
-                if (armor < 4)
-                {
-                    source.effectSink.TrySetStatBaseValue(Stats.Type.Armor, armor + 2);
-                }
-                else
-                {
-                    source.effectSink.TrySetStatBaseValue(Stats.Type.Armor, 5);
-                }
-            }
-            else if (source.boardPieceId == BoardPieceId.HeroSorcerer)
-            {
-                source.effectSink.RemoveStatusEffect(EffectStateType.Wet);
-                var overCharge = source.effectSink.GetEffectStateDurationTurnsLeft(EffectStateType.Overcharge);
-                if (overCharge > 0)
-                {
-                    source.effectSink.SetStatusEffectDuration(EffectStateType.Overcharge, overCharge + 1);
-                }
-                else
-                {
-                    source.EnableEffectState(EffectStateType.Overcharge, 2);
-                }
-            }
-            else if (source.boardPieceId == BoardPieceId.HeroGuardian)
-            {
-                source.effectSink.TryGetStat(Stats.Type.Armor, out int armor);
-                if (armor < 4)
-                {
-                    source.effectSink.TrySetStatBaseValue(Stats.Type.Armor, armor + 2);
-                }
-                else
-                {
-                    source.effectSink.TrySetStatBaseValue(Stats.Type.Armor, 5);
-                }
-            }
-            else if (source.boardPieceId == BoardPieceId.HeroBarbarian)
-            {
-                var magicShield = source.effectSink.GetEffectStateDurationTurnsLeft(EffectStateType.MagicShield1);
-                if (magicShield > 0)
-                {
-                    source.effectSink.SetStatusEffectDuration(EffectStateType.MagicShield1, magicShield + 1);
-                }
-                else
-                {
-                    source.EnableEffectState(EffectStateType.MagicShield1, 2);
-                }
-            }
-            else if (source.boardPieceId == BoardPieceId.HeroBard)
-            {
-                source.effectSink.TryGetStat(Stats.Type.MagicArmor, out int myArmor);
-                if (myArmor < 6)
-                {
-                    source.effectSink.TrySetStatBaseValue(Stats.Type.MagicArmor, myArmor + 5);
-                }
-                else
-                {
-                    source.effectSink.TrySetStatBaseValue(Stats.Type.MagicArmor, 10);
-                }
-            }
-            else if (source.boardPieceId == BoardPieceId.HeroHunter)
-            {
-                source.inventory.Items.Add(new Inventory.Item(
-                    AbilityKey.SpawnSpiderlings,
-                    flags: 0,
-                    originalOwner: -1,
-                    replenishCooldown: 0));
-
-                source.AddGold(0);
-            }
-            else if (source.boardPieceId == BoardPieceId.HeroWarlock)
-            {
-                var deflect = source.effectSink.GetEffectStateDurationTurnsLeft(EffectStateType.Deflect);
-                if (deflect > 0)
-                {
-                    source.effectSink.SetStatusEffectDuration(EffectStateType.Deflect, deflect + 2);
-                }
-                else
-                {
-                    source.EnableEffectState(EffectStateType.Deflect, 3);
-                }
-            }
-
-            // End at level 1
             // Start at level 4
             if (level > 3)
             {
@@ -266,7 +168,7 @@
                     for (int i = 0; i < source.inventory.Items.Count; i++)
                     {
                         value = source.inventory.Items[i];
-                        if (value.AbilityKey == AbilityKey.Implode)
+                        if (value.AbilityKey == AbilityKey.DeathBeam)
                         {
                             if (value.IsReplenishing)
                             {
