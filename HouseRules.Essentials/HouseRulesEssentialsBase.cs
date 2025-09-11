@@ -127,6 +127,7 @@
             HR.Rulebook.Register(typeof(PieceKeyholderRule));
             HR.Rulebook.Register(typeof(PieceMagicStatAddedRule));
             HR.Rulebook.Register(typeof(PieceMexicanProgressRule));
+            HR.Rulebook.Register(typeof(PieceMexicanProgress2Rule));
             HR.Rulebook.Register(typeof(PieceMexicanFriendProgressRule));
             HR.Rulebook.Register(typeof(PiecePieceTypeListOverriddenRule));
             HR.Rulebook.Register(typeof(PieceProgressRule));

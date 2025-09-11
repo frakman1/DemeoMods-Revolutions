@@ -95,7 +95,6 @@
                 return;
             }
 
-            Inventory.Item value;
             int nextLevel = piece.GetStatMax(Stats.Type.CritChance);
             piece.effectSink.Heal(2);
             if (piece.HasEffectState(EffectStateType.Downed))
@@ -235,16 +234,7 @@
                     }
                     else if (piece.boardPieceId == BoardPieceId.HeroHunter)
                     {
-                        /*for (var i = 0; i < piece.inventory.Items.Count; i++)
-                        {
-                            value = piece.inventory.Items[i];
-                            if (value.AbilityKey == AbilityKey.HunterArrow)
-                            {
-                                piece.inventory.Items.Remove(value);
-                                break;
-                            }
-                        }*/
-
+                        Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
                         piece.inventory.Items.Add(new Inventory.Item(
                             AbilityKey.Electricity,
                             flags: (Inventory.ItemFlag)1,
@@ -254,6 +244,7 @@
                     }
                     else if (piece.boardPieceId == BoardPieceId.HeroSorcerer)
                     {
+                        Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
                         piece.inventory.Items.Add(new Inventory.Item(
                             AbilityKey.Implode,
                             flags: (Inventory.ItemFlag)1,

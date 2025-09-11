@@ -63,16 +63,26 @@
                 return;
             }
 
-            if (!HR.SelectedRuleset.Name.Contains("Revolutions"))
+            bool mexican2 = false;
+            foreach (var rule in HR.SelectedRuleset.Rules)
             {
-                if (source.GetStatMax(Stats.Type.CritChance) > 1)
+                if (rule.ToString().Contains("PieceMexicanProgress2Rule"))
+                {
+                    mexican2 = true;
+                    break;
+                }
+            }
+
+            if (mexican2)
+            {
+                if (source.GetStatMax(Stats.Type.CritChance) > 3)
                 {
                     source.inventory.AddGold(10);
                 }
-                else if (source.GetStatMax(Stats.Type.CritChance) > 0)
-                {
-                    source.inventory.AddGold(_globalAdjustments[source.boardPieceId]);
-                }
+            }
+            else
+            {
+                source.inventory.AddGold(_globalAdjustments[source.boardPieceId]);
             }
         }
     }
