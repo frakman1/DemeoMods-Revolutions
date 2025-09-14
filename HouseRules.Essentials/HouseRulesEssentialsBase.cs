@@ -133,6 +133,8 @@
             HR.Rulebook.Register(typeof(PiecePointProgressRule));
             HR.Rulebook.Register(typeof(PieceProgressRule));
             HR.Rulebook.Register(typeof(PieceProgressLostRule));
+            HR.Rulebook.Register(typeof(PieceStrengthStatAddedRule));
+            HR.Rulebook.Register(typeof(PieceSwiftnessStatAddedRule));
             HR.Rulebook.Register(typeof(PieceUseWhenKilledOverriddenRule));
             HR.Rulebook.Register(typeof(PointGainRule));
             HR.Rulebook.Register(typeof(PotionAdditionOverriddenRule));
