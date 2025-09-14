@@ -1341,9 +1341,7 @@
                 { BoardPieceId.HeroRogue, AbilityKey.PVPMissileSwarm },
             });
 
-            var turnOrderRule = new TurnOrderOverriddenRule(new TurnOrderOverriddenRule.Scores
-            { Bard = 18, Guardian = 14, Warlock = 13, Sorcerer = 12, Barbarian = 11, Hunter = 10, Assassin = 9, Downed = -10, Javelin = 20, Deflect = 2, Mark = 7, Varga = 5 });
-
+            var randomTurnOrderRule = new TurnOrderRandomizedRule(true);
             var partyDamageRule = new PartyDamageOverriddenRule(false);
             var petsFocusMarkOfAvalonRule = new PetsFocusHunterMarkRule(true);
             var enemyRespawnDisabledRule = new EnemyRespawnDisabledRule(true);
