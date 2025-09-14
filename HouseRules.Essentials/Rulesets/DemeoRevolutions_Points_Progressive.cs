@@ -1399,7 +1399,7 @@
                 abilityHealOverriddenRule,
                 backstabConfigRule,
                 energyRule,
-                turnOrderRule,
+                randomTurnOrderRule,
                 freeHealOnHitRule,
                 freeHealOnCritRule,
                 freeReplenishablesOnCritRule,
