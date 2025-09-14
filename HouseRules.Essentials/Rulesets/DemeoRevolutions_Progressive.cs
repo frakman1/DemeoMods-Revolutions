@@ -1457,7 +1457,7 @@
             var cardEnergyFromRecyclingRule = new CardEnergyFromRecyclingMultipliedRule(0.2f);
             var enemyHealthScaledRule = new EnemyHealthScaledRule(1.0f);
             var enemyAttackScaledRule = new EnemyAttackScaledRule(1.0f);
-            var revolutionsRule = new RevolutionsRule(69);
+            var revolutionsRule = new RevolutionsRule(7);
             var progressRule = new PieceProgressRule(true);
             var progressLostRule = new PieceProgressLostRule(true);
             var goldPickupRule = new GoldPickedUpMultipliedRule(1);

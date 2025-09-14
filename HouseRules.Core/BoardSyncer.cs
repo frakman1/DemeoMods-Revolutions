@@ -157,6 +157,7 @@
                     {
                         // HouseRulesCoreBase.LogDebug($"---PlayerMove--- {whatUp}");
                         _isMove = true;
+                        _gameContext.serializableEventQueue.SendResponseEvent(new SerializableEventUpdateFog());
                         return false;
                     }
 

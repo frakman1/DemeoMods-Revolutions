@@ -14,7 +14,7 @@
     using HarmonyLib;
     using HouseRules.Core.Types;
 
-    public sealed class PiecePointProgressRule : Rule, IConfigWritable<PiecePointProgressRule.Points>, IPatchable, IMultiplayerSafe
+    public sealed class PiecePointProgressRule : Rule, IConfigWritable<PiecePointProgressRule.Points>, IPatchable, IMultiplayerSafe, IDisableOnReconnect
     {
         public override string Description => "Each character gains experience and levels up based on their actions";
 

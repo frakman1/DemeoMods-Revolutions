@@ -658,6 +658,7 @@
             });
 
             var backstabConfigRule = new BackstabConfigOverriddenRule(new List<BoardPieceId> { BoardPieceId.HeroBard, BoardPieceId.HeroRogue });
+            var revolutionsRule = new RevolutionsRule(1);
             var petsFocusHuntersMarkRule = new PetsFocusHunterMarkRule(true);
             var enemyRespawnDisabledRule = new EnemyRespawnDisabledRule(true);
             var cardEnergyFromAttackRule = new CardEnergyFromAttackMultipliedRule(0.5f);
@@ -711,6 +712,7 @@
                 aoeAdjustedRule,
                 abilityDamageRule,
                 backstabConfigRule,
+                revolutionsRule,
                 petsFocusHuntersMarkRule,
                 enemyRespawnDisabledRule,
                 cardEnergyFromAttackRule,

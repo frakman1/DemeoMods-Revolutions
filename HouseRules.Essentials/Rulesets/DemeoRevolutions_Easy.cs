@@ -1247,7 +1247,7 @@
             var enemyRespawnDisabledRule = new EnemyRespawnDisabledRule(true);
             var cardEnergyFromRecyclingRule = new CardEnergyFromRecyclingMultipliedRule(1.4f);
             var enemyHealthScaledRule = new EnemyHealthScaledRule(0.8f);
-            var revolutionsRule = new RevolutionsRule(69);
+            var revolutionsRule = new RevolutionsRule(2);
             var goldPickupRule = new GoldPickedUpMultipliedRule(1.25f);
             var reviveEffectsRule = new ReviveRemovesEffectsRule(true);
             var courageShantyRule = new CourageShantyAddsHpRule(1);

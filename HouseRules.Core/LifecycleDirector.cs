@@ -27,6 +27,7 @@ namespace HouseRules.Core
         private static bool _isLoadingGame;
         private static string _roomCode;
         private static string _lastCode;
+        private static string _ruleSet;
 
         internal static bool IsRulesetActive { get; private set; }
 
@@ -113,10 +114,15 @@ namespace HouseRules.Core
                 return;
             }
 
-            _lastCode = PhotonNetwork.CurrentRoom.Name;
-            if (_lastCode != _roomCode)
+            _roomCode = PhotonNetwork.CurrentRoom.Name;
+            if (_roomCode != _lastCode)
             {
                 HouseRulesCoreBase.LogWarning($"Room {_roomCode} doesn't match original room {_lastCode}. Deactivating reconnection rules!");
+                DeactivateReconnect();
+            }
+            else if (HR.SelectedRuleset.Name != _ruleSet)
+            {
+                HouseRulesCoreBase.LogWarning($"Ruleset {HR.SelectedRuleset.Name} doesn't match original ruleset {_ruleSet}. Deactivating reconnection rules!");
                 DeactivateReconnect();
             }
         }
@@ -128,6 +134,7 @@ namespace HouseRules.Core
                 return;
             }
 
+            _ruleSet = HR.SelectedRuleset.Name;
             var createGameMode = Traverse.Create(_gameContext.gameStateMachine)
                 .Field<CreateGameMode>("createGameMode").Value;
             if (createGameMode != CreateGameMode.Private)
@@ -181,8 +188,12 @@ namespace HouseRules.Core
             MotherbrainGlobalVars.CurrentConfig = levelSequence.gameConfig;
 
             _roomCode = PhotonNetwork.CurrentRoom.Name;
+            if (_roomCode != _lastCode)
+            {
+                DeactivateReconnect();
+            }
+
             _lastCode = _roomCode;
-            DeactivateReconnect();
             HouseRulesCoreBase.LogDebug($"New game in room {_roomCode} started");
             ActivateRuleset();
             OnPreGameCreated();

@@ -1459,7 +1459,7 @@
             var enemyHealthScaledRule = new EnemyHealthScaledRule(1.2f);
             var enemyAttackScaledRule = new EnemyAttackScaledRule(1.2f);
             var canOpenDoorsRule = new EnemyDoorOpeningEnabledRule(true);
-            var revolutionsRule = new RevolutionsRule(69);
+            var revolutionsRule = new RevolutionsRule(8);
             var progressRule = new PieceProgressRule(true);
             var progressLostRule = new PieceProgressLostRule(true);
             var goldPickupRule = new GoldPickedUpMultipliedRule(1);

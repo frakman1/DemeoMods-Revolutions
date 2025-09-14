@@ -170,11 +170,11 @@
                 }
                 else if (targetPiece.IsPlayer() || targetPiece.IsBot())
                 {
-                    if (damage.HasTag(DamageTag.Electricity) && !targetPiece.HasEffectState(EffectStateType.Stunned))
+                    if (damage.HasTag(DamageTag.Electricity) && targetPiece.HasEffectState(EffectStateType.Stunned))
                     {
                         return false;
                     }
-                    else if (damage.HasTag(DamageTag.Ice) && !targetPiece.HasEffectState(EffectStateType.IceImmunity))
+                    else if (damage.HasTag(DamageTag.Ice) && targetPiece.HasEffectState(EffectStateType.IceImmunity))
                     {
                         return false;
                     }
