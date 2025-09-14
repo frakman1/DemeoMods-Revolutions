@@ -167,6 +167,7 @@ namespace HouseRules.Essentials.Rules
                         if (piece.boardPieceId == BoardPieceId.HeroHunter)
                         {
                             attackerUnit = piece;
+                            break;
                         }
                     }
                 }
@@ -177,6 +178,7 @@ namespace HouseRules.Essentials.Rules
                         if (piece.boardPieceId == BoardPieceId.HeroBard)
                         {
                             attackerUnit = piece;
+                            break;
                         }
                     }
                 }
@@ -187,6 +189,7 @@ namespace HouseRules.Essentials.Rules
                         if (piece.boardPieceId == BoardPieceId.HeroBarbarian)
                         {
                             attackerUnit = piece;
+                            break;
                         }
                     }
                 }
@@ -197,6 +200,7 @@ namespace HouseRules.Essentials.Rules
                         if (piece.boardPieceId == BoardPieceId.HeroRogue)
                         {
                             attackerUnit = piece;
+                            break;
                         }
                     }
                 }
@@ -207,6 +211,7 @@ namespace HouseRules.Essentials.Rules
                         if (piece.boardPieceId == BoardPieceId.HeroGuardian)
                         {
                             attackerUnit = piece;
+                            break;
                         }
                     }
                 }
@@ -217,6 +222,7 @@ namespace HouseRules.Essentials.Rules
                         if (piece.boardPieceId == BoardPieceId.HeroSorcerer)
                         {
                             attackerUnit = piece;
+                            break;
                         }
                     }
                 }

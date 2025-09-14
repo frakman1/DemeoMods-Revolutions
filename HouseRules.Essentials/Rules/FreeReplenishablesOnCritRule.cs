@@ -65,7 +65,7 @@ namespace HouseRules.Essentials.Rules
                 return;
             }
 
-            if (source.GetStat(Stats.Type.InnateCounterDamageExtraDamage) != 69 && !HR.SelectedRuleset.Name.Contains("Revolutions") && !HR.SelectedRuleset.Name.Contains("SURVIVE"))
+            if (source.GetStat(Stats.Type.InnateCounterDamageExtraDamage) != 69 && !HR.SelectedRuleset.Name.Contains("Revolutions") && !HR.SelectedRuleset.Name.Equals("SURVIVE!"))
             {
                 return;
             }
@@ -79,7 +79,7 @@ namespace HouseRules.Essentials.Rules
             }
 
             Inventory.Item value;
-            if (source.boardPieceId == BoardPieceId.HeroRogue && !HR.SelectedRuleset.Name.Contains("SURVIVE"))
+            if (source.boardPieceId == BoardPieceId.HeroRogue && !HR.SelectedRuleset.Name.Equals("SURVIVE!"))
             {
                 for (int i = 0; i < source.inventory.Items.Count; i++)
                 {
@@ -126,7 +126,8 @@ namespace HouseRules.Essentials.Rules
                             source.AddGold(0);
                         }
                     }
-                    else if (value.AbilityKey == AbilityKey.Net)
+
+                    if (value.AbilityKey == AbilityKey.Net)
                     {
                         if (value.IsReplenishing)
                         {
@@ -145,8 +146,6 @@ namespace HouseRules.Essentials.Rules
                             source.inventory.Items[i] = value;
                             source.AddGold(0);
                         }
-
-                        break;
                     }
                 }
             }
@@ -164,7 +163,8 @@ namespace HouseRules.Essentials.Rules
                             source.AddGold(0);
                         }
                     }
-                    else if (value.AbilityKey == AbilityKey.EnemyFlashbang)
+
+                    if (value.AbilityKey == AbilityKey.EnemyFlashbang)
                     {
                         if (value.IsReplenishing)
                         {

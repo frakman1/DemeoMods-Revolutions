@@ -89,7 +89,7 @@ namespace HouseRules.Essentials.Rules
             bool revolutions = false;
             foreach (var rule in HR.SelectedRuleset.Rules)
             {
-                if (rule.ToString().Contains("PieceProgressRule") || rule.ToString().Contains("RevolutionsRule"))
+                if (rule.ToString().Contains("Progress") || rule.ToString().Contains("Revolutions"))
                 {
                     revolutions = true;
                     break;
@@ -146,14 +146,14 @@ namespace HouseRules.Essentials.Rules
                 {
                     if (damage.HasTag(DamageTag.Electricity))
                     {
-                        if (damage.AbilityKey == AbilityKey.Zap)
+                        if (damage.AbilityKey == AbilityKey.Zap || damage.AbilityKey == AbilityKey.LightningBolt || damage.AbilityKey == AbilityKey.Overload)
                         {
                             _targetPiece = targetPiece;
                         }
                     }
                     else if (damage.HasTag(DamageTag.Ice) && !targetPiece.HasEffectState(EffectStateType.IceImmunity))
                     {
-                        if (!targetPiece.IsImmuneToStatusEffect(EffectStateType.Frozen) && !targetPiece.HasEffectState(EffectStateType.Invulnerable3))
+                        if (!targetPiece.IsImmuneToStatusEffect(EffectStateType.Frozen) && !targetPiece.HasEffectState(EffectStateType.Invulnerable1) && !targetPiece.HasEffectState(EffectStateType.Invulnerable3))
                         {
                             targetPiece.EnableEffectState(EffectStateType.IceImmunity, 1);
                         }
@@ -167,6 +167,17 @@ namespace HouseRules.Essentials.Rules
                     }
 
                     return false;
+                }
+                else if (targetPiece.IsPlayer() || targetPiece.IsBot())
+                {
+                    if (damage.HasTag(DamageTag.Electricity) && targetPiece.HasEffectState(EffectStateType.Stunned))
+                    {
+                        return false;
+                    }
+                    else if (damage.HasTag(DamageTag.Ice) && targetPiece.HasEffectState(EffectStateType.IceImmunity))
+                    {
+                        return false;
+                    }
                 }
                 else if ((attackerPiece.boardPieceId == BoardPieceId.Tornado || attackerPiece.boardPieceId == BoardPieceId.SmiteWard || attackerPiece.boardPieceId == BoardPieceId.SwordOfAvalon || attackerPiece.boardPieceId == BoardPieceId.Verochka || attackerPiece.HasEffectState(EffectStateType.ConfusedPermanentVisualOnly)) && (targetPiece.IsPlayer() || targetPiece.IsBot() || targetPiece.IsWarlockMinion() || targetPiece.HasEffectState(EffectStateType.ConfusedPermanentVisualOnly)))
                 {

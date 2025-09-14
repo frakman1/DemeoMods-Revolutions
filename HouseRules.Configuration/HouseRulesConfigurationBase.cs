@@ -19,8 +19,6 @@
         private const int NonVrOculusWindowsLobbySceneIndex = 2;
         private const int SteamVRLobbySceneIndex = 1;
         private const int RiftLobbySceneIndex = 1;
-        private static bool revolutions;
-        private static bool progressive;
 
         private static Action<object>? _logInfo;
         private static Action<object>? _logDebug;
@@ -88,28 +86,22 @@
             // LogDebug($"Scene unloaded {buildIndex} - {sceneName}");
             // Prevent Game VR object from trying to appear at main menu and hangouts
             Transform transformScreenToRemove = canvasObject.transform.Find("HouseRulesUiGameVr");
-            if (transformScreenToRemove == null)
+            if (transformScreenToRemove != null)
             {
-                return;
+                UnityEngine.Object.Destroy(transformScreenToRemove.gameObject);
             }
-
-            UnityEngine.Object.Destroy(transformScreenToRemove.gameObject);
 
             Transform transformScreenToRemove2 = canvasObject.transform.Find("HouseRulesUiGameVr2");
-            if (transformScreenToRemove2 == null)
+            if (transformScreenToRemove2 != null)
             {
-                return;
+                UnityEngine.Object.Destroy(transformScreenToRemove2.gameObject);
             }
-
-            UnityEngine.Object.Destroy(transformScreenToRemove2.gameObject);
 
             Transform transformScreenToRemove3 = canvasObject.transform.Find("HouseRulesUiGameVr3");
-            if (transformScreenToRemove3 == null)
+            if (transformScreenToRemove3 != null)
             {
-                return;
+                UnityEngine.Object.Destroy(transformScreenToRemove3.gameObject);
             }
-
-            UnityEngine.Object.Destroy(transformScreenToRemove3.gameObject);
         }
 
         internal static void OnSceneLoaded(int buildIndex, string sceneName)
@@ -160,6 +152,9 @@
             // If a scene is loaded while a ruleset is selected, we must have loaded a game level.
             if (MotherbrainGlobalVars.IsRunningOnVRPlatform && HR.SelectedRuleset != Ruleset.None)
             {
+                bool revolutions = false;
+                bool progressive = false;
+                bool heroes = false;
                 foreach (var rule in HR.SelectedRuleset.Rules)
                 {
                     if (rule.ToString().Contains("RevolutionsRule"))
@@ -167,19 +162,19 @@
                         revolutions = true;
                     }
 
-                    if (rule.ToString().Contains("PieceProgressRule"))
+                    if (rule.ToString().Contains("Progress"))
                     {
                         progressive = true;
                     }
 
-                    if (!revolutions && !progressive)
+                    if (rule.ToString().Contains("Heroes"))
                     {
-                        LogDebug("Recognized modded game in VR. Loading UI.");
-                        _ = new GameObject("HouseRulesUiGameVr", typeof(HouseRulesUiGameVr));
-
-                        return;
+                        heroes = true;
                     }
                 }
+
+                LogDebug("Recognized modded game in VR. Loading UI.");
+                _ = new GameObject("HouseRulesUiGameVr", typeof(HouseRulesUiGameVr));
 
                 if (revolutions && !HR.SelectedRuleset.Name.Equals("Demeo Reloaded"))
                 {
@@ -187,7 +182,7 @@
                     _ = new GameObject("HouseRulesUiGameVr2", typeof(HouseRulesUiGameVr2));
                 }
 
-                if (progressive && HR.SelectedRuleset.Name.Contains("Heroes "))
+                if (progressive && heroes)
                 {
                     LogDebug("Recognized Heroes Progressive game in VR. Loading UI.");
                     _ = new GameObject("HouseRulesUiGameVr4", typeof(HouseRulesUiGameVr4));

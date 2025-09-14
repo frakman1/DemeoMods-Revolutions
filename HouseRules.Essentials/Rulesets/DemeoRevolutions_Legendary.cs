@@ -1343,7 +1343,7 @@
             var cardEnergyFromRecyclingRule = new CardEnergyFromRecyclingMultipliedRule(0.8f);
             var enemyHealthScaledRule = new EnemyHealthScaledRule(1.15f);
             var enemyAttackScaledRule = new EnemyAttackScaledRule(1.0f);
-            var revolutionsRule = new RevolutionsRule(69);
+            var revolutionsRule = new RevolutionsRule(5);
             var goldPickupRule = new GoldPickedUpMultipliedRule(1);
             var reviveEffectsRule = new ReviveRemovesEffectsRule(true);
             var courageShantyRule = new CourageShantyAddsHpRule(1);

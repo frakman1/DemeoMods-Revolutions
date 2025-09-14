@@ -88,11 +88,14 @@
             HR.Rulebook.Register(typeof(FreeAbilityOnCritRule));
             HR.Rulebook.Register(typeof(FreeActionPointsOnCritRule));
             HR.Rulebook.Register(typeof(FreeBuffOnKillRule));
+            HR.Rulebook.Register(typeof(FreeGoldOnCritRule));
             HR.Rulebook.Register(typeof(FreeHealOnCritRule));
             HR.Rulebook.Register(typeof(FreeHealOnHitRule));
             HR.Rulebook.Register(typeof(FreeMaxHealthOnKillRule));
             HR.Rulebook.Register(typeof(FreeRandomBuffOnKillRule));
             HR.Rulebook.Register(typeof(FreeReplenishablesOnCritRule));
+            HR.Rulebook.Register(typeof(FreeThingsOnLastMoveAndCritRule));
+            HR.Rulebook.Register(typeof(FreeThingsOnLastMoveAndCrit2Rule));
             HR.Rulebook.Register(typeof(GoldPickedUpMultipliedRule));
             HR.Rulebook.Register(typeof(GrappleUnhookedRule));
             HR.Rulebook.Register(typeof(HeroesEnemyBuffsRule));
@@ -123,9 +126,15 @@
             HR.Rulebook.Register(typeof(PieceImmunityListAdjustedRule));
             HR.Rulebook.Register(typeof(PieceKeyholderRule));
             HR.Rulebook.Register(typeof(PieceMagicStatAddedRule));
+            HR.Rulebook.Register(typeof(PieceMexicanProgressRule));
+            HR.Rulebook.Register(typeof(PieceMexicanProgress2Rule));
+            HR.Rulebook.Register(typeof(PieceMexicanFriendProgressRule));
             HR.Rulebook.Register(typeof(PiecePieceTypeListOverriddenRule));
+            HR.Rulebook.Register(typeof(PiecePointProgressRule));
             HR.Rulebook.Register(typeof(PieceProgressRule));
             HR.Rulebook.Register(typeof(PieceProgressLostRule));
+            HR.Rulebook.Register(typeof(PieceStrengthStatAddedRule));
+            HR.Rulebook.Register(typeof(PieceSwiftnessStatAddedRule));
             HR.Rulebook.Register(typeof(PieceUseWhenKilledOverriddenRule));
             HR.Rulebook.Register(typeof(PointGainRule));
             HR.Rulebook.Register(typeof(PotionAdditionOverriddenRule));
@@ -157,6 +166,7 @@
             HR.Rulebook.Register(DemeoRevolutions_Progressive.Create());
             HR.Rulebook.Register(DemeoRevolutions_Small_Progressive.Create());
             HR.Rulebook.Register(DemeoRevolutions_Legendary_Progressive.Create());
+            HR.Rulebook.Register(DemeoRevolutions_Points_Progressive.Create());
             HR.Rulebook.Register(FriendlyCompetition.Create());
             HR.Rulebook.Register(DarkestDankestDemeoRuleset.Create());
             HR.Rulebook.Register(SURVIVE.Create());

@@ -151,7 +151,7 @@
                             var abilityPromise = _context.AbilityFactory.LoadAbility(AbilityKey.WaterBottle);
                             abilityPromise.OnLoaded(ability =>
                             {
-                                source.TryAddAbilityToInventory(ability, showTooltip: true, isReplenishable: true);
+                                source.TryAddAbilityToInventory(ability, showTooltip: true, isReplenishable: false);
                                 HR.ScheduleBoardSync();
                             });
                             return;
@@ -313,7 +313,7 @@
 
             if (source.GetStat(Stats.Type.InnateCounterDamageExtraDamage) == 69 || HR.SelectedRuleset.Name.Contains("Revolutions"))
             {
-                if (!hasPower2)
+                /*if (!hasPower2)
                 {
                     var abilityPromise = _context.AbilityFactory.LoadAbility(_globalAdjustments[source.boardPieceId]);
                     abilityPromise.OnLoaded(ability =>
@@ -324,7 +324,7 @@
                 }
             }
             else
-            {
+            {*/
                 var abilityPromise = _context.AbilityFactory.LoadAbility(_globalAdjustments[source.boardPieceId]);
                 abilityPromise.OnLoaded(ability =>
                 {
