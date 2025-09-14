@@ -1369,6 +1369,7 @@
                 enableDoorsRule,
                 grappleUnhookedRule,
                 pieceDownedCountRule,
+                pointGainRule,
                 pieceMagicStatsRule,
                 pieceCounterDamageRule,
                 pieceDamageResistRule,
