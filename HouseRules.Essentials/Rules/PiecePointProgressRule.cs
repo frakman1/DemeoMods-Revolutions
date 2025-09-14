@@ -488,180 +488,6 @@
                     piece.effectSink.TrySetStatMaxValue(Stats.Type.Speed, piece.GetStatMax(Stats.Type.Speed) + 2);
                 }
             }
-
-            /* Energy Potion cards added per class
-            if (piece.HasEffectState(EffectStateType.ExtraEnergy))
-            {
-                bool hasPower = false;
-                if (piece.boardPieceId == BoardPieceId.HeroBarbarian)
-                {
-                    for (var i = 0; i < piece.inventory.Items.Count; i++)
-                    {
-                        value = piece.inventory.Items[i];
-                        if (value.AbilityKey == AbilityKey.ImplosionExplosionRain)
-                        {
-                            hasPower = true;
-                            break;
-                        }
-                    }
-
-                    if (!hasPower)
-                    {
-                        Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item(
-                            AbilityKey.ImplosionExplosionRain,
-                            flags: (Inventory.ItemFlag)1,
-                            originalOwner: -1,
-                            replenishCooldown: 1));
-                        piece.AddGold(0);
-                    }
-                }
-                else if (piece.boardPieceId == BoardPieceId.HeroGuardian)
-                {
-                    for (var i = 0; i < piece.inventory.Items.Count; i++)
-                    {
-                        value = piece.inventory.Items[i];
-                        if (value.AbilityKey == AbilityKey.LeapHeavy)
-                        {
-                            hasPower = true;
-                            break;
-                        }
-                    }
-
-                    if (!hasPower)
-                    {
-                        Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item(
-                            AbilityKey.LeapHeavy,
-                            flags: (Inventory.ItemFlag)1,
-                            originalOwner: -1,
-                            replenishCooldown: 1));
-                        piece.AddGold(0);
-                    }
-                }
-                else if (piece.boardPieceId == BoardPieceId.HeroHunter)
-                {
-                    for (var i = 0; i < piece.inventory.Items.Count; i++)
-                    {
-                        value = piece.inventory.Items[i];
-                        if (value.AbilityKey == AbilityKey.PVPMissileSwarm)
-                        {
-                            hasPower = true;
-                            break;
-                        }
-
-                        if (value.AbilityKey == AbilityKey.Zap)
-                        {
-                            piece.inventory.Items.Remove(value);
-                            Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
-                            break;
-                        }
-                    }
-
-                    if (!hasPower)
-                    {
-                        Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item(
-                            AbilityKey.PVPMissileSwarm,
-                            flags: (Inventory.ItemFlag)1,
-                            originalOwner: -1,
-                            replenishCooldown: 1));
-                        piece.AddGold(0);
-                    }
-                }
-                else if (piece.boardPieceId == BoardPieceId.HeroBard)
-                {
-                    for (var i = 0; i < piece.inventory.Items.Count; i++)
-                    {
-                        value = piece.inventory.Items[i];
-                        if (value.AbilityKey == AbilityKey.PVPBlink)
-                        {
-                            hasPower = true;
-                            break;
-                        }
-                    }
-
-                    if (!hasPower)
-                    {
-                        Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item(
-                            AbilityKey.PVPBlink,
-                            flags: (Inventory.ItemFlag)1,
-                            originalOwner: -1,
-                            replenishCooldown: 1));
-                        piece.AddGold(0);
-                    }
-                }
-                else if (piece.boardPieceId == BoardPieceId.HeroSorcerer)
-                {
-                    for (var i = 0; i < piece.inventory.Items.Count; i++)
-                    {
-                        value = piece.inventory.Items[i];
-                        if (value.AbilityKey == AbilityKey.DeathBeam)
-                        {
-                            hasPower = true;
-                            break;
-                        }
-                    }
-
-                    if (!hasPower)
-                    {
-                        Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item(
-                            AbilityKey.DeathBeam,
-                            flags: (Inventory.ItemFlag)1,
-                            originalOwner: -1,
-                            replenishCooldown: 1));
-                        piece.AddGold(0);
-                    }
-                }
-                else if (piece.boardPieceId == BoardPieceId.HeroRogue)
-                {
-                    for (var i = 0; i < piece.inventory.Items.Count; i++)
-                    {
-                        value = piece.inventory.Items[i];
-                        if (value.AbilityKey == AbilityKey.PVPFireball)
-                        {
-                            hasPower = true;
-                            break;
-                        }
-                    }
-
-                    if (!hasPower)
-                    {
-                        Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item(
-                            AbilityKey.PVPFireball,
-                            flags: (Inventory.ItemFlag)1,
-                            originalOwner: -1,
-                            replenishCooldown: 1));
-                        piece.AddGold(0);
-                    }
-                }
-                else if (piece.boardPieceId == BoardPieceId.HeroWarlock)
-                {
-                    for (var i = 0; i < piece.inventory.Items.Count; i++)
-                    {
-                        value = piece.inventory.Items[i];
-                        if (value.AbilityKey == AbilityKey.WeakeningShout)
-                        {
-                            hasPower = true;
-                            break;
-                        }
-                    }
-
-                    if (!hasPower)
-                    {
-                        Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item(
-                            AbilityKey.WeakeningShout,
-                            flags: (Inventory.ItemFlag)1,
-                            originalOwner: -1,
-                            replenishCooldown: 1));
-                        piece.AddGold(0);
-                    }
-                }
-            }*/
         }
 
         private static bool Inventory_RestoreReplenishables_Prefix(ref bool __result, Piece piece)
@@ -856,10 +682,6 @@
                     {
                         piece = piece2;
                     }
-                    else
-                    {
-                        return;
-                    }
                 }
                 else if (piece.boardPieceId == BoardPieceId.SellswordArbalestierActive)
                 {
@@ -872,15 +694,12 @@
                     {
                         piece = piece2;
                     }
-                    else
-                    {
-                        return;
-                    }
                 }
-                else
-                {
-                    return;
-                }
+            }
+
+            if (!piece.IsPlayer())
+            {
+                return;
             }
 
             var pointCount = piece.effectSink.GetEffectStateDurationTurnsLeft(EffectStateType.StrengthInNumbers);
@@ -1052,13 +871,11 @@
                 {
                     attackerUnit = tempPiece;
                 }
-                else
-                {
-                    tempPiece = null;
-                }
+
+                tempPiece = null;
             }
 
-            if (defeatedUnit.HasPieceType(PieceType.Prop))
+            if (defeatedUnit.HasPieceType(PieceType.Prop) && attackerUnit.IsPlayer())
             {
                 tempPiece = attackerUnit;
                 return;
@@ -1084,10 +901,6 @@
                     {
                         attackerUnit = piece2;
                     }
-                    else
-                    {
-                        return;
-                    }
                 }
                 else if (attackerUnit.boardPieceId == BoardPieceId.SellswordArbalestierActive && (_globalConfig.Points4Minions == (int)PointsKeys.MinionsOnlyArly || _globalConfig.Points4Minions > 2))
                 {
@@ -1098,10 +911,6 @@
                     else if (pieceAI.memory.TryGetAssociatedPiece(gameContext.pieceAndTurnController, out piece2))
                     {
                         attackerUnit = piece2;
-                    }
-                    else
-                    {
-                        return;
                     }
                 }
                 else if (_globalConfig.Points4Minions > 3)
@@ -1173,6 +982,11 @@
                         }
                     }
                 }
+            }
+
+            if (!attackerUnit.IsPlayer())
+            {
+                return;
             }
 
             var pointCount = attackerUnit.effectSink.GetEffectStateDurationTurnsLeft(EffectStateType.StrengthInNumbers);
@@ -1329,7 +1143,7 @@
                 }
             }
 
-            if (source == null)
+            if (!source.IsPlayer())
             {
                 return;
             }
@@ -1387,11 +1201,6 @@
                                 addPoints += _globalConfig.Keyholder;
                             }
                         }
-
-                        /*else
-                        {
-                            HouseRulesEssentialsBase.LogDebug($"{source.boardPieceId} [ID: {source.networkID}] hurt <undefined target>");
-                        }*/
                     }
                     else if (targets[i] == source && !source.IsDowned() && diceResult != Dice.Outcome.None)
                     {
