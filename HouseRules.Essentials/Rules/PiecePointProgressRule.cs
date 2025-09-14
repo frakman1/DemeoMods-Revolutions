@@ -25,7 +25,7 @@
         private static bool _isActivated;
         private static bool _dropchest;
         private static Piece? tempPiece;
-        public static float Percentage;
+        private static float percentage;
 
         internal static int Player1 { get; private set; }
 
@@ -80,7 +80,7 @@
         protected override void OnActivate(Context context)
         {
             _globalConfig = _config;
-            Percentage = _globalConfig.LevelPercentage;
+            percentage = _globalConfig.LevelPercentage;
             _context = context;
             _isActivated = true;
         }
@@ -722,7 +722,7 @@
 
             if (addPoints != 0)
             {
-                Piece_LevelUp(piece, pointCount + (addPoints * Percentage));
+                Piece_LevelUp(piece, pointCount + (addPoints * percentage));
             }
         }
 
@@ -754,7 +754,7 @@
 
             if (addPoints != 0)
             {
-                Piece_LevelUp(sourcePiece, pointCount + (addPoints * Percentage));
+                Piece_LevelUp(sourcePiece, pointCount + (addPoints * percentage));
             }
 
             pointCount = revivedPiece.effectSink.GetEffectStateDurationTurnsLeft(EffectStateType.StrengthInNumbers);
@@ -775,7 +775,7 @@
 
                 if (addPoints != 0)
                 {
-                    Piece_LevelUp(revivedPiece, pointCount + (addPoints * Percentage));
+                    Piece_LevelUp(revivedPiece, pointCount + (addPoints * percentage));
                 }
             }
         }
@@ -854,7 +854,7 @@
 
             if (addPoints != 0)
             {
-                Piece_LevelUp(piece, pointCount + (addPoints * Percentage));
+                Piece_LevelUp(piece, pointCount + (addPoints * percentage));
             }
         }
 
@@ -1025,7 +1025,7 @@
 
             if (addPoints != 0)
             {
-                Piece_LevelUp(attackerUnit, pointCount + (addPoints * Percentage));
+                Piece_LevelUp(attackerUnit, pointCount + (addPoints * percentage));
             }
         }
 
@@ -1216,7 +1216,7 @@
 
             if (addPoints != 0)
             {
-                Piece_LevelUp(source, pointCount + (addPoints * Percentage));
+                Piece_LevelUp(source, pointCount + (addPoints * percentage));
             }
         }
 

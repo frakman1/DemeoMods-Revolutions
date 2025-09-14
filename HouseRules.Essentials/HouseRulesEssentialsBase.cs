@@ -163,6 +163,7 @@
             HR.Rulebook.Register(DemeoRevolutions_Progressive.Create());
             HR.Rulebook.Register(DemeoRevolutions_Small_Progressive.Create());
             HR.Rulebook.Register(DemeoRevolutions_Legendary_Progressive.Create());
+            HR.Rulebook.Register(DemeoRevolutions_Points_Progressive.Create());
             HR.Rulebook.Register(FriendlyCompetition.Create());
             HR.Rulebook.Register(DarkestDankestDemeoRuleset.Create());
             HR.Rulebook.Register(SURVIVE.Create());

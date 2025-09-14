@@ -167,7 +167,7 @@
                         revolutions = true;
                     }
 
-                    if (rule.ToString().Contains("PieceProgressRule"))
+                    if (rule.ToString().Contains("Progress"))
                     {
                         progressive = true;
                     }
