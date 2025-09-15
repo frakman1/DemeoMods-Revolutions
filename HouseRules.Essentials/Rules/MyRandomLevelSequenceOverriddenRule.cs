@@ -144,24 +144,19 @@
                 Traverse.Create(gameContext.gameStateMachine).Field<LevelSequence>("levelSequence").Value;
             var originalSequence = Traverse.Create(gsmLevelSequence).Field<string[]>("levels").Value;
 
-            isFastForward = false;
-            isSkipLevel1 = false;
             if (replacements[0].Contains("fastforward"))
             {
                 isFastForward = true;
-                HouseRulesEssentialsBase.LogWarning("Fast Forward mode detected");
             }
             else if (replacements[0].Contains("skiplevel1"))
             {
                 isSkipLevel1 = true;
-                HouseRulesEssentialsBase.LogWarning("Skip Level 1 mode detected");
             }
 
             int newMap1;
             int newMap2;
             int newMap3;
             int startMap = 0;
-
             if (isFastForward || isSkipLevel1)
             {
                 startMap = 1;
@@ -239,14 +234,66 @@
 
             if (isFastForward)
             {
-                _randomMaps[0] = "ForestEntrance";
-                _randomMaps[1] = "ForestShopFloor";
-                _randomMaps[2] = "ForestEntrance";
-                _randomMaps[3] = "ForestShopFloor";
+                HouseRulesEssentialsBase.LogWarning("Fast Forward mode detected");
+                if (gsmLevelSequence.gameType == LevelSequence.GameType.Forest)
+                {
+                    _randomMaps[0] = "CryptEntrance";
+                    _randomMaps[1] = "ShopFloor02";
+                    _randomMaps[2] = "ElvenFloor17";
+                    _randomMaps[3] = "SewersShopFloor";
+                }
+                else if (gsmLevelSequence.gameType == LevelSequence.GameType.ElvenQueen)
+                {
+                    _randomMaps[0] = "DesertEntranceFloor";
+                    _randomMaps[1] = "DesertShopFloor";
+                    _randomMaps[2] = "ForestEntrance";
+                    _randomMaps[3] = "ForestShopFloor";
+                }
+                else if (gsmLevelSequence.gameType == LevelSequence.GameType.Town)
+                {
+                    _randomMaps[0] = "SewersEntranceFloor";
+                    _randomMaps[1] = "SewersFloor";
+                    _randomMaps[2] = "DesertEntranceFloor";
+                    _randomMaps[3] = "DesertShopFloor";
+                }
+                else if (gsmLevelSequence.gameType == LevelSequence.GameType.RatKing)
+                {
+                    _randomMaps[0] = "ForestEntrance";
+                    _randomMaps[1] = "ForestShopFloor";
+                    _randomMaps[2] = "TownsEntrance";
+                    _randomMaps[3] = "TownsShopFloor";
+                }
+                else
+                {
+                    _randomMaps[0] = "TownsEntrance";
+                    _randomMaps[1] = "TownsShopFloor";
+                    _randomMaps[2] = "CryptEntrance";
+                    _randomMaps[3] = "ShopFloor02";
+                }
             }
             else if (isSkipLevel1)
             {
-                _randomMaps[0] = "ForestEntrance";
+                HouseRulesEssentialsBase.LogWarning("Skip Level 1 mode detected");
+                if (gsmLevelSequence.gameType == LevelSequence.GameType.Forest)
+                {
+                    _randomMaps[0] = "CryptEntrance";
+                }
+                else if (gsmLevelSequence.gameType == LevelSequence.GameType.ElvenQueen)
+                {
+                    _randomMaps[0] = "DesertEntranceFloor";
+                }
+                else if (gsmLevelSequence.gameType == LevelSequence.GameType.Town)
+                {
+                    _randomMaps[0] = "SewersEntranceFloor";
+                }
+                else if (gsmLevelSequence.gameType == LevelSequence.GameType.RatKing)
+                {
+                    _randomMaps[0] = "ForestEntrance";
+                }
+                else
+                {
+                    _randomMaps[0] = "TownsEntrance";
+                }
             }
 
             HouseRulesEssentialsBase.LogWarning("Randomly generated level sequence loaded");
