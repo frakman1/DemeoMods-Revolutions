@@ -218,38 +218,38 @@ namespace HouseRules.Essentials.Rules
                 {
                     if (gsmLevelSequence.gameType == LevelSequence.GameType.Forest)
                     {
-                        _randomMaps[0] = "CryptEntrance";
-                        _randomMaps[1] = "ShopFloor02";
-                        _randomMaps[2] = "SewersEntranceFloor";
-                        _randomMaps[3] = "SewersShopFloor";
+                        replacements[0] = "CryptEntrance";
+                        replacements[1] = "ShopFloor02";
+                        replacements[2] = "SewersEntranceFloor";
+                        replacements[3] = "SewersShopFloor";
                     }
                     else if (gsmLevelSequence.gameType == LevelSequence.GameType.ElvenQueen)
                     {
-                        _randomMaps[0] = "DesertEntrance";
-                        _randomMaps[1] = "DesertShopFloor";
-                        _randomMaps[2] = "ForestEntrance";
-                        _randomMaps[3] = "ForestShopFloor";
+                        replacements[0] = "DesertEntrance";
+                        replacements[1] = "DesertShopFloor";
+                        replacements[2] = "ForestEntrance";
+                        replacements[3] = "ForestShopFloor";
                     }
                     else if (gsmLevelSequence.gameType == LevelSequence.GameType.Town)
                     {
-                        _randomMaps[0] = "SewersEntranceFloor";
-                        _randomMaps[1] = "SewersFloor";
-                        _randomMaps[2] = "DesertEntrance";
-                        _randomMaps[3] = "DesertShopFloor";
+                        replacements[0] = "SewersEntranceFloor";
+                        replacements[1] = "SewersFloor";
+                        replacements[2] = "DesertEntrance";
+                        replacements[3] = "DesertShopFloor";
                     }
                     else if (gsmLevelSequence.gameType == LevelSequence.GameType.RatKing)
                     {
-                        _randomMaps[0] = "ForestEntrance";
-                        _randomMaps[1] = "ForestShopFloor";
-                        _randomMaps[2] = "TownsEntrance";
-                        _randomMaps[3] = "TownsShopFloor";
+                        replacements[0] = "ForestEntrance";
+                        replacements[1] = "ForestShopFloor";
+                        replacements[2] = "TownsEntrance";
+                        replacements[3] = "TownsShopFloor";
                     }
                     else
                     {
-                        _randomMaps[0] = "TownsEntrance";
-                        _randomMaps[1] = "TownsShopFloor";
-                        _randomMaps[2] = "CryptEntrance";
-                        _randomMaps[3] = "ShopFloor02";
+                        replacements[0] = "TownsEntrance";
+                        replacements[1] = "TownsShopFloor";
+                        replacements[2] = "CryptEntrance";
+                        replacements[3] = "ShopFloor02";
                     }
                 }
                 else if (isSkipLevel1)
