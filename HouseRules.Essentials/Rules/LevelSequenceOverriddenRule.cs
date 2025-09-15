@@ -3,7 +3,6 @@ namespace HouseRules.Essentials.Rules
     using System.Collections.Generic;
     using System.Linq;
     using Boardgame;
-    using Boardgame.BoardEntities;
     using Boardgame.SerializableEvents;
     using Boardgame.SerializableEvents.CustomEventHandlers;
     using HarmonyLib;
@@ -220,7 +219,7 @@ namespace HouseRules.Essentials.Rules
                     {
                         replacements[0] = "CryptEntrance";
                         replacements[1] = "ShopFloor02";
-                        replacements[2] = "SewersEntranceFloor";
+                        replacements[2] = "ElvenFloor17";
                         replacements[3] = "SewersShopFloor";
                     }
                     else if (gsmLevelSequence.gameType == LevelSequence.GameType.ElvenQueen)
@@ -534,7 +533,7 @@ namespace HouseRules.Essentials.Rules
                 if (gsmLevelSequence.gameType == LevelSequence.GameType.Forest)
                 {
                     _randomMaps[0] = "CryptEntrance";
-                    _randomMaps[2] = "SewersEntranceFloor";
+                    _randomMaps[2] = "ElvenFloor17";
                 }
                 else if (gsmLevelSequence.gameType == LevelSequence.GameType.ElvenQueen)
                 {
