@@ -225,7 +225,7 @@ namespace HouseRules.Essentials.Rules
                     }
                     else if (gsmLevelSequence.gameType == LevelSequence.GameType.ElvenQueen)
                     {
-                        replacements[0] = "DesertEntrance";
+                        replacements[0] = "DesertEntranceFloor";
                         replacements[1] = "DesertShopFloor";
                         replacements[2] = "ForestEntrance";
                         replacements[3] = "ForestShopFloor";
@@ -234,7 +234,7 @@ namespace HouseRules.Essentials.Rules
                     {
                         replacements[0] = "SewersEntranceFloor";
                         replacements[1] = "SewersFloor";
-                        replacements[2] = "DesertEntrance";
+                        replacements[2] = "DesertEntranceFloor";
                         replacements[3] = "DesertShopFloor";
                     }
                     else if (gsmLevelSequence.gameType == LevelSequence.GameType.RatKing)
@@ -260,7 +260,7 @@ namespace HouseRules.Essentials.Rules
                     }
                     else if (gsmLevelSequence.gameType == LevelSequence.GameType.ElvenQueen)
                     {
-                        replacements[0] = "DesertEntrance";
+                        replacements[0] = "DesertEntranceFloor";
                     }
                     else if (gsmLevelSequence.gameType == LevelSequence.GameType.Town)
                     {
@@ -281,7 +281,7 @@ namespace HouseRules.Essentials.Rules
                 }
                 else if (gsmLevelSequence.gameType == LevelSequence.GameType.ElvenQueen && replacements[0].Contains("CryptEntrance"))
                 {
-                    replacements[0] = "DesertEntrance";
+                    replacements[0] = "DesertEntranceFloor";
                 }
                 else if (gsmLevelSequence.gameType == LevelSequence.GameType.Town && replacements[0].Contains("TownsEntrance"))
                 {
@@ -538,18 +538,18 @@ namespace HouseRules.Essentials.Rules
                 }
                 else if (gsmLevelSequence.gameType == LevelSequence.GameType.ElvenQueen)
                 {
-                    _randomMaps[0] = "DesertEntrance";
+                    _randomMaps[0] = "DesertEntranceFloor";
                     _randomMaps[2] = "ForestEntrance";
                 }
                 else if (gsmLevelSequence.gameType == LevelSequence.GameType.Town)
                 {
                     _randomMaps[0] = "SewersEntranceFloor";
-                    _randomMaps[2] = "DesertEntrance";
+                    _randomMaps[2] = "DesertEntranceFloor";
                 }
                 else if (gsmLevelSequence.gameType == LevelSequence.GameType.RatKing)
                 {
                     _randomMaps[0] = "ForestEntrance";
-                    _randomMaps[2] = "TownsEntrance";
+                    _randomMaps[2] = "CryptEntrance";
                 }
                 else if (gsmLevelSequence.gameType == LevelSequence.GameType.Desert)
                 {
@@ -565,7 +565,7 @@ namespace HouseRules.Essentials.Rules
                 }
                 else if (gsmLevelSequence.gameType == LevelSequence.GameType.ElvenQueen)
                 {
-                    _randomMaps[0] = "DesertEntrance";
+                    _randomMaps[0] = "DesertEntranceFloor";
                 }
                 else if (gsmLevelSequence.gameType == LevelSequence.GameType.Town)
                 {
