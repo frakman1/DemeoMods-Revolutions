@@ -181,7 +181,6 @@
 
             if (replacements.Count == 5 && replacements[1].Contains("Shop") && replacements[3].Contains("Shop"))
             {
-                isRandomMaps = false;
                 if (gsmLevelSequence.gameType == LevelSequence.GameType.Desert)
                 {
                     replacements[4] = "DesertBossFloor01";
@@ -189,6 +188,99 @@
                 else if (gsmLevelSequence.gameType == LevelSequence.GameType.Town)
                 {
                     replacements[4] = "TownsBossFloor01";
+                }
+
+                if (replacements[0].Contains("fastforward"))
+                {
+                    isFastForward = true;
+                    HouseRulesEssentialsBase.LogWarning("Fast Forward mode detected");
+                }
+                else if (replacements[0].Contains("skiplevel1"))
+                {
+                    isSkipLevel1 = true;
+                    HouseRulesEssentialsBase.LogWarning("Skip Level 1 mode detected");
+                }
+
+                if (isFastForward)
+                {
+                    if (gsmLevelSequence.gameType == LevelSequence.GameType.Forest)
+                    {
+                        _randomMaps[0] = "CryptEntrance";
+                        _randomMaps[1] = "ShopFloor02";
+                        _randomMaps[2] = "SewersEntranceFloor";
+                        _randomMaps[3] = "SewersShopFloor";
+                    }
+                    else if (gsmLevelSequence.gameType == LevelSequence.GameType.ElvenQueen)
+                    {
+                        _randomMaps[0] = "DesertEntrance";
+                        _randomMaps[1] = "DesertShopFloor";
+                        _randomMaps[2] = "ForestEntrance";
+                        _randomMaps[3] = "ForestShopFloor";
+                    }
+                    else if (gsmLevelSequence.gameType == LevelSequence.GameType.Town)
+                    {
+                        _randomMaps[0] = "SewersEntranceFloor";
+                        _randomMaps[1] = "SewersFloor";
+                        _randomMaps[2] = "DesertEntrance";
+                        _randomMaps[3] = "DesertShopFloor";
+                    }
+                    else if (gsmLevelSequence.gameType == LevelSequence.GameType.RatKing)
+                    {
+                        _randomMaps[0] = "ForestEntrance";
+                        _randomMaps[1] = "ForestShopFloor";
+                        _randomMaps[2] = "TownsEntrance";
+                        _randomMaps[3] = "TownsShopFloor";
+                    }
+                    else
+                    {
+                        _randomMaps[0] = "TownsEntrance";
+                        _randomMaps[1] = "TownsShopFloor";
+                        _randomMaps[2] = "CryptEntrance";
+                        _randomMaps[3] = "ShopFloor02";
+                    }
+                }
+                else if (isSkipLevel1)
+                {
+                    if (gsmLevelSequence.gameType == LevelSequence.GameType.Forest)
+                    {
+                        replacements[0] = "CryptEntrance";
+                    }
+                    else if (gsmLevelSequence.gameType == LevelSequence.GameType.ElvenQueen)
+                    {
+                        replacements[0] = "DesertEntrance";
+                    }
+                    else if (gsmLevelSequence.gameType == LevelSequence.GameType.Town)
+                    {
+                        replacements[0] = "SewersEntranceFloor";
+                    }
+                    else if (gsmLevelSequence.gameType == LevelSequence.GameType.RatKing)
+                    {
+                        replacements[0] = "ForestEntrance";
+                    }
+                    else
+                    {
+                        replacements[0] = "TownsEntrance";
+                    }
+                }
+                else if (gsmLevelSequence.gameType == LevelSequence.GameType.Forest && replacements[0].Contains("ForestEntrance"))
+                {
+                    replacements[0] = "CryptEntrance";
+                }
+                else if (gsmLevelSequence.gameType == LevelSequence.GameType.ElvenQueen && replacements[0].Contains("CryptEntrance"))
+                {
+                    replacements[0] = "DesertEntrance";
+                }
+                else if (gsmLevelSequence.gameType == LevelSequence.GameType.Town && replacements[0].Contains("TownsEntrance"))
+                {
+                    replacements[0] = "SewersEntranceFloor";
+                }
+                else if (gsmLevelSequence.gameType == LevelSequence.GameType.RatKing && replacements[0].Contains("SewersEntrance"))
+                {
+                    replacements[0] = "ForestEntrance";
+                }
+                else if (gsmLevelSequence.gameType == LevelSequence.GameType.Desert && replacements[0].Contains("DesertEntrance"))
+                {
+                    replacements[0] = "TownsEntrance";
                 }
 
                 HouseRulesEssentialsBase.LogWarning("User configured specific level sequence loaded");
@@ -200,8 +292,6 @@
             else
             {
                 isRandomMaps = true;
-                isFastForward = false;
-                isSkipLevel1 = false;
                 if (replacements[0].Contains("fastforward"))
                 {
                     isFastForward = true;
@@ -344,6 +434,69 @@
                 _randomMaps[4] = "TownsBossFloor01";
             }
 
+            if (replacements[0].Contains("fastforward"))
+            {
+                isFastForward = true;
+                HouseRulesEssentialsBase.LogWarning("Fast Forward mode detected");
+            }
+            else if (replacements[0].Contains("skiplevel1"))
+            {
+                isSkipLevel1 = true;
+                HouseRulesEssentialsBase.LogWarning("Skip Level 1 mode detected");
+            }
+
+            if (isFastForward)
+            {
+                if (gsmLevelSequence.gameType == LevelSequence.GameType.Forest)
+                {
+                    _randomMaps[0] = "CryptEntrance";
+                    _randomMaps[2] = "SewersEntranceFloor";
+                }
+                else if (gsmLevelSequence.gameType == LevelSequence.GameType.ElvenQueen)
+                {
+                    _randomMaps[0] = "DesertEntrance";
+                    _randomMaps[2] = "ForestEntrance";
+                }
+                else if (gsmLevelSequence.gameType == LevelSequence.GameType.Town)
+                {
+                    _randomMaps[0] = "SewersEntranceFloor";
+                    _randomMaps[2] = "DesertEntrance";
+                }
+                else if (gsmLevelSequence.gameType == LevelSequence.GameType.RatKing)
+                {
+                    _randomMaps[0] = "ForestEntrance";
+                    _randomMaps[2] = "TownsEntrance";
+                }
+                else if (gsmLevelSequence.gameType == LevelSequence.GameType.Desert)
+                {
+                    _randomMaps[0] = "TownsEntrance";
+                    _randomMaps[2] = "CryptEntrance";
+                }
+            }
+            else if (isSkipLevel1)
+            {
+                if (gsmLevelSequence.gameType == LevelSequence.GameType.Forest)
+                {
+                    _randomMaps[0] = "CryptEntrance";
+                }
+                else if (gsmLevelSequence.gameType == LevelSequence.GameType.ElvenQueen)
+                {
+                    _randomMaps[0] = "DesertEntrance";
+                }
+                else if (gsmLevelSequence.gameType == LevelSequence.GameType.Town)
+                {
+                    _randomMaps[0] = "SewersEntranceFloor";
+                }
+                else if (gsmLevelSequence.gameType == LevelSequence.GameType.RatKing)
+                {
+                    _randomMaps[0] = "ForestEntrance";
+                }
+                else if (gsmLevelSequence.gameType == LevelSequence.GameType.Desert)
+                {
+                    _randomMaps[0] = "TownsEntrance";
+                }
+            }
+
             switch (_randomMaps[2].Substring(0, 4))
             {
                 case "Elve":
@@ -356,6 +509,13 @@
 
                 case "Sewe":
                     _randomMaps[1] = "SewersShopFloor";
+                    break;
+
+                case "Dese":
+                    _randomMaps[1] = "DesertShopFloor";
+                    break;
+                case "Town":
+                    _randomMaps[1] = "TownsShopFloor";
                     break;
             }
 
@@ -379,18 +539,6 @@
                 case "Town":
                     _randomMaps[3] = "TownsShopFloor";
                     break;
-            }
-
-            if (isFastForward)
-            {
-                _randomMaps[0] = "ForestEntrance";
-                _randomMaps[1] = "ForestShopFloor";
-                _randomMaps[2] = "ForestEntrance";
-                _randomMaps[3] = "ForestShopFloor";
-            }
-            else if (isSkipLevel1)
-            {
-                _randomMaps[0] = "ForestEntrance";
             }
 
             HouseRulesEssentialsBase.LogWarning("Randomly generated level sequence loaded");
