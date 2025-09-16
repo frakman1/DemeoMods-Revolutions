@@ -152,7 +152,7 @@ A full list of all of the different parameter names used by HouseRules Revolutio
 - RevealPath
 - ScabRat
 - ScarePowder -> (PanicPowder)
-- ScrollElectricity
+- ScrollElectricity -> (ScrollOfElectricty)
 - ScrollTsunami
 - ShatteringVoice
 - Shockwave
