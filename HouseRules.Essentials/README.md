@@ -11,6 +11,10 @@ HouseRules API.
 
 ### SOME of the Built-in Rulesets
 
+- __Demeo Revolutions__ : Various games with special modes and abilities.
+- __Heroes of the Voice Machine__ : Play as your favorite character from the series with specialized abilties.
+- __SURVIVE!__ : Start with 1 HP and gain health by defeating enemies.
+- __Friendly Competition__ : Compete for points by performing actions... good or bad!
 - __Earth Wind & Fire__ : Not the band. Let's get Elemental.
 - __🕷️Arachnophobia🕷️__ : Offers a fresh adventure to be played on the RootsOfEvil Map.
   Chased by violent thugs from their ancestral homes in Sunderhaven, the King and Queen flee into the woods.
@@ -610,13 +614,13 @@ The [Settings Reference](../docs/SettingsReference.md) contains lists of all dif
   ```
 
 #### __LevelSequenceOverridden__: The Level Sequence of dungeon floors is overridden.
-  - List of levels must be exactly five items long. The game will crash at the end if the list is any longer.
-  - It is possible to use levels from any book (Elven, Sewers, Forest) together in a single list
+  - It is possible to use levels from any adventure book together in a single list
   - Level soundtracks may not match the played level or adventure (e.g. The shop "Ah Customers, Welcome" will always play on 2nd and 4th levels)
-  - Level names are ElvenFloor01-17, SewersFloor01-12, ForestFloor01-03, ForestFloor05-09, ShopFloor02, SewersShopFloor & ForestShopFloor
   - To configure:
     - Specify a list of [LevelNames](../docs/LevelNames.md).
-    - If list is longer than 5 the map list will be randomized (not based on your list at all)
+    - If list is longer or shorter than 5 the map list will be randomized (not based on your list at all)
+    - Start the list with skiplevel1 to replace the 1st floor with another entrance for 1 floor of gameplay before the shop and boss
+    - Start the list with fastforward to replace the 1st and 2nd floor with entrances to go directly to the boss after shops
 
   ###### _Example JSON config for LevelSequenceOverridden_
 
@@ -628,20 +632,21 @@ The [Settings Reference](../docs/SettingsReference.md) contains lists of all dif
   ```
 
   #### __MyRandomLevelSequenceOverridden__: The Level Sequence of dungeon floors is overridden and randomized.
-  - List of levels must be at least 3 items long.
-  - Shop levels will be added automatically. Do not include them in the list unless you want MORE shops randomly.
-  - It is possible to use levels from any book (Elven, Sewers, Forest) together in a single list
+  - List of levels must be at least 3 items long
+  - Shop levels will be added automatically. Do not include them in the list unless you want MORE shops randomly
+  - It is possible to use levels from any adventure book together in a single list
   - Level soundtracks may not match the played level or adventure (e.g. The shop "Ah Customers, Welcome" will always play on 2nd and 4th levels)
-  - Level names are ElvenFloor01-17, SewersFloor01-12, ForestFloor01-03, ForestFloor05-09, ShopFloor02, SewersShopFloor & ForestShopFloor
   - To configure:
     - Specify a list of [LevelNames](../docs/LevelNames.md).
+    - Start the list with skiplevel1 to replace the 1st floor with another entrance for 1 floor of gameplay before the shop and boss
+    - Start the list with fastforward to replace the 1st and 2nd floor with entrances to go directly to the boss after shops
 
   ###### _Example JSON config for MyRandomLevelSequenceOverridden_
 
   ```json
   {
     "Rule": "MyRandomLevelSequenceOverridden",
-    "Config": [ "ElvenFloor01", "ForestFloor09", "ElvenFloor08", "ElvenFloor17", "SewersFloor08", "SewersFloor11", "ForestFloor01" ]
+    "Config": [ "ElvenFloor01", "ForestFloor09", "TownsFloor06", "DesertFloor06", "SewersFloor08", "SewersFloor11", "ElvenFloor17" ]
   },
   ```
 
@@ -887,6 +892,7 @@ The [Settings Reference](../docs/SettingsReference.md) contains lists of all dif
       "HeroBarbarian": "0"
     }
   },
+  ```
   
 #### __PieceImmunityListAdjusted__: Allows the list of immunities for any ♟️BoardPiece to be overridden
   - Allows customization of many the list of immunities for each game Piece. 🤢Diseased, 😵Stunned, 🤕Weakened, 🥶Frozen, 🧶Tangled, 💤Petrified , etc
@@ -905,6 +911,23 @@ The [Settings Reference](../docs/SettingsReference.md) contains lists of all dif
     }
   },
   ```
+
+    #### __PieceMagicStatAdded__: Add magic bonus and max allowed magic to player ♟️BoardPiece
+  - Allows configuration of starting magic bonus and adjust max magic bonus on a per-hero basis.
+  - To configure:
+    - Specify a Dictionary of [BoardPieceIds](../docs/SettingsReference.md#boardpieceids) and a number.
+
+  ###### _Example JSON config for PieceMagicStatAdded_
+
+  ```json
+  {
+    "Rule": "PieceMagicStatAdded",
+    "Config": {
+      "HeroSorcerer": "2",
+      "HeroWarlock": "1"
+    }
+  },
+```
 
 #### __PiecePieceTypeListOverridden__: Allows the list of PieceTypes for a ♟️BoardPiece to be overridden.
   - Board pieces have PieceTypes such as IgnoreWhenCharmed, Brittle, Enemy, Prop, Interactable which dictate certain behaviours.
@@ -927,7 +950,41 @@ The [Settings Reference](../docs/SettingsReference.md) contains lists of all dif
     }
   },
   ```
-  
+
+  #### __PieceStrengthStatAdded__: Add strength bonus and max allowed strength to player ♟️BoardPiece
+  - Allows configuration of starting strength bonus and adjust max strength bonus on a per-hero basis.
+  - To configure:
+    - Specify a Dictionary of [BoardPieceIds](../docs/SettingsReference.md#boardpieceids) and a number.
+
+  ###### _Example JSON config for PieceMagicStatAdded_
+
+  ```json
+  {
+    "Rule": "PieceStrengthStatAdded",
+    "Config": {
+      "HeroGuardian": "2",
+      "HeroBarbarian": "1"
+    }
+  },
+```
+
+  #### __PieceSwiftnessStatAdded__: Add switness bonus and max allowed swiftness to player ♟️BoardPiece
+  - Allows configuration of starting swiftness bonus and adjust max swiftness bonus on a per-hero basis.
+  - To configure:
+    - Specify a Dictionary of [BoardPieceIds](../docs/SettingsReference.md#boardpieceids) and a number.
+
+  ###### _Example JSON config for PieceMagicStatAdded_
+
+  ```json
+  {
+    "Rule": "PieceSwiftnessStatAdded",
+    "Config": {
+      "HeroBard": "2",
+      "HeroRogue": "1"
+    }
+  },
+```
+
 #### __PieceUseWhenKilledOverridden__: Allows the list of UseWhenKilled abilities for any ♟️BoardPiece to be overridden
   - Abilities are triggered when a piece dies.
   - To configure:
@@ -991,6 +1048,25 @@ The [Settings Reference](../docs/SettingsReference.md) contains lists of all dif
   {
     "Rule": "RoundCountLimited",
     "Config": 40
+  },
+  ```
+
+  #### __SmallLevelSequenceOverridden__: The Level Sequence of dungeon floors is overridden.
+  - It is possible to use levels from any adventure book together in a single list
+  - Level soundtracks may not match the played level or adventure (e.g. The shop "Ah Customers, Welcome" will always play on 2nd and 4th levels)
+  - To configure:
+    - Specify a list of [LevelNames](../docs/LevelNames.md).
+    - If list is longer or shorter than 5 the map list will be randomized (not based on your list at all)
+    - Only smaller dungeon levels are chosen when the list is randomly chosen
+    - Start the list with skiplevel1 to replace the 1st floor with another entrance for 1 floor of gameplay before the shop and boss
+    - Start the list with fastforward to replace the 1st and 2nd floor with entrances to go directly to the boss after shops
+
+  ###### _Example JSON config for SmallLevelSequenceOverridden_
+
+  ```json
+  {
+    "Rule": "SmallLevelSequenceOverridden",
+    "Config": [ "ElvenFloor01", "SewersShopFloor", "ForestFloor09", "ForestShopFloor", "ElvenFloor08" ]
   },
   ```
 
