@@ -150,7 +150,7 @@
             sb.Append(ColorizeString(" Immunities ", Color.white));
             sb.AppendLine(ColorizeString("--", Color.gray));
 
-            if (gametype == 69 || (myPiece.HasEffectState(EffectStateType.Flying) && gametype != 55))
+            if (gametype > 1 && gametype < 10)
             {
                 switch (myPiece.boardPieceId)
                 {
@@ -177,7 +177,7 @@
                         break;
                 }
             }
-            else if (gametype == 42)
+            else if (gametype == 1)
             {
                 switch (myPiece.boardPieceId)
                 {
@@ -835,7 +835,15 @@
                 sb.AppendLine();
                 sb.Append(ColorizeString("--", Color.gray));
                 sb.Append(ColorizeString($" [ID: {id}]", Color.cyan));
-                sb.Append(ColorizeString(" Character Points: ", Color.yellow));
+                if (gametype == 9)
+                {
+                    sb.Append(ColorizeString(" Experience: %", Color.yellow));
+                }
+                else
+                {
+                    sb.Append(ColorizeString(" Character Points: ", Color.yellow));
+                }
+
                 if (points > 0 && points < 999)
                 {
                     sb.Append(ColorizeString($"{points} ", Color.white));
