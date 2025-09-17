@@ -49,7 +49,8 @@
             }
 
             var piece = target.piece;
-            if (piece.GetStat(Stats.Type.InnateCounterDamageExtraDamage) == 69 || HR.SelectedRuleset.Name.Contains("Revolutions") || piece.GetStat(Stats.Type.InnateCounterDamageExtraDamage) == 55 || HR.SelectedRuleset.Name.Contains("Heroes "))
+            int gameType = piece.GetStat(Stats.Type.InnateCounterDamageExtraDamage);
+            if ((gameType > 1 && gameType < 10) || gameType == 55)
             {
                 if (Random.Range(1, 101) > 66)
                 {

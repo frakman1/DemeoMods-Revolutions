@@ -60,7 +60,7 @@
             }
 
             int range = 0;
-            if (HR.SelectedRuleset.Name.Contains("LEGENDARY") || HR.SelectedRuleset.Name.Equals("TEST GAME"))
+            if (HR.SelectedRuleset.Name.Contains("(LEGENDARY"))
             {
                 var gameContext = Traverse.Create(typeof(GameHub)).Field<GameContext>("gameContext").Value;
                 var level = gameContext.levelLoaderAndInitializer.GetLevelSequence().CurrentLevelIndex;
@@ -84,7 +84,7 @@
                     }
                 }
             }
-            else if (HR.SelectedRuleset.Name.Contains("PROGRESSIVE") || HR.SelectedRuleset.Name.Contains("SURVIVE"))
+            else if (HR.SelectedRuleset.Name.Contains("PROGRESSIVE") || HR.SelectedRuleset.Name.Equals("SURVIVE!"))
             {
                 var gameContext = Traverse.Create(typeof(GameHub)).Field<GameContext>("gameContext").Value;
                 var level = gameContext.levelLoaderAndInitializer.GetLevelSequence().CurrentLevelIndex;

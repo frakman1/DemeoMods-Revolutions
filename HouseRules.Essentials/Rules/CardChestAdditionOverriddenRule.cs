@@ -144,7 +144,8 @@
             int rand;
             AbilityKey replacementAbilityKey;
             int randNum = RandomProvider.GetThreadRandom().Next(101);
-            if (piece.GetStat(Stats.Type.InnateCounterDamageExtraDamage) == 69 || HR.SelectedRuleset.Name.Contains("Revolutions"))
+            int gameType = piece.GetStat(Stats.Type.InnateCounterDamageExtraDamage);
+            if (gameType > 1 && gameType < 10)
             {
                 if (randNum < 67)
                 {

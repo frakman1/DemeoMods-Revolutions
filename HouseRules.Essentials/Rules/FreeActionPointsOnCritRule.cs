@@ -1,6 +1,7 @@
 namespace HouseRules.Essentials.Rules
 {
     using System.Collections.Generic;
+    using Boardgame;
     using Boardgame.BoardEntities;
     using Boardgame.BoardEntities.Abilities;
     using DataKeys;
@@ -74,6 +75,7 @@ namespace HouseRules.Essentials.Rules
                 }
             }
 
+            int gameType = source.GetStat(Stats.Type.InnateCounterDamageExtraDamage);
             if (mexican2)
             {
                 if (source.GetStatMax(Stats.Type.CritChance) > 5 && currentAP < 1)
@@ -83,7 +85,7 @@ namespace HouseRules.Essentials.Rules
 
                 return;
             }
-            else if (source.GetStat(Stats.Type.InnateCounterDamageExtraDamage) == 69 || HR.SelectedRuleset.Name.Contains("Revolutions"))
+            else if (gameType > 1 && gameType < 10)
             {
                 if (source.boardPieceId == BoardPieceId.HeroGuardian)
                 {
@@ -93,7 +95,7 @@ namespace HouseRules.Essentials.Rules
                         source.effectSink.TrySetStatBaseValue(Stats.Type.Armor, myArmor + 1);
                     }
 
-                    if (!HR.SelectedRuleset.Name.Contains("PROGRESSIVE") || ((HR.SelectedRuleset.Name.Contains("PROGRESSIVE") || HR.SelectedRuleset.Name.Equals("TEST GAME")) && source.GetStatMax(Stats.Type.CritChance) > 3))
+                    if (gameType < 6 || (gameType > 5 && source.GetStatMax(Stats.Type.CritChance) > 3))
                     {
                         if (currentAP < 1)
                         {
@@ -104,7 +106,7 @@ namespace HouseRules.Essentials.Rules
                             source.effectSink.TrySetStatBaseValue(Stats.Type.ActionPoints, currentAP + 1);
                         }
                     }
-                    else if ((HR.SelectedRuleset.Name.Contains("PROGRESSIVE") || HR.SelectedRuleset.Name.Equals("TEST GAME")) && source.GetStatMax(Stats.Type.CritChance) < 4)
+                    else if (gameType < 6 || (gameType > 5 && source.GetStatMax(Stats.Type.CritChance) < 4))
                     {
                         if (currentAP < 1)
                         {
@@ -135,7 +137,7 @@ namespace HouseRules.Essentials.Rules
                         source.EnableEffectState(EffectStateType.Invisibility);
                         source.effectSink.SetStatusEffectDuration(EffectStateType.Invisibility, 2);
                     }
-                    else if (!HR.SelectedRuleset.Name.Contains("PROGRESSIVE") || ((HR.SelectedRuleset.Name.Contains("PROGRESSIVE") || HR.SelectedRuleset.Name.Equals("TEST GAME")) && source.GetStatMax(Stats.Type.CritChance) > 3))
+                    else if (gameType < 6 || (gameType > 5 && source.GetStatMax(Stats.Type.CritChance) > 3))
                     {
                         source.effectSink.TrySetStatBaseValue(Stats.Type.ActionPoints, currentAP + 1);
                     }
