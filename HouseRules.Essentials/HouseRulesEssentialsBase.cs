@@ -121,6 +121,7 @@
             HR.Rulebook.Register(typeof(PieceConfigAdjustedRule));
             HR.Rulebook.Register(typeof(PieceCounterDamageRule));
             HR.Rulebook.Register(typeof(PieceDamageResistRule));
+            HR.Rulebook.Register(typeof(PieceDarkMagicProgressRule));
             HR.Rulebook.Register(typeof(PieceDownedCountAdjustedRule));
             HR.Rulebook.Register(typeof(PieceExtraStatsAdjustedRule));
             HR.Rulebook.Register(typeof(PieceImmunityListAdjustedRule));

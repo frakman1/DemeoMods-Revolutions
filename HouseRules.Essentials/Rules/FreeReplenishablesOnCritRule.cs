@@ -5,7 +5,6 @@ namespace HouseRules.Essentials.Rules
     using Boardgame.BoardEntities.Abilities;
     using DataKeys;
     using HarmonyLib;
-    using HouseRules.Core;
     using HouseRules.Core.Types;
 
     public sealed class FreeReplenishablesOnCritRule : Rule, IConfigWritable<List<BoardPieceId>>, IPatchable, IMultiplayerSafe
