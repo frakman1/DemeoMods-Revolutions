@@ -147,7 +147,8 @@
             }
 
             int rand;
-            if (piece.GetStat(Stats.Type.InnateCounterDamageExtraDamage) == 69 || HR.SelectedRuleset.Name.Contains("Revolutions"))
+            int gameType = piece.GetStat(Stats.Type.InnateCounterDamageExtraDamage);
+            if (gameType > 1 && gameType < 10)
             {
                 int randNum = RandomProvider.GetThreadRandom().Next(101);
                 if (randNum > 90)

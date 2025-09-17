@@ -5,7 +5,6 @@ namespace HouseRules.Essentials.Rules
     using Boardgame.BoardEntities.Abilities;
     using DataKeys;
     using HarmonyLib;
-    using HouseRules.Core;
     using HouseRules.Core.Types;
 
     public sealed class FreeReplenishablesOnCritRule : Rule, IConfigWritable<List<BoardPieceId>>, IPatchable, IMultiplayerSafe
@@ -65,12 +64,13 @@ namespace HouseRules.Essentials.Rules
                 return;
             }
 
-            if (source.GetStat(Stats.Type.InnateCounterDamageExtraDamage) != 69 && !HR.SelectedRuleset.Name.Contains("Revolutions") && !HR.SelectedRuleset.Name.Equals("SURVIVE!"))
+            int gameType = source.GetStat(Stats.Type.InnateCounterDamageExtraDamage);
+            if (gameType == 0 || gameType == 55)
             {
                 return;
             }
 
-            if (HR.SelectedRuleset.Name.Contains("PROGRESSIVE") || HR.SelectedRuleset.Name.Equals("TEST GAME"))
+            if (gameType > 5)
             {
                 if (source.GetStatMax(Stats.Type.CritChance) < 4)
                 {
@@ -79,7 +79,7 @@ namespace HouseRules.Essentials.Rules
             }
 
             Inventory.Item value;
-            if (source.boardPieceId == BoardPieceId.HeroRogue && !HR.SelectedRuleset.Name.Equals("SURVIVE!"))
+            if (source.boardPieceId == BoardPieceId.HeroRogue)
             {
                 for (int i = 0; i < source.inventory.Items.Count; i++)
                 {

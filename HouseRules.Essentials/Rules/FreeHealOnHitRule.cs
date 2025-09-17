@@ -70,7 +70,8 @@
             }
 
             int addHeal = 0;
-            if (source.GetStat(Stats.Type.InnateCounterDamageExtraDamage) == 69 || HR.SelectedRuleset.Name.Contains("Revolutions"))
+            int gameType = source.GetStat(Stats.Type.InnateCounterDamageExtraDamage);
+            if (gameType > 1 && gameType < 10)
             {
                 int chance = Random.Range(1, 101);
                 if (_globalAdjustments.Contains(source.boardPieceId))

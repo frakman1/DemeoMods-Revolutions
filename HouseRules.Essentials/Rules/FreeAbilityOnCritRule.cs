@@ -61,12 +61,13 @@
                 return;
             }
 
-            if (source.GetStat(Stats.Type.InnateCounterDamageExtraDamage) == 69 || HR.SelectedRuleset.Name.Contains("Revolutions"))
+            int gameType = source.GetStat(Stats.Type.InnateCounterDamageExtraDamage);
+            if (gameType > 1 && gameType < 10)
             {
                 source.effectSink.TryGetStat(Stats.Type.ActionPoints, out int currentAP);
                 if (source.boardPieceId == BoardPieceId.HeroBard)
                 {
-                    if (currentAP < 1 || !HR.SelectedRuleset.Name.Contains("PROGRESSIVE") || ((HR.SelectedRuleset.Name.Contains("PROGRESSIVE") || HR.SelectedRuleset.Name.Equals("TEST GAME")) && (source.GetStatMax(Stats.Type.CritChance) > 3)))
+                    if (currentAP < 1 || (gameType > 5 && (source.GetStatMax(Stats.Type.CritChance) > 3)))
                     {
                         if (source.HasEffectState(EffectStateType.Fearless))
                         {
@@ -95,7 +96,7 @@
                     {
                         if (myArmor < 9)
                         {
-                            if (!HR.SelectedRuleset.Name.Contains("PROGRESSIVE") || ((HR.SelectedRuleset.Name.Contains("PROGRESSIVE") || HR.SelectedRuleset.Name.Equals("TEST GAME")) && source.GetStatMax(Stats.Type.CritChance) > 3))
+                            if (gameType < 6 || (gameType > 5 && source.GetStatMax(Stats.Type.CritChance) > 3))
                             {
                                 source.effectSink.TrySetStatBaseValue(Stats.Type.MagicArmor, myArmor + 2);
                             }
@@ -114,7 +115,7 @@
                     }
                     else
                     {
-                        if (!HR.SelectedRuleset.Name.Contains("PROGRESSIVE") || ((HR.SelectedRuleset.Name.Contains("PROGRESSIVE") || HR.SelectedRuleset.Name.Equals("TEST GAME")) && source.GetStatMax(Stats.Type.CritChance) > 3))
+                        if (gameType < 6 || (gameType > 5 && source.GetStatMax(Stats.Type.CritChance) > 3))
                         {
                             if (myArmor < 10)
                             {
@@ -125,7 +126,7 @@
                 }
                 else if (source.boardPieceId == BoardPieceId.HeroSorcerer && source.effectSink.HasEffectState(EffectStateType.Overcharge))
                 {
-                    if (!HR.SelectedRuleset.Name.Contains("PROGRESSIVE") || ((HR.SelectedRuleset.Name.Contains("PROGRESSIVE") || HR.SelectedRuleset.Name.Equals("TEST GAME")) && source.GetStatMax(Stats.Type.CritChance) > 3))
+                    if (gameType < 6 || (gameType > 5 && source.GetStatMax(Stats.Type.CritChance) > 3))
                     {
                         Inventory.Item value1;
                         bool hasPower1 = false;
@@ -311,9 +312,9 @@
                 }
             }
 
-            if (source.GetStat(Stats.Type.InnateCounterDamageExtraDamage) == 69 || HR.SelectedRuleset.Name.Contains("Revolutions"))
+            if (gameType > 1 && gameType < 10)
             {
-                /*if (!hasPower2)
+                if (!hasPower2)
                 {
                     var abilityPromise = _context.AbilityFactory.LoadAbility(_globalAdjustments[source.boardPieceId]);
                     abilityPromise.OnLoaded(ability =>
@@ -324,7 +325,7 @@
                 }
             }
             else
-            {*/
+            {
                 var abilityPromise = _context.AbilityFactory.LoadAbility(_globalAdjustments[source.boardPieceId]);
                 abilityPromise.OnLoaded(ability =>
                 {

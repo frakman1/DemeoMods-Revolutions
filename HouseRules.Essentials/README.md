@@ -568,19 +568,19 @@ The [Settings Reference](../docs/SettingsReference.md) contains lists of all dif
   {
     "Rule": "LampTypesOverridden",
     "Config": {
-      "Floor1Lamps": [
+      "1": [
         "OilLamp",
         "OilLamp",
         "OilLamp",
         "VortexDustLamp"
       ],
-      "Floor2Lamps": [
+      "2": [
         "GasLamp",
         "GasLamp",
         "GasLamp",
         "VortexDustLamp"
       ],
-      "Floor3Lamps": [
+      "3": [
         "IceLamp",
         "IceLamp",
         "IceLamp",

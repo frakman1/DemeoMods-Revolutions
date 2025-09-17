@@ -3,6 +3,7 @@
     using Boardgame.BoardEntities;
     using DataKeys;
     using HarmonyLib;
+    using HouseRules.Core;
     using HouseRules.Core.Types;
 
     public sealed class PieceKeyholderRule : Rule, IConfigWritable<bool>, IPatchable, IMultiplayerSafe
@@ -48,6 +49,7 @@
             }
 
             // Handle keyholder gets 1 damage resist and 1 counter-attack damage or points if using PointGainRule
+            bool pointGain = false;
             if (piece.HasEffectState(EffectStateType.Locked))
             {
                 if (!piece.HasEffectState(EffectStateType.Key))
@@ -88,7 +90,16 @@
             {
                 if (!piece.HasEffectState(EffectStateType.Locked))
                 {
-                    if (!piece.HasEffectState(EffectStateType.StrengthInNumbers))
+                    foreach (var rule in HR.SelectedRuleset.Rules)
+                    {
+                        if (rule.ToString().Equals("PointGainRule"))
+                        {
+                            pointGain = true;
+                            break;
+                        }
+                    }
+
+                    if (!pointGain)
                     {
                         _keyResist = 0;
                         piece.effectSink.AddStatusEffect(EffectStateType.Locked, -1);
