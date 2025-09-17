@@ -6,6 +6,7 @@ namespace HouseRules.Core
     using System.Linq;
     using System.Text;
     using Boardgame;
+    using Boardgame.BoardEntities.Abilities;        
     using Boardgame.BoardgameActions;
     using Boardgame.Networking;
     using Boardgame.NonVR.Ui.Settings;
@@ -79,19 +80,6 @@ namespace HouseRules.Core
                 original: AccessTools.Method(typeof(ReconnectState), "OnClickLeaveGameAfterReconnect"),
                 postfix: new HarmonyMethod(typeof(LifecycleDirector), nameof(ReconnectState_OnClickLeaveGameAfterReconnect_Postfix)));
 
-            harmony.Patch(
-                original: AccessTools.Method(typeof(NonVrGameSettingsPageController), "ToggleGamePrivacy"),
-                prefix: new HarmonyMethod(
-                    typeof(LifecycleDirector),
-                    nameof(NonVrGameSettingsPageController_ToggleGamePrivacy_Prefix)));
-
-            harmony.Patch(
-                original: AccessTools.Method(
-                    typeof(HandSettingsPageController),
-                    "<SetupGameButtons>g__ToggleGamePrivacy|19_4"),
-                prefix: new HarmonyMethod(
-                    typeof(LifecycleDirector),
-                    nameof(HandSettingsPageController_ToggleGamePrivacy_Prefix)));
         }
 
         private static void GameStartup_InitializeGame_Postfix(GameStartup __instance)
@@ -135,12 +123,7 @@ namespace HouseRules.Core
             }
 
             _ruleSet = HR.SelectedRuleset.Name;
-            var createGameMode = Traverse.Create(_gameContext.gameStateMachine)
-                .Field<CreateGameMode>("createGameMode").Value;
-            if (createGameMode != CreateGameMode.Private)
-            {
-                return;
-            }
+
 
             var gameStateTraverse = Traverse.Create(_gameContext.gameStateMachine).Field("creatingGameState");
             if (!gameStateTraverse.FieldExists())
@@ -162,13 +145,6 @@ namespace HouseRules.Core
             }
 
             if (_gameContext.gameStateMachine.goBackToMenuState)
-            {
-                return;
-            }
-
-            var createGameMode = Traverse.Create(_gameContext.gameStateMachine)
-                .Field<CreateGameMode>("createGameMode").Value;
-            if (createGameMode != CreateGameMode.Private)
             {
                 return;
             }
@@ -253,9 +229,7 @@ namespace HouseRules.Core
 
         private static void PostGameControllerBase_OnPlayAgainClicked_Postfix()
         {
-            var createGameMode = Traverse.Create(_gameContext.gameStateMachine)
-                .Field<CreateGameMode>("createGameMode").Value;
-            if (createGameMode != CreateGameMode.Private)
+            if (HR.SelectedRuleset == Ruleset.None)
             {
                 return;
             }
@@ -300,28 +274,6 @@ namespace HouseRules.Core
                 IsReconnect = true;
                 DeactivateRuleset();
             }
-        }
-
-        private static bool NonVrGameSettingsPageController_ToggleGamePrivacy_Prefix()
-        {
-            if (HR.SelectedRuleset == Ruleset.None)
-            {
-                return true;
-            }
-
-            // Don't allow PC-Edition privacy settings to change from Private to Public.
-            return false;
-        }
-
-        private static bool HandSettingsPageController_ToggleGamePrivacy_Prefix()
-        {
-            if (HR.SelectedRuleset == Ruleset.None)
-            {
-                return true;
-            }
-
-            // Don't allow PCVR privacy settings to change from Private to Public.
-            return false;
         }
 
         /// <summary>
