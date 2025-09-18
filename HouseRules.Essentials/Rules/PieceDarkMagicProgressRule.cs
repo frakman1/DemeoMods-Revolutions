@@ -1,7 +1,5 @@
 ﻿namespace HouseRules.Essentials.Rules
 {
-    using System;
-    using System.Threading;
     using Boardgame;
     using Boardgame.BoardEntities;
     using Boardgame.SerializableEvents;
@@ -15,7 +13,6 @@
 
         private static Context _context;
         private static bool _isActivated;
-        private static bool _dropchest;
 
         public PieceDarkMagicProgressRule(bool value)
         {

@@ -9,7 +9,7 @@
 
     public sealed class PieceProgressLostRule : Rule, IConfigWritable<bool>, IPatchable, IMultiplayerSafe
     {
-        public override string Description => "Hero loses a level if revived without using magic or potion";
+        public override string Description => "Heroes lose a level if revived without using magic or potion";
 
         private static bool _isActivated;
 

@@ -16,7 +16,7 @@
 
     public sealed class PiecePointProgressRule : Rule, IConfigWritable<PiecePointProgressRule.Points>, IPatchable, IMultiplayerSafe, IDisableOnReconnect
     {
-        public override string Description => "Each character gains experience and levels up based on their actions";
+        public override string Description => "Each Hero gains experience and levels up based on their actions";
 
         internal static Points _globalConfig;
 

@@ -14,10 +14,6 @@
         private static bool _isActivated;
         private static int _globalGameType;
         private static bool _isReconnect;
-        private static bool _isFirst;
-        private static bool _checkPlayers;
-        private static int _numPlayers = 1;
-        private static int _invPlayers = 1;
         private readonly int _gameType;
 
         public RevolutionsRule(int gameType)

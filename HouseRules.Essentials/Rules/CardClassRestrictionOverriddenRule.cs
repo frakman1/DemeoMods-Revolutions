@@ -2,11 +2,9 @@
 {
     using System.Collections.Generic;
     using Boardgame;
-    using Data.GameData;
     using DataKeys;
     using HarmonyLib;
     using HouseRules.Core.Types;
-    using static HouseRules.Essentials.Rules.StartCardsModifiedRule;
 
     public sealed class CardClassRestrictionOverriddenRule : Rule,
         IConfigWritable<Dictionary<AbilityKey, BoardPieceId>>, IMultiplayerSafe

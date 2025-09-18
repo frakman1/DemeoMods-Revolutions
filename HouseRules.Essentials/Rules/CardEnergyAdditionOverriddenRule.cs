@@ -8,7 +8,6 @@
     using Boardgame.SerializableEvents;
     using DataKeys;
     using HarmonyLib;
-    using HouseRules.Core;
     using HouseRules.Core.Types;
 
     public sealed class CardEnergyAdditionOverriddenRule : Rule, IConfigWritable<Dictionary<BoardPieceId, List<AbilityKey>>>,

@@ -11,7 +11,7 @@
 
     public sealed class PieceProgressRule : Rule, IConfigWritable<bool>, IPatchable, IMultiplayerSafe
     {
-        public override string Description => "Hero progression levels are enabled";
+        public override string Description => "Heroes collectively level up after filling the card energy pool";
 
         private static Context _context;
         private static bool _isActivated;
@@ -136,81 +136,7 @@
                 piece.effectSink.SetStatusEffectDuration(EffectStateType.Flying, nextLevel);
 
                 GameUI.ShowCameraMessage("<color=#F0F312>The party has</color> <color=#00FF00>LEVELED UP</color><color=#F0F312>!</color>", 8);
-                if (nextLevel == 3)
-                {
-                    piece.effectSink.TrySetStatMaxValue(Stats.Type.Health, piece.GetMaxHealth() + 1);
-                    piece.effectSink.TrySetStatBaseValue(Stats.Type.Health, piece.GetHealth() + 1);
-                }
-                else if (nextLevel == 6)
-                {
-                    piece.effectSink.TrySetStatMaxValue(Stats.Type.Health, piece.GetMaxHealth() + 2);
-                    piece.effectSink.TrySetStatBaseValue(Stats.Type.Health, piece.GetHealth() + 2);
-                }
-                else if (nextLevel == 4)
-                {
-                    piece.effectSink.TrySetStatBaseValue(Stats.Type.DownedCounter, piece.GetStat(Stats.Type.DownedCounter) - 1);
-                    piece.effectSink.TrySetStatBaseValue(Stats.Type.DownedTimer, piece.GetStat(Stats.Type.DownedTimer) + 1);
-                }
-                else if (nextLevel == 8)
-                {
-                    piece.effectSink.TrySetStatBaseValue(Stats.Type.DownedCounter, piece.GetStat(Stats.Type.DownedCounter) - 1);
-                    piece.effectSink.TrySetStatBaseValue(Stats.Type.DownedTimer, piece.GetStat(Stats.Type.DownedTimer) + 1);
-                    int randAbil = RandomProvider.GetThreadRandom().Next(5);
-                    if (randAbil == 4 && _dropchest)
-                    {
-                        randAbil = RandomProvider.GetThreadRandom().Next(4);
-                    }
-
-                    if (randAbil == 0)
-                    {
-                        Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item(
-                            AbilityKey.Petrify,
-                            flags: (Inventory.ItemFlag)1,
-                            originalOwner: -1,
-                            replenishCooldown: 7));
-                    }
-                    else if (randAbil == 1)
-                    {
-                        Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item(
-                            AbilityKey.AcidSpit,
-                            flags: (Inventory.ItemFlag)1,
-                            originalOwner: -1,
-                            replenishCooldown: 7));
-                    }
-                    else if (randAbil == 2)
-                    {
-                        Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item(
-                            AbilityKey.DeathFlurry,
-                            flags: (Inventory.ItemFlag)1,
-                            originalOwner: -1,
-                            replenishCooldown: 7));
-                    }
-                    else if (randAbil == 3)
-                    {
-                        Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item(
-                            AbilityKey.Shockwave,
-                            flags: (Inventory.ItemFlag)1,
-                            originalOwner: -1,
-                            replenishCooldown: 7));
-                    }
-                    else if (randAbil == 4)
-                    {
-                        _dropchest = true;
-                        Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
-                        piece.inventory.Items.Add(new Inventory.Item(
-                            AbilityKey.DropChest,
-                            flags: (Inventory.ItemFlag)1,
-                            originalOwner: -1,
-                            replenishCooldown: 7));
-                    }
-
-                    piece.AddGold(0);
-                }
-                else if (nextLevel == 2)
+                if (nextLevel == 2)
                 {
                     if (piece.boardPieceId == BoardPieceId.HeroBarbarian)
                     {
@@ -363,6 +289,16 @@
                         });
                     }
                 }
+                else if (nextLevel == 3)
+                {
+                    piece.effectSink.TrySetStatMaxValue(Stats.Type.Health, piece.GetMaxHealth() + 1);
+                    piece.effectSink.TrySetStatBaseValue(Stats.Type.Health, piece.GetHealth() + 1);
+                }
+                else if (nextLevel == 4)
+                {
+                    piece.effectSink.TrySetStatBaseValue(Stats.Type.DownedCounter, piece.GetStat(Stats.Type.DownedCounter) - 1);
+                    piece.effectSink.TrySetStatBaseValue(Stats.Type.DownedTimer, piece.GetStat(Stats.Type.DownedTimer) + 1);
+                }
                 else if (nextLevel == 5)
                 {
                     if (piece.boardPieceId == BoardPieceId.HeroSorcerer || piece.boardPieceId == BoardPieceId.HeroWarlock)
@@ -375,6 +311,75 @@
                         piece.effectSink.TrySetStatBaseValue(Stats.Type.Strength, piece.GetStat(Stats.Type.Strength) + 1);
                         piece.effectSink.TrySetStatMaxValue(Stats.Type.Strength, piece.GetStatMax(Stats.Type.Strength) + 1);
                     }
+                }
+                else if (nextLevel == 6)
+                {
+                    piece.effectSink.TrySetStatMaxValue(Stats.Type.Health, piece.GetMaxHealth() + 2);
+                    piece.effectSink.TrySetStatBaseValue(Stats.Type.Health, piece.GetHealth() + 2);
+                }
+                else if (nextLevel == 7)
+                {
+                    piece.effectSink.TrySetStatBaseValue(Stats.Type.Speed, piece.GetStat(Stats.Type.Speed) + 2);
+                    piece.effectSink.TrySetStatMaxValue(Stats.Type.Speed, piece.GetStatMax(Stats.Type.Speed) + 2);
+                }
+                else if (nextLevel == 8)
+                {
+                    piece.effectSink.TrySetStatBaseValue(Stats.Type.DownedCounter, piece.GetStat(Stats.Type.DownedCounter) - 1);
+                    piece.effectSink.TrySetStatBaseValue(Stats.Type.DownedTimer, piece.GetStat(Stats.Type.DownedTimer) + 1);
+                    int randAbil = RandomProvider.GetThreadRandom().Next(5);
+                    if (randAbil == 4 && _dropchest)
+                    {
+                        randAbil = RandomProvider.GetThreadRandom().Next(4);
+                    }
+
+                    if (randAbil == 0)
+                    {
+                        Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.Petrify,
+                            flags: (Inventory.ItemFlag)1,
+                            originalOwner: -1,
+                            replenishCooldown: 7));
+                    }
+                    else if (randAbil == 1)
+                    {
+                        Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.AcidSpit,
+                            flags: (Inventory.ItemFlag)1,
+                            originalOwner: -1,
+                            replenishCooldown: 7));
+                    }
+                    else if (randAbil == 2)
+                    {
+                        Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.DeathFlurry,
+                            flags: (Inventory.ItemFlag)1,
+                            originalOwner: -1,
+                            replenishCooldown: 7));
+                    }
+                    else if (randAbil == 3)
+                    {
+                        Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.Shockwave,
+                            flags: (Inventory.ItemFlag)1,
+                            originalOwner: -1,
+                            replenishCooldown: 7));
+                    }
+                    else if (randAbil == 4)
+                    {
+                        _dropchest = true;
+                        Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
+                        piece.inventory.Items.Add(new Inventory.Item(
+                            AbilityKey.DropChest,
+                            flags: (Inventory.ItemFlag)1,
+                            originalOwner: -1,
+                            replenishCooldown: 7));
+                    }
+
+                    piece.AddGold(0);
                 }
                 else if (nextLevel == 10)
                 {
@@ -391,11 +396,6 @@
 
                     piece.effectSink.TryGetStat(Stats.Type.ActionPoints, out int currentAP);
                     piece.effectSink.TrySetStatBaseValue(Stats.Type.ActionPoints, currentAP + 1);
-                }
-                else if (nextLevel == 7)
-                {
-                    piece.effectSink.TrySetStatBaseValue(Stats.Type.Speed, piece.GetStat(Stats.Type.Speed) + 2);
-                    piece.effectSink.TrySetStatMaxValue(Stats.Type.Speed, piece.GetStatMax(Stats.Type.Speed) + 2);
                 }
             }
 
