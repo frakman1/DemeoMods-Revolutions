@@ -194,9 +194,7 @@
 
             piece.effectSink.SetStatusEffectDuration(EffectStateType.StrengthInNumbers, pointCount2);
             int nextLevel = piece.GetStatMax(Stats.Type.CritChance);
-            HouseRulesEssentialsBase.LogWarning($"Level: {nextLevel + levelUp} - Points: {pointCount2}");
 
-            // ToDo: Determine points needed per level here or return.
             if (levelUp == 0)
             {
                 return;
@@ -224,8 +222,34 @@
                 piece.effectSink.TrySetStatMaxValue(Stats.Type.CritChance, nextLevel + 1);
                 nextLevel++;
                 piece.effectSink.SetStatusEffectDuration(EffectStateType.Flying, nextLevel);
+                var charType = piece.boardPieceId;
+                string textName = "Player";
+                switch (charType)
+                {
+                    case BoardPieceId.HeroGuardian:
+                        textName = "Guardian";
+                        break;
+                    case BoardPieceId.HeroHunter:
+                        textName = "Hunter";
+                        break;
+                    case BoardPieceId.HeroRogue:
+                        textName = "Assassin";
+                        break;
+                    case BoardPieceId.HeroSorcerer:
+                        textName = "Sorcerer";
+                        break;
+                    case BoardPieceId.HeroBard:
+                        textName = "Bard";
+                        break;
+                    case BoardPieceId.HeroWarlock:
+                        textName = "Warlock";
+                        break;
+                    case BoardPieceId.HeroBarbarian:
+                        textName = "Barbarian";
+                        break;
+                }
 
-                GameUI.ShowCameraMessage($"<color=#F0F312>The </color><b>{piece.boardPieceId}</b> <color=#F0F312>has</color> <color=#00FF00>LEVELED UP</color><color=#F0F312>!</color>", 8);
+                GameUI.ShowCameraMessage($"<color=#F0F312>The </color><b>{textName}</b> <color=#F0F312>has</color> <color=#00FF00>LEVELED UP</color><color=#F0F312>!</color>", 8);
                 if (nextLevel == 3)
                 {
                     piece.effectSink.TrySetStatMaxValue(Stats.Type.Health, piece.GetMaxHealth() + 1);
