@@ -57,7 +57,7 @@
             public int UseFountain;
             public int RevivePlayer;
             public bool PVPisOn; // set for PVP = true, or Co-op = false.
-            public int Points4Minions; // 0 for none. 1 for Cana. 2 for Arly. 3 for Cana and Arly.
+            public int Points4Minions; // 0 for none. 1 for Cana. 2 for Arly. 3 for Cana and Arly. 4 for ALL
             public float LevelPercentage;
         }
 
