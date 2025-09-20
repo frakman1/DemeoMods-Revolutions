@@ -16,7 +16,7 @@
 
     public sealed class PiecePointProgressRule : Rule, IConfigWritable<PiecePointProgressRule.Points>, IPatchable, IMultiplayerSafe, IDisableOnReconnect
     {
-        public override string Description => "Each character gains experience and levels up based on their actions";
+        public override string Description => "Each Hero gains experience and levels up based on their actions";
 
         internal static Points _globalConfig;
 
@@ -24,7 +24,7 @@
         private static Context _context;
         private static bool _isActivated;
         private static bool _dropchest;
-        private static Piece? tempPiece;
+        private static Piece? tempPiece = null;
         private static float percentage;
 
         internal static int Player1 { get; private set; }
@@ -57,7 +57,7 @@
             public int UseFountain;
             public int RevivePlayer;
             public bool PVPisOn; // set for PVP = true, or Co-op = false.
-            public int Points4Minions; // 0 for none. 1 for Cana. 2 for Arly. 3 for Cana and Arly.
+            public int Points4Minions; // 0 for none. 1 for Cana. 2 for Arly. 3 for Cana and Arly. 4 for ALL
             public float LevelPercentage;
         }
 
@@ -178,32 +178,28 @@
                 return;
             }
 
-            // piece.effectSink.RemoveStatusEffect(EffectStateType.StrengthInNumbers);
-            var levelUp = 0;
             if (pointCount > 999)
             {
                 pointCount -= 1000;
             }
 
+            bool levelUp = false;
             int pointCount2 = (int)Math.Round(pointCount);
             if (pointCount2 > 99)
             {
-                levelUp = 1;
+                levelUp = true;
                 pointCount2 -= 100;
             }
 
             piece.effectSink.SetStatusEffectDuration(EffectStateType.StrengthInNumbers, pointCount2);
-            int nextLevel = piece.GetStatMax(Stats.Type.CritChance);
-            HouseRulesEssentialsBase.LogWarning($"Level: {nextLevel + levelUp} - Points: {pointCount2}");
-
-            // ToDo: Determine points needed per level here or return.
-            if (levelUp == 0)
+            if (!levelUp)
             {
                 return;
             }
 
             Inventory.Item value;
             piece.effectSink.Heal(2);
+            int nextLevel = piece.GetStatMax(Stats.Type.CritChance);
             if (piece.HasEffectState(EffectStateType.Downed))
             {
                 piece.effectSink.RemoveStatusEffect(EffectStateType.Downed);
@@ -211,8 +207,11 @@
                 piece.effectSink.RemoveStatusEffect(EffectStateType.Frozen);
             }
 
-            piece.DisableEffectState(EffectStateType.ExtraEnergy);
-            piece.EnableEffectState(EffectStateType.ExtraEnergy, 1);
+            if (!piece.HasEffectState(EffectStateType.ExtraEnergy))
+            {
+                piece.EnableEffectState(EffectStateType.ExtraEnergy, 1);
+            }
+
             if (piece.GetHealth() < piece.GetMaxHealth())
             {
                 piece.DisableEffectState(EffectStateType.Heal);
@@ -224,8 +223,34 @@
                 piece.effectSink.TrySetStatMaxValue(Stats.Type.CritChance, nextLevel + 1);
                 nextLevel++;
                 piece.effectSink.SetStatusEffectDuration(EffectStateType.Flying, nextLevel);
+                var charType = piece.boardPieceId;
+                string textName = "Player";
+                switch (charType)
+                {
+                    case BoardPieceId.HeroGuardian:
+                        textName = "Guardian";
+                        break;
+                    case BoardPieceId.HeroHunter:
+                        textName = "Hunter";
+                        break;
+                    case BoardPieceId.HeroRogue:
+                        textName = "Assassin";
+                        break;
+                    case BoardPieceId.HeroSorcerer:
+                        textName = "Sorcerer";
+                        break;
+                    case BoardPieceId.HeroBard:
+                        textName = "Bard";
+                        break;
+                    case BoardPieceId.HeroWarlock:
+                        textName = "Warlock";
+                        break;
+                    case BoardPieceId.HeroBarbarian:
+                        textName = "Barbarian";
+                        break;
+                }
 
-                GameUI.ShowCameraMessage($"<color=#F0F312>The </color><b>{piece.boardPieceId}</b> <color=#F0F312>has</color> <color=#00FF00>LEVELED UP</color><color=#F0F312>!</color>", 8);
+                GameUI.ShowCameraMessage($"<color=#F0F312>The </color><b>{textName}</b> <color=#F0F312>has</color> <color=#00FF00>LEVELED UP</color><color=#F0F312>!</color>", 8);
                 if (nextLevel == 3)
                 {
                     piece.effectSink.TrySetStatMaxValue(Stats.Type.Health, piece.GetMaxHealth() + 1);
@@ -867,12 +892,14 @@
 
             if (tempPiece != null)
             {
-                if (attackerUnit.HasPieceType(PieceType.Prop))
+                if (!attackerUnit.IsPlayer())
                 {
                     attackerUnit = tempPiece;
                 }
-
-                tempPiece = null;
+                else
+                {
+                    tempPiece = null;
+                }
             }
 
             if (defeatedUnit.HasPieceType(PieceType.Prop) && attackerUnit.IsPlayer())
@@ -1029,9 +1056,49 @@
             }
         }
 
-        private static void Ability_GenerateAttackDamage_Postfix(Piece source, Dice.Outcome diceResult, Piece[] targets)
+        private static void Ability_GenerateAttackDamage_Postfix(Piece source, Piece mainTarget, Dice.Outcome diceResult, Piece[] targets)
         {
             if (!_isActivated)
+            {
+                return;
+            }
+
+            if (tempPiece != null)
+            {
+                if (!source.IsPlayer())
+                {
+                    source = tempPiece;
+                }
+                else
+                {
+                    tempPiece = null;
+                }
+            }
+
+            if (source.IsPlayer())
+            {
+                if (mainTarget != null)
+                {
+                    if (mainTarget.HasPieceType(PieceType.Prop))
+                    {
+                        tempPiece = source;
+                        return;
+                    }
+                }
+                else if (targets.Length != 0)
+                {
+                    for (int i = 0; i < targets.Length; i++)
+                    {
+                        if (targets[i].HasPieceType(PieceType.Prop))
+                        {
+                            tempPiece = source;
+                            return;
+                        }
+                    }
+                }
+            }
+
+            if (source == null || (mainTarget != null && mainTarget.HasEffectState(EffectStateType.WizardDoppelganger)))
             {
                 return;
             }

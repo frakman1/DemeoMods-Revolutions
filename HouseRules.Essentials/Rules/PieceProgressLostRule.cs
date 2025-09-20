@@ -9,7 +9,7 @@
 
     public sealed class PieceProgressLostRule : Rule, IConfigWritable<bool>, IPatchable, IMultiplayerSafe
     {
-        public override string Description => "Hero loses a level if revived without using magic or potion";
+        public override string Description => "Heroes lose a level if revived without using magic or potion";
 
         private static bool _isActivated;
 
@@ -42,14 +42,16 @@
                 return;
             }
 
-            var ruleSet = HR.SelectedRuleset.Name;
-            if (!ruleSet.Contains("PROGRESSIVE") && !ruleSet.Equals("TEST GAME"))
+            // mode: Reloaded = 1, Rev_Easy = 2, Rev = 3, Rev_Hard = 4, Rev_Leg = 5, Prog_Small = 6, Prog = 7, Prog_Leg = 8, PointsProg = 9
+            int mode = revivedPiece.GetStat(Stats.Type.InnateCounterDamageExtraDamage);
+
+            if (mode < 6 || mode > 9)
             {
                 return;
             }
 
             // If magic, a potion, or a fountain was used then don't lose a level (except on LEGENDARY)
-            if (!ruleSet.Contains("(LEGENDARY"))
+            if (mode != 8)
             {
                 if (sourceAbility != AbilityKey.Revive)
                 {

@@ -9,7 +9,6 @@
     using Boardgame.SerializableEvents;
     using DataKeys;
     using HarmonyLib;
-    using HouseRules.Core;
     using HouseRules.Core.Types;
 
     public sealed class CardAdditionOverriddenRule : Rule, IConfigWritable<Dictionary<BoardPieceId, List<AbilityKey>>>,

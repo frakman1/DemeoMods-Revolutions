@@ -14,10 +14,6 @@
         private static bool _isActivated;
         private static int _globalGameType;
         private static bool _isReconnect;
-        private static bool _isFirst;
-        private static bool _checkPlayers;
-        private static int _numPlayers = 1;
-        private static int _invPlayers = 1;
         private readonly int _gameType;
 
         public RevolutionsRule(int gameType)
@@ -52,6 +48,251 @@
                 prefix: new HarmonyMethod(
                     typeof(RevolutionsRule),
                     nameof(Inventory_RestoreReplenishables_Prefix)));
+            harmony.Patch(
+                original: AccessTools.Method(typeof(StatusEffect), "Tick"),
+                prefix: new HarmonyMethod(
+                    typeof(RevolutionsRule),
+                    nameof(StatsusEffect_Tick_Prefix)));
+        }
+
+        private static void StatsusEffect_Tick_Prefix(ref StatusEffect __instance)
+        {
+            if (!_isActivated)
+            {
+                return;
+            }
+
+            var pieceId = Traverse.Create(__instance).Field<int>("sourcePieceId").Value;
+            var pieceAndTurnController = Traverse.Create(__instance).Field<PieceAndTurnController>("pieceAndTurnController").Value;
+            Piece piece = pieceAndTurnController.GetPiece(pieceId);
+            if (piece == null)
+            {
+                return;
+            }
+
+            if (!piece.IsPlayer())
+            {
+                return;
+            }
+
+            // mode: Reloaded = 1, Rev_Easy = 2, Rev = 3, Rev_Hard = 4, Rev_Leg = 5, Prog_Small = 6, Prog = 7, Prog_Leg = 8, PointsProg = 9
+            int mode = piece.GetStat(Stats.Type.InnateCounterDamageExtraDamage);
+
+            if (mode > 1 && mode < 6 && __instance.effectStateType == EffectStateType.ExtraEnergy)
+            {
+                Inventory.Item value;
+                int howMany = piece.effectSink.GetEffectStateDurationTurnsLeft(EffectStateType.ExtraEnergy);
+                bool hasChanged = false;
+
+                // Energy Potion tick/prevention and card removal per class
+                if (piece.HasEffectState(EffectStateType.ExtraEnergy))
+                {
+                    if (piece.boardPieceId == BoardPieceId.HeroBarbarian)
+                    {
+                        for (int i = 0; i < piece.inventory.Items.Count; i++)
+                        {
+                            value = piece.inventory.Items[i];
+                            if (value.AbilityKey == AbilityKey.ImplosionExplosionRain)
+                            {
+                                if (value.IsReplenishing)
+                                {
+                                    hasChanged = true;
+                                    howMany -= 1;
+                                    if (howMany < 1)
+                                    {
+                                        Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
+                                        piece.DisableEffectState(EffectStateType.ExtraEnergy);
+                                        piece.inventory.Items.Remove(value);
+                                    }
+                                }
+
+                                break;
+                            }
+                        }
+                    }
+                    else if (piece.boardPieceId == BoardPieceId.HeroGuardian)
+                    {
+                        for (int i = 0; i < piece.inventory.Items.Count; i++)
+                        {
+                            value = piece.inventory.Items[i];
+                            if (value.AbilityKey == AbilityKey.LeapHeavy)
+                            {
+                                if (value.IsReplenishing)
+                                {
+                                    hasChanged = true;
+                                    howMany -= 1;
+                                    if (howMany < 1)
+                                    {
+                                        Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
+                                        piece.DisableEffectState(EffectStateType.ExtraEnergy);
+                                        piece.inventory.Items.Remove(value);
+                                    }
+                                }
+
+                                break;
+                            }
+                        }
+                    }
+                    else if (piece.boardPieceId == BoardPieceId.HeroHunter)
+                    {
+                        for (int i = 0; i < piece.inventory.Items.Count; i++)
+                        {
+                            value = piece.inventory.Items[i];
+                            if (value.AbilityKey == AbilityKey.PVPMissileSwarm)
+                            {
+                                if (value.IsReplenishing)
+                                {
+                                    hasChanged = true;
+                                    howMany -= 1;
+                                    if (howMany < 1)
+                                    {
+                                        Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
+                                        piece.DisableEffectState(EffectStateType.ExtraEnergy);
+                                        piece.inventory.Items.Remove(value);
+                                    }
+                                }
+
+                                break;
+                            }
+                        }
+                    }
+                    else if (piece.boardPieceId == BoardPieceId.HeroBard)
+                    {
+                        for (int i = 0; i < piece.inventory.Items.Count; i++)
+                        {
+                            value = piece.inventory.Items[i];
+                            if (value.AbilityKey == AbilityKey.PVPBlink)
+                            {
+                                if (value.IsReplenishing)
+                                {
+                                    hasChanged = true;
+                                    howMany -= 1;
+                                    if (howMany < 1)
+                                    {
+                                        Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
+                                        piece.DisableEffectState(EffectStateType.ExtraEnergy);
+                                        piece.inventory.Items.Remove(value);
+                                    }
+                                }
+
+                                break;
+                            }
+                        }
+                    }
+                    else if (piece.boardPieceId == BoardPieceId.HeroSorcerer)
+                    {
+                        for (int i = 0; i < piece.inventory.Items.Count; i++)
+                        {
+                            value = piece.inventory.Items[i];
+                            if (value.AbilityKey == AbilityKey.DeathBeam)
+                            {
+                                if (value.IsReplenishing)
+                                {
+                                    hasChanged = true;
+                                    howMany -= 1;
+                                    if (howMany < 1)
+                                    {
+                                        Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
+                                        piece.DisableEffectState(EffectStateType.ExtraEnergy);
+                                        piece.inventory.Items.Remove(value);
+                                    }
+                                }
+
+                                break;
+                            }
+                        }
+                    }
+                    else if (piece.boardPieceId == BoardPieceId.HeroRogue)
+                    {
+                        for (int i = 0; i < piece.inventory.Items.Count; i++)
+                        {
+                            value = piece.inventory.Items[i];
+                            if (value.AbilityKey == AbilityKey.PVPFireball)
+                            {
+                                if (value.IsReplenishing)
+                                {
+                                    hasChanged = true;
+                                    howMany -= 1;
+                                    if (howMany < 1)
+                                    {
+                                        Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
+                                        piece.DisableEffectState(EffectStateType.ExtraEnergy);
+                                        piece.inventory.Items.Remove(value);
+                                    }
+                                }
+
+                                break;
+                            }
+                        }
+                    }
+                    else if (piece.boardPieceId == BoardPieceId.HeroWarlock)
+                    {
+                        for (int i = 0; i < piece.inventory.Items.Count; i++)
+                        {
+                            value = piece.inventory.Items[i];
+                            if (value.AbilityKey == AbilityKey.WeakeningShout)
+                            {
+                                if (value.IsReplenishing)
+                                {
+                                    hasChanged = true;
+                                    howMany -= 1;
+                                    if (howMany < 1)
+                                    {
+                                        Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
+                                        piece.DisableEffectState(EffectStateType.ExtraEnergy);
+                                        piece.inventory.Items.Remove(value);
+                                    }
+                                }
+
+                                break;
+                            }
+                        }
+                    }
+
+                    if (howMany > 0 && !hasChanged)
+                    {
+                        Traverse.Create(__instance).Field<int>("durationTurnsLeft").Value = howMany + 1;
+                        piece.effectSink.SetStatusEffectDuration(EffectStateType.ExtraEnergy, howMany);
+                        piece.effectSink.AddStatusEffect(EffectStateType.It, 1);
+                    }
+                }
+            }
+            else if (__instance.effectStateType == EffectStateType.PlayerBerserk)
+            {
+                if (piece.boardPieceId == BoardPieceId.HeroGuardian)
+                {
+                    piece.effectSink.TryGetStat(Stats.Type.MoveRange, out int myMoveRange);
+                    piece.effectSink.TryGetStatMax(Stats.Type.MoveRange, out int myMaxMove);
+                    piece.effectSink.TrySetStatBaseValue(Stats.Type.MoveRange, myMoveRange - 3);
+                    piece.effectSink.TrySetStatMaxValue(Stats.Type.MoveRange, myMaxMove - 3);
+                }
+            }
+            else if (__instance.effectStateType == EffectStateType.SpawnBuildUp)
+            {
+                if (piece.boardPieceId == BoardPieceId.HeroWarlock)
+                {
+                    if (piece.effectSink.GetEffectStateDurationTurnsLeft(EffectStateType.SpawnBuildUp) == 1)
+                    {
+                        piece.effectSink.TryGetStat(Stats.Type.MagicBonus, out int myMagic);
+                        piece.effectSink.TryGetStatMax(Stats.Type.MagicBonus, out int myMaxMagic);
+                        piece.effectSink.TrySetStatBaseValue(Stats.Type.MagicBonus, myMagic - 3);
+                        piece.effectSink.TrySetStatMaxValue(Stats.Type.MagicBonus, myMaxMagic - 3);
+                    }
+                }
+            }
+            else if (__instance.effectStateType == EffectStateType.DeflectionBarrier)
+            {
+                if (piece.boardPieceId == BoardPieceId.HeroBard)
+                {
+                    if (piece.effectSink.GetEffectStateDurationTurnsLeft(EffectStateType.DeflectionBarrier) == 1)
+                    {
+                        piece.effectSink.TryGetStat(Stats.Type.MoveRange, out int myMoveRange);
+                        piece.effectSink.TryGetStatMax(Stats.Type.MoveRange, out int myMaxMove);
+                        piece.effectSink.TrySetStatBaseValue(Stats.Type.MoveRange, myMoveRange - 3);
+                        piece.effectSink.TrySetStatMaxValue(Stats.Type.MoveRange, myMaxMove - 3);
+                    }
+                }
+            }
         }
 
         private static bool Inventory_RestoreReplenishables_Prefix(Piece piece)
