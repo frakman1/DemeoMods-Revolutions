@@ -24,7 +24,7 @@
         private static Context _context;
         private static bool _isActivated;
         private static bool _dropchest;
-        private static Piece? tempPiece;
+        private static Piece? tempPiece = null;
         private static float percentage;
 
         internal static int Player1 { get; private set; }
@@ -178,30 +178,28 @@
                 return;
             }
 
-            // piece.effectSink.RemoveStatusEffect(EffectStateType.StrengthInNumbers);
-            var levelUp = 0;
             if (pointCount > 999)
             {
                 pointCount -= 1000;
             }
 
+            bool levelUp = false;
             int pointCount2 = (int)Math.Round(pointCount);
             if (pointCount2 > 99)
             {
-                levelUp = 1;
+                levelUp = true;
                 pointCount2 -= 100;
             }
 
             piece.effectSink.SetStatusEffectDuration(EffectStateType.StrengthInNumbers, pointCount2);
-            int nextLevel = piece.GetStatMax(Stats.Type.CritChance);
-
-            if (levelUp == 0)
+            if (!levelUp)
             {
                 return;
             }
 
             Inventory.Item value;
             piece.effectSink.Heal(2);
+            int nextLevel = piece.GetStatMax(Stats.Type.CritChance);
             if (piece.HasEffectState(EffectStateType.Downed))
             {
                 piece.effectSink.RemoveStatusEffect(EffectStateType.Downed);
@@ -209,8 +207,11 @@
                 piece.effectSink.RemoveStatusEffect(EffectStateType.Frozen);
             }
 
-            piece.DisableEffectState(EffectStateType.ExtraEnergy);
-            piece.EnableEffectState(EffectStateType.ExtraEnergy, 1);
+            if (!piece.HasEffectState(EffectStateType.ExtraEnergy))
+            {
+                piece.EnableEffectState(EffectStateType.ExtraEnergy, 1);
+            }
+
             if (piece.GetHealth() < piece.GetMaxHealth())
             {
                 piece.DisableEffectState(EffectStateType.Heal);
@@ -891,12 +892,14 @@
 
             if (tempPiece != null)
             {
-                if (attackerUnit.HasPieceType(PieceType.Prop))
+                if (!attackerUnit.IsPlayer())
                 {
                     attackerUnit = tempPiece;
                 }
-
-                tempPiece = null;
+                else
+                {
+                    tempPiece = null;
+                }
             }
 
             if (defeatedUnit.HasPieceType(PieceType.Prop) && attackerUnit.IsPlayer())
@@ -1053,9 +1056,49 @@
             }
         }
 
-        private static void Ability_GenerateAttackDamage_Postfix(Piece source, Dice.Outcome diceResult, Piece[] targets)
+        private static void Ability_GenerateAttackDamage_Postfix(Piece source, Piece mainTarget, Dice.Outcome diceResult, Piece[] targets)
         {
             if (!_isActivated)
+            {
+                return;
+            }
+
+            if (tempPiece != null)
+            {
+                if (!source.IsPlayer())
+                {
+                    source = tempPiece;
+                }
+                else
+                {
+                    tempPiece = null;
+                }
+            }
+
+            if (source.IsPlayer())
+            {
+                if (mainTarget != null)
+                {
+                    if (mainTarget.HasPieceType(PieceType.Prop))
+                    {
+                        tempPiece = source;
+                        return;
+                    }
+                }
+                else if (targets.Length != 0)
+                {
+                    for (int i = 0; i < targets.Length; i++)
+                    {
+                        if (targets[i].HasPieceType(PieceType.Prop))
+                        {
+                            tempPiece = source;
+                            return;
+                        }
+                    }
+                }
+            }
+
+            if (source == null || (mainTarget != null && mainTarget.HasEffectState(EffectStateType.WizardDoppelganger)))
             {
                 return;
             }

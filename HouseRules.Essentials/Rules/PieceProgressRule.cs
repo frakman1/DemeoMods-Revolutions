@@ -121,8 +121,11 @@
                 piece.effectSink.RemoveStatusEffect(EffectStateType.Frozen);
             }
 
-            piece.DisableEffectState(EffectStateType.ExtraEnergy);
-            piece.EnableEffectState(EffectStateType.ExtraEnergy, 1);
+            if (!piece.HasEffectState(EffectStateType.ExtraEnergy))
+            {
+                piece.EnableEffectState(EffectStateType.ExtraEnergy, 1);
+            }
+
             if (piece.GetHealth() < piece.GetMaxHealth())
             {
                 piece.DisableEffectState(EffectStateType.Heal);
