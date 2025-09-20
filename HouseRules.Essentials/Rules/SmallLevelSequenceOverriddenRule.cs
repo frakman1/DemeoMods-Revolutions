@@ -179,6 +179,17 @@
                 Traverse.Create(gameContext.gameStateMachine).Field<LevelSequence>("levelSequence").Value;
             var originalSequence = Traverse.Create(gsmLevelSequence).Field<string[]>("levels").Value;
 
+            if (replacements[0].Contains("fastforward"))
+            {
+                HouseRulesEssentialsBase.LogWarning("Fast Forward mode detected");
+                isFastForward = true;
+            }
+            else if (replacements[0].Contains("skiplevel1"))
+            {
+                HouseRulesEssentialsBase.LogWarning("Skip Level 1 mode detected");
+                isSkipLevel1 = true;
+            }
+
             if (replacements.Count == 5 && replacements[1].Contains("Shop") && replacements[3].Contains("Shop"))
             {
                 if (gsmLevelSequence.gameType == LevelSequence.GameType.Desert)
@@ -188,15 +199,6 @@
                 else if (gsmLevelSequence.gameType == LevelSequence.GameType.Town)
                 {
                     replacements[4] = "TownsBossFloor01";
-                }
-
-                if (replacements[0].Contains("fastforward"))
-                {
-                    isFastForward = true;
-                }
-                else if (replacements[0].Contains("skiplevel1"))
-                {
-                    isSkipLevel1 = true;
                 }
 
                 if (isFastForward)
@@ -432,20 +434,8 @@
                 _randomMaps[4] = "TownsBossFloor01";
             }
 
-            if (replacements[0].Contains("fastforward"))
-            {
-                isFastForward = true;
-                HouseRulesEssentialsBase.LogWarning("Fast Forward mode detected");
-            }
-            else if (replacements[0].Contains("skiplevel1"))
-            {
-                isSkipLevel1 = true;
-                HouseRulesEssentialsBase.LogWarning("Skip Level 1 mode detected");
-            }
-
             if (isFastForward)
             {
-                HouseRulesEssentialsBase.LogWarning("Fast Forward mode detected");
                 if (gsmLevelSequence.gameType == LevelSequence.GameType.Forest)
                 {
                     _randomMaps[0] = "CryptEntrance";
@@ -474,7 +464,6 @@
             }
             else if (isSkipLevel1)
             {
-                HouseRulesEssentialsBase.LogWarning("Skip Level 1 mode detected");
                 if (gsmLevelSequence.gameType == LevelSequence.GameType.Forest)
                 {
                     _randomMaps[0] = "CryptEntrance";
