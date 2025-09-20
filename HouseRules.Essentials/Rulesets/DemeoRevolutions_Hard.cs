@@ -1365,7 +1365,6 @@
             var goldPickupRule = new GoldPickedUpMultipliedRule(1);
             var reviveEffectsRule = new ReviveRemovesEffectsRule(true);
             var courageShantyRule = new CourageShantyAddsHpRule(1);
-            var tickRule = new TickAdjustedRule(true);
             var queenBuffsRule = new ElvenQueenBuffsRule(true);
             var queenSuperRule = new ElvenQueenSuperBuffRule(true);
             var grappleUnhookedRule = new GrappleUnhookedRule(true);
@@ -1378,7 +1377,6 @@
                 description,
                 longdesc,
                 pieceKeyholderRule,
-                tickRule,
                 revolutionsRule,
                 enableDoorsRule,
                 grappleUnhookedRule,

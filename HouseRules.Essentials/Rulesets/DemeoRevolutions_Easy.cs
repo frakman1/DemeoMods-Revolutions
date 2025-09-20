@@ -1251,7 +1251,6 @@
             var goldPickupRule = new GoldPickedUpMultipliedRule(1.25f);
             var reviveEffectsRule = new ReviveRemovesEffectsRule(true);
             var courageShantyRule = new CourageShantyAddsHpRule(1);
-            var tickRule = new TickAdjustedRule(true);
             var grappleUnhookedRule = new GrappleUnhookedRule(true);
             var disableDoorsRule = new EnemyDoorOpeningDisabledRule(true);
             var pieceKeyholderRule = new PieceKeyholderRule(true);
@@ -1262,7 +1261,6 @@
                 description,
                 longdesc,
                 pieceKeyholderRule,
-                tickRule,
                 revolutionsRule,
                 disableDoorsRule,
                 grappleUnhookedRule,
