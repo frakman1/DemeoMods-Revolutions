@@ -1123,11 +1123,6 @@
                 { AbilityKey.Net, 0 },
             });
 
-            var abilityRandomPieceRule = new AbilityRandomPieceListRule(new Dictionary<AbilityKey, List<BoardPieceId>>
-            {
-                { AbilityKey.NaturesCall, new List<BoardPieceId> { BoardPieceId.PoisonousRat, BoardPieceId.Spider } },
-            });
-
             var tileEffectRule = new TileEffectDurationOverriddenRule(new Dictionary<TileEffect, int>
             {
                 { TileEffect.Gas, 3 },
@@ -1427,7 +1422,6 @@
                 cardEnergyFromAttackRule,
                 enemyHealthScaledRule,
                 enemyAttackScaledRule,
-                abilityRandomPieceRule,
                 levelSequenceOverriddenRule,
                 levelPropertiesRule);
         }

@@ -179,7 +179,7 @@
                             }
                         }
 
-                        var abilityPromise = _context.AbilityFactory.LoadAbility(AbilityKey.HunterArrow);
+                        var abilityPromise = _context.AbilityFactory.LoadAbility(AbilityKey.EnemyArrowSnipe);
                         abilityPromise.OnLoaded(ability =>
                         {
                             ability.costActionPoint = false;
@@ -201,17 +201,7 @@
                     }
                     else if (piece.boardPieceId == BoardPieceId.HeroWarlock)
                     {
-                        for (var i = 0; i < piece.inventory.Items.Count; i++)
-                        {
-                            value = piece.inventory.Items[i];
-                            if (value.AbilityKey == AbilityKey.MagicMissile)
-                            {
-                                piece.inventory.Items.Remove(value);
-                                break;
-                            }
-                        }
-
-                        var abilityPromise = _context.AbilityFactory.LoadAbility(AbilityKey.MagicMissile);
+                        var abilityPromise = _context.AbilityFactory.LoadAbility(AbilityKey.MinionCharge);
                         abilityPromise.OnLoaded(ability =>
                         {
                             ability.costActionPoint = false;
@@ -227,7 +217,7 @@
                             AbilityKey.BeaconOfSmite,
                             flags: (Inventory.ItemFlag)1,
                             originalOwner: -1,
-                            replenishCooldown: 5));
+                            replenishCooldown: 6));
                         piece.AddGold(0);
                     }
                     else if (piece.boardPieceId == BoardPieceId.HeroBard)
@@ -237,7 +227,7 @@
                             AbilityKey.MonsterBait,
                             flags: (Inventory.ItemFlag)1,
                             originalOwner: -1,
-                            replenishCooldown: 5));
+                            replenishCooldown: 6));
                         piece.AddGold(0);
                     }
                     else if (piece.boardPieceId == BoardPieceId.HeroGuardian)
@@ -247,7 +237,7 @@
                             AbilityKey.ProximityMine,
                             flags: (Inventory.ItemFlag)1,
                             originalOwner: -1,
-                            replenishCooldown: 5));
+                            replenishCooldown: 6));
                         piece.AddGold(0);
                     }
                     else if (piece.boardPieceId == BoardPieceId.HeroRogue)
@@ -257,25 +247,27 @@
                             AbilityKey.GrapplingTotem,
                             flags: (Inventory.ItemFlag)1,
                             originalOwner: -1,
-                            replenishCooldown: 5));
+                            replenishCooldown: 6));
                         piece.AddGold(0);
                     }
                     else if (piece.boardPieceId == BoardPieceId.HeroHunter)
                     {
+                        Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
                         piece.inventory.Items.Add(new Inventory.Item(
                             AbilityKey.SwordOfAvalon,
                             flags: (Inventory.ItemFlag)1,
                             originalOwner: -1,
-                            replenishCooldown: 5));
+                            replenishCooldown: 6));
                         piece.AddGold(0);
                     }
                     else if (piece.boardPieceId == BoardPieceId.HeroSorcerer)
                     {
+                        Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
                         piece.inventory.Items.Add(new Inventory.Item(
                             AbilityKey.GuidingLight,
                             flags: (Inventory.ItemFlag)1,
                             originalOwner: -1,
-                            replenishCooldown: 5));
+                            replenishCooldown: 6));
                         piece.AddGold(0);
                     }
                     else if (piece.boardPieceId == BoardPieceId.HeroWarlock)
@@ -285,7 +277,7 @@
                             AbilityKey.BeaconOfHealing,
                             flags: (Inventory.ItemFlag)1,
                             originalOwner: -1,
-                            replenishCooldown: 5));
+                            replenishCooldown: 6));
                         piece.AddGold(0);
                     }
                 }
@@ -342,6 +334,7 @@
                     }
                     else if (piece.boardPieceId == BoardPieceId.HeroHunter)
                     {
+                        Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
                         piece.inventory.Items.Add(new Inventory.Item(
                             AbilityKey.RatKingRatBomb,
                             flags: (Inventory.ItemFlag)1,
@@ -351,6 +344,7 @@
                     }
                     else if (piece.boardPieceId == BoardPieceId.HeroSorcerer)
                     {
+                        Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
                         piece.inventory.Items.Add(new Inventory.Item(
                             AbilityKey.ImplosionExplosionRain,
                             flags: (Inventory.ItemFlag)1,
@@ -554,10 +548,10 @@
                         ability.costActionPoint = true;
                     });
 
-                    var abilityPromise2 = _context.AbilityFactory.LoadAbility(AbilityKey.LightningBolt);
+                    var abilityPromise2 = _context.AbilityFactory.LoadAbility(AbilityKey.EnemyArrowSnipe);
                     abilityPromise2.OnLoaded(ability =>
                     {
-                        ability.costActionPoint = false;
+                        ability.costActionPoint = true;
                     });
                 }
                 else if (piece.boardPieceId == BoardPieceId.HeroWarlock)
@@ -627,7 +621,7 @@
                 }
                 else if (piece.boardPieceId == BoardPieceId.HeroWarlock)
                 {
-                    var abilityPromise = _context.AbilityFactory.LoadAbility(AbilityKey.MagicMissile);
+                    var abilityPromise = _context.AbilityFactory.LoadAbility(AbilityKey.MinionCharge);
                     abilityPromise.OnLoaded(ability =>
                     {
                         ability.costActionPoint = false;
