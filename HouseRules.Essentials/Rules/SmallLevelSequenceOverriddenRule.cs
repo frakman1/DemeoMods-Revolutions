@@ -208,7 +208,7 @@
                     {
                         replacements[0] = "CryptEntrance";
                         replacements[1] = "ShopFloor02";
-                        replacements[2] = "ElvenFloor17";
+                        replacements[2] = "ElvenFloor15";
                         replacements[3] = "SewersShopFloor";
                     }
                     else if (gsmLevelSequence.gameType == LevelSequence.GameType.ElvenQueen)
@@ -439,7 +439,7 @@
                 if (gsmLevelSequence.gameType == LevelSequence.GameType.Forest)
                 {
                     _randomMaps[0] = "CryptEntrance";
-                    _randomMaps[2] = "ElvenFloor17";
+                    _randomMaps[2] = "ElvenFloor15";
                 }
                 else if (gsmLevelSequence.gameType == LevelSequence.GameType.ElvenQueen)
                 {
@@ -459,7 +459,7 @@
                 else if (gsmLevelSequence.gameType == LevelSequence.GameType.Desert)
                 {
                     _randomMaps[0] = "TownsEntrance";
-                    _randomMaps[2] = "CryptEntrance";
+                    _randomMaps[2] = "SewersEntranceFloor";
                 }
             }
             else if (isSkipLevel1)
@@ -488,6 +488,10 @@
 
             switch (_randomMaps[2].Substring(0, 4))
             {
+                case "Cryp":
+                    _randomMaps[1] = "ShopFloor02";
+                    break;
+
                 case "Elve":
                     _randomMaps[1] = "ShopFloor02";
                     break;
@@ -510,6 +514,10 @@
 
             switch (_randomMaps[4].Substring(0, 4))
             {
+                case "Cryp":
+                    _randomMaps[1] = "ShopFloor02";
+                    break;
+
                 case "Elve":
                     _randomMaps[3] = "ShopFloor02";
                     break;
