@@ -101,9 +101,9 @@
             {
                 if (attackerPiece != null)
                 {
-                    if (attackerPiece.IsPlayer() && (targetPiece.IsPlayer() || targetPiece.IsBot() || targetPiece.IsWarlockMinion() || targetPiece.HasEffectState(EffectStateType.ConfusedPermanentVisualOnly)) && damage.HasTag(DamageTag.Electricity))
+                    if (damage.HasTag(DamageTag.Electricity) && attackerPiece.IsPlayer() && (targetPiece.IsPlayer() || targetPiece.IsBot() || targetPiece.IsWarlockMinion() || targetPiece.HasEffectState(EffectStateType.ConfusedPermanentVisualOnly) || (targetPiece.IsProp() && targetPiece.boardPieceId != BoardPieceId.EnemyTurret && targetPiece.boardPieceId != BoardPieceId.RatNest)))
                     {
-                        if (damage.AbilityKey == AbilityKey.Zap)
+                        if (damage.AbilityKey == AbilityKey.Zap || damage.AbilityKey == AbilityKey.LightningBolt || damage.AbilityKey == AbilityKey.Overload)
                         {
                             _targetPiece = targetPiece;
                         }
@@ -142,7 +142,7 @@
             // value is false so players can't hurt or give any negative effects to other players/pets intentionally
             if (_electricOnly == false && attackerPiece != null)
             {
-                if (attackerPiece.IsPlayer() && (targetPiece.IsPlayer() || targetPiece.IsBot() || targetPiece.IsWarlockMinion() || targetPiece.HasEffectState(EffectStateType.ConfusedPermanentVisualOnly)))
+                if (attackerPiece.IsPlayer() && (targetPiece.IsPlayer() || targetPiece.IsBot() || targetPiece.IsWarlockMinion() || targetPiece.HasEffectState(EffectStateType.ConfusedPermanentVisualOnly) || (targetPiece.IsProp() && targetPiece.boardPieceId != BoardPieceId.EnemyTurret && targetPiece.boardPieceId != BoardPieceId.RatNest)))
                 {
                     if (damage.HasTag(DamageTag.Electricity))
                     {
