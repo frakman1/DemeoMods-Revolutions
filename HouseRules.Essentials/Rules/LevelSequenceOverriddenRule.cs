@@ -544,7 +544,7 @@ namespace HouseRules.Essentials.Rules
                 else if (gsmLevelSequence.gameType == LevelSequence.GameType.Desert)
                 {
                     _randomMaps[0] = "TownsEntrance";
-                    _randomMaps[2] = "CryptEntrance";
+                    _randomMaps[2] = "SewersEntranceFloor";
                 }
             }
             else if (isSkipLevel1)
@@ -573,6 +573,10 @@ namespace HouseRules.Essentials.Rules
 
             switch (_randomMaps[2].Substring(0, 4))
             {
+                case "Cryp":
+                    _randomMaps[1] = "ShopFloor02";
+                    break;
+
                 case "Elve":
                     _randomMaps[1] = "ShopFloor02";
                     break;
@@ -595,6 +599,10 @@ namespace HouseRules.Essentials.Rules
 
             switch (_randomMaps[4].Substring(0, 4))
             {
+                case "Cryp":
+                    _randomMaps[1] = "ShopFloor02";
+                    break;
+
                 case "Elve":
                     _randomMaps[3] = "ShopFloor02";
                     break;
