@@ -194,7 +194,7 @@
                 if (gsmLevelSequence.gameType == LevelSequence.GameType.Forest)
                 {
                     _randomMaps[0] = "CryptEntrance";
-                    _randomMaps[2] = "ElvenFloor17";
+                    _randomMaps[2] = "ElvenFloor15";
                 }
                 else if (gsmLevelSequence.gameType == LevelSequence.GameType.ElvenQueen)
                 {

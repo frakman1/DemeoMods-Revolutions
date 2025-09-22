@@ -220,7 +220,7 @@ namespace HouseRules.Essentials.Rules
                     {
                         replacements[0] = "CryptEntrance";
                         replacements[1] = "ShopFloor02";
-                        replacements[2] = "ElvenFloor17";
+                        replacements[2] = "ElvenFloor15";
                         replacements[3] = "SewersShopFloor";
                     }
                     else if (gsmLevelSequence.gameType == LevelSequence.GameType.ElvenQueen)
@@ -524,7 +524,7 @@ namespace HouseRules.Essentials.Rules
                 if (gsmLevelSequence.gameType == LevelSequence.GameType.Forest)
                 {
                     _randomMaps[0] = "CryptEntrance";
-                    _randomMaps[2] = "ElvenFloor17";
+                    _randomMaps[2] = "ElvenFloor15";
                 }
                 else if (gsmLevelSequence.gameType == LevelSequence.GameType.ElvenQueen)
                 {
