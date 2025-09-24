@@ -92,6 +92,7 @@
             HR.Rulebook.Register(typeof(FreeHealOnCritRule));
             HR.Rulebook.Register(typeof(FreeHealOnHitRule));
             HR.Rulebook.Register(typeof(FreeMaxHealthOnKillRule));
+            HR.Rulebook.Register(typeof(FreeMexicanReplenishablesOnCritRule));
             HR.Rulebook.Register(typeof(FreeRandomBuffOnKillRule));
             HR.Rulebook.Register(typeof(FreeReplenishablesOnCritRule));
             HR.Rulebook.Register(typeof(FreeThingsOnLastMoveAndCritRule));
@@ -129,6 +130,7 @@
             HR.Rulebook.Register(typeof(PieceMagicStatAddedRule));
             HR.Rulebook.Register(typeof(PieceMexicanProgressRule));
             HR.Rulebook.Register(typeof(PieceMexicanProgress2Rule));
+            HR.Rulebook.Register(typeof(PieceMexicanProgress3Rule));
             HR.Rulebook.Register(typeof(PieceMexicanFriendProgressRule));
             HR.Rulebook.Register(typeof(PiecePieceTypeListOverriddenRule));
             HR.Rulebook.Register(typeof(PiecePointProgressRule));
