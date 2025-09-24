@@ -101,7 +101,7 @@
             {
                 if (attackerPiece != null)
                 {
-                    if (damage.HasTag(DamageTag.Electricity) && attackerPiece.IsPlayer() && (targetPiece.IsPlayer() || targetPiece.IsBot() || targetPiece.IsWarlockMinion() || targetPiece.HasEffectState(EffectStateType.ConfusedPermanentVisualOnly) || (targetPiece.IsProp() && !targetPiece.boardPieceId.ToString().Contains("Lamp") && !targetPiece.boardPieceId.ToString().Contains("SandPile") && targetPiece.boardPieceId != BoardPieceId.EnemyTurret && targetPiece.boardPieceId != BoardPieceId.RatNest && targetPiece.boardPieceId != BoardPieceId.SporeFungus)))
+                    if (damage.HasTag(DamageTag.Electricity) && attackerPiece.IsPlayer() && (targetPiece.IsPlayer() || targetPiece.IsBot() || targetPiece.IsWarlockMinion() || targetPiece.HasEffectState(EffectStateType.ConfusedPermanentVisualOnly) || (targetPiece.IsProp() && !targetPiece.boardPieceId.ToString().Contains("Lamp") && !targetPiece.boardPieceId.ToString().Contains("SandPile") && !targetPiece.boardPieceId.ToString().Contains("Corruption") && targetPiece.boardPieceId != BoardPieceId.EnemyTurret && targetPiece.boardPieceId != BoardPieceId.RatNest && targetPiece.boardPieceId != BoardPieceId.SporeFungus)))
                     {
                         if (damage.AbilityKey == AbilityKey.Zap || damage.AbilityKey == AbilityKey.LightningBolt || damage.AbilityKey == AbilityKey.Overload)
                         {
@@ -142,7 +142,7 @@
             // value is false so players can't hurt or give any negative effects to other players/pets intentionally
             if (_electricOnly == false && attackerPiece != null)
             {
-                if (attackerPiece.IsPlayer() && (targetPiece.IsPlayer() || targetPiece.IsBot() || targetPiece.IsWarlockMinion() || targetPiece.HasEffectState(EffectStateType.ConfusedPermanentVisualOnly) || (targetPiece.IsProp() && !targetPiece.boardPieceId.ToString().Contains("Lamp") && !targetPiece.boardPieceId.ToString().Contains("SandPile") && targetPiece.boardPieceId != BoardPieceId.EnemyTurret && targetPiece.boardPieceId != BoardPieceId.RatNest && targetPiece.boardPieceId != BoardPieceId.SporeFungus)))
+                if (attackerPiece.IsPlayer() && (targetPiece.IsPlayer() || targetPiece.IsBot() || targetPiece.IsWarlockMinion() || targetPiece.HasEffectState(EffectStateType.ConfusedPermanentVisualOnly) || (targetPiece.IsProp() && !targetPiece.boardPieceId.ToString().Contains("Lamp") && !targetPiece.boardPieceId.ToString().Contains("SandPile") && !targetPiece.boardPieceId.ToString().Contains("Corruption") && targetPiece.boardPieceId != BoardPieceId.EnemyTurret && targetPiece.boardPieceId != BoardPieceId.RatNest && targetPiece.boardPieceId != BoardPieceId.SporeFungus)))
                 {
                     if (damage.HasTag(DamageTag.Electricity))
                     {
