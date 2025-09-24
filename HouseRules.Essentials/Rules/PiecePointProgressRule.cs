@@ -902,7 +902,7 @@
                 }
             }
 
-            if (defeatedUnit.HasPieceType(PieceType.Prop) && attackerUnit.IsPlayer())
+            if (attackerUnit.IsPlayer() && defeatedUnit.HasPieceType(PieceType.Prop) && defeatedUnit.boardPieceId.ToString().Contains("Lamp"))
             {
                 tempPiece = attackerUnit;
                 return;
@@ -1079,7 +1079,7 @@
             {
                 if (mainTarget != null)
                 {
-                    if (mainTarget.HasPieceType(PieceType.Prop))
+                    if (mainTarget.HasPieceType(PieceType.Prop) && mainTarget.boardPieceId.ToString().Contains("Lamp"))
                     {
                         tempPiece = source;
                         return;
@@ -1089,7 +1089,7 @@
                 {
                     for (int i = 0; i < targets.Length; i++)
                     {
-                        if (targets[i].HasPieceType(PieceType.Prop))
+                        if (targets[i].HasPieceType(PieceType.Prop) && targets[i].boardPieceId.ToString().Contains("Lamp"))
                         {
                             tempPiece = source;
                             return;

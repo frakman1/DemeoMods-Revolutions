@@ -101,7 +101,7 @@
             {
                 if (attackerPiece != null)
                 {
-                    if (damage.HasTag(DamageTag.Electricity) && attackerPiece.IsPlayer() && (targetPiece.IsPlayer() || targetPiece.IsBot() || targetPiece.IsWarlockMinion() || targetPiece.HasEffectState(EffectStateType.ConfusedPermanentVisualOnly) || (targetPiece.IsProp() && targetPiece.boardPieceId != BoardPieceId.EnemyTurret && targetPiece.boardPieceId != BoardPieceId.RatNest)))
+                    if (damage.HasTag(DamageTag.Electricity) && attackerPiece.IsPlayer() && (targetPiece.IsPlayer() || targetPiece.IsBot() || targetPiece.IsWarlockMinion() || targetPiece.HasEffectState(EffectStateType.ConfusedPermanentVisualOnly) || (targetPiece.IsProp() && !targetPiece.boardPieceId.ToString().Contains("Lamp") && targetPiece.boardPieceId != BoardPieceId.EnemyTurret && targetPiece.boardPieceId != BoardPieceId.RatNest)))
                     {
                         if (damage.AbilityKey == AbilityKey.Zap || damage.AbilityKey == AbilityKey.LightningBolt || damage.AbilityKey == AbilityKey.Overload)
                         {
@@ -142,7 +142,7 @@
             // value is false so players can't hurt or give any negative effects to other players/pets intentionally
             if (_electricOnly == false && attackerPiece != null)
             {
-                if (attackerPiece.IsPlayer() && (targetPiece.IsPlayer() || targetPiece.IsBot() || targetPiece.IsWarlockMinion() || targetPiece.HasEffectState(EffectStateType.ConfusedPermanentVisualOnly) || (targetPiece.IsProp() && targetPiece.boardPieceId != BoardPieceId.EnemyTurret && targetPiece.boardPieceId != BoardPieceId.RatNest)))
+                if (attackerPiece.IsPlayer() && (targetPiece.IsPlayer() || targetPiece.IsBot() || targetPiece.IsWarlockMinion() || targetPiece.HasEffectState(EffectStateType.ConfusedPermanentVisualOnly) || (targetPiece.IsProp() && !targetPiece.boardPieceId.ToString().Contains("Lamp") && targetPiece.boardPieceId != BoardPieceId.EnemyTurret && targetPiece.boardPieceId != BoardPieceId.RatNest)))
                 {
                     if (damage.HasTag(DamageTag.Electricity))
                     {
@@ -167,17 +167,6 @@
                     }
 
                     return false;
-                }
-                else if (targetPiece.IsPlayer() || targetPiece.IsBot())
-                {
-                    if (damage.HasTag(DamageTag.Electricity) && targetPiece.HasEffectState(EffectStateType.Stunned))
-                    {
-                        return false;
-                    }
-                    else if (damage.HasTag(DamageTag.Ice) && targetPiece.HasEffectState(EffectStateType.IceImmunity))
-                    {
-                        return false;
-                    }
                 }
                 else if ((attackerPiece.boardPieceId == BoardPieceId.Tornado || attackerPiece.boardPieceId == BoardPieceId.SmiteWard || attackerPiece.boardPieceId == BoardPieceId.SwordOfAvalon || attackerPiece.boardPieceId == BoardPieceId.Verochka || attackerPiece.HasEffectState(EffectStateType.ConfusedPermanentVisualOnly)) && (targetPiece.IsPlayer() || targetPiece.IsBot() || targetPiece.IsWarlockMinion() || targetPiece.HasEffectState(EffectStateType.ConfusedPermanentVisualOnly)))
                 {
