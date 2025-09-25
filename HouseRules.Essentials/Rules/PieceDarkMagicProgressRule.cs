@@ -217,7 +217,7 @@
                             AbilityKey.BeaconOfSmite,
                             flags: (Inventory.ItemFlag)1,
                             originalOwner: -1,
-                            replenishCooldown: 6));
+                            replenishCooldown: 5));
                         piece.AddGold(0);
                     }
                     else if (piece.boardPieceId == BoardPieceId.HeroBard)
@@ -227,7 +227,7 @@
                             AbilityKey.MonsterBait,
                             flags: (Inventory.ItemFlag)1,
                             originalOwner: -1,
-                            replenishCooldown: 6));
+                            replenishCooldown: 5));
                         piece.AddGold(0);
                     }
                     else if (piece.boardPieceId == BoardPieceId.HeroGuardian)
@@ -237,7 +237,7 @@
                             AbilityKey.ProximityMine,
                             flags: (Inventory.ItemFlag)1,
                             originalOwner: -1,
-                            replenishCooldown: 6));
+                            replenishCooldown: 5));
                         piece.AddGold(0);
                     }
                     else if (piece.boardPieceId == BoardPieceId.HeroRogue)
@@ -247,7 +247,7 @@
                             AbilityKey.GrapplingTotem,
                             flags: (Inventory.ItemFlag)1,
                             originalOwner: -1,
-                            replenishCooldown: 6));
+                            replenishCooldown: 5));
                         piece.AddGold(0);
                     }
                     else if (piece.boardPieceId == BoardPieceId.HeroHunter)
@@ -257,7 +257,7 @@
                             AbilityKey.SwordOfAvalon,
                             flags: (Inventory.ItemFlag)1,
                             originalOwner: -1,
-                            replenishCooldown: 6));
+                            replenishCooldown: 5));
                         piece.AddGold(0);
                     }
                     else if (piece.boardPieceId == BoardPieceId.HeroSorcerer)
@@ -267,7 +267,7 @@
                             AbilityKey.GuidingLight,
                             flags: (Inventory.ItemFlag)1,
                             originalOwner: -1,
-                            replenishCooldown: 6));
+                            replenishCooldown: 5));
                         piece.AddGold(0);
                     }
                     else if (piece.boardPieceId == BoardPieceId.HeroWarlock)
@@ -277,7 +277,7 @@
                             AbilityKey.BeaconOfHealing,
                             flags: (Inventory.ItemFlag)1,
                             originalOwner: -1,
-                            replenishCooldown: 6));
+                            replenishCooldown: 5));
                         piece.AddGold(0);
                     }
                 }
@@ -486,6 +486,100 @@
                 return true;
             }
 
+            int level = piece.GetStatMax(Stats.Type.CritChance);
+
+            // Removal of level special cards with long cooldowns from player start cards
+            Inventory.Item value;
+            if (level < 2)
+            {
+                if (piece.boardPieceId == BoardPieceId.HeroBarbarian)
+                {
+                    for (var i = 0; i < piece.inventory.Items.Count; i++)
+                    {
+                        value = piece.inventory.Items[i];
+                        if (value.AbilityKey == AbilityKey.BeaconOfSmite)
+                        {
+                            Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
+                            piece.inventory.Items.Remove(value);
+                        }
+                    }
+                }
+                else if (piece.boardPieceId == BoardPieceId.HeroBard)
+                {
+                    for (var i = 0; i < piece.inventory.Items.Count; i++)
+                    {
+                        value = piece.inventory.Items[i];
+                        if (value.AbilityKey == AbilityKey.MonsterBait)
+                        {
+                            Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
+                            piece.inventory.Items.Remove(value);
+                        }
+                    }
+                }
+                else if (piece.boardPieceId == BoardPieceId.HeroGuardian)
+                {
+                    for (var i = 0; i < piece.inventory.Items.Count; i++)
+                    {
+                        value = piece.inventory.Items[i];
+                        if (value.AbilityKey == AbilityKey.ProximityMine)
+                        {
+                            Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
+                            piece.inventory.Items.Remove(value);
+                        }
+                    }
+                }
+                else if (piece.boardPieceId == BoardPieceId.HeroRogue)
+                {
+                    for (var i = 0; i < piece.inventory.Items.Count; i++)
+                    {
+                        value = piece.inventory.Items[i];
+                        if (value.AbilityKey == AbilityKey.GrapplingTotem)
+                        {
+                            Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
+                            piece.inventory.Items.Remove(value);
+                        }
+                    }
+                }
+                else if (piece.boardPieceId == BoardPieceId.HeroHunter)
+                {
+                    for (var i = 0; i < piece.inventory.Items.Count; i++)
+                    {
+                        value = piece.inventory.Items[i];
+                        if (value.AbilityKey == AbilityKey.SwordOfAvalon)
+                        {
+                            Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
+                            piece.inventory.Items.Remove(value);
+                        }
+                    }
+                }
+                else if (piece.boardPieceId == BoardPieceId.HeroSorcerer)
+                {
+                    for (var i = 0; i < piece.inventory.Items.Count; i++)
+                    {
+                        value = piece.inventory.Items[i];
+                        if (value.AbilityKey == AbilityKey.GuidingLight)
+                        {
+                            Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
+                            piece.inventory.Items.Remove(value);
+                        }
+                    }
+                }
+                else if (piece.boardPieceId == BoardPieceId.HeroWarlock)
+                {
+                    for (var i = 0; i < piece.inventory.Items.Count; i++)
+                    {
+                        value = piece.inventory.Items[i];
+                        if (value.AbilityKey == AbilityKey.BeaconOfHealing)
+                        {
+                            Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
+                            piece.inventory.Items.Remove(value);
+                        }
+                    }
+                }
+
+                piece.AddGold(0);
+            }
+
             // Extra Actions, and Action Point cost changes per character class
             if (piece.HasEffectState(EffectStateType.ConfusedPermanentVisualOnly))
             {
@@ -493,7 +587,6 @@
                 piece.DisableEffectState(EffectStateType.Corruption);
             }
 
-            int level = piece.GetStatMax(Stats.Type.CritChance);
             if (level > 9)
             {
                 piece.effectSink.TryGetStat(Stats.Type.ActionPoints, out int currentAP);
