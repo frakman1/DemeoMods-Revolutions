@@ -169,16 +169,6 @@
                     }
                     else if (piece.boardPieceId == BoardPieceId.HeroHunter)
                     {
-                        for (var i = 0; i < piece.inventory.Items.Count; i++)
-                        {
-                            value = piece.inventory.Items[i];
-                            if (value.AbilityKey == AbilityKey.HunterArrow)
-                            {
-                                piece.inventory.Items.Remove(value);
-                                break;
-                            }
-                        }
-
                         var abilityPromise = _context.AbilityFactory.LoadAbility(AbilityKey.EnemyArrowSnipe);
                         abilityPromise.OnLoaded(ability =>
                         {

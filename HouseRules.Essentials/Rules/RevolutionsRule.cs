@@ -78,7 +78,7 @@
             // mode: Reloaded = 1, Rev_Easy = 2, Rev = 3, Rev_Hard = 4, Rev_Leg = 5, Prog_Small = 6, Prog = 7, Prog_Leg = 8, PointsProg = 9
             int mode = piece.GetStat(Stats.Type.InnateCounterDamageExtraDamage);
 
-            if (mode > 1 && mode < 6 && __instance.effectStateType == EffectStateType.ExtraEnergy)
+            if (mode > 1 && mode < 9 && __instance.effectStateType == EffectStateType.ExtraEnergy)
             {
                 Inventory.Item value;
                 int howMany = piece.effectSink.GetEffectStateDurationTurnsLeft(EffectStateType.ExtraEnergy);

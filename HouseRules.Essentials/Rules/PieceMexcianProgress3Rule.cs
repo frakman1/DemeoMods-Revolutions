@@ -1,7 +1,5 @@
 ﻿namespace HouseRules.Essentials.Rules
 {
-    using System;
-    using System.Threading;
     using Boardgame;
     using Boardgame.BoardEntities;
     using Boardgame.SerializableEvents;
@@ -15,7 +13,6 @@
 
         private static Context _context;
         private static bool _isActivated;
-        private static bool _dropchest;
 
         public PieceMexicanProgress3Rule(bool value)
         {
@@ -90,7 +87,7 @@
                     for (int i = 0; i < piece.inventory.Items.Count; i++)
                     {
                         value = piece.inventory.Items[i];
-                        if (value.AbilityKey == AbilityKey.DropChest)
+                        if (value.AbilityKey == AbilityKey.ElvenKingMeleeWhip)
                         {
                             if (value.IsReplenishing)
                             {
@@ -101,6 +98,8 @@
                                     Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
                                     piece.DisableEffectState(EffectStateType.ExtraEnergy);
                                     piece.inventory.Items.Remove(value);
+                                    piece.effectSink.RemoveStatusEffect(EffectStateType.Antidote);
+                                    piece.effectSink.AddStatusEffect(EffectStateType.Diseased, 3);
                                 }
                             }
 
@@ -124,6 +123,7 @@
                                     Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
                                     piece.DisableEffectState(EffectStateType.ExtraEnergy);
                                     piece.inventory.Items.Remove(value);
+                                    piece.effectSink.AddStatusEffect(EffectStateType.Petrified);
                                 }
                             }
 
@@ -136,7 +136,7 @@
                     for (int i = 0; i < piece.inventory.Items.Count; i++)
                     {
                         value = piece.inventory.Items[i];
-                        if (value.AbilityKey == AbilityKey.Invulnerability)
+                        if (value.AbilityKey == AbilityKey.Rejuvenation)
                         {
                             if (value.IsReplenishing)
                             {
@@ -147,6 +147,7 @@
                                     Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
                                     piece.DisableEffectState(EffectStateType.ExtraEnergy);
                                     piece.inventory.Items.Remove(value);
+                                    piece.effectSink.AddStatusEffect(EffectStateType.Stunned);
                                 }
                             }
 
@@ -170,6 +171,7 @@
                                     Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
                                     piece.DisableEffectState(EffectStateType.ExtraEnergy);
                                     piece.inventory.Items.Remove(value);
+                                    piece.effectSink.AddStatusEffect(EffectStateType.Tangled);
                                 }
                             }
 
@@ -193,6 +195,8 @@
                                     Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
                                     piece.DisableEffectState(EffectStateType.ExtraEnergy);
                                     piece.inventory.Items.Remove(value);
+                                    piece.effectSink.RemoveStatusEffect(EffectStateType.IceImmunity);
+                                    piece.effectSink.AddStatusEffect(EffectStateType.Frozen);
                                 }
                             }
 
@@ -216,6 +220,7 @@
                                     Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
                                     piece.DisableEffectState(EffectStateType.ExtraEnergy);
                                     piece.inventory.Items.Remove(value);
+                                    piece.effectSink.AddStatusEffect(EffectStateType.Weaken2Turns, 2);
                                 }
                             }
 
@@ -239,6 +244,7 @@
                                     Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
                                     piece.DisableEffectState(EffectStateType.ExtraEnergy);
                                     piece.inventory.Items.Remove(value);
+                                    piece.effectSink.AddStatusEffect(EffectStateType.Blinded, 2);
                                 }
                             }
 
@@ -634,7 +640,7 @@
                     {
                         Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
                         piece.inventory.Items.Add(new Inventory.Item(
-                            AbilityKey.HymnOfBattle,
+                            AbilityKey.Grab,
                             flags: (Inventory.ItemFlag)1,
                             originalOwner: -1,
                             replenishCooldown: 2));
@@ -702,7 +708,7 @@
                     for (var i = 0; i < piece.inventory.Items.Count; i++)
                     {
                         value = piece.inventory.Items[i];
-                        if (value.AbilityKey == AbilityKey.DropChest)
+                        if (value.AbilityKey == AbilityKey.ElvenKingMeleeWhip)
                         {
                             hasPower = true;
                             break;
@@ -713,7 +719,7 @@
                     {
                         Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
                         piece.inventory.Items.Add(new Inventory.Item(
-                            AbilityKey.DropChest,
+                            AbilityKey.ElvenKingMeleeWhip,
                             flags: (Inventory.ItemFlag)1,
                             originalOwner: -1,
                             replenishCooldown: 1));
@@ -748,7 +754,7 @@
                     for (var i = 0; i < piece.inventory.Items.Count; i++)
                     {
                         value = piece.inventory.Items[i];
-                        if (value.AbilityKey == AbilityKey.Invulnerability)
+                        if (value.AbilityKey == AbilityKey.Rejuvenation)
                         {
                             hasPower = true;
                             break;
@@ -759,7 +765,7 @@
                     {
                         Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value += 1;
                         piece.inventory.Items.Add(new Inventory.Item(
-                            AbilityKey.Invulnerability,
+                            AbilityKey.Rejuvenation,
                             flags: (Inventory.ItemFlag)1,
                             originalOwner: -1,
                             replenishCooldown: 1));
@@ -886,6 +892,7 @@
                         value = piece.inventory.Items[i];
                         if (value.AbilityKey == AbilityKey.Grapple)
                         {
+                            Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
                             piece.inventory.Items.Remove(value);
                             break;
                         }
@@ -896,18 +903,7 @@
                         value = piece.inventory.Items[i];
                         if (value.AbilityKey == AbilityKey.GrapplingSmash)
                         {
-                            piece.inventory.Items.Remove(value);
-                            break;
-                        }
-                    }
-                }
-                else if (piece.boardPieceId == BoardPieceId.HeroBard)
-                {
-                    for (var i = 0; i < piece.inventory.Items.Count; i++)
-                    {
-                        value = piece.inventory.Items[i];
-                        if (value.AbilityKey == AbilityKey.StrengthenCourage)
-                        {
+                            Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
                             piece.inventory.Items.Remove(value);
                             break;
                         }
@@ -916,8 +912,34 @@
                     for (var i = 0; i < piece.inventory.Items.Count; i++)
                     {
                         value = piece.inventory.Items[i];
-                        if (value.AbilityKey == AbilityKey.HymnOfBattle)
+                        if (value.AbilityKey == AbilityKey.ElvenKingMeleeWhip)
                         {
+                            Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
+                            piece.inventory.Items.Remove(value);
+                            break;
+                        }
+                    }
+
+                }
+                else if (piece.boardPieceId == BoardPieceId.HeroBard)
+                {
+                    for (var i = 0; i < piece.inventory.Items.Count; i++)
+                    {
+                        value = piece.inventory.Items[i];
+                        if (value.AbilityKey == AbilityKey.StrengthenCourage)
+                        {
+                            Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
+                            piece.inventory.Items.Remove(value);
+                            break;
+                        }
+                    }
+
+                    for (var i = 0; i < piece.inventory.Items.Count; i++)
+                    {
+                        value = piece.inventory.Items[i];
+                        if (value.AbilityKey == AbilityKey.Grab)
+                        {
+                            Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
                             piece.inventory.Items.Remove(value);
                             break;
                         }
@@ -930,6 +952,7 @@
                         value = piece.inventory.Items[i];
                         if (value.AbilityKey == AbilityKey.ReplenishArmor)
                         {
+                            Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
                             piece.inventory.Items.Remove(value);
                             break;
                         }
@@ -940,6 +963,7 @@
                         value = piece.inventory.Items[i];
                         if (value.AbilityKey == AbilityKey.PiercingSpear)
                         {
+                            Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
                             piece.inventory.Items.Remove(value);
                             break;
                         }
@@ -952,6 +976,7 @@
                         value = piece.inventory.Items[i];
                         if (value.AbilityKey == AbilityKey.Stealth)
                         {
+                            Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
                             piece.inventory.Items.Remove(value);
                             break;
                         }
@@ -962,6 +987,7 @@
                         value = piece.inventory.Items[i];
                         if (value.AbilityKey == AbilityKey.DiseasedBite)
                         {
+                            Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
                             piece.inventory.Items.Remove(value);
                             break;
                         }
@@ -974,6 +1000,7 @@
                         value = piece.inventory.Items[i];
                         if (value.AbilityKey == AbilityKey.HunterArrow)
                         {
+                            Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
                             piece.inventory.Items.Remove(value);
                             break;
                         }
@@ -984,6 +1011,7 @@
                         value = piece.inventory.Items[i];
                         if (value.AbilityKey == AbilityKey.Exterminate)
                         {
+                            Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
                             piece.inventory.Items.Remove(value);
                             break;
                         }
@@ -996,6 +1024,7 @@
                         value = piece.inventory.Items[i];
                         if (value.AbilityKey == AbilityKey.Zap)
                         {
+                            Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
                             piece.inventory.Items.Remove(value);
                             break;
                         }
@@ -1006,6 +1035,7 @@
                         value = piece.inventory.Items[i];
                         if (value.AbilityKey == AbilityKey.Portal)
                         {
+                            Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
                             piece.inventory.Items.Remove(value);
                             break;
                         }
@@ -1018,6 +1048,7 @@
                         value = piece.inventory.Items[i];
                         if (value.AbilityKey == AbilityKey.MinionCharge)
                         {
+                            Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
                             piece.inventory.Items.Remove(value);
                             break;
                         }
@@ -1028,6 +1059,7 @@
                         value = piece.inventory.Items[i];
                         if (value.AbilityKey == AbilityKey.SpawnElvenSummonerDefenders)
                         {
+                            Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
                             piece.inventory.Items.Remove(value);
                             break;
                         }
