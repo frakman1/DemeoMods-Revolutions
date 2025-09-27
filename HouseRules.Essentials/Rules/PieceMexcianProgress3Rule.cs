@@ -1,7 +1,5 @@
 ﻿namespace HouseRules.Essentials.Rules
 {
-    using System;
-    using System.Threading;
     using Boardgame;
     using Boardgame.BoardEntities;
     using Boardgame.SerializableEvents;
@@ -125,7 +123,7 @@
                                     Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
                                     piece.DisableEffectState(EffectStateType.ExtraEnergy);
                                     piece.inventory.Items.Remove(value);
-                                    piece.effectSink.AddStatusEffect(EffectStateType.Weaken2Turns, 2);
+                                    piece.effectSink.AddStatusEffect(EffectStateType.Petrified);
                                 }
                             }
 
@@ -222,7 +220,7 @@
                                     Traverse.Create(piece.inventory).Field<int>("numberOfReplenishableCards").Value -= 1;
                                     piece.DisableEffectState(EffectStateType.ExtraEnergy);
                                     piece.inventory.Items.Remove(value);
-                                    piece.effectSink.AddStatusEffect(EffectStateType.Petrified, 1);
+                                    piece.effectSink.AddStatusEffect(EffectStateType.Weaken2Turns, 2);
                                 }
                             }
 
