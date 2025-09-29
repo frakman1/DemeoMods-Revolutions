@@ -56,6 +56,11 @@
                 return;
             }
 
+            if (!_globalAdjustments.TryGetValue(source.boardPieceId, out var abilityKey))
+            {
+                return;
+            }
+
             if (!source.IsPlayer())
             {
                 return;
@@ -271,49 +276,41 @@
                         }
                     }
                 }
-            }
 
-            if (!_globalAdjustments.TryGetValue(source.boardPieceId, out var abilityKey))
-            {
-                return;
-            }
-
-            Inventory.Item value2;
-            bool hasPower2 = false;
-            for (int i = 0; i < source.inventory.Items.Count; i++)
-            {
-                value2 = source.inventory.Items[i];
-                if (value2.AbilityKey == _globalAdjustments[source.boardPieceId])
+                Inventory.Item value2;
+                bool hasPower2 = false;
+                for (int i = 0; i < source.inventory.Items.Count; i++)
                 {
-                    hasPower2 = true;
-                    if (value2.IsReplenishing)
+                    value2 = source.inventory.Items[i];
+                    if (value2.AbilityKey == _globalAdjustments[source.boardPieceId])
                     {
-                        if (value2.AbilityKey == AbilityKey.Grapple)
+                        hasPower2 = true;
+                        if (value2.IsReplenishing)
                         {
-                            _context.AbilityFactory.TryGetAbility(AbilityKey.Grapple, out var abilityG);
-                            source.effectSink.RemoveStatusEffect(EffectStateType.UsedHookThisTurn);
-                            abilityG.effectsPreventingUse.Clear();
-                            source.inventory.RemoveDisableCooldownFlags();
-                        }
-                        else if (value2.AbilityKey == AbilityKey.Zap)
-                        {
-                            _context.AbilityFactory.TryGetAbility(AbilityKey.Zap, out var abilityZ);
-                            source.effectSink.RemoveStatusEffect(EffectStateType.Discharge);
-                            abilityZ.effectsPreventingUse.Clear();
-                            source.inventory.RemoveDisableCooldownFlags();
+                            if (value2.AbilityKey == AbilityKey.Grapple)
+                            {
+                                _context.AbilityFactory.TryGetAbility(AbilityKey.Grapple, out var abilityG);
+                                source.effectSink.RemoveStatusEffect(EffectStateType.UsedHookThisTurn);
+                                abilityG.effectsPreventingUse.Clear();
+                                source.inventory.RemoveDisableCooldownFlags();
+                            }
+                            else if (value2.AbilityKey == AbilityKey.Zap)
+                            {
+                                _context.AbilityFactory.TryGetAbility(AbilityKey.Zap, out var abilityZ);
+                                source.effectSink.RemoveStatusEffect(EffectStateType.Discharge);
+                                abilityZ.effectsPreventingUse.Clear();
+                                source.inventory.RemoveDisableCooldownFlags();
+                            }
+
+                            value2.flags &= (Inventory.ItemFlag)(-3);
+                            source.inventory.Items[i] = value2;
+                            source.AddGold(0);
                         }
 
-                        value2.flags &= (Inventory.ItemFlag)(-3);
-                        source.inventory.Items[i] = value2;
-                        source.AddGold(0);
+                        break;
                     }
-
-                    break;
                 }
-            }
 
-            if (gameType > 1 && gameType < 10)
-            {
                 if (!hasPower2)
                 {
                     var abilityPromise = _context.AbilityFactory.LoadAbility(_globalAdjustments[source.boardPieceId]);
