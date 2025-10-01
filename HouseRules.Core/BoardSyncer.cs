@@ -138,8 +138,9 @@
                 case SerializableEvent.Type.OnMoved:
                     if (!_isMove)
                     {
-                        var pieceId = Traverse.Create(serializableEvent).Field<int>("pieceId").Value;
-                        Piece thisPiece = _gameContext.pieceAndTurnController.GetPiece(pieceId);
+                        var pieceAndTurnController = Traverse.Create(serializableEvent).Field<PieceAndTurnController>("pieceAndTurnController").Value;
+                        var playerId = pieceAndTurnController.GetCurrentPlayer();
+                        Piece thisPiece = pieceAndTurnController.GetActivePieceForPlayer(playerId);
                         if (thisPiece.IsPlayer())
                         {
                             // HouseRulesCoreBase.LogDebug($"---OnMoved--- {thisPiece.GetPieceConfig().PieceNameLocalizationKey} {whatUp}");
