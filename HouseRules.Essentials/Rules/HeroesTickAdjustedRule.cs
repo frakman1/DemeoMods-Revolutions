@@ -44,9 +44,9 @@
 
             // gets the piece ID associated with this Effect. Then gets the turn controller for the Effect. Then creates a piece for the current piece's turn.
             // How do we know that the piece whose turn it is is the piece with the current Effect?
-            var pieceId = Traverse.Create(__instance).Field<int>("sourcePieceId").Value;
             var pieceAndTurnController = Traverse.Create(__instance).Field<PieceAndTurnController>("pieceAndTurnController").Value;
-            Piece piece = pieceAndTurnController.GetPiece(pieceId);
+            var playerId = pieceAndTurnController.GetCurrentPlayer();
+            Piece piece = pieceAndTurnController.GetActivePieceForPlayer(playerId);
 
             // display in the log every buff as it ticks.
 

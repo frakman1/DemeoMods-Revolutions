@@ -56,9 +56,9 @@
                 return;
             }
 
-            var pieceId = Traverse.Create(__instance).Field<int>("sourcePieceId").Value;
             var pieceAndTurnController = Traverse.Create(__instance).Field<PieceAndTurnController>("pieceAndTurnController").Value;
-            Piece piece = pieceAndTurnController.GetPiece(pieceId);
+            var playerId = pieceAndTurnController.GetCurrentPlayer();
+            Piece piece = pieceAndTurnController.GetActivePieceForPlayer(playerId);
             if (piece == null)
             {
                 return;

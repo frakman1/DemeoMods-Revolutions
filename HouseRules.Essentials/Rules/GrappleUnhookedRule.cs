@@ -54,8 +54,9 @@
             {
                 return;
             }
+            var playerId = _gameContext.pieceAndTurnController.GetCurrentPlayer();
+            Piece source = _gameContext.pieceAndTurnController.GetActivePieceForPlayer(playerId);
 
-            Piece source = _gameContext.pieceAndTurnController.GetPiece(pieceId);
             if (source != null && source.IsPlayer() && source.boardPieceId == BoardPieceId.HeroBarbarian)
             {
                 if (source.HasEffectState(EffectStateType.HasExplodingLamp))
