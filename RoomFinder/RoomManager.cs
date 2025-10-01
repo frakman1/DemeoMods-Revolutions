@@ -23,7 +23,7 @@
         /// </summary>
         internal static void RefreshRoomList()
         {
-			_lobby = _gameContext.gameStateMachine.lobby as Lobby;
+            _lobby = _gameContext.gameStateMachine.lobby as Lobby;
             if (_lobby == null)
             {
                 RoomFinderBase.LogWarning("Lobby is uninitialized. Skipping room refresh.");
