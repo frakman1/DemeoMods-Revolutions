@@ -68,7 +68,7 @@
                 postfix: new HarmonyMethod(typeof(RoomManager), nameof(GameStartup_InitializeGame_Postfix)));
 
             harmony.Patch(
-                original: AccessTools.Method(typeof(MatchmakingControllerFactory), "Create"),
+                original: AccessTools.Method(typeof(MatchmakingController.Factory), "Create"),
                 postfix: new HarmonyMethod(typeof(RoomManager), nameof(MatchmakingControllerFactory_Create_Postfix)));
 
             harmony.Patch(
