@@ -902,14 +902,14 @@
                 }
             }
 
-            if (attackerUnit.IsPlayer() && defeatedUnit.HasPieceType(PieceType.Prop) && defeatedUnit.ToString().Contains("Lamp"))
+            if (attackerUnit == null || defeatedUnit.HasEffectState(EffectStateType.WizardDoppelganger))
             {
-                tempPiece = attackerUnit;
                 return;
             }
 
-            if (attackerUnit == null || defeatedUnit.HasEffectState(EffectStateType.WizardDoppelganger))
+            if (attackerUnit.IsPlayer() && defeatedUnit.HasPieceType(PieceType.Prop) && defeatedUnit.ToString().Contains("Lamp"))
             {
+                tempPiece = attackerUnit;
                 return;
             }
 
@@ -1075,6 +1075,11 @@
                 }
             }
 
+            if (source == null || (mainTarget != null && mainTarget.HasEffectState(EffectStateType.WizardDoppelganger)))
+            {
+                return;
+            }
+
             if (source.IsPlayer())
             {
                 if (mainTarget != null)
@@ -1096,11 +1101,6 @@
                         }
                     }
                 }
-            }
-
-            if (source == null || (mainTarget != null && mainTarget.HasEffectState(EffectStateType.WizardDoppelganger)))
-            {
-                return;
             }
 
             if (!source.IsPlayer())
