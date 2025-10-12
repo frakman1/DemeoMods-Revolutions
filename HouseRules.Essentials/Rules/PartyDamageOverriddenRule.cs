@@ -16,6 +16,8 @@
         public override string Description => "Some player attacks that would hurt other players... won't";
 
         private static bool _isActivated;
+        private static bool hasChecked;
+        private static bool revolutions;
         private readonly bool _adjustments;
         private static bool _electricOnly;
         private static Piece? _targetPiece;
@@ -86,13 +88,16 @@
             }
 
             Piece attackerPiece = attacker.piece;
-            bool revolutions = false;
-            foreach (var rule in HR.SelectedRuleset.Rules)
+            if (!hasChecked)
             {
-                if (rule.ToString().Contains("Progress") || rule.ToString().Contains("Revolutions"))
+                hasChecked = true;
+                foreach (var rule in HR.SelectedRuleset.Rules)
                 {
-                    revolutions = true;
-                    break;
+                    if (rule.ToString().Contains("Progress") || rule.ToString().Contains("Revolutions"))
+                    {
+                        revolutions = true;
+                        break;
+                    }
                 }
             }
 
