@@ -134,32 +134,6 @@
                 }
             }
 
-            if (revolutions)
-            {
-                if (targetPiece.IsWarlockMinion() && (attackerPiece == null || !attackerPiece.HasPieceType(PieceType.Boss)) && damage.HasTag(DamageTag.Undefined))
-                {
-                    targetPiece.DisableEffectState(EffectStateType.CorruptedRage);
-                    return false;
-                }
-                else if (targetPiece.boardPieceId == BoardPieceId.HeroWarlock && (attackerPiece == null || !attackerPiece.HasPieceType(PieceType.Boss)) && damage.HasTag(DamageTag.Undefined))
-                {
-                    targetPiece.DisableEffectState(EffectStateType.CorruptedRage);
-                    targetPiece.effectSink.TrySetStatBaseValue(Stats.Type.CorruptionAP, 0);
-
-                    // if (targetPiece.GetActionPoints() > -1)
-                    // {
-                    targetPiece.effectSink.TryAddActionPoints(1);
-
-                    // }
-                    return false;
-                }
-
-                if (targetPiece.boardPieceId == BoardPieceId.Verochka && damage.HasTag(DamageTag.Ice) && (attackerPiece == null || !attackerPiece.HasPieceType(PieceType.Boss)))
-                {
-                    return false;
-                }
-            }
-
             // value is false so players can't hurt or give any negative effects to other players/pets intentionally
             if (_electricOnly == false && attackerPiece != null)
             {
@@ -235,30 +209,54 @@
                 }
             }
 
-            if (targetPiece.IsPlayer() && revolutions)
+            if (revolutions)
             {
-                if (targetPiece.boardPieceId == BoardPieceId.HeroBarbarian)
+                if (targetPiece.IsPlayer())
                 {
-                    if ((attackerPiece == null || !attackerPiece.HasPieceType(PieceType.Boss)) && (damage.HasTag(DamageTag.Acid) || damage.AbilityKey == AbilityKey.Petrify))
+                    if (targetPiece.boardPieceId == BoardPieceId.HeroBarbarian)
+                    {
+                        if ((attackerPiece == null || !attackerPiece.HasPieceType(PieceType.Boss)) && (damage.HasTag(DamageTag.Acid) || damage.AbilityKey == AbilityKey.Petrify))
+                        {
+                            return false;
+                        }
+                    }
+
+                    if (attackerPiece == null)
+                    {
+                        return true;
+                    }
+
+                    if (targetPiece.boardPieceId == BoardPieceId.HeroHunter && !attackerPiece.HasPieceType(PieceType.Boss) && damage.HasTag(DamageTag.Ice))
                     {
                         return false;
                     }
-                }
+                    else if (targetPiece.boardPieceId == BoardPieceId.HeroGuardian && !attackerPiece.HasPieceType(PieceType.Boss) && damage.HasTag(DamageTag.Fire))
+                    {
+                        return false;
+                    }
+                    else if (targetPiece.boardPieceId == BoardPieceId.HeroSorcerer && !attackerPiece.HasPieceType(PieceType.Boss) && damage.HasTag(DamageTag.Electricity))
+                    {
+                        return false;
+                    }
+                    else if (targetPiece.boardPieceId == BoardPieceId.HeroWarlock && (attackerPiece == null || !attackerPiece.HasPieceType(PieceType.Boss)) && damage.HasTag(DamageTag.Undefined))
+                    {
+                        targetPiece.DisableEffectState(EffectStateType.CorruptedRage);
+                        targetPiece.effectSink.TrySetStatBaseValue(Stats.Type.CorruptionAP, 0);
 
-                if (attackerPiece == null)
-                {
-                    return true;
-                }
+                        // if (targetPiece.GetActionPoints() > -1)
+                        // {
+                        targetPiece.effectSink.TryAddActionPoints(1);
 
-                if (targetPiece.boardPieceId == BoardPieceId.HeroHunter && !attackerPiece.HasPieceType(PieceType.Boss) && damage.HasTag(DamageTag.Ice))
+                        // }
+                        return false;
+                    }
+                }
+                else if (targetPiece.IsWarlockMinion() && (attackerPiece == null || !attackerPiece.HasPieceType(PieceType.Boss)) && damage.HasTag(DamageTag.Undefined))
                 {
+                    targetPiece.DisableEffectState(EffectStateType.CorruptedRage);
                     return false;
                 }
-                else if (targetPiece.boardPieceId == BoardPieceId.HeroGuardian && !attackerPiece.HasPieceType(PieceType.Boss) && damage.HasTag(DamageTag.Fire))
-                {
-                    return false;
-                }
-                else if (targetPiece.boardPieceId == BoardPieceId.HeroSorcerer && !attackerPiece.HasPieceType(PieceType.Boss) && damage.HasTag(DamageTag.Electricity))
+                else if (targetPiece.boardPieceId == BoardPieceId.Verochka && damage.HasTag(DamageTag.Ice) && (attackerPiece == null || !attackerPiece.HasPieceType(PieceType.Boss)))
                 {
                     return false;
                 }
