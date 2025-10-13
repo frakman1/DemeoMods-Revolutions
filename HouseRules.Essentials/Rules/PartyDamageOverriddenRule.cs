@@ -118,7 +118,7 @@
                         }
                         else if (targetPiece.IsProp())
                         {
-                            if (!targetPiece.ToString().Contains("Lamp") && !targetPiece.ToString().Contains("SandPile") && !targetPiece.ToString().Contains("Corruption") && targetPiece.boardPieceId != BoardPieceId.EnemyTurret && targetPiece.boardPieceId != BoardPieceId.RatNest && targetPiece.boardPieceId != BoardPieceId.SporeFungus)
+                            if (!hitPiece.Contains("Lamp") && !hitPiece.Contains("SandPile") && !hitPiece.Contains("Corruption") && targetPiece.boardPieceId != BoardPieceId.EnemyTurret && targetPiece.boardPieceId != BoardPieceId.RatNest && targetPiece.boardPieceId != BoardPieceId.SporeFungus && targetPiece.boardPieceId != BoardPieceId.RootVine)
                             {
                                 hasElectric = true;
                             }
