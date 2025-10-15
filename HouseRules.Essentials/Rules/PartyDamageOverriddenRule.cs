@@ -33,6 +33,14 @@
         {
             _isActivated = true;
             _electricOnly = _adjustments;
+            foreach (var rule in HR.SelectedRuleset.Rules)
+            {
+                if (rule.ToString().Contains("Revolutions"))
+                {
+                    revolutions = true;
+                    break;
+                }
+            }
         }
 
         protected override void OnDeactivate(Context context)
@@ -88,19 +96,6 @@
             }
 
             Piece attackerPiece = attacker.piece;
-            if (!hasChecked)
-            {
-                hasChecked = true;
-                foreach (var rule in HR.SelectedRuleset.Rules)
-                {
-                    if (rule.ToString().Contains("Progress") || rule.ToString().Contains("Revolutions"))
-                    {
-                        revolutions = true;
-                        break;
-                    }
-                }
-            }
-
             BoardPieceId boardPieceT = targetPiece.boardPieceId;
             string hitPiece = boardPieceT.ToString();
 
