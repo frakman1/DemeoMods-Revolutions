@@ -145,7 +145,7 @@
                     }
                     else if (targetPiece.IsProp())
                     {
-                        if (!hitPiece.Contains("Lamp") && !hitPiece.Contains("SandPile") && !hitPiece.Contains("Corruption") && boardPieceT != BoardPieceId.EnemyTurret && boardPieceT != BoardPieceId.RatNest && boardPieceT != BoardPieceId.SporeFungus)
+                        if (!hitPiece.Contains("Rift") && !hitPiece.Contains("Lamp") && !hitPiece.Contains("SandPile") && !hitPiece.Contains("Corruption") && boardPieceT != BoardPieceId.EnemyTurret && boardPieceT != BoardPieceId.RatNest && boardPieceT != BoardPieceId.SporeFungus)
                         {
                             isHit = true;
                         }
