@@ -86,6 +86,7 @@
             HR.Rulebook.Register(typeof(EnemyHealthScaledRule));
             HR.Rulebook.Register(typeof(EnemyRespawnDisabledRule));
             HR.Rulebook.Register(typeof(FreeAbilityOnCritRule));
+            HR.Rulebook.Register(typeof(FreeRevolutionsAbilityOnCritRule));
             HR.Rulebook.Register(typeof(FreeActionPointsOnCritRule));
             HR.Rulebook.Register(typeof(FreeBuffOnKillRule));
             HR.Rulebook.Register(typeof(FreeGoldOnCritRule));
