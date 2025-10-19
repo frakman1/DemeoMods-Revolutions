@@ -468,6 +468,11 @@
                 return;
             }
 
+            if (source == null)
+            {
+                return;
+            }
+
             if (!source.IsPlayer())
             {
                 Piece piece2;
@@ -517,14 +522,8 @@
             }
 
             bool flag = false;
-            if (source == null)
-            {
-                return;
-            }
-
             if (targets.Length != 0)
             {
-                var gameContext = Traverse.Create(typeof(GameHub)).Field<GameContext>("gameContext").Value;
                 for (int i = 0; i < targets.Length; i++)
                 {
                     if (targets[i].boardPieceId == BoardPieceId.GoldPile || targets[i].HasEffectState(EffectStateType.WizardDoppelganger))

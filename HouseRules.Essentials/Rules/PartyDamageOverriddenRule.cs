@@ -16,6 +16,8 @@
         public override string Description => "Some player attacks that would hurt other players... won't";
 
         private static bool _isActivated;
+        private static bool hasChecked;
+        private static bool revolutions;
         private readonly bool _adjustments;
         private static bool _electricOnly;
         private static Piece? _targetPiece;
@@ -31,6 +33,14 @@
         {
             _isActivated = true;
             _electricOnly = _adjustments;
+            foreach (var rule in HR.SelectedRuleset.Rules)
+            {
+                if (rule.ToString().Contains("Revolutions"))
+                {
+                    revolutions = true;
+                    break;
+                }
+            }
         }
 
         protected override void OnDeactivate(Context context)
@@ -86,15 +96,8 @@
             }
 
             Piece attackerPiece = attacker.piece;
-            bool revolutions = false;
-            foreach (var rule in HR.SelectedRuleset.Rules)
-            {
-                if (rule.ToString().Contains("Progress") || rule.ToString().Contains("Revolutions"))
-                {
-                    revolutions = true;
-                    break;
-                }
-            }
+            BoardPieceId boardPieceT = targetPiece.boardPieceId;
+            string hitPiece = boardPieceT.ToString();
 
             // value is true so only prevent player caused electrical effects versus other players and pets
             if (_electricOnly == true)
@@ -110,7 +113,7 @@
                         }
                         else if (targetPiece.IsProp())
                         {
-                            if (!targetPiece.ToString().Contains("Lamp") && !targetPiece.ToString().Contains("SandPile") && !targetPiece.ToString().Contains("Corruption") && targetPiece.boardPieceId != BoardPieceId.EnemyTurret && targetPiece.boardPieceId != BoardPieceId.RatNest && targetPiece.boardPieceId != BoardPieceId.SporeFungus)
+                            if (!hitPiece.Contains("Lamp") && !hitPiece.Contains("SandPile") && !hitPiece.Contains("Corruption") && targetPiece.boardPieceId != BoardPieceId.EnemyTurret && targetPiece.boardPieceId != BoardPieceId.RatNest && targetPiece.boardPieceId != BoardPieceId.SporeFungus && targetPiece.boardPieceId != BoardPieceId.RootVine)
                             {
                                 hasElectric = true;
                             }
@@ -129,36 +132,11 @@
                 }
             }
 
-            if (revolutions)
-            {
-                if (targetPiece.IsWarlockMinion() && (attackerPiece == null || !attackerPiece.HasPieceType(PieceType.Boss)) && damage.HasTag(DamageTag.Undefined))
-                {
-                    targetPiece.DisableEffectState(EffectStateType.CorruptedRage);
-                    return false;
-                }
-                else if (targetPiece.boardPieceId == BoardPieceId.HeroWarlock && (attackerPiece == null || !attackerPiece.HasPieceType(PieceType.Boss)) && damage.HasTag(DamageTag.Undefined))
-                {
-                    targetPiece.DisableEffectState(EffectStateType.CorruptedRage);
-                    targetPiece.effectSink.TrySetStatBaseValue(Stats.Type.CorruptionAP, 0);
-
-                    // if (targetPiece.GetActionPoints() > -1)
-                    // {
-                    targetPiece.effectSink.TryAddActionPoints(1);
-
-                    // }
-                    return false;
-                }
-
-                if (targetPiece.boardPieceId == BoardPieceId.Verochka && damage.HasTag(DamageTag.Ice) && (attackerPiece == null || !attackerPiece.HasPieceType(PieceType.Boss)))
-                {
-                    return false;
-                }
-            }
-
             // value is false so players can't hurt or give any negative effects to other players/pets intentionally
             if (_electricOnly == false && attackerPiece != null)
             {
                 bool isHit = false;
+                BoardPieceId boardPieceA = attackerPiece.boardPieceId;
                 if (attackerPiece.IsPlayer())
                 {
                     if (targetPiece.IsPlayer() || targetPiece.IsBot() || targetPiece.IsWarlockMinion() || targetPiece.HasEffectState(EffectStateType.ConfusedPermanentVisualOnly))
@@ -167,7 +145,7 @@
                     }
                     else if (targetPiece.IsProp())
                     {
-                        if (!targetPiece.ToString().Contains("Lamp") && !targetPiece.ToString().Contains("SandPile") && !targetPiece.ToString().Contains("Corruption") && targetPiece.boardPieceId != BoardPieceId.EnemyTurret && targetPiece.boardPieceId != BoardPieceId.RatNest && targetPiece.boardPieceId != BoardPieceId.SporeFungus)
+                        if (!hitPiece.Contains("Rift") && !hitPiece.Contains("Lamp") && !hitPiece.Contains("SandPile") && !hitPiece.Contains("Corruption") && boardPieceT != BoardPieceId.EnemyTurret && boardPieceT != BoardPieceId.RatNest && boardPieceT != BoardPieceId.SporeFungus)
                         {
                             isHit = true;
                         }
@@ -200,7 +178,7 @@
 
                     return false;
                 }
-                else if (attackerPiece.boardPieceId == BoardPieceId.Tornado || attackerPiece.boardPieceId == BoardPieceId.SmiteWard || attackerPiece.boardPieceId == BoardPieceId.SwordOfAvalon || attackerPiece.boardPieceId == BoardPieceId.Verochka || attackerPiece.HasEffectState(EffectStateType.ConfusedPermanentVisualOnly))
+                else if (boardPieceA == BoardPieceId.Tornado || boardPieceA == BoardPieceId.SmiteWard || boardPieceA == BoardPieceId.SwordOfAvalon || boardPieceA == BoardPieceId.Verochka || attackerPiece.HasEffectState(EffectStateType.ConfusedPermanentVisualOnly))
                 {
                     if (targetPiece.IsPlayer() || targetPiece.IsBot() || targetPiece.IsWarlockMinion() || targetPiece.HasEffectState(EffectStateType.ConfusedPermanentVisualOnly))
                     {
@@ -210,7 +188,7 @@
 
                 if (revolutions)
                 {
-                    if (attackerPiece.boardPieceId == BoardPieceId.GrapplingTotem && damage.AbilityKey == AbilityKey.GrapplingTotemHook)
+                    if (boardPieceA == BoardPieceId.GrapplingTotem && damage.AbilityKey == AbilityKey.GrapplingTotemHook)
                     {
                         targetPiece.effectSink.AddStatusEffect(EffectStateType.Tangled);
                     }
@@ -230,30 +208,54 @@
                 }
             }
 
-            if (targetPiece.IsPlayer() && revolutions)
+            if (revolutions)
             {
-                if (targetPiece.boardPieceId == BoardPieceId.HeroBarbarian)
+                if (targetPiece.IsPlayer())
                 {
-                    if ((attackerPiece == null || !attackerPiece.HasPieceType(PieceType.Boss)) && (damage.HasTag(DamageTag.Acid) || damage.AbilityKey == AbilityKey.Petrify))
+                    if (boardPieceT == BoardPieceId.HeroBarbarian)
+                    {
+                        if ((attackerPiece == null || !attackerPiece.HasPieceType(PieceType.Boss)) && (damage.HasTag(DamageTag.Acid) || damage.AbilityKey == AbilityKey.Petrify))
+                        {
+                            return false;
+                        }
+                    }
+                    else if (boardPieceT == BoardPieceId.HeroWarlock && (attackerPiece == null || !attackerPiece.HasPieceType(PieceType.Boss)) && damage.HasTag(DamageTag.Undefined))
+                    {
+                        targetPiece.DisableEffectState(EffectStateType.CorruptedRage);
+                        targetPiece.effectSink.TrySetStatBaseValue(Stats.Type.CorruptionAP, 0);
+
+                        // if (targetPiece.GetActionPoints() > -1)
+                        // {
+                        targetPiece.effectSink.TryAddActionPoints(1);
+
+                        // }
+                        return false;
+                    }
+
+                    if (attackerPiece == null)
+                    {
+                        return true;
+                    }
+
+                    if (boardPieceT == BoardPieceId.HeroHunter && !attackerPiece.HasPieceType(PieceType.Boss) && damage.HasTag(DamageTag.Ice))
+                    {
+                        return false;
+                    }
+                    else if (boardPieceT == BoardPieceId.HeroGuardian && !attackerPiece.HasPieceType(PieceType.Boss) && damage.HasTag(DamageTag.Fire))
+                    {
+                        return false;
+                    }
+                    else if (boardPieceT == BoardPieceId.HeroSorcerer && !attackerPiece.HasPieceType(PieceType.Boss) && damage.HasTag(DamageTag.Electricity))
                     {
                         return false;
                     }
                 }
-
-                if (attackerPiece == null)
+                else if (targetPiece.IsWarlockMinion() && (attackerPiece == null || !attackerPiece.HasPieceType(PieceType.Boss)) && damage.HasTag(DamageTag.Undefined))
                 {
-                    return true;
-                }
-
-                if (targetPiece.boardPieceId == BoardPieceId.HeroHunter && !attackerPiece.HasPieceType(PieceType.Boss) && damage.HasTag(DamageTag.Ice))
-                {
+                    targetPiece.DisableEffectState(EffectStateType.CorruptedRage);
                     return false;
                 }
-                else if (targetPiece.boardPieceId == BoardPieceId.HeroGuardian && !attackerPiece.HasPieceType(PieceType.Boss) && damage.HasTag(DamageTag.Fire))
-                {
-                    return false;
-                }
-                else if (targetPiece.boardPieceId == BoardPieceId.HeroSorcerer && !attackerPiece.HasPieceType(PieceType.Boss) && damage.HasTag(DamageTag.Electricity))
+                else if (boardPieceT == BoardPieceId.Verochka && damage.HasTag(DamageTag.Ice) && (attackerPiece == null || !attackerPiece.HasPieceType(PieceType.Boss)))
                 {
                     return false;
                 }

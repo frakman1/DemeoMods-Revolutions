@@ -81,6 +81,7 @@
                 return;
             }
 
+            HouseRulesCoreBase.LogDebug($"{serializableEvent}");
             var isNewPieceCheckRequired = (HR.SelectedRuleset.ModifiedSyncables & SyncableTrigger.NewPieceModified) > 0;
             if (!_isSyncScheduled && isNewPieceCheckRequired && CanRepresentNewSpawn(serializableEvent))
             {
@@ -99,7 +100,7 @@
                 (HR.SelectedRuleset.ModifiedSyncables & SyncableTrigger.StatusEffectImmunityModified) > 0;
             if (isEffectImmunityCheckRequired)
             {
-                // HouseRulesCoreBase.LogDebug("(StateChange) Immunity");
+                HouseRulesCoreBase.LogDebug("(StateChange) Immunity");
                 _isSyncScheduled = true;
             }
         }
@@ -110,94 +111,109 @@
                 (HR.SelectedRuleset.ModifiedSyncables & SyncableTrigger.StatusEffectDataModified) > 0;
             if (isEffectDataCheckRequired)
             {
-                // HouseRulesCoreBase.LogDebug("(StateChange) Effect");
+                HouseRulesCoreBase.LogDebug("(StateChange) Effect");
                 _isSyncScheduled = true;
             }
         }
 
         private static bool CanRepresentNewSpawn(SerializableEvent serializableEvent)
         {
-            // string whatUp = serializableEvent.ToString();
+            string whatUp = serializableEvent.ToString();
             switch (serializableEvent.type)
             {
                 case SerializableEvent.Type.NewPlayerJoin:
-                    // HouseRulesCoreBase.LogDebug($"---NewPlayer--- {whatUp}");
+                    HouseRulesCoreBase.LogDebug($"---NewPlayer--- {whatUp}");
                     _isNewPlayer = true;
                     return false;
                 case SerializableEvent.Type.UpdateGameHub:
                     if (_isNewPlayer)
                     {
-                        // HouseRulesCoreBase.LogDebug($"***NewPlayer*** UpdateFog -> {whatUp}");
+                        HouseRulesCoreBase.LogDebug($"***NewPlayer*** UpdateFog -> {whatUp}");
                         _isNewPlayer = false;
                         _gameContext.serializableEventQueue.SendResponseEvent(new SerializableEventUpdateFog());
                         return false;
                     }
 
-                    // HouseRulesCoreBase.LogDebug($"------ {whatUp}");
+                    HouseRulesCoreBase.LogDebug($"------ {whatUp}");
                     return false;
                 case SerializableEvent.Type.OnMoved:
                     if (!_isMove)
                     {
-                        var pieceAndTurnController = Traverse.Create(serializableEvent).Field<PieceAndTurnController>("pieceAndTurnController").Value;
+                        var pieceAndTurnController = _gameContext.pieceAndTurnController;
+                        if (pieceAndTurnController == null)
+                        {
+                            return false;
+                        }
+
                         var playerId = pieceAndTurnController.GetCurrentPlayer();
+                        if (playerId == null)
+                        {
+                            return false;
+                        }
+
                         Piece thisPiece = pieceAndTurnController.GetActivePieceForPlayer(playerId);
+                        if (thisPiece == null)
+                        {
+                            return false;
+                        }
+
                         if (thisPiece.IsPlayer())
                         {
-                            // HouseRulesCoreBase.LogDebug($"---OnMoved--- {thisPiece.GetPieceConfig().PieceNameLocalizationKey} {whatUp}");
+                            HouseRulesCoreBase.LogDebug($"---OnMoved--- {thisPiece.GetPieceConfig().PieceNameLocalizationKey} {whatUp}");
                             _isMove = true;
                             return false;
                         }
                     }
 
-                    // HouseRulesCoreBase.LogDebug($"------ {whatUp}");
+                    HouseRulesCoreBase.LogDebug($"------ {whatUp}");
                     return false;
                 case SerializableEvent.Type.Move:
                 case SerializableEvent.Type.Interact:
                 case SerializableEvent.Type.NPCStartInteraction:
                     if (_gameContext.pieceAndTurnController.IsPlayersTurn())
                     {
-                        // HouseRulesCoreBase.LogDebug($"---PlayerMove--- {whatUp}");
+                        HouseRulesCoreBase.LogDebug($"---PlayerMove--- {whatUp}");
                         _isMove = true;
                         _gameContext.serializableEventQueue.SendResponseEvent(new SerializableEventUpdateFog());
                         return false;
                     }
 
-                    // HouseRulesCoreBase.LogDebug($"------ {whatUp}");
+                    HouseRulesCoreBase.LogDebug($"------ {whatUp}");
                     return false;
                 case SerializableEvent.Type.SpawnPiece:
                 case SerializableEvent.Type.SetBoardPieceID:
                 case SerializableEvent.Type.SlimeFusion:
                 case SerializableEvent.Type.UpdateFogAndSpawn:
-                    // HouseRulesCoreBase.LogDebug($"<<<>>> {whatUp}");
+                    HouseRulesCoreBase.LogDebug($"<<<>>> {whatUp}");
                     return true;
                 case SerializableEvent.Type.EndAction:
                 case SerializableEvent.Type.EndTurn:
                     if (_isMove)
                     {
-                        // HouseRulesCoreBase.LogDebug($"***EndAction/EndTurn*** UpdateFog -> {whatUp}");
+                        HouseRulesCoreBase.LogDebug($"***EndAction/EndTurn*** UpdateFog -> {whatUp}");
                         _isMove = false;
                         _gameContext.serializableEventQueue.SendResponseEvent(new SerializableEventUpdateFog());
                         return false;
                     }
 
-                    // HouseRulesCoreBase.LogDebug($"------ {whatUp}");
+                    HouseRulesCoreBase.LogDebug($"------ {whatUp}");
                     return false;
                 case SerializableEvent.Type.EndRound:
-                    // HouseRulesCoreBase.LogDebug($"<<<EndRound>>> {whatUp}");
+                    HouseRulesCoreBase.LogDebug($"<<<EndRound>>> {whatUp}");
                     return true;
                 case SerializableEvent.Type.OnAbilityUsed:
                     return CanRepresentNewSpawn((SerializableEventOnAbilityUsed)serializableEvent);
                 case SerializableEvent.Type.PieceDied:
                     return CanRepresentNewSpawn((SerializableEventPieceDied)serializableEvent);
                 default:
-                    // HouseRulesCoreBase.LogDebug($"---Event--- {whatUp}");
+                    HouseRulesCoreBase.LogDebug($"---Event--- {whatUp}");
                     return false;
             }
         }
 
         private static bool CanRepresentNewSpawn(SerializableEventOnAbilityUsed onAbilityUsedEvent)
         {
-            // string whatUp = onAbilityUsedEvent.ToString();
+            string whatUp = onAbilityUsedEvent.ToString();
             var abilityKey = Traverse.Create(onAbilityUsedEvent).Field<AbilityKey>("abilityKey").Value;
             switch (abilityKey)
             {
@@ -208,16 +224,16 @@
                         Piece wasGrabbed = _gameContext.pieceAndTurnController.FindPieceWithPosition(targetTile);
                         if (wasGrabbed.IsPlayer())
                         {
-                            // HouseRulesCoreBase.LogDebug($"---Grab--- {wasGrabbed.GetPieceConfig().PieceNameLocalizationKey} {whatUp}");
+                            HouseRulesCoreBase.LogDebug($"---Grab--- {wasGrabbed.GetPieceConfig().PieceNameLocalizationKey} {whatUp}");
                             _isMove = true;
                             return false;
                         }
 
-                        // HouseRulesCoreBase.LogDebug($"------ {whatUp}");
+                        HouseRulesCoreBase.LogDebug($"------ {whatUp}");
                         return false;
                     }
 
-                    // HouseRulesCoreBase.LogDebug($"------ {whatUp}");
+                    HouseRulesCoreBase.LogDebug($"------ {whatUp}");
                     return false;
                 case AbilityKey.RevealPath:
                 case AbilityKey.DetectStealthedUnits:
@@ -239,7 +255,7 @@
                 case AbilityKey.WaterExplosion:
                 case AbilityKey.TelekineticBurst:
                 case AbilityKey.Telekinesis:
-                    // HouseRulesCoreBase.LogDebug($"<<<Spawn>>> {whatUp}");
+                    HouseRulesCoreBase.LogDebug($"<<<Spawn>>> {whatUp}");
                     return true;
             }
 
@@ -250,7 +266,7 @@
 
             if (isSpawnAbility || isLampAbility || isSummonAbility)
             {
-                // HouseRulesCoreBase.LogDebug("<<<Ability>>> Summon Spawn/Creature/Lamp");
+                HouseRulesCoreBase.LogDebug("<<<Ability>>> Summon Spawn/Creature/Lamp");
                 return true;
             }
 
@@ -259,7 +275,7 @@
 
         private static bool CanRepresentNewSpawn(SerializableEventPieceDied pieceDiedEvent)
         {
-            foreach (var pieceId in pieceDiedEvent.deadPieces)
+            /*foreach (var pieceId in pieceDiedEvent.deadPieces)
             {
                 if (!_gameContext.pieceAndTurnController.TryGetPiece(pieceId, out var piece))
                 {
@@ -268,12 +284,14 @@
 
                 if (piece.boardPieceId == BoardPieceId.SpiderEgg || piece.boardPieceId.ToString().Contains("SandPile") || piece.boardPieceId == BoardPieceId.ScabRat || piece.boardPieceId.ToString().Contains("Giant"))
                 {
-                    // HouseRulesCoreBase.LogDebug("<<<Piece Died>>>");
+                    HouseRulesCoreBase.LogDebug("<<<Piece Died>>>");
                     return true;
                 }
-            }
+            }*/
 
-            return false;
+            // Assume any piece dying can cause spawns through PieceUseWhenKilled
+            HouseRulesCoreBase.LogDebug("<<<Piece Died>>>");
+            return true;
         }
 
         private static bool IsSyncOpportunity(SerializableEvent serializableEvent)
@@ -281,7 +299,7 @@
             if (_gameContext.pieceAndTurnController.GetCurrentIndexFromTurnQueue() >= 0 &&
                 !_gameContext.pieceAndTurnController.IsPlayersTurn())
             {
-                return serializableEvent.type == SerializableEvent.Type.EndTurn;
+                return serializableEvent.type == SerializableEvent.Type.EndAction;
             }
 
             return true;
@@ -289,7 +307,7 @@
 
         private static void SyncBoard()
         {
-            // HouseRulesCoreBase.LogDebug("<<< Recovery >>>");
+            HouseRulesCoreBase.LogDebug("<<< Recovery >>>");
             _isMove = false;
             _isNewPlayer = false;
             _isSyncScheduled = false;

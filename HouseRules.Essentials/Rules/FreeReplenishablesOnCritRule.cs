@@ -65,7 +65,7 @@ namespace HouseRules.Essentials.Rules
             }
 
             int gameType = source.GetStat(Stats.Type.InnateCounterDamageExtraDamage);
-            if (gameType == 0 || gameType == 55)
+            if (gameType == 55)
             {
                 return;
             }

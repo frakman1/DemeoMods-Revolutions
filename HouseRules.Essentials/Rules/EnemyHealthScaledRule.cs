@@ -17,6 +17,7 @@
         private static float _globalMultiplier;
         private static bool _isActivated;
         private static bool _wizardBoss;
+        private static bool revolutions;
         private static int _wizardHealth;
         private readonly float _multiplier;
 
@@ -31,6 +32,14 @@
         {
             _globalMultiplier = _multiplier;
             _isActivated = true;
+            foreach (var rule in HR.SelectedRuleset.Rules)
+            {
+                if (rule.ToString().Contains("Revolutions"))
+                {
+                    revolutions = true;
+                    break;
+                }
+            }
         }
 
         protected override void OnDeactivate(Context context)
@@ -49,69 +58,67 @@
                     nameof(CreatePiece_StartHealth_Postfix)));
         }
 
-        private static void CreatePiece_StartHealth_Postfix(ref Piece __result, PieceConfigData config)
+        private static void CreatePiece_StartHealth_Postfix(ref Piece __result)
         {
             if (!_isActivated)
             {
                 return;
             }
 
-            if (config.PowerIndex > 40)
-            {
-                return;
-            }
-
-            if (config.HasPieceType(PieceType.Player) || config.HasPieceType(PieceType.Bot) || config.HasPieceType(PieceType.Prop) || config.HasPieceType(PieceType.MonsterBait) || !config.HasPieceType(PieceType.Creature))
+            if (__result.IsPlayer() || __result.IsBot() || __result.IsProp() || __result.boardPieceId == BoardPieceId.MonsterBait || !__result.IsCreature())
             {
                 return;
             }
 
             float range = 1f;
-            var ruleSet = HR.SelectedRuleset.Name;
-            if (ruleSet.Contains("(LEGENDARY"))
+            if (revolutions)
             {
-                range = Random.Range(1.334f, 1.667f);
-            }
-            else if (ruleSet.Contains("(HARD"))
-            {
-                range = Random.Range(1.25f, 1.5f);
-            }
-            else if (ruleSet.Contains("(EASY"))
-            {
-                range = Random.Range(0.75f, 1f);
-            }
-            else if (ruleSet.Contains("PROGRESSIVE") || HR.SelectedRuleset.Name.Equals("SURVIVE!"))
-            {
-                var gameContext = Traverse.Create(typeof(GameHub)).Field<GameContext>("gameContext").Value;
-                var level = gameContext.levelLoaderAndInitializer.GetLevelSequence().CurrentLevelIndex;
-                if (level == 1)
+                var ruleSet = HR.SelectedRuleset.Name;
+                if (ruleSet.Contains("(LEGENDARY"))
                 {
-                    range = Random.Range(1.0f, 1.3f);
+                    range = Random.Range(1.334f, 1.667f);
                 }
-                else if (level == 3)
+                else if (ruleSet.Contains("(HARD"))
                 {
-                    range = Random.Range(1.3f, 1.6f);
+                    range = Random.Range(1.25f, 1.5f);
                 }
-                else if (level == 5)
+                else if (ruleSet.Contains("(EASY"))
                 {
-                    if (config.HasPieceType(PieceType.Boss))
+                    range = Random.Range(0.75f, 1f);
+                }
+                else if (ruleSet.Contains("PROGRESSIVE") || HR.SelectedRuleset.Name.Equals("SURVIVE!"))
+                {
+                    var gameContext = Traverse.Create(typeof(GameHub)).Field<GameContext>("gameContext").Value;
+                    var level = gameContext.levelLoaderAndInitializer.GetLevelSequence().CurrentLevelIndex;
+                    if (level == 1)
                     {
-                        range = Random.Range(1.9f, 2.25f);
+                        range = Random.Range(1.0f, 1.3f);
                     }
-                    else
+                    else if (level == 3)
                     {
-                        range = Random.Range(1.6f, 2f);
+                        range = Random.Range(1.3f, 1.6f);
+                    }
+                    else if (level == 5)
+                    {
+                        if (__result.HasPieceType(PieceType.Boss))
+                        {
+                            range = Random.Range(1.9f, 2.25f);
+                        }
+                        else
+                        {
+                            range = Random.Range(1.6f, 2f);
+                        }
                     }
                 }
-            }
-            else if (ruleSet.Contains("Revolutions"))
-            {
-                if (config.StartHealth < 5)
+                else
                 {
-                    return;
-                }
+                    if (__result.GetMaxHealth() < 5)
+                    {
+                        return;
+                    }
 
-                range = Random.Range(0.85f, 1.2f);
+                    range = Random.Range(0.85f, 1.2f);
+                }
             }
 
             if (__result.boardPieceId == BoardPieceId.WizardBoss && _wizardBoss)
@@ -121,7 +128,7 @@
                 return;
             }
 
-            int newStartHealth = (int)(config.StartHealth * _globalMultiplier * range);
+            int newStartHealth = (int)(__result.GetMaxHealth() * _globalMultiplier * range);
             __result.effectSink.TrySetStatMaxValue(Stats.Type.Health, newStartHealth);
             __result.effectSink.TrySetStatBaseValue(Stats.Type.Health, newStartHealth);
 

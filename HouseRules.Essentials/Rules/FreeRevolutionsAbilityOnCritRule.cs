@@ -8,7 +8,7 @@
     using HouseRules.Core;
     using HouseRules.Core.Types;
 
-    public sealed class FreeAbilityOnCritRule : Rule, IConfigWritable<Dictionary<BoardPieceId, AbilityKey>>, IPatchable,
+    public sealed class FreeRevolutionsAbilityOnCritRule : Rule, IConfigWritable<Dictionary<BoardPieceId, AbilityKey>>, IPatchable,
         IMultiplayerSafe
     {
         public override string Description => "Some Heroes can get a free card by getting critical hits";
@@ -19,7 +19,7 @@
 
         private readonly Dictionary<BoardPieceId, AbilityKey> _adjustments;
 
-        public FreeAbilityOnCritRule(Dictionary<BoardPieceId, AbilityKey> adjustments)
+        public FreeRevolutionsAbilityOnCritRule(Dictionary<BoardPieceId, AbilityKey> adjustments)
         {
             _adjustments = adjustments;
         }
@@ -40,7 +40,7 @@
             harmony.Patch(
                 original: AccessTools.Method(typeof(Ability), "GenerateAttackDamage"),
                 prefix: new HarmonyMethod(
-                    typeof(FreeAbilityOnCritRule),
+                    typeof(FreeRevolutionsAbilityOnCritRule),
                     nameof(Ability_GenerateAttackDamage_Prefix)));
         }
 
@@ -154,8 +154,8 @@
 
                         if (!hasPower1)
                         {
-                            var abilityPromise2 = _context.AbilityFactory.LoadAbility(AbilityKey.WaterBottle);
-                            abilityPromise2.OnLoaded(ability =>
+                            var abilityPromise = _context.AbilityFactory.LoadAbility(AbilityKey.WaterBottle);
+                            abilityPromise.OnLoaded(ability =>
                             {
                                 source.TryAddAbilityToInventory(ability, showTooltip: true, isReplenishable: false);
                                 HR.ScheduleBoardSync();
@@ -278,11 +278,13 @@
                 }
 
                 Inventory.Item value2;
+                bool hasPower2 = false;
                 for (int i = 0; i < source.inventory.Items.Count; i++)
                 {
                     value2 = source.inventory.Items[i];
                     if (value2.AbilityKey == _globalAdjustments[source.boardPieceId])
                     {
+                        hasPower2 = true;
                         if (value2.IsReplenishing)
                         {
                             if (value2.AbilityKey == AbilityKey.Grapple)
@@ -309,12 +311,15 @@
                     }
                 }
 
-                var abilityPromise = _context.AbilityFactory.LoadAbility(_globalAdjustments[source.boardPieceId]);
-                abilityPromise.OnLoaded(ability =>
+                if (!hasPower2)
                 {
-                    source.TryAddAbilityToInventory(ability, showTooltip: true, isReplenishable: true);
-                    HR.ScheduleBoardSync();
-                });
+                    var abilityPromise = _context.AbilityFactory.LoadAbility(_globalAdjustments[source.boardPieceId]);
+                    abilityPromise.OnLoaded(ability =>
+                    {
+                        source.TryAddAbilityToInventory(ability, showTooltip: true, isReplenishable: true);
+                        HR.ScheduleBoardSync();
+                    });
+                }
             }
             else
             {
