@@ -127,6 +127,7 @@
                             _targetPiece = targetPiece;
                         }
 
+                        HR.ScheduleBoardSync();
                         return false;
                     }
                 }
@@ -176,12 +177,14 @@
                         }
                     }
 
+                    HR.ScheduleBoardSync();
                     return false;
                 }
                 else if (boardPieceA == BoardPieceId.Tornado || boardPieceA == BoardPieceId.SmiteWard || boardPieceA == BoardPieceId.SwordOfAvalon || boardPieceA == BoardPieceId.Verochka || attackerPiece.HasEffectState(EffectStateType.ConfusedPermanentVisualOnly))
                 {
                     if (targetPiece.IsPlayer() || targetPiece.IsBot() || targetPiece.IsWarlockMinion() || targetPiece.HasEffectState(EffectStateType.ConfusedPermanentVisualOnly))
                     {
+                        HR.ScheduleBoardSync();
                         return false;
                     }
                 }
@@ -216,6 +219,7 @@
                     {
                         if ((attackerPiece == null || !attackerPiece.HasPieceType(PieceType.Boss)) && (damage.HasTag(DamageTag.Acid) || damage.AbilityKey == AbilityKey.Petrify))
                         {
+                            HR.ScheduleBoardSync();
                             return false;
                         }
                     }
@@ -229,6 +233,7 @@
                         targetPiece.effectSink.TryAddActionPoints(1);
 
                         // }
+                        HR.ScheduleBoardSync();
                         return false;
                     }
 
@@ -239,14 +244,17 @@
 
                     if (boardPieceT == BoardPieceId.HeroHunter && !attackerPiece.HasPieceType(PieceType.Boss) && damage.HasTag(DamageTag.Ice))
                     {
+                        HR.ScheduleBoardSync();
                         return false;
                     }
                     else if (boardPieceT == BoardPieceId.HeroGuardian && !attackerPiece.HasPieceType(PieceType.Boss) && damage.HasTag(DamageTag.Fire))
                     {
+                        HR.ScheduleBoardSync();
                         return false;
                     }
                     else if (boardPieceT == BoardPieceId.HeroSorcerer && !attackerPiece.HasPieceType(PieceType.Boss) && damage.HasTag(DamageTag.Electricity))
                     {
+                        HR.ScheduleBoardSync();
                         return false;
                     }
                 }
