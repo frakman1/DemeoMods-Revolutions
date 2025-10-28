@@ -96,6 +96,11 @@
             }
 
             Piece attackerPiece = attacker.piece;
+            if (attackerPiece != null && attackerPiece.HasEffectState(EffectStateType.CorruptedRage))
+            {
+                return true;
+            }
+
             BoardPieceId boardPieceT = targetPiece.boardPieceId;
             string hitPiece = boardPieceT.ToString();
 
