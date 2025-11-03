@@ -118,10 +118,15 @@
                         }
                         else if (targetPiece.IsProp())
                         {
-                            if (!hitPiece.Contains("Lamp") && !hitPiece.Contains("SandPile") && !hitPiece.Contains("Corruption") && targetPiece.boardPieceId != BoardPieceId.EnemyTurret && targetPiece.boardPieceId != BoardPieceId.RatNest && targetPiece.boardPieceId != BoardPieceId.SporeFungus && targetPiece.boardPieceId != BoardPieceId.RootVine)
+                            if (!hitPiece.Contains("Lamp") && !hitPiece.Contains("SandPile") && !hitPiece.Contains("Corruption") && targetPiece.boardPieceId != BoardPieceId.EnemyTurret)
                             {
                                 hasElectric = true;
                             }
+                        }
+                        
+                        if (targetPiece.boardPieceId != BoardPieceId.RatNest && targetPiece.boardPieceId != BoardPieceId.SporeFungus && targetPiece.boardPieceId != BoardPieceId.RootVine)
+                        {
+                            hasElectric = true;
                         }
                     }
 
