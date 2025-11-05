@@ -118,15 +118,10 @@
                         }
                         else if (targetPiece.IsProp())
                         {
-                            if (!hitPiece.Contains("Lamp") && !hitPiece.Contains("SandPile") && !hitPiece.Contains("Corruption") && targetPiece.boardPieceId != BoardPieceId.EnemyTurret)
+                            if (!hitPiece.Contains("Lamp") && !hitPiece.Contains("SandPile") && !hitPiece.Contains("Corruption") && targetPiece.boardPieceId != BoardPieceId.EnemyTurret && targetPiece.boardPieceId != BoardPieceId.RootVine)
                             {
                                 hasElectric = true;
                             }
-                        }
-                        
-                        if (targetPiece.boardPieceId != BoardPieceId.RatNest && targetPiece.boardPieceId != BoardPieceId.SporeFungus && targetPiece.boardPieceId != BoardPieceId.RootVine)
-                        {
-                            hasElectric = true;
                         }
                     }
 
@@ -156,7 +151,7 @@
                     }
                     else if (targetPiece.IsProp())
                     {
-                        if (!hitPiece.Contains("Rift") && !hitPiece.Contains("Lamp") && !hitPiece.Contains("SandPile") && !hitPiece.Contains("Corruption") && boardPieceT != BoardPieceId.EnemyTurret && boardPieceT != BoardPieceId.RatNest && boardPieceT != BoardPieceId.SporeFungus)
+                        if (!hitPiece.Contains("Rift") && !hitPiece.Contains("Lamp") && !hitPiece.Contains("SandPile") && !hitPiece.Contains("Corruption") && boardPieceT != BoardPieceId.EnemyTurret && boardPieceT != BoardPieceId.RatNest && boardPieceT != BoardPieceId.SporeFungus && targetPiece.boardPieceId != BoardPieceId.RootVine)
                         {
                             isHit = true;
                         }
