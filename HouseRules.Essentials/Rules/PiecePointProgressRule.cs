@@ -892,7 +892,7 @@
 
             if (tempPiece != null)
             {
-                if (!attackerUnit.IsPlayer())
+                if (attackerUnit != null && !attackerUnit.IsPlayer())
                 {
                     attackerUnit = tempPiece;
                 }
@@ -1065,7 +1065,7 @@
 
             if (tempPiece != null)
             {
-                if (!source.IsPlayer())
+                if (source != null && !source.IsPlayer())
                 {
                     source = tempPiece;
                 }

@@ -1,11 +1,13 @@
 ﻿namespace HouseRules.Essentials.Rules
 {
+    using System.Collections.Generic;
     using Boardgame;
     using Boardgame.BoardEntities;
     using Boardgame.BoardEntities.Abilities;
     using Boardgame.BoardEntities.AI;
     using Boardgame.BoardgameActions;
     using Boardgame.Data;
+    using Boardgame.TurnOrder;
     using DataKeys;
     using HarmonyLib;
     using HouseRules.Core.Types;
@@ -16,8 +18,9 @@
 
         internal static Points _globalConfig;
 
+        private static List<Piece> _playerPieces;
         private static bool _isActivated;
-        private static Piece? tempPiece;
+        private static Piece? tempPiece = null;
 
         internal static int Player1 { get; private set; }
 
@@ -57,7 +60,8 @@
             MinionsNone = 0,
             MinionsOnlyCana = 1,
             MinionsOnlyArly = 2,
-            MinionsALL = 3,
+            MinionsBoth = 3,
+            MinionsALL = 4,
         }
 
         public PointGainRule(Points points)
@@ -115,6 +119,24 @@
                 prefix: new HarmonyMethod(
                     typeof(PointGainRule),
                     nameof(BoardgameActionPiecePickup_Prefix)));
+
+            harmony.Patch(
+                original: AccessTools.Constructor(typeof(RearrangePlayerTurnOrder), new[] { typeof(TurnQueue) }),
+                postfix: new HarmonyMethod(
+                    typeof(PiecePointProgressRule),
+                    nameof(RearrangePlayerTurnOrder_Constructor_Postfix)));
+        }
+
+        private static void RearrangePlayerTurnOrder_Constructor_Postfix(
+            RearrangePlayerTurnOrder __instance,
+            TurnQueue turnQueue)
+        {
+            if (!_isActivated)
+            {
+                return;
+            }
+
+            _playerPieces = turnQueue.GetPlayerPieces();
         }
 
         private static void BoardgameActionPiecePickup_Prefix(GameContext gameContext, int pieceId)
@@ -143,10 +165,6 @@
                     {
                         piece = piece2;
                     }
-                    else
-                    {
-                        return;
-                    }
                 }
                 else if (piece.boardPieceId == BoardPieceId.SellswordArbalestierActive)
                 {
@@ -159,15 +177,12 @@
                     {
                         piece = piece2;
                     }
-                    else
-                    {
-                        return;
-                    }
                 }
-                else
-                {
-                    return;
-                }
+            }
+
+            if (!piece.IsPlayer())
+            {
+                return;
             }
 
             var pointCount = piece.effectSink.GetEffectStateDurationTurnsLeft(EffectStateType.StrengthInNumbers);
@@ -341,7 +356,7 @@
 
             if (tempPiece != null)
             {
-                if (attackerUnit.HasPieceType(PieceType.Prop))
+                if (attackerUnit != null && !attackerUnit.IsPlayer())
                 {
                     attackerUnit = tempPiece;
                 }
@@ -351,24 +366,24 @@
                 }
             }
 
-            if (defeatedUnit.HasPieceType(PieceType.Prop))
-            {
-                tempPiece = attackerUnit;
-                return;
-            }
-
             if (attackerUnit == null || defeatedUnit.HasEffectState(EffectStateType.WizardDoppelganger))
             {
                 return;
             }
 
-            if (!attackerUnit.IsPlayer() && (_globalConfig.Points4Minions == (int)PointsKeys.MinionsOnlyCana || _globalConfig.Points4Minions == (int)PointsKeys.MinionsALL))
+            if (attackerUnit.IsPlayer() && defeatedUnit.HasPieceType(PieceType.Prop) && defeatedUnit.ToString().Contains("Lamp"))
+            {
+                tempPiece = attackerUnit;
+                return;
+            }
+
+            if (!attackerUnit.IsPlayer())
             {
                 Piece piece2;
+                PieceAI pieceAI = attackerUnit.pieceAI;
                 var gameContext = Traverse.Create(typeof(GameHub)).Field<GameContext>("gameContext").Value;
-                if (attackerUnit.boardPieceId == BoardPieceId.WarlockMinion)
+                if (attackerUnit.boardPieceId == BoardPieceId.WarlockMinion && (_globalConfig.Points4Minions == (int)PointsKeys.MinionsOnlyCana || _globalConfig.Points4Minions > 2))
                 {
-                    PieceAI pieceAI = attackerUnit.pieceAI;
                     if (pieceAI == null)
                     {
                         return;
@@ -377,14 +392,9 @@
                     {
                         attackerUnit = piece2;
                     }
-                    else
-                    {
-                        return;
-                    }
                 }
-                else if (attackerUnit.boardPieceId == BoardPieceId.SellswordArbalestierActive && (_globalConfig.Points4Minions == (int)PointsKeys.MinionsOnlyArly || _globalConfig.Points4Minions == (int)PointsKeys.MinionsALL))
+                else if (attackerUnit.boardPieceId == BoardPieceId.SellswordArbalestierActive && (_globalConfig.Points4Minions == (int)PointsKeys.MinionsOnlyArly || _globalConfig.Points4Minions > 2))
                 {
-                    PieceAI pieceAI = attackerUnit.pieceAI;
                     if (pieceAI == null)
                     {
                         return;
@@ -393,15 +403,81 @@
                     {
                         attackerUnit = piece2;
                     }
-                    else
+                }
+                else if (_globalConfig.Points4Minions > 3)
+                {
+                    if (attackerUnit.boardPieceId == BoardPieceId.Verochka && !attackerUnit.HasEffectState(EffectStateType.ConfusedPermanentVisualOnly))
                     {
-                        return;
+                        foreach (var piece in _playerPieces)
+                        {
+                            if (piece.boardPieceId == BoardPieceId.HeroHunter)
+                            {
+                                attackerUnit = piece;
+                                break;
+                            }
+                        }
+                    }
+                    else if (attackerUnit.boardPieceId == BoardPieceId.Tornado)
+                    {
+                        foreach (var piece in _playerPieces)
+                        {
+                            if (piece.boardPieceId == BoardPieceId.HeroBard)
+                            {
+                                attackerUnit = piece;
+                                break;
+                            }
+                        }
+                    }
+                    else if (attackerUnit.boardPieceId == BoardPieceId.GrapplingTotem)
+                    {
+                        foreach (var piece in _playerPieces)
+                        {
+                            if (piece.boardPieceId == BoardPieceId.HeroBarbarian)
+                            {
+                                attackerUnit = piece;
+                                break;
+                            }
+                        }
+                    }
+                    else if (attackerUnit.boardPieceId == BoardPieceId.SwordOfAvalon)
+                    {
+                        foreach (var piece in _playerPieces)
+                        {
+                            if (piece.boardPieceId == BoardPieceId.HeroRogue)
+                            {
+                                attackerUnit = piece;
+                                break;
+                            }
+                        }
+                    }
+                    else if (attackerUnit.boardPieceId == BoardPieceId.SmiteWard)
+                    {
+                        foreach (var piece in _playerPieces)
+                        {
+                            if (piece.boardPieceId == BoardPieceId.HeroGuardian)
+                            {
+                                attackerUnit = piece;
+                                break;
+                            }
+                        }
+                    }
+                    else if (attackerUnit.HasEffectState(EffectStateType.ConfusedPermanentVisualOnly) && (attackerUnit.boardPieceId == BoardPieceId.IceElemental || attackerUnit.boardPieceId == BoardPieceId.FireElemental))
+                    {
+                        foreach (var piece in _playerPieces)
+                        {
+                            if (piece.boardPieceId == BoardPieceId.HeroSorcerer)
+                            {
+                                attackerUnit = piece;
+                                break;
+                            }
+                        }
                     }
                 }
-                else
-                {
-                    return;
-                }
+            }
+
+            if (!attackerUnit.IsPlayer())
+            {
+                return;
             }
 
             var pointCount = attackerUnit.effectSink.GetEffectStateDurationTurnsLeft(EffectStateType.StrengthInNumbers);
@@ -461,23 +537,58 @@
             }
         }
 
-        private static void Ability_GenerateAttackDamage_Postfix(Piece source, Dice.Outcome diceResult, Piece[] targets)
+        private static void Ability_GenerateAttackDamage_Postfix(Piece source, Piece mainTarget, Dice.Outcome diceResult, Piece[] targets)
         {
             if (!_isActivated)
             {
                 return;
             }
 
-            if (source == null)
+            if (tempPiece != null)
+            {
+                if (source != null && !source.IsPlayer())
+                {
+                    source = tempPiece;
+                }
+                else
+                {
+                    tempPiece = null;
+                }
+            }
+
+            if (source == null || (mainTarget != null && mainTarget.HasEffectState(EffectStateType.WizardDoppelganger)))
             {
                 return;
+            }
+
+            if (source.IsPlayer())
+            {
+                if (mainTarget != null)
+                {
+                    if (mainTarget.HasPieceType(PieceType.Prop) && mainTarget.ToString().Contains("Lamp"))
+                    {
+                        tempPiece = source;
+                        return;
+                    }
+                }
+                else if (targets.Length != 0)
+                {
+                    for (int i = 0; i < targets.Length; i++)
+                    {
+                        if (targets[i].HasPieceType(PieceType.Prop) && targets[i].ToString().Contains("Lamp"))
+                        {
+                            tempPiece = source;
+                            return;
+                        }
+                    }
+                }
             }
 
             if (!source.IsPlayer())
             {
                 Piece piece2;
                 var gameContext = Traverse.Create(typeof(GameHub)).Field<GameContext>("gameContext").Value;
-                if (source.boardPieceId == BoardPieceId.WarlockMinion && source.GetHealth() > 0 && (_globalConfig.Points4Minions == (int)PointsKeys.MinionsOnlyCana || _globalConfig.Points4Minions == (int)PointsKeys.MinionsALL))
+                if (source.boardPieceId == BoardPieceId.WarlockMinion && source.GetHealth() > 0 && (_globalConfig.Points4Minions == (int)PointsKeys.MinionsOnlyCana || _globalConfig.Points4Minions > 2))
                 {
                     PieceAI pieceAI = source.pieceAI;
                     if (pieceAI == null)
@@ -493,7 +604,7 @@
                         return;
                     }
                 }
-                else if (source.boardPieceId == BoardPieceId.SellswordArbalestierActive && (_globalConfig.Points4Minions == (int)PointsKeys.MinionsOnlyArly || _globalConfig.Points4Minions == (int)PointsKeys.MinionsALL))
+                else if (source.boardPieceId == BoardPieceId.SellswordArbalestierActive && (_globalConfig.Points4Minions == (int)PointsKeys.MinionsOnlyArly || _globalConfig.Points4Minions > 2))
                 {
                     PieceAI pieceAI = source.pieceAI;
                     if (pieceAI == null)
@@ -509,10 +620,80 @@
                         return;
                     }
                 }
-                else
+                else if (_globalConfig.Points4Minions > 3)
                 {
-                    return;
+                    if (source.boardPieceId == BoardPieceId.Verochka && !source.HasEffectState(EffectStateType.ConfusedPermanentVisualOnly))
+                    {
+                        foreach (var piece in _playerPieces)
+                        {
+                            if (piece.boardPieceId == BoardPieceId.HeroHunter)
+                            {
+                                source = piece;
+                                break;
+                            }
+                        }
+                    }
+                    else if (source.boardPieceId == BoardPieceId.Tornado)
+                    {
+                        foreach (var piece in _playerPieces)
+                        {
+                            if (piece.boardPieceId == BoardPieceId.HeroBard)
+                            {
+                                source = piece;
+                                break;
+                            }
+                        }
+                    }
+                    else if (source.boardPieceId == BoardPieceId.GrapplingTotem)
+                    {
+                        foreach (var piece in _playerPieces)
+                        {
+                            if (piece.boardPieceId == BoardPieceId.HeroBarbarian)
+                            {
+                                source = piece;
+                                break;
+                            }
+                        }
+                    }
+                    else if (source.boardPieceId == BoardPieceId.SwordOfAvalon)
+                    {
+                        foreach (var piece in _playerPieces)
+                        {
+                            if (piece.boardPieceId == BoardPieceId.HeroRogue)
+                            {
+                                source = piece;
+                                break;
+                            }
+                        }
+                    }
+                    else if (source.boardPieceId == BoardPieceId.SmiteWard)
+                    {
+                        foreach (var piece in _playerPieces)
+                        {
+                            if (piece.boardPieceId == BoardPieceId.HeroGuardian)
+                            {
+                                source = piece;
+                                break;
+                            }
+                        }
+                    }
+                    else if (source.HasEffectState(EffectStateType.ConfusedPermanentVisualOnly) && (source.boardPieceId == BoardPieceId.IceElemental || source.boardPieceId == BoardPieceId.FireElemental))
+                    {
+                        foreach (var piece in _playerPieces)
+                        {
+                            if (piece.boardPieceId == BoardPieceId.HeroSorcerer)
+                            {
+                                source = piece;
+                                break;
+                            }
+                        }
+                    }
                 }
+            }
+
+            if (!source.IsPlayer())
+            {
+                return;
             }
 
             var pointCount = source.effectSink.GetEffectStateDurationTurnsLeft(EffectStateType.StrengthInNumbers);
