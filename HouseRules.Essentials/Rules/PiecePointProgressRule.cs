@@ -826,6 +826,30 @@
                 return;
             }
 
+            if ((piece.IsWarlockMinion() || piece.boardPieceId == BoardPieceId.Verochka || piece.boardPieceId == BoardPieceId.SellswordArbalestierActive) && interactable.type == Interactable.Type.Door)
+            {
+                PieceAI pieceAI = piece.pieceAI;
+                if (pieceAI != null)
+                {
+                    if (pieceAI.memory.TryGetAssociatedPiece(gameContext.pieceAndTurnController, out Piece piece2))
+                    {
+                        piece = piece2;
+                    }
+                }
+
+                if (piece.boardPieceId == BoardPieceId.Verochka && !piece.HasEffectState(EffectStateType.ConfusedPermanentVisualOnly))
+                {
+                    foreach (var piece3 in _playerPieces)
+                    {
+                        if (piece3.boardPieceId == BoardPieceId.HeroHunter)
+                        {
+                            piece = piece3;
+                            break;
+                        }
+                    }
+                }
+            }
+
             if (!piece.IsPlayer())
             {
                 return;
